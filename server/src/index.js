@@ -1,7 +1,9 @@
 import express from 'express';
+
+
 import 'dotenv/config';
 import morgan from 'morgan';
-import {usersRoutes} from './routes/login.routes.js'
+import { usersRoutes } from './routes/login.routes.js'
 
 const app = express();
 
@@ -22,7 +24,7 @@ app.use('/api/users', usersRoutes);
 
 //app.use(express.static(path.join(__dirname, 'public')));
 
-//?port
+//? THIS WAS FIRST port
 
 app.listen(app.get('port'), () => {
     console.log(`Server listening on port ${app.get('port')}`);
