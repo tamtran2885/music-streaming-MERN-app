@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import RegisterInput from "../../components/RegisterInput";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
+import { auth } from "../../config/firebaseConfig"
 // import { inputs } from "./inputData";
 
 
 const Register = () => {
-    // const [firstName, setFirstName] = useState("");
+    const [registerEmail, setRegisterEmail] = useState("");
+    const [registerPassword, setRegisterPassword] = useState("");
+
+    const navigate = useNavigate()
 
     const [values, setValues] = useState({
         firstName: "",
@@ -18,7 +24,7 @@ const Register = () => {
         password: "",
         confirmPassword: "",
     });
-    console.log(values)
+    // console.log(values)
 
     const inputs = [
         {
@@ -93,6 +99,17 @@ const Register = () => {
     ]
 
 
+    const registerWithGoogle = () => {
+        const provider = new auth.GoogleAuthProvider()
+            .auth
+            .signInWithPopup(provider)
+            .then(userCredentials => {
+                // console.log(userCredentials)
+            })
+    }
+
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -110,8 +127,14 @@ const Register = () => {
         // console.log(data);
 
         try {
-            const user = await axios.post("http://localhost:4000/api/user", data, config);
-            console.log(user)
+            const firebaseUser = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
+            if (firebaseUser) {
+                const user = await axios.post("http://localhost:4000/api/user", data, config);
+
+            }
+
+            console.log(firebaseUser)
+            navigate("/home")
         } catch (e) {
             console.log(e)
         }
@@ -120,6 +143,8 @@ const Register = () => {
 
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
+        setRegisterEmail(e.target.value)
+        setRegisterPassword(e.target.value)
     }
 
     // console.log(values);
@@ -132,6 +157,10 @@ const Register = () => {
                     <RegisterInput key={input.id} {...input} value={values[input.name]} onChange={onChange} />
                 ))}
                 <button type="submit">Submit</button>
+
+
+                <button type="button" onClick={registerWithGoogle}>Connect with Google</button>
+
             </form>
         </>
     )
