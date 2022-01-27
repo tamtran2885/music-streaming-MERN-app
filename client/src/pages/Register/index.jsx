@@ -3,8 +3,7 @@ import RegisterInput from "../../components/RegisterInput";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-
-import { auth } from "../../config/firebaseConfig"
+import { auth } from "../../config/firebaseConfig.js"
 // import { inputs } from "./inputData";
 
 
@@ -101,10 +100,9 @@ const Register = () => {
 
     const registerWithGoogle = () => {
         const provider = new auth.GoogleAuthProvider()
-            .auth
-            .signInWithPopup(provider)
+        auth.signInWithPopup(provider)
             .then(userCredentials => {
-                // console.log(userCredentials)
+                console.log(userCredentials)
             })
     }
 
@@ -128,10 +126,8 @@ const Register = () => {
 
         try {
             const firebaseUser = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
-            if (firebaseUser) {
-                const user = await axios.post("http://localhost:4000/api/user", data, config);
 
-            }
+            firebaseUser ? await axios.post("http://localhost:4000/api/user", data, config) : console.log("ho");
 
             console.log(firebaseUser)
             navigate("/home")
@@ -143,8 +139,8 @@ const Register = () => {
 
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
-        setRegisterEmail(e.target.value)
-        setRegisterPassword(e.target.value)
+        setRegisterEmail(values.email)
+        setRegisterPassword(values.password)
     }
 
     // console.log(values);
