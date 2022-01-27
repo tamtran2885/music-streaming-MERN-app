@@ -21,12 +21,9 @@ app.use(
 
 //?routes
 
-app.use("/api/user", userRoutes);
+app.use("/api/users", userRoutes);
 
-//?static files
 
-//app.use(express.static(path.join(__dirname, 'public')));
 
-//? THIS WAS FIRST port
 
 export default app;
