@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import RegisterInput from "../../components/RegisterInput";
-// import axios from "axios";
+import axios from "axios";
 
 // import { inputs } from "./inputData";
 
@@ -18,6 +18,7 @@ const Register = () => {
         password: "",
         confirmPassword: "",
     });
+    console.log(values)
 
     const inputs = [
         {
@@ -75,7 +76,7 @@ const Register = () => {
             placeholder: "Password",
             label: "Password",
             errorMessage:
-            "Password should be 7-20 characters and include at least 1 letter, 1 number and 1 special character!",
+                "Password should be 7-20 characters and include at least 1 letter, 1 number and 1 special character!",
             pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,20}$`,
             required: true,
         },
@@ -95,30 +96,30 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // const config = {
-        //     header: {
-        //       "Content-Type": "application/json",
-        //     },
-        //   };
+        const config = {
+            header: {
+                "Content-Type": "application/json",
+            },
+        };
 
-        // const submittedData = new FormData(e.target);
-        // console.log(submittedData);
+        const submittedData = new FormData(e.target);
+        //console.log(submittedData);
         // to get data from entries , use Object method
         // console.log(Object.fromEntries(data.entries()));
-        // const data = Object.fromEntries(submittedData.entries());
+        const data = Object.fromEntries(submittedData.entries());
         // console.log(data);
 
-        // try {
-        //     const user = await axios.post("http://localhost:4000/api/user", data, config);
-        //     console.log(user)
-        // } catch (e) {
-        //     console.log(e)
-        // }
+        try {
+            const user = await axios.post("http://localhost:4000/api/user", data, config);
+            console.log(user)
+        } catch (e) {
+            console.log(e)
+        }
 
     }
 
     const onChange = (e) => {
-        setValues({...values, [e.target.name]: e.target.value});
+        setValues({ ...values, [e.target.name]: e.target.value });
     }
 
     // console.log(values);
@@ -128,7 +129,7 @@ const Register = () => {
             <h1>Register</h1>
             <form onSubmit={handleSubmit}>
                 {inputs.map(input => (
-                    <RegisterInput key={input.id} {...input} value={values[input.name]} onChange={onChange}/>
+                    <RegisterInput key={input.id} {...input} value={values[input.name]} onChange={onChange} />
                 ))}
                 <button type="submit">Submit</button>
             </form>

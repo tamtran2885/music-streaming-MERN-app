@@ -22,7 +22,7 @@ const UserSchema = new Schema({
     trim: true,
   },
   profile: {
-    type: String,
+    type: Object,
     trim: true,
   },
   email: {
