@@ -56,8 +56,8 @@ export const inputs = [
         placeholder: "Password",
         label: "Password",
         errorMessage:
-        "Password should be 7-20 characters and include at least 1 letter, 1 number and 1 special character!",
-        pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,20}$`,
+        "Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!",
+        pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
         required: true,
     },
     {
@@ -67,7 +67,7 @@ export const inputs = [
         placeholder: "Confirm Password",
         label: "Confirm Password",
         errorMessage: "Passwords don't match!",
-        pattern: values.password,
+        // pattern: values.password,
         required: true,
     },
 ]
