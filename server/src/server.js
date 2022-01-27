@@ -3,7 +3,7 @@ import config from "./config/config.js";
 import morgan from "morgan";
 import cors from "cors";
 
-import { usersRoutes } from "./routes/login.routes.js";
+import { userRoutes } from "./routes/user.routes.js";
 
 const app = express();
 
@@ -21,7 +21,7 @@ app.use(
 
 //?routes
 
-app.use("/api/users", usersRoutes);
+app.use("/api/user", userRoutes);
 
 //?static files
 

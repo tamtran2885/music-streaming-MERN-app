@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import RegisterInput from "../../components/RegisterInput";
+// import axios from "axios";
+
 // import { inputs } from "./inputData";
 
 
@@ -42,8 +44,6 @@ const Register = () => {
             type: "date",
             placeholder: "Birthday",
             label: "Birthday",
-            errorMessage: "Birthday is required",
-            required: true,
         },
         {
             id: 4,
@@ -92,12 +92,29 @@ const Register = () => {
     ]
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // const data = new FormData(e.target);
-        // console.log(data);
+
+        // const config = {
+        //     header: {
+        //       "Content-Type": "application/json",
+        //     },
+        //   };
+
+        // const submittedData = new FormData(e.target);
+        // console.log(submittedData);
         // to get data from entries , use Object method
         // console.log(Object.fromEntries(data.entries()));
+        // const data = Object.fromEntries(submittedData.entries());
+        // console.log(data);
+
+        // try {
+        //     const user = await axios.post("http://localhost:4000/api/user", data, config);
+        //     console.log(user)
+        // } catch (e) {
+        //     console.log(e)
+        // }
+
     }
 
     const onChange = (e) => {

@@ -1,14 +1,15 @@
-import userModel from "../models/userModel.js";
+import User from "../models/User.js";
 
 export const getUsers = (req, res) => {
   res.json();
 };
 
-export const createUsers = async (req, res) => {
+export const createUser = async (req, res) => {
   try {
     console.log(req.body);
-    const newUser = new userModel({});
-    await userModel.save(req.body);
+    // const user = new User({});
+    const user = await User.create(req.body);
+    res.status(200).json({ data: "User created", user });
   } catch (error) {
     console.log(error);
   }

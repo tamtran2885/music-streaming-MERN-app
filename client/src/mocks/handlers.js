@@ -1,7 +1,7 @@
 import { rest } from "msw";
 
 export const handlers = [
-  rest.post("/login", (req, res, ctx) => {
+  rest.post("/api/user", (req, res, ctx) => {
     // Persist user's authentication in the localStorage
     localStorage.setItem("is-authenticated", "true");
 
