@@ -37,6 +37,9 @@ const UserSchema = new Schema({
     required: true,
     trim: true,
   },
+  firebaseUser: {
+    type: Object
+  },
 });
 
 export default model("User", UserSchema);
