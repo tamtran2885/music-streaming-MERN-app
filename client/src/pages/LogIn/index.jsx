@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth"
+
 import { Link, useNavigate } from 'react-router-dom';
-// import ConnectWithGoogle from './ConnectWithGoogle';
-import { auth } from "../../config/firebaseConfig.js"
+import { useAuth } from "../../context/authContext";
+
 import ConnectWithGoogle from '../../components/ConnectWithGoogle/index.jsx';
-
-
-
 
 const Login = () => {
 
+    const { logInWithEmailAndPassword } = useAuth();
 
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
@@ -17,10 +15,8 @@ const Login = () => {
     const navigate = useNavigate()
 
     const [user, setUser] = useState({});
+    const [error, setError] = useState("");
 
-    onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser)
-    })
 
     const login = async (e) => {
         e.preventDefault()
@@ -28,15 +24,13 @@ const Login = () => {
         // console.log(loginPassword)
 
         try {
-            const user = await signInWithEmailAndPassword(auth, loginEmail, loginPassword)
-
-            console.log(user)
+            await logInWithEmailAndPassword(loginEmail, loginPassword)
             navigate("/")
         } catch (error) {
-            console.log(error.message)
+            // console.log(error.message);
+            setError(error.message);
         }
     }
-
 
     return (
         <>
@@ -66,7 +60,7 @@ const Login = () => {
                             If you are new to Spotify go to  <Link to="/register">Create New Account</Link>
                         </p>
                         <p>
-                            If you need to contact  <Link to="/new-account">Get Support</Link>
+                            If you need to contact  <Link to="/support">Get Support</Link>
                         </p>
                     </div>
                 </form>

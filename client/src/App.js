@@ -1,28 +1,48 @@
-import { BrowserRouter, Routes, Route, } from "react-router-dom";
-
-import { auth } from "../src/config/firebaseConfig"
+import { Routes, Route } from "react-router-dom";
 
 import Dashboard from "./pages/Dashboard";
 import LogIn from "./pages/LogIn";
 import Register from "./pages/Register";
 import User from "./pages/User";
 import Account from "./pages/Account";
+import ProtectedRoute from "./components/ProtectedRoute";
+
+import { AuthProvider } from "./context/authContext";
 
 function App() {
-
-  // const navigate = useNavigate()
   return (
-    <BrowserRouter>
-      <div className="App">
+    <div className="App">
+      <AuthProvider>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<LogIn />} />
-          <Route path="/user/:id" element={<User />} />
-          <Route path="/account" element={<Account />} />
+          <Route
+            path="/user/:id"
+            element={
+              <ProtectedRoute>
+                <User />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/account"
+            element={
+              <ProtectedRoute>
+                <Account />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
-      </div>
-    </BrowserRouter>
+      </AuthProvider>
+    </div>
   );
 }
 

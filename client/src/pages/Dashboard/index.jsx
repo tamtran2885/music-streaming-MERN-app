@@ -1,40 +1,44 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "../../config/firebaseConfig";
 import withLayout from "../../hoc/withLayout";
 
+import { useAuth } from "../../context/authContext";
+
 const Dashboard = () => {
+    const {user, logout} = useAuth();
 
-    const [user, setUser] = useState({});
+    console.log(user);
 
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
-    onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser)
-    })
-
-    const logout = async () => {
-        await signOut(auth)
-        navigate("/login")
+    const handleLogout = async () => {
+        try {
+            await logout();
+            // navigate("/login")
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     return (
         <>
-            {user ? (
+            {/* {user ? (
                 <div>
 
                     <h1>Dashboard</h1>
                     <Link to={"/user"}>User Profile</Link>
-                    <button onClick={logout} className='button__primary'>Log Out</button>
+                    <button onClick={handleLogout} className='button__primary'>Log Out</button>
                 </div>
             ) : (
                 <h1>You are not authenticated</h1>
-            )}
+            )} */}
 
-
+                <div>
+                    <h1>Dashboard</h1>
+                    <Link to={"/user/:id"}>User Profile</Link>
+                    <button onClick={handleLogout} className='button__primary'>Log Out</button>
+                </div>
         </>
     )
 }

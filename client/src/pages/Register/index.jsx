@@ -4,19 +4,22 @@ import RegisterInput from "../../components/RegisterInput";
 
 import axios from "axios";
 
-import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { auth } from "../../config/firebaseConfig.js"
+// import { createUserWithEmailAndPassword } from 'firebase/auth';
+// import { auth } from "../../config/firebaseConfig.js"
+
+import {useAuth} from "../../context/authContext"
 import ConnectWithGoogle from '../../components/ConnectWithGoogle';
-// import { inputs } from "./inputData";
-
-
 
 const Register = () => {
+
+    const { signUpWithEmailAndPassword } = useAuth();
+
     const [registerEmail, setRegisterEmail] = useState("");
     const [registerPassword, setRegisterPassword] = useState("");
 
-    const navigate = useNavigate()
+    const [error, setError] = useState("");
 
+    const navigate = useNavigate()
 
     const [values, setValues] = useState({
         firstName: "",
@@ -28,7 +31,6 @@ const Register = () => {
         password: "",
         confirmPassword: "",
     });
-    // console.log(values)
 
     const inputs = [
         {
@@ -102,10 +104,6 @@ const Register = () => {
         },
     ]
 
-
-
-
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -116,23 +114,20 @@ const Register = () => {
         };
 
         const submittedData = new FormData(e.target);
-        //console.log(submittedData);
+
         // to get data from entries , use Object method
-        // console.log(Object.fromEntries(data.entries()));
         const data = Object.fromEntries(submittedData.entries());
-        // console.log(data);
 
         try {
-            const firebaseUser = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
+            const firebaseUser = await signUpWithEmailAndPassword(registerEmail, registerPassword)
 
             firebaseUser ? await axios.post("http://localhost:4000/api/user", data, config, firebaseUser) : console.log("ho");
 
             console.log(firebaseUser)
             navigate("/")
-        } catch (e) {
-            console.log(e)
+        } catch (error) {
+            setError(error.message);
         }
-
     }
 
     const onChange = (e) => {
@@ -140,8 +135,6 @@ const Register = () => {
         setRegisterEmail(values.email)
         setRegisterPassword(values.password)
     }
-
-    // console.log(values);
 
     return (
         <>
@@ -152,10 +145,7 @@ const Register = () => {
                 ))}
                 <button type="submit">Submit</button>
             </form>
-
             <ConnectWithGoogle />
-
-
 
         </>
     )
