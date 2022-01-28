@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import RegisterInput from "../../components/RegisterInput";
-import axios from "axios";
 import { useNavigate } from "react-router-dom"
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import RegisterInput from "../../components/RegisterInput";
+
+import axios from "axios";
+
+import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { auth } from "../../config/firebaseConfig.js"
+import ConnectWithGoogle from '../../components/ConnectWithGoogle';
 // import { inputs } from "./inputData";
+
 
 
 const Register = () => {
@@ -12,6 +16,7 @@ const Register = () => {
     const [registerPassword, setRegisterPassword] = useState("");
 
     const navigate = useNavigate()
+
 
     const [values, setValues] = useState({
         firstName: "",
@@ -98,13 +103,6 @@ const Register = () => {
     ]
 
 
-    const registerWithGoogle = () => {
-        const provider = new auth.GoogleAuthProvider()
-        auth.signInWithPopup(provider)
-            .then(userCredentials => {
-                console.log(userCredentials)
-            })
-    }
 
 
 
@@ -127,10 +125,10 @@ const Register = () => {
         try {
             const firebaseUser = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
 
-            firebaseUser ? await axios.post("http://localhost:4000/api/user", data, config) : console.log("ho");
+            firebaseUser ? await axios.post("http://localhost:4000/api/user", data, config, firebaseUser) : console.log("ho");
 
             console.log(firebaseUser)
-            navigate("/home")
+            navigate("/")
         } catch (e) {
             console.log(e)
         }
@@ -153,11 +151,12 @@ const Register = () => {
                     <RegisterInput key={input.id} {...input} value={values[input.name]} onChange={onChange} />
                 ))}
                 <button type="submit">Submit</button>
-
-
-                <button type="button" onClick={registerWithGoogle}>Connect with Google</button>
-
             </form>
+
+            <ConnectWithGoogle />
+
+
+
         </>
     )
 }

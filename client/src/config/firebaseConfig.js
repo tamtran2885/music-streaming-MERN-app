@@ -21,7 +21,7 @@ const firebaseConfig = {
 
 };
 
-console.log(process.env.REACT_APP_FB_APIKEY)
+// console.log(process.env.REACT_APP_FB_APIKEY)
 
 
 // Initialize Firebase

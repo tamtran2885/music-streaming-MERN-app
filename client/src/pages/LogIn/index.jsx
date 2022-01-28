@@ -3,6 +3,7 @@ import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth"
 import { Link, useNavigate } from 'react-router-dom';
 // import ConnectWithGoogle from './ConnectWithGoogle';
 import { auth } from "../../config/firebaseConfig.js"
+import ConnectWithGoogle from '../../components/ConnectWithGoogle/index.jsx';
 
 
 
@@ -23,14 +24,14 @@ const Login = () => {
 
     const login = async (e) => {
         e.preventDefault()
-        console.log(loginEmail)
-        console.log(loginPassword)
+        // console.log(loginEmail)
+        // console.log(loginPassword)
 
         try {
             const user = await signInWithEmailAndPassword(auth, loginEmail, loginPassword)
 
             console.log(user)
-            navigate("/home")
+            navigate("/")
         } catch (error) {
             console.log(error.message)
         }
@@ -62,16 +63,15 @@ const Login = () => {
                     <button type="submit" className="button__primary">Log in</button>
                     <div className='form__questions'>
                         <p>
-                            If you are new to Spotify go to <span> <Link to="/new-account">Create New Account</Link></span>
+                            If you are new to Spotify go to  <Link to="/register">Create New Account</Link>
                         </p>
                         <p>
                             If you need to contact  <Link to="/new-account">Get Support</Link>
-
-
                         </p>
-                        {/* <ConnectWithGoogle /> */}
                     </div>
                 </form>
+                <ConnectWithGoogle />
+
             </div>
         </>
     )
