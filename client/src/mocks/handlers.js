@@ -11,7 +11,7 @@ export const handlers = [
     );
   }),
 
-  rest.get("/user", (req, res, ctx) => {
+  rest.get("/api/user/", (req, res, ctx) => {
     // Check if the user is authenticated in the localStorage
     const isAuthenticated = localStorage.getItem("is-authenticated");
     if (!isAuthenticated) {

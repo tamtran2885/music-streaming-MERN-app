@@ -11,12 +11,12 @@ const firebaseConfig = {
   // messagingSenderId: process.env.REACT_APP_FB_MESSAGINGSENDERID,
   // appId: process.env.REACT_APP_FB_APPID,
 
-  apiKey: "AIzaSyDCBdhjngokLzrz1YlOBxWDWruS2kZfwC8",
-  authDomain: "apollofy-3e2c5.firebaseapp.com",
-  projectId: "apollofy-3e2c5",
-  storageBucket: "apollofy-3e2c5.appspot.com",
-  messagingSenderId: "138714127658",
-  appId: "1:138714127658:web:ad81b82e37ef12f36d5253",
+  apiKey: "AIzaSyCJeJGEGB2DdMb39qwhjohfGP7V2CuWDyU",
+  authDomain: "apollofy-new.firebaseapp.com",
+  projectId: "apollofy-new",
+  storageBucket: "apollofy-new.appspot.com",
+  messagingSenderId: "443917818732",
+  appId: "1:443917818732:web:936986194639f59bd07149",
 };
 
 // console.log(process.env.REACT_APP_FB_APIKEY)

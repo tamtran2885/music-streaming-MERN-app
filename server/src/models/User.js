@@ -22,8 +22,8 @@ const UserSchema = new Schema({
     trim: true,
   },
   profile: {
-    type: Object,
-    trim: true,
+    type: String,
+    // unique: true,
   },
   email: {
     type: String,
@@ -38,7 +38,10 @@ const UserSchema = new Schema({
     trim: true,
   },
   firebaseUser: {
-    type: Object
+    type: Object,
+  },
+  cloudinaryId: {
+    type: String,
   },
 });
 

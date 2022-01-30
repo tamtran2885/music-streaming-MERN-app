@@ -15,20 +15,17 @@ const Login = () => {
     const navigate = useNavigate()
 
     const [user, setUser] = useState({});
-    const [error, setError] = useState("");
-
 
     const login = async (e) => {
         e.preventDefault()
         // console.log(loginEmail)
         // console.log(loginPassword)
-
         try {
             await logInWithEmailAndPassword(loginEmail, loginPassword)
             navigate("/")
         } catch (error) {
             // console.log(error.message);
-            setError(error.message);
+            console.log(error.message);
         }
     }
 
