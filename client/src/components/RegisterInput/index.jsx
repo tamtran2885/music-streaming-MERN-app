@@ -8,7 +8,7 @@ const RegisterInput = (props) => {
     return (
         <>
             <label>{label}</label>
-            <input {...inputProps} onChange={onChange} />
+            <input className="form__input"{...inputProps} onChange={onChange} />
             <span>{errorMessage}</span>
         </>
     )

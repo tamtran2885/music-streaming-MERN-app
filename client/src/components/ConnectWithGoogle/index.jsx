@@ -1,9 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AiOutlineGooglePlus } from 'react-icons/ai';
 
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth"
 import { auth } from "../../config/firebaseConfig.js"
+import googleIcon from '../../assets/images/googleicon.svg';
 
 
 
@@ -20,9 +20,6 @@ const ConnectWithGoogle = () => {
                   signInWithPopup(auth, provider)
                         .then(userCredentials => {
                               console.log(userCredentials)
-                              const name = userCredentials.user.displayName
-                              const email = userCredentials.user.email
-                              const token = userCredentials
                         })
 
             } catch (error) {
@@ -34,8 +31,7 @@ const ConnectWithGoogle = () => {
       }
       return (
             <button type="button" onClick={registerWithGoogle} className="google__signin">
-                  <AiOutlineGooglePlus className='google__icon' />
-                  <p>Sign in with Google</p>
+            <img className="google__icon" src={googleIcon} alt="TamTamGo Logo" />
             </button>
       )
 };
