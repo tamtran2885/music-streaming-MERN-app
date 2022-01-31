@@ -1,12 +1,13 @@
 import { Router } from "express";
 import {
-  getUsers,
-  createUser,
-  getUserById,
-  deleteUser,
-  updateUser,
+      getUsers,
+      createUser,
+      getUserById,
+      deleteUser,
+      updateUser,
 } from "../controllers/userController.js";
 import upload from "../utils/multer.js";
+
 
 export const userRoutes = Router();
 

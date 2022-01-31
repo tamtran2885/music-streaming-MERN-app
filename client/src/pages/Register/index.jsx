@@ -4,7 +4,7 @@ import RegisterInput from "../../components/RegisterInput";
 
 import axios from "axios";
 
-import {useAuth} from "../../context/authContext"
+import { useAuth } from "../../context/authContext"
 import ConnectWithGoogle from '../../components/ConnectWithGoogle';
 import logo from '../../assets/images/logo.svg';
 
@@ -26,6 +26,7 @@ const Register = () => {
         email: "",
         password: "",
         confirmPassword: "",
+        firebaseUser: ""
     });
 
     const handleSubmit = async (e) => {
@@ -37,22 +38,25 @@ const Register = () => {
             },
         };
 
-        const formData = new FormData();
-        formData.append("firstName", values.firstName);
-        formData.append("lastName", values.lastName);
-        formData.append("birthday", values.birthday);
-        formData.append("country", values.country);
-        formData.append("profile", values.profile);
-        formData.append("email", values.email);
-        formData.append("password", values.password);
 
         try {
+
             const firebaseUser = await signUpWithEmailAndPassword(registerEmail, registerPassword)
+            console.log(firebaseUser.user.uid)
 
-            firebaseUser ? await axios.post("http://localhost:4000/api/user", formData, config, firebaseUser) : console.log("ho");
 
-            console.log(firebaseUser)
-            console.log(formData);
+            const formData = new FormData();
+            formData.append("firstName", values.firstName);
+            formData.append("lastName", values.lastName);
+            formData.append("birthday", values.birthday);
+            formData.append("country", values.country);
+            formData.append("profile", values.profile);
+            formData.append("email", values.email);
+            formData.append("password", values.password);
+            formData.append("firebaseUser", firebaseUser.user.uid)
+
+            firebaseUser ? await axios.post("http://localhost:4000/api/user", formData, config) : console.log("ho");
+
             navigate("/login")
         } catch (error) {
             console.log(error.message);
@@ -61,7 +65,7 @@ const Register = () => {
 
     const onChange = (name) => (e) => {
         const value = name === "profile" ? e.target.files[0] : e.target.value;
-        setValues({ ...values, [name]: value})
+        setValues({ ...values, [name]: value })
 
         setRegisterEmail(values.email)
         setRegisterPassword(values.password)
@@ -77,14 +81,14 @@ const Register = () => {
                     <h1 className='header'>Register</h1>
                     <div className="form__container">
                         <form className="form" onSubmit={handleSubmit} encType="multipart/form-data">
-                            <RegisterInput className="form__input" name="firstName" type="text" placeholder="First Name"  onChange={onChange("firstName")} required />
-                            <RegisterInput className="form__input" name="lastName" type="text" placeholder="Last Name"  onChange={onChange("lastName")} required />
-                            <RegisterInput className="form__input" name="birthday" type="date" placeholder="Birthday"  onChange={onChange("birthday")} />
-                            <RegisterInput className="form__input" name="country" type="text" placeholder="Country"  onChange={onChange("country")} />
-                            <RegisterInput className="form__input" name="profile" type="file" placeholder="Upload Image"  onChange={onChange("profile")}  />
-                            <RegisterInput className="form__input" name="email" type="email" placeholder="Email"  onChange={onChange("email")} required/>
-                            <RegisterInput className="form__input" name="password" type="password" placeholder="Password"  onChange={onChange("password")} required/>
-                            <RegisterInput className="form__input" name="confirmPassword" type="password" placeholder="Confirm Password"  onChange={onChange("confirmPassword")} required/>
+                            <RegisterInput className="form__input" name="firstName" type="text" placeholder="First Name" onChange={onChange("firstName")} required />
+                            <RegisterInput className="form__input" name="lastName" type="text" placeholder="Last Name" onChange={onChange("lastName")} required />
+                            <RegisterInput className="form__input" name="birthday" type="date" placeholder="Birthday" onChange={onChange("birthday")} />
+                            <RegisterInput className="form__input" name="country" type="text" placeholder="Country" onChange={onChange("country")} />
+                            <RegisterInput className="form__input" name="profile" type="file" placeholder="Upload Image" onChange={onChange("profile")} />
+                            <RegisterInput className="form__input" name="email" type="email" placeholder="Email" onChange={onChange("email")} required />
+                            <RegisterInput className="form__input" name="password" type="password" placeholder="Password" onChange={onChange("password")} required />
+                            <RegisterInput className="form__input" name="confirmPassword" type="password" placeholder="Confirm Password" onChange={onChange("confirmPassword")} required />
                             <div className='form__options'>
                                 <label className="b-contain">
                                     I accept the terms of the agreement.

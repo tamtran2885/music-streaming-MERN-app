@@ -38,7 +38,7 @@ const UserSchema = new Schema({
     trim: true,
   },
   firebaseUser: {
-    type: Object,
+    type: String,
   },
   cloudinaryId: {
     type: String,

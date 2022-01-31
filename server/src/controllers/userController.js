@@ -12,6 +12,7 @@ export const getUsers = async (req, res) => {
 };
 
 export const createUser = async (req, res) => {
+  console.log(req.body)
   try {
     // Upload image to cloudinary
     const result = await cloudinary.uploader.upload(req.file.path);
@@ -26,6 +27,7 @@ export const createUser = async (req, res) => {
       email: req.body.email,
       password: req.body.password,
       cloudinaryId: result.public_id,
+      firebaseUser: req.body.firebaseUser
     });
 
     await user.save();

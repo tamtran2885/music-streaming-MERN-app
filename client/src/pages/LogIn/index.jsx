@@ -23,7 +23,7 @@ const Login = () => {
         // console.log(loginPassword)
         try {
             await logInWithEmailAndPassword(loginEmail, loginPassword)
-            navigate("/")
+            navigate(`/`)
         } catch (error) {
             // console.log(error.message);
             console.log(error.message);
@@ -57,9 +57,9 @@ const Login = () => {
                             />
                             <div className='form__options'>
                                 <label className="b-contain">
-                                Stay logged.
-                                <input type="checkbox" />
-                                <div className="b-input"></div>
+                                    Stay logged.
+                                    <input type="checkbox" />
+                                    <div className="b-input"></div>
                                 </label>
                                 <Link className="link" to="/new-account">Forggot your password?</Link>
                             </div>

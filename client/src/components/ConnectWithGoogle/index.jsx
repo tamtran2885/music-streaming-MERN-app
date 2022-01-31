@@ -16,9 +16,7 @@ const ConnectWithGoogle = () => {
                   await loginWithGoogle()
                         .then(userCredentials => {
                               console.log(userCredentials)
-                              const name = userCredentials.user.displayName
-                              const email = userCredentials.user.email
-                              const token = userCredentials
+
                         })
                   navigate("/")
             } catch (error) {

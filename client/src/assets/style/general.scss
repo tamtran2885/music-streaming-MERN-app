@@ -1,22 +1,28 @@
 body {
   overflow: hidden;
+
   .login__absolute {
     display: flex;
     margin: 3%;
     justify-content: flex-end;
+
     .logo__container {
       width: 60%;
+
       img {
         width: 50%;
         margin-left: 8%;
       }
     }
+
     .login__container {
       width: 40%;
       margin-top: 3%;
+
       h1 {
-        margin:2%;
+        margin: 2%;
       }
+
       .form__input {
         display: block;
         width: 80%;
@@ -27,15 +33,19 @@ body {
         text-align: center;
         transition: 1s;
       }
-      .form__input:focus{
-      outline: none;
+
+      .form__input:focus {
+        outline: none;
       }
-      input[type="date"]::-webkit-calendar-picker-indicator, input[type="time"]::-webkit-calendar-picker-indicator{
+
+      input[type="date"]::-webkit-calendar-picker-indicator,
+      input[type="time"]::-webkit-calendar-picker-indicator {
         cursor: pointer;
         margin-right: 5%;
         margin-left: -10%;
         filter: invert(0.9);
       }
+
       // input[type="file"] {
       //   display: none;
       // }
@@ -43,19 +53,22 @@ body {
         margin-left: -17%;
         display: flex;
         justify-content: space-around;
+
         .b-contain input {
           position: absolute;
           z-index: 1;
           opacity: 0;
         }
+
         .b-contain {
           display: table;
           position: relative;
           padding-left: 1.8rem;
           cursor: pointer;
-          margin-bottom:2rem;
+          margin-bottom: 2rem;
         }
-        .b-contain input[type="checkbox"] ~ .b-input {
+
+        .b-contain input[type="checkbox"]~.b-input {
           position: absolute;
           top: 0;
           left: 0;
@@ -64,13 +77,16 @@ body {
           transition: 1s;
           border-radius: 25px;
         }
-        .b-contain input[type="checkbox"] ~ .b-input::after {
+
+        .b-contain input[type="checkbox"]~.b-input::after {
           content: '';
           display: none;
         }
-        .b-contain input:checked ~ .b-input::after {
+
+        .b-contain input:checked~.b-input::after {
           display: block;
         }
+
         .b-contain .b-input::before {
           content: '';
           display: block;
@@ -86,47 +102,59 @@ body {
           z-index: 99999;
           transform: scale(0);
         }
+
         @keyframes b-ripple {
           0% {
             transform: scale(0);
           }
+
           20% {
             transform: scale(1);
           }
+
           100% {
             opacity: 0;
             transform: scale(1);
-            }
+          }
         }
+
         @keyframes b-ripple-duplicate {
           0% {
             transform: scale(0);
           }
+
           30% {
             transform: scale(1);
           }
+
           60% {
             transform: scale(1);
           }
+
           100% {
             opacity: 0;
             transform: scale(1);
-            }
+          }
         }
-        .b-contain input + .b-input::before {
+
+        .b-contain input+.b-input::before {
           animation: b-ripple 250ms ease-out;
         }
-        .b-contain input:checked + .b-input::before {
+
+        .b-contain input:checked+.b-input::before {
           animation-name: b-ripple-duplicate;
         }
       }
-      .form__questions{
+
+      .form__questions {
         margin-left: -12%;
         display: flex;
         justify-content: space-around;
-        .form__buttons{
+
+        .form__buttons {
           display: flex;
           width: 27%;
+
           button {
             margin-right: 5%;
             border: none;
@@ -134,37 +162,44 @@ body {
             border-radius: 25px;
             line-height: 0%;
             cursor: pointer;
+
             .google__icon {
               width: 2rem;
               padding-left: 0.2rem;
               padding-right: 0.2rem;
             }
           }
+
           .button {
-          padding-left: 1.6rem;
-          padding-right: 1.6rem;
+            padding-left: 1.6rem;
+            padding-right: 1.6rem;
           }
         }
       }
     }
   }
-  .credits{
+
+  .credits {
     display: flex;
     justify-content: space-between;
     margin: 5%;
     margin-top: 20%;
     bottom: 0%;
   }
+
   .link {
     text-decoration: none;
   }
+
   height: 100vh;
   background: url('../images/loginbackground.jpg') no-repeat fixed center;
   background-size: cover;
+
   .App {
     height: 100vh;
   }
 }
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
