@@ -5,7 +5,7 @@ import axios from "axios"
 import withLayout from "../../hoc/withLayout";
 
 
-const User = () => {
+const UserEdit = () => {
   const [editUser, setEditUser] = useState({
     firstName: "",
     lastName: "",
@@ -100,4 +100,4 @@ const User = () => {
   );
 };
 
-export default withLayout(User);
+export default withLayout(UserEdit);

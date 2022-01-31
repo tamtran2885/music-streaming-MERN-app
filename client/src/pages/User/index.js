@@ -32,12 +32,13 @@ const User = () => {
   const APIcall = async () => {
     const userReq = await axios.get(`/api/user/${getIdFromURL()}`);
     setUser(userReq.data);
+    console.log(user)
   };
 
   return (
     <>
       <h1>Users</h1>
-      <Link to={`/user/edit/${user._id}`}>Edit User</Link>
+      <Link to={`/user/edit/${user.firebaseUser}`}>Edit User</Link>
       <Link to={`/`}>Back to Dashboard</Link>
 
       <div className="flex">
@@ -58,7 +59,7 @@ const User = () => {
           <p> {user.country}</p>
         </div>
         <h3>Profile Picture</h3>
-        <p> {user.profile}</p>
+        <img src={user.profile} alt="user_image" style={{ height: "100px", width: "100px" }} />
         <div>
           <h3>Email</h3>
           <p> {user.email}</p>

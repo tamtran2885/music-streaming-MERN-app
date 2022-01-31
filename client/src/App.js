@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import User from "./pages/User";
 import Account from "./pages/Account";
 import ProtectedRoute from "./components/ProtectedRoute";
+import UserEdit from "./pages/UserEdit"
 
 import { AuthProvider } from "./context/authContext";
 
@@ -40,6 +41,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/user/edit/:userId" element={<UserEdit />} />
         </Routes>
       </AuthProvider>
     </div>

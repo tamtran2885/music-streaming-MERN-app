@@ -38,13 +38,13 @@ export const createUser = async (req, res) => {
 };
 
 export const getUserById = async (req, res) => {
-  const url = toString(req.params.userId);
-  // console.log(typeof url);
+  // console.log(req.params.userId)
   try {
+    const url = req.params.userId;
     const user = await User.findOne({
-      firebaseUser: url,
-    });
-    console.log(user);
+      "firebaseUser": url,
+    })
+    console.log(user)
     user ? res.json(user) : res.json({ message: "User not found" });
   } catch (error) {
     console.log(error);
