@@ -44,7 +44,7 @@ export const getUserById = async (req, res) => {
     const user = await User.findOne({
       "firebaseUser": url,
     })
-    console.log(user)
+    // console.log(user)
     user ? res.json(user) : res.json({ message: "User not found" });
   } catch (error) {
     console.log(error);
@@ -68,28 +68,43 @@ export const deleteUser = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
+  // console.log(req.body);
+  // console.log(req.params.userId);
+  // console.log(req.file.path);
+
   try {
-    const user = await User.findById(req.params.userId);
+    const url = req.params.userId
+    const user = await User.findOne({
+      "firebaseUser": url
+    });
+    console.log(user)
 
     // Delete image from cloudinary if change image of profile
-    await cloudinary.uploader.destroy(user.cloudinaryId);
+    // await cloudinary.uploader.destroy(user.cloudinaryId);
 
-    // Upload image to cloudinary
-    const result = await cloudinary.uploader.upload(req.file.path);
+    // // Upload image to cloudinary
+    // const result = await cloudinary.uploader.upload(req.file.path);
+    // // console.log(req.file.path)
     const dataUser = {
       firstName: req.body.firstName || user.firstName,
       lastName: req.body.lastName || user.lastName,
       birthday: req.body.birthday || user.birthday,
       country: req.body.country || user.country,
-      profile: result.secure_url || user.profile,
+      profile: user.profile,
       email: req.body.email || user.email,
       cloudinaryId: result.public_id || user.cloudinaryId,
+      firebaseUser: req.body.firebaseUser,
     };
+    // // console.log(firebaseUser);
 
-    user = await User.findByIdAndUpdate(req.params.userId, dataUser, {
+
+    const userToEdit = await User.findOneAndUpdate({
+      "firebaseUser": url,
+    }, dataUser, {
       new: true,
     });
-    res.status(200).json({ data: "User updated", user });
+
+    res.status(200).json({ data: "User updated", userToEdit });
   } catch (error) {
     console.log(error);
   }

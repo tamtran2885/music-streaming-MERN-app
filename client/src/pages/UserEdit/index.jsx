@@ -52,16 +52,24 @@ const UserEdit = () => {
 
     const config = {
       header: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data"
       },
     };
 
-    const submittedData = new FormData(e.target);
-    const data = Object.fromEntries(submittedData.entries());
+
+    const formData = new FormData();
+    formData.append("firstName", editUser.firstName);
+    formData.append("lastName", editUser.lastName);
+    formData.append("birthday", editUser.birthday);
+    formData.append("country", editUser.country);
+    formData.append("profile", editUser.profile);
+    formData.append("email", editUser.email);
+    formData.append("password", editUser.password);
+    formData.append("firebaseUser", editUser.firebaseUser)
 
     try {
-      await axios.put(`/api/user/${getIdFromURL()}`, data, config);
-      console.log(data)
+      await axios.put(`/api/user/${getIdFromURL()}`, formData, config);
+      console.log(formData)
 
     } catch (e) {
       console.log(e)
