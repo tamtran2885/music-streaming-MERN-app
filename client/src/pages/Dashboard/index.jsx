@@ -47,7 +47,7 @@ const Dashboard = () => {
             <div>
                 <h1>Dashboard</h1>
                 <h1>{user.uid}</h1>
-                <Link to={`/user`}>User Profile</Link>
+                <Link to={`/user/${user.uid}`}>User Profile</Link>
                 <button onClick={handleLogout} className='button__primary'>Log Out</button>
             </div>
         </>

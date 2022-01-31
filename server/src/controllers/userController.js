@@ -12,7 +12,7 @@ export const getUsers = async (req, res) => {
 };
 
 export const createUser = async (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
   try {
     // Upload image to cloudinary
     const result = await cloudinary.uploader.upload(req.file.path);
@@ -27,7 +27,7 @@ export const createUser = async (req, res) => {
       email: req.body.email,
       password: req.body.password,
       cloudinaryId: result.public_id,
-      firebaseUser: req.body.firebaseUser
+      firebaseUser: req.body.firebaseUser,
     });
 
     await user.save();
@@ -38,8 +38,13 @@ export const createUser = async (req, res) => {
 };
 
 export const getUserById = async (req, res) => {
+  const url = toString(req.params.userId);
+  // console.log(typeof url);
   try {
-    const user = await User.findById(req.params.userId);
+    const user = await User.findOne({
+      firebaseUser: url,
+    });
+    console.log(user);
     user ? res.json(user) : res.json({ message: "User not found" });
   } catch (error) {
     console.log(error);
