@@ -15,7 +15,7 @@ export const createUser = async (req, res) => {
   try {
     // Upload image to cloudinary
     const result = await cloudinary.uploader.upload(req.file.path);
-
+    // res.json(result);
     // Create instance of User
     const user = new User({
       firstName: req.body.firstName,
