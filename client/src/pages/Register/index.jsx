@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import RegisterInput from "../../components/RegisterInput";
 
 import axios from "axios";
 
 import {useAuth} from "../../context/authContext"
 import ConnectWithGoogle from '../../components/ConnectWithGoogle';
+import logo from '../../assets/images/logo.svg';
 
 const Register = () => {
 
@@ -68,19 +69,44 @@ const Register = () => {
 
     return (
         <>
-            <h1>Register</h1>
-            <form onSubmit={handleSubmit} encType="multipart/form-data">
-                <RegisterInput name="firstName" type="text" placeholder="First Name"  onChange={onChange("firstName")} required />
-                <RegisterInput name="lastName" type="text" placeholder="Last Name"  onChange={onChange("lastName")} required />
-                <RegisterInput name="birthday" type="date" placeholder="Birthday"  onChange={onChange("birthday")} />
-                <RegisterInput name="country" type="text" placeholder="Country"  onChange={onChange("country")} />
-                <RegisterInput name="profile" type="file" placeholder="Upload Image"  onChange={onChange("profile")}  />
-                <RegisterInput name="email" type="email" placeholder="Email"  onChange={onChange("email")} required/>
-                <RegisterInput name="password" type="password" placeholder="Password"  onChange={onChange("password")} required/>
-                <RegisterInput name="confirmPassword" type="password" placeholder="Confirm Password"  onChange={onChange("confirmPassword")} required/>
-                <button type="submit">Submit</button>
-            </form>
-            <ConnectWithGoogle />
+            <div className='login__absolute'>
+                <div className='logo__container'>
+                    <img src={logo} alt="TamTamGo Logo" />
+                </div>
+                <div className='login__container'>
+                    <h1 className='header'>Register</h1>
+                    <div className="form__container">
+                        <form className="form" onSubmit={handleSubmit} encType="multipart/form-data">
+                            <RegisterInput className="form__input" name="firstName" type="text" placeholder="First Name"  onChange={onChange("firstName")} required />
+                            <RegisterInput className="form__input" name="lastName" type="text" placeholder="Last Name"  onChange={onChange("lastName")} required />
+                            <RegisterInput className="form__input" name="birthday" type="date" placeholder="Birthday"  onChange={onChange("birthday")} />
+                            <RegisterInput className="form__input" name="country" type="text" placeholder="Country"  onChange={onChange("country")} />
+                            <RegisterInput className="form__input" name="profile" type="file" placeholder="Upload Image"  onChange={onChange("profile")}  />
+                            <RegisterInput className="form__input" name="email" type="email" placeholder="Email"  onChange={onChange("email")} required/>
+                            <RegisterInput className="form__input" name="password" type="password" placeholder="Password"  onChange={onChange("password")} required/>
+                            <RegisterInput className="form__input" name="confirmPassword" type="password" placeholder="Confirm Password"  onChange={onChange("confirmPassword")} required/>
+                            <div className='form__options'>
+                                <label className="b-contain">
+                                    I accept the terms of the agreement.
+                                    <input type="checkbox" />
+                                    <div className="b-input"></div>
+                                </label>
+                            </div>
+                            <div className='form__questions'>
+                                <p>Already have an account?<br /> Please, <Link className="link" to="/register">log in.</Link></p>
+                                <div className='form__buttons'>
+                                    <ConnectWithGoogle />
+                                    <button type="submit">Sign up</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div className="credits">
+                <p>TamTamGo App © 2022 | <a className="link" href="https://assemblerschool.com/" target="_blank" rel="noreferrer" nofollow>Assembler School</a> Jun21 Final Project</p>
+                <p>Developed with love by Tam Team</p>
+            </div>
         </>
     )
 }

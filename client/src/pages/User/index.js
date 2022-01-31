@@ -1,38 +1,74 @@
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import axios from "axios";
+
 import withLayout from "../../hoc/withLayout";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../config/firebaseConfig";
 
+const User = () => {
+  const [user, setUser] = useState({
+    firstName: "",
+    lastName: "",
+    birthday: "",
+    country: "",
+    profilePicture: "",
+    email: "",
+  });
 
-const User = (props) => {
+  useEffect(() => {
+    APIcall();
+  }, []);
 
+  const { pathname } = useLocation();
 
-  const onChange = (e) => {
-    console.log(e.target.value)
-  }
+  // GET ID FROM URL
+  const getIdFromURL = () => {
+    const pathSplit = pathname.split("/");
+    return pathSplit[pathSplit.length - 1];
+  };
+
+  // axios get
+  const APIcall = async () => {
+    const userReq = await axios.get(`/api/user/${getIdFromURL()}`);
+    setUser(userReq.data);
+  };
+
   return (
     <>
       <h1>Users</h1>
-      <div>
-        <form >
-          <label>Name</label>
-          <input type="text" onChange={onChange} name="name" />
-          <label>Last Name</label>
-          <input type="text" onChange={onChange} name="lastName" />
-          <label>Birthday</label>
-          <input type="date" onChange={onChange} name="birthday" />
-          <label>Country</label>
-          <input type="text" onChange={onChange} name="country" />
-          <label>Profile Picture</label>
-          <input type="file" onChange={onChange} name="profilePicture" />
-          <label>Email</label>
-          <input onChange={onChange} name="email" />
+      <Link to={`/user/edit/${user._id}`}>Edit User</Link>
+      <Link to={`/`}>Back to Dashboard</Link>
 
-          <button type="button">Change Password</button>
-          <button type="submit">Save Changes</button>
-        </form>
-
-        <h1>My Playlists</h1>
-        <h1>My Songs</h1>
-        <h1>My Friends</h1>
+      <div className="flex">
+        <div>
+          <h3>Name</h3>
+          <p> {user.firstName}</p>
+        </div>
+        <div>
+          <h3>Last Name</h3>
+          <p> {user.lastName}</p>
+        </div>
+        <div>
+          <h3>Birthday</h3>
+          <p> {user.birthday}</p>
+        </div>
+        <div>
+          <h3>Country</h3>
+          <p> {user.country}</p>
+        </div>
+        <h3>Profile Picture</h3>
+        <p> {user.profile}</p>
+        <div>
+          <h3>Email</h3>
+          <p> {user.email}</p>
+        </div>
       </div>
+      <button type="button">Change Password</button>
+
+      <h1>My Playlists</h1>
+      <h1>My Songs</h1>
+      <h1>My Friends</h1>
     </>
   );
 };
