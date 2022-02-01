@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import RegisterInput from "../../components/RegisterInput";
 
 import axios from "axios";
 
-import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { auth } from "../../config/firebaseConfig.js"
+import { useAuth } from "../../context/authContext"
 import ConnectWithGoogle from '../../components/ConnectWithGoogle';
-// import { inputs } from "./inputData";
-
-
+import logo from '../../assets/images/logo.svg';
 
 const Register = () => {
+
+    const { signUpWithEmailAndPassword } = useAuth();
+
     const [registerEmail, setRegisterEmail] = useState("");
     const [registerPassword, setRegisterPassword] = useState("");
 
     const navigate = useNavigate()
-
 
     const [values, setValues] = useState({
         firstName: "",
@@ -27,136 +26,91 @@ const Register = () => {
         email: "",
         password: "",
         confirmPassword: "",
+        firebaseUser: ""
     });
-    // console.log(values)
-
-    const inputs = [
-        {
-            id: 1,
-            name: "firstName",
-            type: "text",
-            placeholder: "First Name",
-            label: "First Name",
-            errorMessage: "First name is required",
-            required: true,
-        },
-        {
-            id: 2,
-            name: "lastName",
-            type: "text",
-            placeholder: "Last Name",
-            label: "Last Name",
-            errorMessage: "Last name is required",
-            required: true,
-        },
-        {
-            id: 3,
-            name: "birthday",
-            type: "date",
-            placeholder: "Birthday",
-            label: "Birthday",
-        },
-        {
-            id: 4,
-            name: "country",
-            type: "text",
-            placeholder: "Country",
-            label: "Country",
-        },
-        {
-            id: 5,
-            name: "profile",
-            type: "file",
-            placeholder: "Profile Picture",
-            label: "Profile Picture",
-        },
-        {
-            id: 6,
-            name: "email",
-            type: "email",
-            placeholder: "Email",
-            label: "Email",
-            errorMessage: "It should be a valid email address!",
-            required: true,
-        },
-        {
-            id: 7,
-            name: "password",
-            type: "password",
-            placeholder: "Password",
-            label: "Password",
-            errorMessage:
-                "Password should be 7-20 characters and include at least 1 letter, 1 number and 1 special character!",
-            pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,20}$`,
-            required: true,
-        },
-        {
-            id: 8,
-            name: "confirmPassword",
-            type: "password",
-            placeholder: "Confirm Password",
-            label: "Confirm Password",
-            errorMessage: "Passwords don't match!",
-            pattern: values.password,
-            required: true,
-        },
-    ]
-
-
-
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const config = {
             header: {
-                "Content-Type": "application/json",
+                "Content-Type": "multipart/form-data",
             },
         };
 
-        const submittedData = new FormData(e.target);
-        //console.log(submittedData);
-        // to get data from entries , use Object method
-        // console.log(Object.fromEntries(data.entries()));
-        const data = Object.fromEntries(submittedData.entries());
-        // console.log(data);
 
         try {
-            const firebaseUser = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
 
-            firebaseUser ? await axios.post("http://localhost:4000/api/user", data, config, firebaseUser) : console.log("ho");
+            const firebaseUser = await signUpWithEmailAndPassword(registerEmail, registerPassword)
+            console.log(firebaseUser.user.uid)
 
-            console.log(firebaseUser)
-            navigate("/")
-        } catch (e) {
-            console.log(e)
+
+            const formData = new FormData();
+            formData.append("firstName", values.firstName);
+            formData.append("lastName", values.lastName);
+            formData.append("birthday", values.birthday);
+            formData.append("country", values.country);
+            formData.append("profile", values.profile);
+            formData.append("email", values.email);
+            formData.append("password", values.password);
+            formData.append("firebaseUser", firebaseUser.user.uid)
+
+            firebaseUser ? await axios.post("http://localhost:4000/api/user", formData, config) : console.log("ho");
+
+            navigate("/login")
+        } catch (error) {
+            console.log(error.message);
         }
-
     }
 
-    const onChange = (e) => {
-        setValues({ ...values, [e.target.name]: e.target.value });
+    const onChange = (name) => (e) => {
+        const value = name === "profile" ? e.target.files[0] : e.target.value;
+        setValues({ ...values, [name]: value })
+
         setRegisterEmail(values.email)
         setRegisterPassword(values.password)
     }
 
-    // console.log(values);
-
     return (
         <>
-            <h1>Register</h1>
-            <form onSubmit={handleSubmit}>
-                {inputs.map(input => (
-                    <RegisterInput key={input.id} {...input} value={values[input.name]} onChange={onChange} />
-                ))}
-                <button type="submit">Submit</button>
-            </form>
-
-            <ConnectWithGoogle />
-
-
-
+            <div className='login__absolute'>
+                <div className='logo__container'>
+                    <img src={logo} alt="TamTamGo Logo" />
+                </div>
+                <div className='login__container'>
+                    <h1 className='header'>Register</h1>
+                    <div className="form__container">
+                        <form className="form" onSubmit={handleSubmit} encType="multipart/form-data">
+                            <RegisterInput className="form__input" name="firstName" type="text" placeholder="First Name" onChange={onChange("firstName")} required />
+                            <RegisterInput className="form__input" name="lastName" type="text" placeholder="Last Name" onChange={onChange("lastName")} required />
+                            <RegisterInput className="form__input" name="birthday" type="date" placeholder="Birthday" onChange={onChange("birthday")} />
+                            <RegisterInput className="form__input" name="country" type="text" placeholder="Country" onChange={onChange("country")} />
+                            <RegisterInput className="form__input" name="profile" type="file" placeholder="Upload Image" onChange={onChange("profile")} />
+                            <RegisterInput className="form__input" name="email" type="email" placeholder="Email" onChange={onChange("email")} required />
+                            <RegisterInput className="form__input" name="password" type="password" placeholder="Password" onChange={onChange("password")} required />
+                            <RegisterInput className="form__input" name="confirmPassword" type="password" placeholder="Confirm Password" onChange={onChange("confirmPassword")} required />
+                            <div className='form__options'>
+                                <label className="b-contain">
+                                    I accept the terms of the agreement.
+                                    <input type="checkbox" />
+                                    <div className="b-input"></div>
+                                </label>
+                            </div>
+                            <div className='form__questions'>
+                                <p>Already have an account?<br /> Please, <Link className="link" to="/register">log in.</Link></p>
+                                <div className='form__buttons'>
+                                    <ConnectWithGoogle />
+                                    <button type="submit">Sign up</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div className="credits">
+                <p>TamTamGo App © 2022 | <a className="link" href="https://assemblerschool.com/" target="_blank" rel="noreferrer" nofollow>Assembler School</a> Jun21 Final Project</p>
+                <p>Developed with love by Tam Team</p>
+            </div>
         </>
     )
 }

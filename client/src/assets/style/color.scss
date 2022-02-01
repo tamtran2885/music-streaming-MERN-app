@@ -1,0 +1,65 @@
+$color1: #383838;
+$color2: #000000;
+$color3: #FFFFFF;
+$color4: rgb(255, 255, 255, 0.5);
+$transparent: rgba(255, 255, 255, 0);
+
+Body {
+  .App {
+    color: $color3;
+    position: relative;
+    .form__input {
+      background: $transparent;
+      border: solid 1px $color1;
+      color: $color4;
+    }
+    .form__input:focus {
+      color: $color3;
+      border-bottom: solid 1px $color3;
+    }
+    .form__options {
+      .b-contain input[type="checkbox"] ~ .b-input {
+        background: $color3;
+        background-color: $transparent;
+        border: 3px solid $color3;
+      }
+      .b-contain:hover input ~ .b-input,
+      .b-contain input:focus ~ .b-input {
+        background: $color3;
+      }
+      .b-contain input:checked ~ .b-input {
+        background: $color3;
+        border-color: $color3;
+      }
+      .b-contain input:checked:focus ~ .b-input, .b-contain:hover input:not([disabled]):checked ~ .b-input {
+        background: $transparent;
+        border-color: $color3;
+      }
+      .b-contain .b-input::before {
+        background: $color3;
+      }
+    }
+    .form__questions{
+      .form__buttons{
+        button {
+          background-color: $color1;
+          color: $color3;
+        }
+      }
+    }
+  }
+  .link {
+    color: $color3;
+  }
+}
+
+body:before {
+	content:'';
+	position: absolute;
+  top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+  background: linear-gradient($color1, $color2);
+  opacity: 0.8;
+}

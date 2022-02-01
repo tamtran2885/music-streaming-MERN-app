@@ -1,0 +1,70 @@
+@font-face {
+  font-family: 'Raleway Bold';
+  src: url('../fonts/Raleway-Bold.ttf');
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Raleway Light';
+  src: url('../fonts/Raleway-Light.ttf');
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Raleway Medium';
+  src: url('../fonts/Raleway-Medium.ttf');
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Raleway Regular';
+  src: url('../fonts/Raleway-Regular.ttf');
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Raleway SemiBold';
+  src: url('../fonts/Raleway-SemiBold.ttf');
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Raleway Thin';
+  src: url('../fonts/Raleway-Thin.ttf');
+  font-style: normal;
+  font-weight: normal;
+}
+
+$fontBol: 'Raleway Bold';
+$fontLig: 'Raleway Light';
+$fontMed: 'Raleway Medium';
+$fontReg: 'Raleway Regular';
+$fontSem: 'Raleway SemiBold';
+$fontThi: 'Raleway Thin';
+
+body {
+  font-family: $fontReg;
+  font-size: 1rem;
+  h1 {
+    font-family: $fontBol;
+    font-size: 1.8rem;
+  }
+  .form__input {
+    font-size: 1.3rem;
+  }
+  .link {
+    font-family: $fontBol;
+  }.form__questions{
+    .form__buttons{
+      button {
+        font-family: $fontBol;
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
