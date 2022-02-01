@@ -74,3 +74,43 @@ export const deleteTrack = async (req, res) => {
         console.log(error);
     }
 };
+
+// query for update tracks by id
+
+export const updateTrack = async (req, res) => {
+    try {
+
+        const url = req.params.trackId;
+        const track = await Tracks.findById(url);
+
+        // Delete image from cloudinary if change image of profile
+        await cloudinary.v2.uploader.destroy(track.cloudinaryId, {
+            resource_type: "video"
+    });
+        const result = await cloudinary.v2.uploader.upload(req.file.path, {
+            resource_type: "auto"
+    });
+
+    const dataTrack = {
+        title: req.body.title,
+        reproductions: req.body.reproductions,
+        album: req.body.album,
+        duration: req.body.duration,
+        track_id:"",
+        //TODO fix the upload and delete
+        cloudinaryId: track.cloudinaryId || result.public_id,
+        urlTrack: result.secure_url
+    };
+
+    const trackToEdit = await Tracks.findByIdAndUpdate(req.params.trackId, dataTrack,
+        {
+            new: true,
+        }
+    );
+
+    res.status(200).json({ data: "Track updated", trackToEdit });
+    } catch (error) {
+        console.log(error);
+    }
+};
+
