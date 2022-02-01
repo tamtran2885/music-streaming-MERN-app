@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react';
 // import { useLocation } from 'react-router-dom';
+import Navbar from '../../components/Navbar';
+import Playlists from '../../components/Playlists';
+import Songs from '../../components/Songs';
+import Genres from '../../components/Genres';
+import Albums from '../../components/Albums';
+import MusicPlayer from '../../components/MusicPlayer';
 
 import withLayout from "../../hoc/withLayout";
 
@@ -34,18 +40,22 @@ const Dashboard = () => {
 
 
 
-    return (
-        <>
-
-            <div>
-                <h1>Dashboard</h1>
-                <h1>{user.uid}</h1>
-                {/* <Link to={`/user/${user.uid}`}>User Profile</Link>
-                <button onClick={handleLogout} className='button__primary'>Log Out</button> */}
-                {/* <audio src="" controls></audio> */}
-            </div>
-        </>
-    )
+  return (
+    <>
+      <div className='dashboard__absolute'>
+        <Navbar />
+        <div className='dashboard__display'>
+          <Playlists />
+          <Songs />
+        </div>
+          <div className='dashboard__side'>
+            <Genres />
+            <Albums />
+          </div>
+        <MusicPlayer />
+      </div>
+    </>
+  )
 }
 
 export default withLayout(Dashboard);
