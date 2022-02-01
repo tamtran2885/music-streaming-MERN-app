@@ -1,40 +1,49 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+// import { useLocation } from 'react-router-dom';
 
-
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "../../config/firebaseConfig";
 import withLayout from "../../hoc/withLayout";
 
+import { useAuth } from "../../context/authContext";
+import axios from 'axios';
+
 const Dashboard = () => {
+    const { user } = useAuth();
+    const [mongoUser, setMongoUser] = useState({});
 
-    const [user, setUser] = useState({});
+    console.log(user.uid);
 
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
-    onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser)
-    })
+    useEffect(() => {
+        APIcall();
+    });
 
-    const logout = async () => {
-        await signOut(auth)
-        navigate("/login")
-    }
+    // const { pathname } = useLocation();
+
+    // // GET ID FROM URL
+    // const getIdFromURL = () => {
+    //     const pathSplit = pathname.split("/");
+    //     return pathSplit[pathSplit.length - 1];
+    // };
+
+    // axios get
+    const APIcall = async () => {
+        const userReq = await axios.get(`/api/user/${user.uid}`);
+        setMongoUser(userReq.data);
+    };
+
+
 
     return (
         <>
-            {user ? (
-                <div>
 
-                    <h1>Dashboard</h1>
-                    <Link to={"/user"}>User Profile</Link>
-                    <button onClick={logout} className='button__primary'>Log Out</button>
-                </div>
-            ) : (
-                <h1>You are not authenticated</h1>
-            )}
-
-
+            <div>
+                <h1>Dashboard</h1>
+                <h1>{user.uid}</h1>
+                {/* <Link to={`/user/${user.uid}`}>User Profile</Link>
+                <button onClick={handleLogout} className='button__primary'>Log Out</button> */}
+                {/* <audio src="" controls></audio> */}
+            </div>
         </>
     )
 }
