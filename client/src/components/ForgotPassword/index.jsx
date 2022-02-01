@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from "react";
 import { Link } from 'react-router-dom';
 import { useAuth } from "../../context/authContext";
+import logo from "../../assets/images/logo.svg";
 
 const ForgotPassword = () => {
 
@@ -20,23 +21,36 @@ const ForgotPassword = () => {
       }
 
       return (
-            <form className="form" handleSubmit={handleResetPassword}>
-                  {error && <p>{error}</p>}
-                  <h3>Forgot Password</h3>
-                  <label>Email</label>
-                  <input
-                        type="text"
-                        className="form__input"
-                        placeholder="Email address..."
-                        onChange={(e) => setForgot(e.target.value)}
-                  />
-                  <button type="submit" className="button">Submit</button>
-                  <div className='form__questions'>
-                        <p>
-                              If you need to contact  <Link to="/register">Get Support</Link>
-                        </p>
-                  </div>
-            </form>
+        <>
+        <div className="login__absolute">
+            <div className="logo__container">
+                <img src={logo} alt="TamTamGo Logo" />
+            </div>
+            <div className="login__container">
+          <form className="form" handleSubmit={handleResetPassword}>
+            {error && <p>{error}</p>}
+            <h3>Forgot Password</h3>
+            <input
+              type="text"
+              className="form__input"
+              placeholder="Email address..."
+              onChange={(e) => setForgot(e.target.value)}
+            />
+            <div className="form__questions">
+              <div className="form__buttons">
+            <button type="submit" className="button">Submit</button>
+            </div>
+            </div>
+            <div className='form__options'>
+              <p>Enter your mail to restore your password<br /> Or go to <Link className="link" to="/login">log in.</Link></p>
+              <p>
+                If you need to contact  <Link className="link" to="/register">Get Support</Link>
+              </p>
+            </div>
+          </form>
+          </div>
+          </div>
+        </>
       );
 };
 export default ForgotPassword;
