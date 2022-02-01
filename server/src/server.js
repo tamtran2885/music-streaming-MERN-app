@@ -4,6 +4,7 @@ import morgan from "morgan";
 import cors from "cors";
 
 import { userRoutes } from "./routes/user.routes.js";
+import { tracksRoutes } from "./routes/tracks.routes.js";
 
 const app = express();
 
@@ -23,7 +24,6 @@ app.use(
 
 app.use("/api/user", userRoutes);
 
-
-
+app.use("/api/tracks", tracksRoutes);
 
 export default app;
