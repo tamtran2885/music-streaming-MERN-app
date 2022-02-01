@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AiOutlineGooglePlus } from 'react-icons/ai';
+
 
 import { useAuth } from "../../context/authContext";
 
@@ -26,7 +26,6 @@ const ConnectWithGoogle = () => {
 
       return (
             <button type="button" onClick={registerWithGoogle} className="google__signin">
-                  <AiOutlineGooglePlus className='google__icon' />
                   <p>Sign in with Google</p>
             </button>
       )
