@@ -16,9 +16,6 @@ export const getTracks = async (req, res) => {
 // query for create tracks
 
 export const createTrack = async (req, res) => {
-    console.log(req.body);
-    console.log(req.file.path);
-    
     try {
         const result = await cloudinary.v2.uploader.upload(req.file.path, {
             resource_type: "auto"
@@ -31,7 +28,7 @@ export const createTrack = async (req, res) => {
             reproductions: req.body.reproductions,
             album: req.body.album,
             duration: req.body.duration,
-            user_id:"",
+            track_id:"",
             cloudinaryId: result.public_id,
             urlTrack: result.secure_url
         });
@@ -40,10 +37,40 @@ export const createTrack = async (req, res) => {
         res.status(200).json({ data: "Track created", track });
     } catch (error) {
         console.log(error);
-        console.log("hola")
     }
+};
 
+//query for get tracks by id
 
+export const getTrackById = async (req, res) => {
 
+    try {
+        const url = req.params.trackId;
+        const track = await Tracks.findById(url);
+      // console.log(url)
+        track ? res.json(track) : res.json({ message: "track not found" });
+    } catch (error) {
+        console.log(error);
+    }
+};
 
+//query for delete tracks by id
+
+export const deleteTrack = async (req, res) => {
+    try {
+      // Find Track by id
+        const track = await Tracks.findById(req.params.trackId);
+
+      // Delete image from cloudinary
+        console.log(track.cloudinaryId)
+        await cloudinary.v2.uploader.destroy(track.cloudinaryId, {
+            resource_type: "video"
+        });
+
+      // Delete user from db
+        await track.remove();
+        res.json({ message: "Track deleted", track });
+    } catch (error) {
+        console.log(error);
+    }
 };

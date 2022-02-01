@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { getTracks, createTrack } from "../controllers/tracksController.js";
+import { getTracks, createTrack, getTrackById, deleteTrack } from "../controllers/tracksController.js";
 import uploadTrack from "../utils/multerTracks.js";
 
 export const tracksRoutes = Router();
@@ -14,10 +14,10 @@ tracksRoutes.get("/", getTracks);
 tracksRoutes.post("/", uploadTrack.single("fileTrack"), createTrack);
 
 // //? GET tracks BY ID
-// tracksRoutes.get("/:tracksId", getTracksById);
+tracksRoutes.get("/:trackId", getTrackById);
 
 // // //? UPDATE tracks BY ID
 // tracksRoutes.put("/:tracksId", upload.single("profile"), updateTracks);
 
-// // //? DELETE tracks BY ID
-// tracksRoutes.delete("/:tracksId", deleteTracks);
+//? DELETE tracks BY ID
+tracksRoutes.delete("/:trackId", deleteTrack);
