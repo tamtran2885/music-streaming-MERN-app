@@ -6,7 +6,8 @@ import Register from "./pages/Register";
 import User from "./pages/User";
 import Account from "./pages/Account";
 import ProtectedRoute from "./components/ProtectedRoute";
-import UserEdit from "./pages/UserEdit"
+import ForgotPassword from "./components/ForgotPassword";
+import UserEdit from "./pages/UserEdit";
 
 import { AuthProvider } from "./context/authContext";
 
@@ -42,6 +43,7 @@ function App() {
             }
           />
           <Route path="/user/edit/:userId" element={<UserEdit />} />
+          <Route path="/forgot" element={<ForgotPassword />} />
         </Routes>
       </AuthProvider>
     </div>

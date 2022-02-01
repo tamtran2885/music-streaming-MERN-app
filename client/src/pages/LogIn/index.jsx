@@ -8,7 +8,7 @@ import ConnectWithGoogle from "../../components/ConnectWithGoogle/index.jsx";
 
 const Login = () => {
 
-    const { logInWithEmailAndPassword, resetPassword } = useAuth();
+    const { logInWithEmailAndPassword } = useAuth();
 
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
@@ -31,16 +31,16 @@ const Login = () => {
         }
     }
 
-    const handleResetPassword = async (e) => {
-        e.preventDefault();
-        if (!loginEmail) return setError("Write an email to reset password");
-        try {
-            await resetPassword(loginEmail);
-            setError('We sent you an email. Check your inbox')
-        } catch (err) {
-            console.log(err.message);
-        }
-    }
+    // const handleResetPassword = async (e) => {
+    //     e.preventDefault();
+    //     if (!loginEmail) return setError("Write an email to reset password");
+    //     try {
+    //         await resetPassword(loginEmail);
+    //         setError('We sent you an email. Check your inbox')
+    //     } catch (err) {
+    //         console.log(err.message);
+    //     }
+    // }
 
     return (
         <>
@@ -73,7 +73,7 @@ const Login = () => {
                                     <input type="checkbox" />
                                     <div className="b-input"></div>
                                 </label>
-                                <a className="link" href="#!" onClick={handleResetPassword}>Forggot your password?</a>
+                                <Link className="link" to="/forgot">Forgot your password?</Link>
                             </div>
                             <div className="form__questions">
                                 <p>First time in TamTamGo?<br /> Please, <Link className="link" to="/register">sign up.</Link></p>
