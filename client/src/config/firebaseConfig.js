@@ -13,20 +13,20 @@ const firebaseConfig = {
 
   // Enrique
 
-  apiKey: "AIzaSyC_PbsF4nSUkV5ABlQUSIUb6FTYGlgF380",
-  authDomain: "tamtamgo-2fa2e.firebaseapp.com",
-  projectId: "tamtamgo-2fa2e",
-  storageBucket: "tamtamgo-2fa2e.appspot.com",
-  messagingSenderId: "576401086832",
-  appId: "1:576401086832:web:0f3d820bd1699165e597b5"
+  // apiKey: "AIzaSyC_PbsF4nSUkV5ABlQUSIUb6FTYGlgF380",
+  // authDomain: "tamtamgo-2fa2e.firebaseapp.com",
+  // projectId: "tamtamgo-2fa2e",
+  // storageBucket: "tamtamgo-2fa2e.appspot.com",
+  // messagingSenderId: "576401086832",
+  // appId: "1:576401086832:web:0f3d820bd1699165e597b5"
 
   // //  //Tam
-  // apiKey: "AIzaSyCJeJGEGB2DdMb39qwhjohfGP7V2CuWDyU",
-  // authDomain: "apollofy-new.firebaseapp.com",
-  // projectId: "apollofy-new",
-  // storageBucket: "apollofy-new.appspot.com",
-  // messagingSenderId: "443917818732",
-  // appId: "1:443917818732:web:936986194639f59bd07149",
+  apiKey: "AIzaSyCJeJGEGB2DdMb39qwhjohfGP7V2CuWDyU",
+  authDomain: "apollofy-new.firebaseapp.com",
+  projectId: "apollofy-new",
+  storageBucket: "apollofy-new.appspot.com",
+  messagingSenderId: "443917818732",
+  appId: "1:443917818732:web:936986194639f59bd07149"
 };
 
 // console.log(process.env.REACT_APP_FB_APIKEY)

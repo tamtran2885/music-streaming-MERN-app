@@ -42,8 +42,8 @@ export const getUserById = async (req, res) => {
   try {
     const url = req.params.userId;
     const user = await User.findOne({
-      "firebaseUser": url,
-    })
+      firebaseUser: url,
+    });
     // console.log(user)
     user ? res.json(user) : res.json({ message: "User not found" });
   } catch (error) {
@@ -73,11 +73,11 @@ export const updateUser = async (req, res) => {
   // console.log(req.file.path);
 
   try {
-    const url = req.params.userId
+    const url = req.params.userId;
     const user = await User.findOne({
-      "firebaseUser": url
+      firebaseUser: url,
     });
-    console.log(user)
+    console.log(user);
 
     // Delete image from cloudinary if change image of profile
     // await cloudinary.uploader.destroy(user.cloudinaryId);
@@ -92,17 +92,20 @@ export const updateUser = async (req, res) => {
       country: req.body.country || user.country,
       profile: user.profile,
       email: req.body.email || user.email,
-      cloudinaryId: result.public_id || user.cloudinaryId,
+      cloudinaryId: user.cloudinaryId,
       firebaseUser: req.body.firebaseUser,
     };
     // // console.log(firebaseUser);
 
-
-    const userToEdit = await User.findOneAndUpdate({
-      "firebaseUser": url,
-    }, dataUser, {
-      new: true,
-    });
+    const userToEdit = await User.findOneAndUpdate(
+      {
+        firebaseUser: url,
+      },
+      dataUser,
+      {
+        new: true,
+      }
+    );
 
     res.status(200).json({ data: "User updated", userToEdit });
   } catch (error) {

@@ -8,14 +8,15 @@ import ConnectWithGoogle from "../../components/ConnectWithGoogle/index.jsx";
 
 const Login = () => {
 
-    const { logInWithEmailAndPassword } = useAuth();
+    const { logInWithEmailAndPassword, resetPassword } = useAuth();
 
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
 
     const navigate = useNavigate()
 
-    const [user, setUser] = useState({});
+    // const [user, setUser] = useState({});
+    const [error, setError] = useState("");
 
     const login = async (e) => {
         e.preventDefault()
@@ -30,6 +31,17 @@ const Login = () => {
         }
     }
 
+    const handleResetPassword = async (e) => {
+        e.preventDefault();
+        if (!loginEmail) return setError("Write an email to reset password");
+        try {
+            await resetPassword(loginEmail);
+            setError('We sent you an email. Check your inbox')
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
+
     return (
         <>
             <div className="login__absolute">
@@ -38,7 +50,7 @@ const Login = () => {
                 </div>
                 <div className="login__container">
                     <h1 className="header">Log In</h1>
-
+                    {error && <p>{error}</p>}
                     {/* <p>{user?.email || user === undefined + "creado con éxito!"}</p> */}
 
                     <div className="form__container">
@@ -61,10 +73,10 @@ const Login = () => {
                                     <input type="checkbox" />
                                     <div className="b-input"></div>
                                 </label>
-                                <Link className="link" to="/new-account">Forggot your password?</Link>
+                                <a className="link" href="#!" onClick={handleResetPassword}>Forggot your password?</a>
                             </div>
                             <div className="form__questions">
-                                <p>First time in TamTamGo?<br /> Please, <Link className="link" to="/register">sing up.</Link></p>
+                                <p>First time in TamTamGo?<br /> Please, <Link className="link" to="/register">sign up.</Link></p>
                                 <div className="form__buttons">
                                     <ConnectWithGoogle />
                                     <button type="submit" className="button">Log in</button>

@@ -45,8 +45,6 @@ const UserEdit = () => {
   };
 
 
-
-
   const updateUser = async (e) => {
     e.preventDefault();
 
@@ -55,7 +53,6 @@ const UserEdit = () => {
         "Content-Type": "multipart/form-data"
       },
     };
-
 
     const formData = new FormData();
     formData.append("firstName", editUser.firstName);

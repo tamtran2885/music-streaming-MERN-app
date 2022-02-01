@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 
 import withLayout from "../../hoc/withLayout";
 
@@ -7,7 +7,7 @@ import { useAuth } from "../../context/authContext";
 import axios from 'axios';
 
 const Dashboard = () => {
-    const { user, logout } = useAuth();
+    const { user } = useAuth();
     const [mongoUser, setMongoUser] = useState({});
 
     console.log(user.uid);
@@ -16,9 +16,9 @@ const Dashboard = () => {
 
     useEffect(() => {
         APIcall();
-    }, []);
+    });
 
-    const { pathname } = useLocation();
+    // const { pathname } = useLocation();
 
     // // GET ID FROM URL
     // const getIdFromURL = () => {
@@ -42,6 +42,7 @@ const Dashboard = () => {
                 <h1>{user.uid}</h1>
                 {/* <Link to={`/user/${user.uid}`}>User Profile</Link>
                 <button onClick={handleLogout} className='button__primary'>Log Out</button> */}
+                {/* <audio src="" controls></audio> */}
             </div>
         </>
     )

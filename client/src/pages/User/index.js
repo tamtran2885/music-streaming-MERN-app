@@ -3,8 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 
 import withLayout from "../../hoc/withLayout";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../config/firebaseConfig";
 
 const User = () => {
   const [user, setUser] = useState({
@@ -18,7 +16,7 @@ const User = () => {
 
   useEffect(() => {
     APIcall();
-  }, []);
+  });
 
   const { pathname } = useLocation();
 
@@ -32,7 +30,7 @@ const User = () => {
   const APIcall = async () => {
     const userReq = await axios.get(`/api/user/${getIdFromURL()}`);
     setUser(userReq.data);
-    console.log(user)
+    console.log(user);
   };
 
   return (
@@ -59,7 +57,11 @@ const User = () => {
           <p> {user.country}</p>
         </div>
         <h3>Profile Picture</h3>
-        <img src={user.profile} alt="user_image" style={{ height: "100px", width: "100px" }} />
+        <img
+          src={user.profile}
+          alt="user_image"
+          style={{ height: "100px", width: "100px" }}
+        />
         <div>
           <h3>Email</h3>
           <p> {user.email}</p>
