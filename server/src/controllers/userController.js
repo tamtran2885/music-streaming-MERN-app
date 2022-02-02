@@ -1,10 +1,11 @@
+import Tracks from "../models/Tracks.js";
 import User from "../models/User.js";
 import cloudinary from "../utils/cloudinary.js";
 
 export const getUsers = async (req, res) => {
   console.log(process.env);
   try {
-    const users = await User.find();
+    const users = await User.find().populate("Tracks");
     res.json(users);
   } catch (error) {
     console.log(error);
@@ -28,6 +29,8 @@ export const createUser = async (req, res) => {
       password: req.body.password,
       cloudinaryId: result.public_id,
       firebaseUser: req.body.firebaseUser,
+      uploadedTracks: [],
+      playlists: []
     });
 
     await user.save();
