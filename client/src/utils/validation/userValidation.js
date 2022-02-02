@@ -14,6 +14,8 @@ export default function userValidation(values) {
   } else if (!/\S+@\S+\.\S+/.test(values.email)) {
     errors.email = "Email address is invalid";
   }
+
+  // pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,20}$`
   if (!values.password) {
     errors.password = "Password is required";
   } else if (values.password.length < 6) {
