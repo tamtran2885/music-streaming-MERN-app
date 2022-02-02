@@ -16,7 +16,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         APIcall();
-    });
+    }, []);
 
     // const { pathname } = useLocation();
 

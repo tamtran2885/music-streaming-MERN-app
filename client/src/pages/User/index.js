@@ -16,7 +16,7 @@ const User = () => {
 
   useEffect(() => {
     APIcall();
-  });
+  }, []);
 
   const { pathname } = useLocation();
 
