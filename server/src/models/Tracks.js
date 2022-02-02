@@ -1,6 +1,7 @@
 import pkg from "mongoose";
 const { Schema, model } = pkg;
 
+
 const TracksSchema = new Schema({
 
 
@@ -31,9 +32,9 @@ const TracksSchema = new Schema({
         type: String,
     },
     user: {
-        type: Schema.ObjectId,
-        ref: "User"
+        type: Schema.Types.ObjectId,
+        ref: "user"
     },
 });
 
-export default model("Tracks", TracksSchema);
+export default model("tracks", TracksSchema);

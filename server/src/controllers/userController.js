@@ -5,8 +5,11 @@ import cloudinary from "../utils/cloudinary.js";
 export const getUsers = async (req, res) => {
   console.log(process.env);
   try {
-    const users = await User.find().populate("Tracks");
+    const users = await User.find()
+
     res.json(users);
+
+
   } catch (error) {
     console.log(error);
   }

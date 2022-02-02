@@ -1,18 +1,20 @@
 import Tracks from "../models/Tracks.js";
 import cloudinary from "../utils/cloudinary.js";
-import User from "../models/User.js";
 
 //query for get tracks
 
 export const getTracks = async (req, res) => {
     console.log(process.env);
     try {
-        const tracks = await Tracks.find().populate("User")
-
+        const tracks = await Tracks.find().populate("user")
         console.log(tracks)
+
+
+
+        // console.log(tracks)
         res.json(tracks);
     } catch (error) {
-        console.log(error);
+        console.log(error)
     }
 };
 
