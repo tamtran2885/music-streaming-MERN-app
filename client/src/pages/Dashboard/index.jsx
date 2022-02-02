@@ -16,23 +16,12 @@ const Dashboard = () => {
     const { user } = useAuth();
     const [mongoUser, setMongoUser] = useState({});
 
-    console.log(user.uid);
-
-    // const navigate = useNavigate()
+    // console.log(user.uid);
 
     useEffect(() => {
         APIcall();
     });
 
-    // const { pathname } = useLocation();
-
-    // // GET ID FROM URL
-    // const getIdFromURL = () => {
-    //     const pathSplit = pathname.split("/");
-    //     return pathSplit[pathSplit.length - 1];
-    // };
-
-    // axios get
     const APIcall = async () => {
         const userReq = await axios.get(`/api/user/${user.uid}`);
         setMongoUser(userReq.data);

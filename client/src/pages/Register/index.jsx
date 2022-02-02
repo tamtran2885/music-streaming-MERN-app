@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from "react-router-dom"
 import RegisterInput from "../../components/RegisterInput";
+import userValidation from "../../utils/validation/userValidation"
 
 import axios from "axios";
 
@@ -28,6 +29,8 @@ const Register = () => {
         confirmPassword: "",
         firebaseUser: ""
     });
+
+    const [errors, setErrors] = useState({});
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -82,13 +85,18 @@ const Register = () => {
                     <div className="form__container">
                         <form className="form" onSubmit={handleSubmit} encType="multipart/form-data">
                             <RegisterInput className="form__input" name="firstName" type="text" placeholder="First Name" onChange={onChange("firstName")} required />
+                            {errors.firstName && <p>{errors.firstName}</p>}
                             <RegisterInput className="form__input" name="lastName" type="text" placeholder="Last Name" onChange={onChange("lastName")} required />
+                            {errors.lastName && <p>{errors.lastName}</p>}
                             <RegisterInput className="form__input" name="birthday" type="date" placeholder="Birthday" onChange={onChange("birthday")} />
                             <RegisterInput className="form__input" name="country" type="text" placeholder="Country" onChange={onChange("country")} />
                             <RegisterInput className="form__input" name="profile" type="file" placeholder="Upload Image" onChange={onChange("profile")} />
                             <RegisterInput className="form__input" name="email" type="email" placeholder="Email" onChange={onChange("email")} required />
+                            {errors.email && <p>{errors.email}</p>}
                             <RegisterInput className="form__input" name="password" type="password" placeholder="Password" onChange={onChange("password")} required />
+                            {errors.password && <p>{errors.password}</p>}
                             <RegisterInput className="form__input" name="confirmPassword" type="password" placeholder="Confirm Password" onChange={onChange("confirmPassword")} required />
+                            {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
                             <div className='form__options'>
                                 <label className="b-contain">
                                     I accept the terms of the agreement.
