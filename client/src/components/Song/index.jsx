@@ -1,7 +1,16 @@
 import React from 'react';
+import {useDispatch} from "react-redux";
+import { setCurrentTrack } from "../../redux/audioPlay/actions";
 
 const Song = (track) => {
-  const { name, thumbnail, duration} = track.track
+  const dispatch = useDispatch(); 
+
+  const { name, thumbnail, duration, id} = track.track
+
+  const handleClick = () => {
+    // console.log("handleClick");
+    dispatch(setCurrentTrack(id))
+  }
   return (
     <>
     <div className='song__absolute'>
@@ -10,6 +19,7 @@ const Song = (track) => {
       </div>
       <div className='song__image'>
         <img src={thumbnail} alt="song" style={{ width: '50px', height: '50px'}}/>
+        <button onClick={handleClick}>Play</button>
       </div>
       <div className='song__like'>
         Like

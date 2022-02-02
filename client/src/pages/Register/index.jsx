@@ -113,7 +113,7 @@ const Register = () => {
                 </div>
             </div>
             <div className="credits">
-                <p>TamTamGo App © 2022 | <a className="link" href="https://assemblerschool.com/" target="_blank" rel="noreferrer" nofollow>Assembler School</a> Jun21 Final Project</p>
+                <p>TamTamGo App © 2022 | <a className="link" href="https://assemblerschool.com/" target="_blank" rel="noreferrer">Assembler School</a> Jun21 Final Project</p>
                 <p>Developed with love by Tam Team</p>
             </div>
         </>

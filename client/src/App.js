@@ -11,6 +11,7 @@ import UserEdit from "./pages/UserEdit";
 import AddTrack from "./pages/AddTrack";
 import AddAlbum from "./pages/AddAlbum";
 import AddPlaylist from "./pages/AddPlaylist";
+import PlayMusic from "./pages/PlayMusic";
 
 import { AuthProvider } from "./context/authContext";
 
@@ -50,6 +51,7 @@ function App() {
           <Route path="/add-track" element={<AddTrack />} />
           <Route path="/add-album" element={<AddAlbum />} />
           <Route path="/add-playlist" element={<AddPlaylist />} />
+          <Route path="/play-music" element={<PlayMusic />} />
         </Routes>
       </AuthProvider>
     </div>

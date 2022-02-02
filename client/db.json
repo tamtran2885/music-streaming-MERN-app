@@ -3,7 +3,8 @@
     {
       "id": 1,
       "name": "Alice Spring 1",
-      "url": "https://drive.google.com/file/d/1w5fdix7NVI-GePtdTsJkXuPIgMEnEAY8/view?usp=sharing",
+      "artist": "Alice 1",
+      "url": "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/MusOpen/Skidmore_College_Orchestra/Mussorgskys_Pictures_at_an_Exhibition/Skidmore_College_Orchestra_-_01_-_Promenade_Allegro_giusto_nel_modo_russico_senza_allegrezza_ma.mp3",
       "popularity": "",
       "thumbnail": "https://images.pexels.com/photos/33817/autumn-fall-leaves-leaves-fall-color.jpg",
       "duration": 3,
@@ -15,7 +16,8 @@
     {
       "id": 2,
       "name": "Alice Spring 2",
-      "url": "https://drive.google.com/file/d/17_Fb-BWJg6HuOWhmoRhMtomsmg2kt_Pg/view",
+      "artist": "Alice 2",
+      "url": "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/MusOpen/Skidmore_College_Orchestra/Mussorgskys_Pictures_at_an_Exhibition/Skidmore_College_Orchestra_-_02_-_I_Gnomus_Vivo.mp3",
       "popularity": "",
       "thumbnail": "https://images.pexels.com/photos/1114896/pexels-photo-1114896.jpeg",
       "duration": 4,
@@ -27,7 +29,8 @@
     {
       "id": 3,
       "name": "Alice Spring 3",
-      "url": "https://drive.google.com/file/d/12Nn-6rXBPYAXwZ8Qh4petsQgzpkk7qe8/view?usp=sharing",
+      "artist": "Alice 3",
+      "url": "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/MusOpen/Skidmore_College_Orchestra/Mussorgskys_Pictures_at_an_Exhibition/Skidmore_College_Orchestra_-_03_-_Promenade_Moderato_comodo_e_con_delicatezza.mp3",
       "popularity": "",
       "thumbnail": "https://images.pexels.com/photos/1389460/pexels-photo-1389460.jpeg",
       "duration": 3,
@@ -39,7 +42,8 @@
     {
       "id": 4,
       "name": "Alice Spring 4",
-      "url": "https://drive.google.com/file/d/12zJy34_bIwJ6Fu7OSSXSOuJN2tpvnhpl/view?usp=sharing",
+      "artist": "Alice 4",
+      "url": "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/MusOpen/Skidmore_College_Orchestra/Mussorgskys_Pictures_at_an_Exhibition/Skidmore_College_Orchestra_-_05_-_Promenade_Moderato_non_tanto_pesante.mp3",
       "popularity": "",
       "thumbnail": "https://images.pexels.com/photos/1114896/pexels-photo-1114896.jpeg",
       "duration": 3,
@@ -51,7 +55,8 @@
     {
       "id": 5,
       "name": "Alice Spring 5",
-      "url": "https://drive.google.com/file/d/1XiCu1O6w2BdKu4S6VVch2XH1AV4YdtMR/view?usp=sharing",
+      "artist": "Alice 5",
+      "url": "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/MusOpen/Skidmore_College_Orchestra/Mussorgskys_Pictures_at_an_Exhibition/Skidmore_College_Orchestra_-_07_-_IV_Bydlo_Sempre_moderato_pesante.mp3",
       "popularity": "",
       "thumbnail": "https://images.pexels.com/photos/1389460/pexels-photo-1389460.jpeg",
       "duration": 3,
@@ -63,7 +68,8 @@
     {
       "id": 6,
       "name": "Alice Spring 6",
-      "url": "https://drive.google.com/file/d/1l-hwuXsfTWHv8YkLGkTAszzaumMR3G_9/view?usp=sharing",
+      "artist": "Alice 6",
+      "url": "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/MusOpen/Skidmore_College_Orchestra/Mussorgskys_Pictures_at_an_Exhibition/Skidmore_College_Orchestra_-_08_-_Promenade_Tranquillo.mp3",
       "popularity": "",
       "thumbnail": "https://images.pexels.com/photos/5827880/pexels-photo-5827880.jpeg",
       "duration": 3,
@@ -75,7 +81,8 @@
     {
       "id": 7,
       "name": "Alice Spring 7",
-      "url": "https://drive.google.com/file/d/18ekeIc31ska2qRn5dokMvTMLIrGo2gQi/view?usp=sharing",
+      "artist": "Alice 7",
+      "url": "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/MusOpen/Skidmore_College_Orchestra/Mussorgskys_Pictures_at_an_Exhibition/Skidmore_College_Orchestra_-_10_-_VI_Samuel_Goldenberg_and_Schmuyle_Andante.mp3",
       "popularity": "",
       "thumbnail": "https://images.pexels.com/photos/5827880/pexels-photo-5827880.jpeg",
       "duration": 3,
