@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Album from '../Album';
 
-const Albums = () => {
+import {connect, useDispatch} from "react-redux";
+import {getAlbums} from "../../redux/dashboard/actions";
+
+
+const Albums = ({albums}) => {
+  const dispatch = useDispatch(); 
+
+  useEffect(() => {
+    dispatch(getAlbums());
+  }, [dispatch])
+
+  const albumsInfo = albums.data;
+  // console.log(albumsInfo);
+
   return (
     <>
     <div className='albums__absolute'>
@@ -11,11 +24,21 @@ const Albums = () => {
         <Link to={`/user/albums`}>See All</Link>
       </div>
       <div className='albums__container'>
-        <Album />
+        {albumsInfo && albumsInfo.map((album) => (
+            <div key={album.id}><Album key={album.id} album={album}/></div>
+        ))}
       </div>
     </div>
     </>
   )
 }
 
-export default Albums;
+const mapStateToProps = state => {
+  return {
+    albums: state.dashboard.albums
+  }
+}
+
+const reduxHoc = connect(mapStateToProps)
+
+export default reduxHoc(Albums);

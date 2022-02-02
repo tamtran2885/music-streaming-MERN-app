@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Playlist from '../Playlist';
 
-const Playlists = () => {
+import {connect, useDispatch} from "react-redux";
+import {getPlaylists} from "../../redux/dashboard/actions";
+
+const Playlists = ({playlists}) => {
+  const dispatch = useDispatch(); 
+
+  useEffect(() => {
+    dispatch(getPlaylists());
+  }, [dispatch])
+
+  const playlistsInfo = playlists.data;
+
   return (
     <>
       <div className='playlists__absolute'>
@@ -11,11 +22,21 @@ const Playlists = () => {
           <Link to={`/user/playlists`}>See All</Link>
         </div>
         <div className='playlists__container'>
-          <Playlist />
+          {playlistsInfo && playlistsInfo.map((playlist) => (
+            <div key={playlist.id}><Playlist key={playlist.id} playlist={playlist}/></div>
+          ))}
         </div>
       </div>
     </>
   )
 }
 
-export default Playlists;
+const mapStateToProps = state => {
+  return {
+    playlists: state.dashboard.playlists
+  }
+}
+
+const reduxHoc = connect(mapStateToProps)
+
+export default reduxHoc(Playlists);
