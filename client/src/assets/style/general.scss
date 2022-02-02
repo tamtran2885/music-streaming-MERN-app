@@ -1,5 +1,5 @@
 body {
-  overflow: hidden;
+  //overflow: hidden;
   .login__absolute {
     display: flex;
     margin: 3%;
@@ -153,6 +153,7 @@ body {
   .dashboard__background {
     margin:0%;
     position: absolute;
+    background-attachment: fixed;
     width: 100%;
     .nav__absolute {
       margin: 3%;
