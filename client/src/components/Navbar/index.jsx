@@ -7,28 +7,28 @@ import SearchBar from "../SearchBar";
 const Navbar = () => {
   const { user, logout } = useAuth()
 
-  const handleLogout = async () => {
-    try {
-      await logout();
-      // navigate("/login")
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  // const handleLogout = async () => {
+  //   try {
+  //     await logout();
+  //     // navigate("/login")
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
   return (
     <nav>
       <div className='nav__absolute'>
         <div className='nav__links'>
           <div className="nav__logo">
-              <img src={logo} alt="TamTamGo Logo" width='100px' />
+          <Link to={`/user/`}><img src={logo} alt="TamTamGo Logo" /></Link>
           </div>
           <div className='nav__options'>
-          <Link to={`/user/songs`}>Songs</Link>
-          <Link to={`/user/playlists`}>Playlists</Link>
-          <Link to={`/user/albums`}>Albums</Link>
-          <Link to={`/user/${user.uid}`}>{user.displayName}</Link>
-          <img src="" alt="" />
+          <Link className='nav__link' to={`/user/songs`}>Songs</Link>
+          <Link className='nav__link' to={`/user/playlists`}>Playlists</Link>
+          <Link className='nav__link' to={`/user/albums`}>Albums</Link>
+          <Link className='nav__link' to={`/user/${user.uid}`}>{user.displayName}</Link>
+          <Link className='avatar' to={`user/${user.uid}`}><img className='avatar' src={logo} alt="" /></Link>
           </div>
         </div>
         <div className='nav__buttons'>
@@ -42,11 +42,13 @@ const Navbar = () => {
             <div className='nav__filters__button'>
               <button className='button'>I'm feeling lucky!</button>
               <div className='nav__filters__owner'>
-                <button className='button active'>Popular</button>
-                <button className='button'>Mine</button>
+                <button className='button__owner left active'>Popular</button>
+                <button className='button__owner right'>Mine</button>
               </div>
             </div>
           </div>
+        </div>
+        <div className='hr'>
           <hr />
         </div>
       </div>

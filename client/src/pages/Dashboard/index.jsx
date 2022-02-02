@@ -42,17 +42,19 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className='dashboard__absolute'>
-        <Navbar />
-        <div className='dashboard__display'>
-          <Playlists />
-          <Songs />
-        </div>
-          <div className='dashboard__side'>
-            <Genres />
-            <Albums />
+      <div className='dashboard__background'>
+        <div className='dashboard__absolute'>
+          <Navbar />
+          <div className='dashboard__display'>
+            <Playlists />
+            <Songs />
           </div>
-        <MusicPlayer />
+            <div className='dashboard__side'>
+              <Genres />
+              <Albums />
+            </div>
+          <MusicPlayer />
+        </div>
       </div>
     </>
   )

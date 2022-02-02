@@ -15,7 +15,6 @@ function withLayout(WrappedComponent) {
     function WrapperComponent({ ...props }) {
       return (
         <>
-          <Navbar />
           <MainContent
             className={props.fullWidth ? "container-fluid" : "container"}
           >
