@@ -42,11 +42,11 @@ const UserSchema = new Schema({
   cloudinaryId: {
     type: String,
   },
-  // // TODO ¿?¿?¿?¿?
-  // uploadedTracks: [{
-  //   type: Schema.ObjectId,
-  //   ref: "Tracks"
-  // }],
+  // TODO ¿?¿?¿?¿?
+  uploadedTracks: [{
+    type: Schema.ObjectId,
+    ref: "tracks"
+  }],
   // playlists: [{}]
 
 

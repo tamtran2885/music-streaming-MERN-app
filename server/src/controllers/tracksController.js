@@ -1,5 +1,6 @@
 import Tracks from "../models/Tracks.js";
 import cloudinary from "../utils/cloudinary.js";
+import User from "../models/User.js";
 
 //query for get tracks
 
@@ -20,9 +21,36 @@ export const getTracks = async (req, res) => {
 
 
 
+//  adding tracks to user uploaded Tracks
+export const addTracksToUser = async (track) => {
+
+
+
+    try {
+
+        const dataUser = {
+
+            uploadedTracks: [User.uploadedTracks, track]
+
+        };
+
+
+        // console.log(track)
+        console.log(track.user._id)
+        const newTrack = await User.findByIdAndUpdate(
+            track.user._id,
+            dataUser,
+            { new: true }
+        );
+        // res.status(200).json({ data: "Added track to user!", newTrack })
+    } catch (error) {
+        console.log(error);
+        console.log('error');
+    }
+
+};
+
 // query for create tracks
-
-
 
 export const createTrack = async (req, res) => {
     try {
@@ -41,6 +69,10 @@ export const createTrack = async (req, res) => {
 
         await track.save()
         res.status(200).json({ data: "Track created", track });
+
+        addTracksToUser(track)
+
+
     } catch (error) {
         console.log(error);
         console.log("PEPI")
