@@ -39,3 +39,5 @@ const CONFIG = {
 };
 
 export default CONFIG[ENV];
+
+console.log(process.env.PORT)

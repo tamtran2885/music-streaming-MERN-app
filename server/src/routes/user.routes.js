@@ -12,11 +12,9 @@ import upload from "../utils/multer.js";
 export const userRoutes = Router();
 
 // ? GET USERS
-
 userRoutes.get("/", getUsers);
 
 // ? CREATE USER
-
 userRoutes.post("/", upload.single("profile"), createUser);
 
 //? GET USER BY ID

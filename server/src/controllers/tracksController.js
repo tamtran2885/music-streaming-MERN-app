@@ -89,7 +89,6 @@ export const deleteTrack = async (req, res) => {
         const track = await Tracks.findById(req.params.trackId);
 
         // Delete image from cloudinary
-        console.log(track.cloudinaryId)
         await cloudinary.v2.uploader.destroy(track.cloudinaryId, {
             resource_type: "video"
         });
@@ -139,6 +138,3 @@ export const updateTrack = async (req, res) => {
         console.log(error);
     }
 };
-
-
-
