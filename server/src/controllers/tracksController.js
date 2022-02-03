@@ -7,11 +7,6 @@ export const getTracks = async (req, res) => {
     console.log(process.env);
     try {
         const tracks = await Tracks.find().populate("user")
-        console.log(tracks)
-
-
-
-        // console.log(tracks)
         res.json(tracks);
     } catch (error) {
         console.log(error)
@@ -71,11 +66,9 @@ export const createTrack = async (req, res) => {
 
 //? GET TRACK BY ID
 export const getTrackById = async (req, res) => {
-
     try {
         const url = req.params.trackId;
         const track = await Tracks.findById(url);
-        // console.log(url)
         track ? res.json(track) : res.json({ message: "track not found" });
     } catch (error) {
         console.log(error);
@@ -85,16 +78,16 @@ export const getTrackById = async (req, res) => {
 //? DELETE TRACK
 export const deleteTrack = async (req, res) => {
     try {
-        // Find Track by id
+        //? FIND A TRACK BY ID
         const track = await Tracks.findById(req.params.trackId);
 
-        // Delete image from cloudinary
+        //? DELETE IMAGE FROM CLOUDINARY
         console.log(track.cloudinaryId)
         await cloudinary.v2.uploader.destroy(track.cloudinaryId, {
             resource_type: "video"
         });
 
-        // Delete user from db
+        //? DELETE USER FROM DB
         await track.remove();
         res.json({ message: "Track deleted", track });
     } catch (error) {
@@ -109,7 +102,7 @@ export const updateTrack = async (req, res) => {
         const url = req.params.trackId;
         const track = await Tracks.findById(url);
 
-        // Delete image from cloudinary if change image of profile
+        //? DELETE IMAGE FROM CLOUDINARY IF THE USER CHANGES IT AT PROFILE
         await cloudinary.v2.uploader.destroy(track.cloudinaryId, {
             resource_type: "video"
         });
@@ -123,7 +116,7 @@ export const updateTrack = async (req, res) => {
             album: req.body.album,
             duration: req.body.duration,
             track_id: "",
-            //TODO---------------------------- fix the upload and delete -----------------------
+            //TODO---------------------------- FIX THE UPLOAD AND DELETE -----------------------
             cloudinaryId: track.cloudinaryId || result.public_id,
             urlTrack: result.secure_url
         };

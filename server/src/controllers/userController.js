@@ -50,7 +50,6 @@ export const getUserById = async (req, res) => {
     const user = await User.findOne({
       firebaseUser: url,
     });
-    // console.log(user)
     user ? res.json(user) : res.json({ message: "User not found" });
   } catch (error) {
     console.log(error);
@@ -74,10 +73,6 @@ export const deleteUser = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
-  // console.log(req.body);
-  // console.log(req.params.userId);
-  // console.log(req.file.path);
-
   try {
     const url = req.params.userId;
     const user = await User.findOne({
