@@ -12,7 +12,7 @@
   "dependencies": {
     "cloudinary": "^1.28.1",
     "cors": "^2.8.5",
-    "dotenv": "^14.3.2",
+    "dotenv": "^15.0.0",
     "esm": "^3.2.25",
     "express": "^4.17.2",
     "mongoose": "^6.1.8",
