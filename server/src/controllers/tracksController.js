@@ -2,8 +2,7 @@ import Tracks from "../models/Tracks.js";
 import cloudinary from "../utils/cloudinary.js";
 import User from "../models/User.js";
 
-//query for get tracks
-
+//? GET ALL TRACKS
 export const getTracks = async (req, res) => {
     console.log(process.env);
     try {
@@ -21,67 +20,56 @@ export const getTracks = async (req, res) => {
 
 
 
-//  adding tracks to user uploaded Tracks
-export const addTracksToUser = async (track) => {
-
-
-
+//? ADDING NEW TRACK IN USERS COLLECTION
+export const addTracksToUser = async (req, res, track) => {
     try {
-
-        const dataUser = {
-
-            uploadedTracks: [User.uploadedTracks, track]
-
+        const data = {
+            $push: { uploadedTracks: track }
         };
 
-
-        // console.log(track)
-        console.log(track.user._id)
         const newTrack = await User.findByIdAndUpdate(
             track.user._id,
-            dataUser,
+            data,
             { new: true }
         );
-        // res.status(200).json({ data: "Added track to user!", newTrack })
+        res.status(200).json({ data: "Added track to user!", newTrack })
     } catch (error) {
         console.log(error);
-        console.log('error');
     }
 
 };
 
-// query for create tracks
-
+//? CREATE A NEW TRACK
 export const createTrack = async (req, res) => {
     try {
+
+        //? UPLOAD AUDIO
         const result = await cloudinary.v2.uploader.upload(req.file.path, {
             resource_type: "auto"
         });
 
-        // console.log(req.file.path);
-
         const track = new Tracks({
+            //? PASSING DATA TO NEW TRACK
             ...req.body,
+            //? PASSING AUDIO FILE TO NEW TRACK
             cloudinaryId: result.public_id,
             urlTrack: result.secure_url,
 
         });
-
+        //? SAVING NEW TRACK IN TRACKS COLLECTION
         await track.save()
         res.status(200).json({ data: "Track created", track });
 
-        addTracksToUser(track)
-
+        //? SAVING NEW TRACK IN USER DOCUMENT
+        addTracksToUser(req, res, track)
 
     } catch (error) {
         console.log(error);
-        console.log("PEPI")
-        // console.log(req.file.path)
+
     }
 };
 
-//query for get tracks by id
-
+//? GET TRACK BY ID
 export const getTrackById = async (req, res) => {
 
     try {
@@ -94,8 +82,7 @@ export const getTrackById = async (req, res) => {
     }
 };
 
-//query for delete tracks by id
-
+//? DELETE TRACK
 export const deleteTrack = async (req, res) => {
     try {
         // Find Track by id
@@ -115,8 +102,7 @@ export const deleteTrack = async (req, res) => {
     }
 };
 
-// query for update tracks by id
-
+//? UPDATE TRACK
 export const updateTrack = async (req, res) => {
     try {
 
@@ -137,7 +123,7 @@ export const updateTrack = async (req, res) => {
             album: req.body.album,
             duration: req.body.duration,
             track_id: "",
-            //TODO fix the upload and delete
+            //TODO---------------------------- fix the upload and delete -----------------------
             cloudinaryId: track.cloudinaryId || result.public_id,
             urlTrack: result.secure_url
         };

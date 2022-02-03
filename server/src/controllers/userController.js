@@ -5,7 +5,7 @@ import cloudinary from "../utils/cloudinary.js";
 export const getUsers = async (req, res) => {
   console.log(process.env);
   try {
-    const users = await User.find()
+    const users = await User.find().populate("uploadedTracks")
 
     res.json(users);
 
