@@ -7,23 +7,21 @@ import {
       updateUser,
 } from "../controllers/userController.js";
 import upload from "../utils/multer.js";
-
+import Auth from '../middlewares/index.js';
 
 export const userRoutes = Router();
 
 // ? GET USERS
-
-userRoutes.get("/", getUsers);
+userRoutes.get("/",  Auth.decodeToken, getUsers);
 
 // ? CREATE USER
-
-userRoutes.post("/", upload.single("profile"), createUser);
+userRoutes.post("/",  Auth.decodeToken, upload.single("profile"), createUser);
 
 //? GET USER BY ID
-userRoutes.get("/:userId", getUserById);
+userRoutes.get("/:userId",  Auth.decodeToken, getUserById);
 
 // //? UPDATE USER BY ID
-userRoutes.put("/:userId", upload.single("profile"), updateUser);
+userRoutes.put("/:userId",  Auth.decodeToken, upload.single("profile"), updateUser);
 
 // //? DELETE USER BY ID
-userRoutes.delete("/:userId", deleteUser);
+userRoutes.delete("/:userId",  Auth.decodeToken, deleteUser);

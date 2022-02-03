@@ -3,7 +3,6 @@ import User from "../models/User.js";
 import cloudinary from "../utils/cloudinary.js";
 
 export const getUsers = async (req, res) => {
-  console.log(process.env);
   try {
     const users = await User.find().populate("uploadedTracks")
 
@@ -44,7 +43,6 @@ export const createUser = async (req, res) => {
 };
 
 export const getUserById = async (req, res) => {
-  // console.log(req.params.userId)
   try {
     const url = req.params.userId;
     const user = await User.findOne({
