@@ -23,7 +23,7 @@ const Login = () => {
         // console.log(loginEmail)
         // console.log(loginPassword)
         try {
-            await logInWithEmailAndPassword(loginEmail, loginPassword)
+            const result = await logInWithEmailAndPassword(loginEmail, loginPassword)
             navigate(`/`)
         } catch (error) {
             // console.log(error.message);
