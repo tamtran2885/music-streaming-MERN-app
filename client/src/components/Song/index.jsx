@@ -22,7 +22,11 @@ const Song = (track) => {
         <button onClick={handleClick}>Play</button>
       </div>
       <div className='song__like'>
-        Like
+        <form>
+          <label>Like/Unlike:
+            <input type="checkbox" name="like" />
+          </label>
+        </form>
       </div>
       <div className='song__info'>
         <p className='song__tittle'>{name}</p>

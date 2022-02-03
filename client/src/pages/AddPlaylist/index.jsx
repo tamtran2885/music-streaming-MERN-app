@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import playlistValidation from "../../utils/validation/playlistValidation"
+import { useNavigate } from "react-router-dom"
+import playlistValidation from "../../utils/validation/playlistValidation";
+
+import axios from "axios";
 
 const AddPlaylist = () => {
+    const navigate = useNavigate()
 
     const [values, setValues] = useState({
         name: "",
-        collaborative: "",
         description: "",
         primaryColor: "",
         cover: "",
@@ -16,17 +19,48 @@ const AddPlaylist = () => {
         rating: ""
     });
 
+    const [checkbox, setCheckbox] = useState(false);
+
     const [errors, setErrors] = useState({});
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors(playlistValidation(values))
+
+        const config = {
+            header: {
+                "Content-Type": "multipart/form-data",
+            },
+        };
+
+        const formData = new FormData();
+        formData.append("name", values.name);
+        formData.append("collaborative", checkbox);
+        formData.append("description", values.description);
+        formData.append("primaryColor", values.primaryColor);
+        formData.append("cover", values.cover);
+        formData.append("thumbnail", values.thumbnail);
+        formData.append("numberSongs", values.numberSongs);
+
+        // console.log(Object.fromEntries(formData.entries()));
+        try {
+            await axios.post("", formData, config)
+            navigate("/")
+        } catch (error) {
+            console.error(error.message);
+        }
     }
 
     const onChange = (name) => (e) => {
         const value = name === "thumbnail" ? e.target.files[0] : e.target.value;
         setValues({ ...values, [name]: value })
     }
+
+    const onChangeCheckbox = () => {
+        setCheckbox(!checkbox)
+    }
+
+    // console.log(checkbox)
 
     return (
         <>
@@ -45,6 +79,7 @@ const AddPlaylist = () => {
                                 onChange={onChange("name")}
                             />
                             {errors.name && <p>{errors.name}</p>}
+                            <label>Collaborative : <input type="checkbox" name="collaborative" onChange={onChangeCheckbox} value={checkbox}/></label>
                             <input
                                 type="text"
                                 className="form__input"
@@ -76,7 +111,7 @@ const AddPlaylist = () => {
                                 className="form__input"
                                 placeholder="Thumbnail"
                                 name="thumbnail"
-                                value={values.thumbnail}
+                                // value={values.thumbnail}
                                 onChange={onChange("thumbnail")}
                             />
                             {errors.thumbnail && <p>{errors.thumbnail}</p>}

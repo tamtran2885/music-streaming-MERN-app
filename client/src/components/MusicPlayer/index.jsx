@@ -22,9 +22,24 @@ const MusicPlayer = () => {
 
   const audio = useRef("audio_tag")
 
+  // Set state of track
+  const handleTrack = () => {
+    dispatch(setPlaying(playing));
+  }
+
+  // Control volume
   const onChangeVoLume = (q) => {
     setStateVolume(q);
     audio.current.volume = q;
+  }
+
+  const handleAudio = () => {
+    audio.current.paused ? audio.current.play() : audio.current.pause();
+  }
+
+  // Calculate duration and progress of track
+  const fmtMSS = (s) => {
+    return (s - (s %= 60)) / 60 + (9 < s ? ':' : ':0') + ~~s
   }
 
   const handleProgress = (e) => {
@@ -33,68 +48,41 @@ const MusicPlayer = () => {
     audio.current.currentTime = compute
   }
 
-  const handleAudio = () => {
-    audio.current.paused ? audio.current.play() : audio.current.pause();
-  }
-
-  const fmtMSS = (s) => {
-    return (s - (s %= 60)) / 60 + (9 < s ? ':' : ':0') + s
-  }
-
+  // Move to previous track
   const getPrevTrack = () => {
-    dispatch(setCurrentTrack(currentTrack-1))
-    // if (currentTrack === 1) {
-    //   dispatch(setCurrentTrack(trackList.trackList.length - 1));
-    // } else {
-    //   dispatch(setCurrentTrack(currentTrack-1))
-    // }
+    if (currentTrack && currentTrack === 1) {
+      dispatch(setCurrentTrack(trackList.data.length));
+    } else {
+      dispatch(setCurrentTrack(currentTrack-1))
+    }
   }
 
-  const handleTrack = () => {
-    dispatch(setPlaying(playing));
-  }
-
+  // Move to next track
   const getNextTrack = () => {
-    dispatch(setCurrentTrack(currentTrack+1))
-    // if (currentTrack === trackList.trackList.length) {
-    //   dispatch(setCurrentTrack(1));
-    // } else {
-    //   dispatch(setCurrentTrack(currentTrack+1))
-    // }
+    if (currentTrack && currentTrack === trackList.data.length) {
+      dispatch(setCurrentTrack(1));
+    } else {
+      dispatch(setCurrentTrack(currentTrack+1))
+    }
   }
 
+  // Get random track
   const getRandomTrack = () => {
-    // console.log('getRandomTrack');
     dispatch(setCurrentTrack(~~(Math.random() * trackList.data.length)))
     dispatch(setRandom(random));
   }
 
+  // Repeat track
   const getRepeatTrack = () => {
-    console.log('getRepeatTrack')
     dispatch(setRepeat(repeat));
+    if (repeat) {
+      dispatch(setCurrentTrack(currentTrack));
+    } else if (currentTrack && currentTrack === trackList.data.length-1) {
+      return;
+    } else {
+      dispatch(setCurrentTrack(currentTrack));
+    }
   }
-  
-
-
-// const setEndTrack = () => {
-//     if (initialState.random) {
-//       return (dispatch) => ({
-//         type: SET_CURRENT_TRACK,
-//         payload: ~~(Math.random() * initialState.songs.length),
-//       });
-//     } else {
-//       if (initialState.repeat) {
-//         setNextTrack();
-//       } else if (
-//         initialState.currentTrack ===
-//         initialState.trackList.length - 1
-//       ) {
-//         return;
-//       } else {
-//         setNextTrack();
-//       }
-//     }
-//   };
 
   return (
     <>
@@ -105,8 +93,8 @@ const MusicPlayer = () => {
         <div className='musicplayer__info'>
           <div className='like'>Like</div>
           <div className='musicplayer__info__song'>
-            <p className='tittle'>{trackList && currentTrack && trackList.data[currentTrack].name}</p>
-            <p className='artist'>{trackList && currentTrack && trackList.data[currentTrack].artist}· Genre</p>
+            <p className='tittle'>{trackList && currentTrack && trackList.data[currentTrack-1].name}</p>
+            <p className='artist'>{trackList && currentTrack && trackList.data[currentTrack-1].artist}· Genre</p>
           </div>
           <div className='musicplayer__options'>Options</div>
         </div>
@@ -117,7 +105,7 @@ const MusicPlayer = () => {
             ref={audio}
             type="audio/mpeg"
             preload="true"
-            src={trackList && currentTrack && trackList.data[currentTrack].url}
+            src={trackList && currentTrack && trackList.data[currentTrack-1].url}
           />
           <div>
             <label>Volume: </label>
@@ -134,8 +122,7 @@ const MusicPlayer = () => {
               value={duration ? (currentTime * 100) / duration : 0}
               type="range"
             />
-            <span>{fmtMSS(currentTime)}</span>/
-            <span>{fmtMSS(duration)}</span>
+            <span>{fmtMSS(currentTime)}/{fmtMSS(duration)}</span>
           </div>
           <button onClick={getRepeatTrack}>Repeat</button>
           <button onClick={getPrevTrack}>Previous</button>
@@ -144,7 +131,7 @@ const MusicPlayer = () => {
             handleAudio()
           }}>Play/Pause</button>
           <button onClick={getNextTrack}>Next</button>
-          <button>Forward</button>
+          {/* <button>Forward</button> */}
           <button onClick={getRandomTrack}>Aleatory</button>
         </div>
         <div className='musicplayer__foward'></div>

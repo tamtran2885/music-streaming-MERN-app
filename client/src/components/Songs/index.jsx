@@ -12,10 +12,6 @@ const Songs = ({tracks}) => {
     dispatch(getTracks());
   }, [dispatch])
 
-  // const tracksInfo = tracks.data.sort(function(a, b) {
-  //   return a.rating - b.rating
-  // });
-
   const tracksInfo = tracks.data
 
   return (

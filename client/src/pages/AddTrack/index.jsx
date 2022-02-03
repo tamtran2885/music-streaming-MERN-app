@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"
 import trackValidation from "../../utils/validation/trackValidation"
 import genreOptions from "./genreOptions";
-// import albumOptions from "./albumOptions";
+
+import axios from "axios";
 
 const AddTrack = () => {
+    const navigate = useNavigate()
 
     const [values, setValues] = useState({
         name: "",
@@ -22,6 +25,27 @@ const AddTrack = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors(trackValidation(values))
+
+        const config = {
+            header: {
+                "Content-Type": "multipart/form-data",
+            },
+        };
+
+        const formData = new FormData();
+        formData.append("name", values.name);
+        formData.append("rating", values.rating);
+        formData.append("url", values.url);
+        formData.append("thumbnail", values.thumbnail);
+        formData.append("duration", values.duration);
+        formData.append("genre", values.genre);
+
+        try {
+            await axios.post("", formData, config)
+            navigate("/")
+        } catch (e) {
+            console.log(e.message);
+        }
     }
 
     const onChange = (name) => (e) => {
