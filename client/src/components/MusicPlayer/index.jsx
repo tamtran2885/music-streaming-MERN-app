@@ -89,8 +89,8 @@ const MusicPlayer = () => {
         <div className='musicplayer__info'>
           <div className='like'>Like</div>
           <div className='musicplayer__info__song'>
-            <p className='tittle'>{currentTrack && currentTrack.track.name}</p>
-            <p className='artist'>{currentTrack && currentTrack.track.artist}· Genre</p>
+            <p className='tittle'>{currentTrack && currentTrack.track.title}</p>
+            <p className='artist'>{currentTrack && currentTrack.track.album}· Genre</p>
           </div>
           <div className='musicplayer__options'>Options</div>
         </div>
@@ -101,7 +101,7 @@ const MusicPlayer = () => {
             ref={audio}
             type="audio/mpeg"
             preload="true"
-            src={currentTrack && currentTrack.track.url}
+            src={currentTrack && currentTrack.track.urlTrack}
           />
           <div>
             <label>Volume: </label>

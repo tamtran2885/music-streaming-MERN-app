@@ -6,7 +6,7 @@ import star from '../../assets/images/star.svg'
 const Song = (track) => {
   const dispatch = useDispatch();
 
-  const { title, album, duration, user, genre, thumbnail, id } = track.track
+  const { title, album, duration, user, genre, id } = track.track
 
   const handleClick = () => {
     // console.log("handleClick");
