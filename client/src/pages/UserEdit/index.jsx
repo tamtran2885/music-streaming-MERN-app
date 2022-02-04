@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from "react-router-dom"
 import axios from "axios"
 
+// import th token
+import { useAuth } from "../../context/authContext";
+
 import withLayout from "../../hoc/withLayout";
 
 
@@ -14,6 +17,12 @@ const UserEdit = () => {
     profilePicture: "",
     email: ""
   });
+
+    // take a token
+    const { user } = useAuth();
+    console.log(user)
+    const token = user.accessToken;
+    console.log(token)
 
   const navigate = useNavigate()
 
@@ -40,7 +49,11 @@ const UserEdit = () => {
 
   // axios get
   const APIcall = async () => {
-    const userReq = await axios.get(`/api/user/${getIdFromURL()}`);
+    const userReq = await axios.get(`/api/user/${getIdFromURL()}`, {
+      headers: {
+          Authorization: 'Bearer ' + token,
+      },
+  });
     setEditUser(userReq.data);
   };
 
@@ -49,8 +62,9 @@ const UserEdit = () => {
     e.preventDefault();
 
     const config = {
-      header: {
-        "Content-Type": "multipart/form-data"
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: 'Bearer ' + token,
       },
     };
 
