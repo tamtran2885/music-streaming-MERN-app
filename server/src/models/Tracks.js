@@ -16,6 +16,10 @@ const TracksSchema = new Schema({
         type: String,
         trim: true,
     },
+    genre: {
+        type: String,
+        trim: true
+    },
     duration: {
         type: Number,
         trim: true,
@@ -23,7 +27,7 @@ const TracksSchema = new Schema({
     photoTrack: {
         type: String,
     },
-    thumbnailId: {
+    thumbId: {
         type: String,
     },
     cloudinaryId: {

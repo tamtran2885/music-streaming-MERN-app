@@ -29,13 +29,6 @@ const Dashboard = () => {
 
 
     // axios get
-    // console.log(user.uid);
-
-    // useEffect(() => {
-    //     if (user.accessToken) {
-    //         APIcall();
-    //     }
-    // }, []);
 
     const APIcall = async () => {
         const userReq = await axios.get(`/api/user/${user.uid}`, {
@@ -52,8 +45,8 @@ const Dashboard = () => {
         <>
             <div className='dashboard__background'>
                 <Navbar />
-                <h1>Hola {mongoUser.firstName}</h1>
-                <h1>{user.uid}</h1>
+                <h1>Welcome {mongoUser.firstName}!</h1>
+                {/* <h1>{user.uid}</h1> */}
                 <div className='dashboard__absolute'>
                     <div className='dashboard__display'>
                         <Playlists />
