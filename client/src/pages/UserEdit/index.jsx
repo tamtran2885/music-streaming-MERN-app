@@ -20,7 +20,7 @@ const UserEdit = () => {
   useEffect(() => {
     APIcall();
     console.log(editUser)
-  }, []);
+  });
 
   const onChange = (e) => {
     console.log(e.target.value)

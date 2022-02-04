@@ -9,6 +9,10 @@ export default function userValidation(values) {
     errors.lastName = "Please enter your last name";
   }
 
+  if (!values.profile) {
+    errors.profile = "Please enter your photo";
+  }
+
   if (!values.email) {
     errors.email = "Please enter your email";
   } else if (!/\S+@\S+\.\S+/.test(values.email)) {

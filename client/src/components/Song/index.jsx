@@ -1,21 +1,30 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
-import { setCurrentTrack } from "../../redux/audioPlay/actions";
+import { setTracks, setCurrentTrack, getSingleTrack } from "../../redux/audioPlay/actions";
 
 const Song = (track) => {
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
-  const { name, thumbnail, duration, id} = track.track
+  const { name, thumbnail, id} = track.track
 
   const handleClick = () => {
     // console.log("handleClick");
-    dispatch(setCurrentTrack(id))
+    dispatch(setCurrentTrack(track))
+    dispatch(getSingleTrack(id))
+    dispatch(setTracks(track))
   }
+
+  const toggleFavAction = () => {
+    console.log("toggleFavAction")
+    // dispatch to add Fav
+    // dispatch(setFavoriteTrack(track))
+  }
+
   return (
     <>
     <div className='song__absolute'>
       <div className='song__number'>
-        1
+        *
       </div>
       <div className='song__image'>
         <img src={thumbnail} alt="song" style={{ width: '50px', height: '50px'}}/>
@@ -24,15 +33,15 @@ const Song = (track) => {
       <div className='song__like'>
         <form>
           <label>Like/Unlike:
-            <input type="checkbox" name="like" />
+            <input type="button" name="like" onClick={() => toggleFavAction(track)}/>
           </label>
         </form>
       </div>
       <div className='song__info'>
         <p className='song__tittle'>{name}</p>
-        <p className='song__artist'>Artist · Genre</p>
+        {/* <p className='song__artist'>Artist · Genre</p> */}
       </div>
-      <div className='song__duration'>{duration}</div>
+      {/* <div className='song__duration'>{duration}</div> */}
     </div>
     </>
   )

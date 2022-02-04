@@ -40,9 +40,16 @@ export function AuthProvider({ children }) {
   const resetPassword = async (email) => sendPasswordResetEmail(auth, email);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+        setLoading(false);
+        // store the user on local storage
+        localStorage.setItem("user", true);
+      } else {
+        localStorage.removeItem("user");
+        setUser(null);
+      }
     });
     return () => unsubscribe();
   }, []);

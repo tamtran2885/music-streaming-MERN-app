@@ -7,14 +7,14 @@ import SearchBar from "../SearchBar";
 const Navbar = () => {
   const { user, logout } = useAuth()
 
-  // const handleLogout = async () => {
-  //   try {
-  //     await logout();
-  //     // navigate("/login")
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
+  const handleLogout = async () => {
+    try {
+      await logout();
+      // navigate("/login")
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <nav>
@@ -51,6 +51,7 @@ const Navbar = () => {
         <div className='hr'>
           <hr />
         </div>
+        <button onClick={handleLogout} className='button__primary'>Log Out</button>
       </div>
     </nav>
   )

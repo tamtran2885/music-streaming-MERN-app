@@ -1,3 +1,19 @@
+// import * as yup from "yup";
+
+// export const albumSchema = yup.object().shape({
+//   title: yup.string().required("A title is required"),
+//   year: yup.number().required("A year is required"),
+//   thumbnail: yup.mixed().required("File is required"),
+//   totalTracks: yup.number().required("The number of tracks is required"),
+// });
+
+// title: "",
+//   year: "",
+//   thumbnail: "",
+//   totalTracks: "",
+//   userId: "",
+//   likedBy: "",
+
 export default function albumValidation(values) {
   let errors = {};
 

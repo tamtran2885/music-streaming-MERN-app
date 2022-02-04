@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import albumValidation from "../../utils/validation/albumValidation"
+// import albumValidation from "../../utils/validation/albumValidation";
+
 
 const AddAlbum = () => {
 
@@ -12,11 +13,29 @@ const AddAlbum = () => {
         likedBy: "",
     });
 
-    const [errors, setErrors] = useState({});
+    // const [errors, setErrors] = useState({});
+    const [error, setError] = useState("");
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        setErrors(albumValidation(values))
+        // setErrors(albumValidation(values))
+
+        const isValid = () => {
+            if (!values.thumbnail) {
+                setError("Please choose a photo")
+                return false
+            }
+            return true
+        }
+
+        if (isValid) {
+            const formData = new FormData();
+            formData.append("title", values.title);
+            formData.append("year", values.year);
+            formData.append("thumbnail", values.thumbnail);
+            formData.append("totalTracks", values.totalTracks);
+            console.log(formData);
+        }
     }
 
     const onChange = (name) => (e) => {
@@ -37,38 +56,37 @@ const AddAlbum = () => {
                                 className="form__input"
                                 placeholder="Title"
                                 name="title"
-                                value={values.name}
                                 onChange={onChange("title")}
                             />
-                            {errors.title && <p>{errors.title}</p>}
+                            {/* <p> {errors.title && <p>{errors.title?.message}</p>}</p> */}
                             <input
                                 type="number"
                                 className="form__input"
                                 placeholder="Year"
                                 name="year"
-                                value={values.year}
                                 onChange={onChange("year")}
+                                
                             />
-                            {errors.year && <p>{errors.year}</p>}
+                            {/* <p> {errors && errors.year?.message} </p> */}
                             <label htmlFor="thumbnail">Thumbnail: </label>
                             <input
                                 type="file"
                                 className="form__input"
                                 placeholder="Thumbnail"
                                 name="thumbnail"
-                                value={values.thumbnail}
+                                id="thumbnail"
                                 onChange={onChange("thumbnail")}
                             />
-                            {errors.thumbnail && <p>{errors.thumbnail}</p>}
+                            {error && <p>{error}</p>}
                             <input
                                 type="number"
                                 className="form__input"
                                 placeholder="duration"
                                 name="totalTracks"
-                                value={values.totalTracks}
                                 onChange={onChange("totalTracks")}
+                                
                             />
-                            {errors.totalTracks && <p>{errors.totalTracks}</p>}
+                            {/* <p> {errors && errors.totalTracks?.message} </p> */}
                             <button type="submit">Submit</button>
                         </form>
                     </div>

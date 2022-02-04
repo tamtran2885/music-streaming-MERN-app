@@ -23,3 +23,12 @@ export const fetchAlbums = () =>
       resolve(tracks);
     }, 1000);
   });
+
+export const fetchSingleTrack = (id) => {
+  new Promise((resolve) => {
+    const track = axios.get(`http://localhost:3004/tracks/${id}`);
+    setTimeout(() => {
+      resolve(track);
+    }, 1000);
+  });
+};

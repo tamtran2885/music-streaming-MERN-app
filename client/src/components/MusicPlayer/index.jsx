@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { useDispatch, useSelector } from "react-redux";
-import { getTracks, setCurrentTrack, setPlaying, setRepeat, setRandom } from "../../redux/audioPlay/actions";
+import { setCurrentTrack, setPlaying, setRepeat, setRandom } from "../../redux/audioPlay/actions";
 
 const MusicPlayer = () => {
   const dispatch = useDispatch();
@@ -10,10 +10,6 @@ const MusicPlayer = () => {
   const playing = useSelector((state) => state.audioPlayer.playing);
   const repeat = useSelector((state) => state.audioPlayer.repeat);
   const random = useSelector((state) => state.audioPlayer.random);
-
-  useEffect(() => {
-    dispatch(getTracks());
-  }, [dispatch])
 
   // self State
   const [stateVolume, setStateVolume] = useState(0.3);
@@ -50,25 +46,25 @@ const MusicPlayer = () => {
 
   // Move to previous track
   const getPrevTrack = () => {
-    if (currentTrack && currentTrack === 1) {
-      dispatch(setCurrentTrack(trackList.data.length));
+    if (currentTrack && trackList && trackList.indexOf(currentTrack) === 1) {
+      dispatch(setCurrentTrack(trackList[trackList.length-1]));
     } else {
-      dispatch(setCurrentTrack(currentTrack-1))
+      dispatch(setCurrentTrack(trackList[trackList.indexOf(currentTrack)-1]))
     }
   }
 
   // Move to next track
   const getNextTrack = () => {
-    if (currentTrack && currentTrack === trackList.data.length) {
-      dispatch(setCurrentTrack(1));
+    if (currentTrack && trackList && trackList.indexOf(currentTrack) === trackList.length-1) {
+      dispatch(setCurrentTrack(trackList[0]));
     } else {
-      dispatch(setCurrentTrack(currentTrack+1))
+      dispatch(setCurrentTrack(trackList[trackList.indexOf(currentTrack)+1]))
     }
   }
 
   // Get random track
   const getRandomTrack = () => {
-    dispatch(setCurrentTrack(~~(Math.random() * trackList.data.length)))
+    dispatch(setCurrentTrack(trackList[~~(Math.random() * trackList.length)]))
     dispatch(setRandom(random));
   }
 
@@ -93,8 +89,8 @@ const MusicPlayer = () => {
         <div className='musicplayer__info'>
           <div className='like'>Like</div>
           <div className='musicplayer__info__song'>
-            <p className='tittle'>{trackList && currentTrack && trackList.data[currentTrack-1].name}</p>
-            <p className='artist'>{trackList && currentTrack && trackList.data[currentTrack-1].artist}· Genre</p>
+            <p className='tittle'>{currentTrack && currentTrack.track.name}</p>
+            <p className='artist'>{currentTrack && currentTrack.track.artist}· Genre</p>
           </div>
           <div className='musicplayer__options'>Options</div>
         </div>
@@ -105,7 +101,7 @@ const MusicPlayer = () => {
             ref={audio}
             type="audio/mpeg"
             preload="true"
-            src={trackList && currentTrack && trackList.data[currentTrack-1].url}
+            src={currentTrack && currentTrack.track.url}
           />
           <div>
             <label>Volume: </label>

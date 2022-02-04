@@ -1,4 +1,4 @@
-import { fetchTracks } from "../../services/fetchData.js";
+import { fetchTracks, fetchSingleTrack } from "../../services/fetchData.js";
 import {
   SET_TRACKS_ARRAY,
   SET_CURRENT_TRACK,
@@ -18,14 +18,25 @@ export const getTracks = () => {
   };
 };
 
-export const setTracks = (response) => ({
+export const getSingleTrack = () => {
+  return async (dispatch) => {
+    try {
+      const response = await fetchSingleTrack();
+      dispatch(setTracks(response));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const setTracks = (track) => ({
   type: SET_TRACKS_ARRAY,
-  payload: response,
+  payload: track,
 });
 
-export const setCurrentTrack = (id) => ({
+export const setCurrentTrack = (track) => ({
   type: SET_CURRENT_TRACK,
-  payload: id,
+  payload: track,
 });
 
 export const setPlaying = (playing) => ({

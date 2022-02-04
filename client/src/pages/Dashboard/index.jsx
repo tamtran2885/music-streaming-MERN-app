@@ -19,7 +19,9 @@ const Dashboard = () => {
     // console.log(user.uid);
 
     useEffect(() => {
+      if (user.accessToken) {
         APIcall();
+      }
     });
 
     const APIcall = async () => {
