@@ -20,12 +20,12 @@ const TracksSchema = new Schema({
         type: Number,
         trim: true,
     },
-    thumbnail: {
-		type: String,
-	},
+    photoTrack: {
+        type: String,
+    },
     thumbnailId: {
-		type: String,
-	},
+        type: String,
+    },
     cloudinaryId: {
         type: String,
     },

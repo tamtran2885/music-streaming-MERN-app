@@ -6,11 +6,14 @@ import Auth from '../middlewares/index.js';
 
 export const tracksRoutes = Router();
 
-// ? GET USERS
+// ? GET TRACKS
 tracksRoutes.get("/", Auth.decodeToken, getTracks);
 
 // ? CREATE tracks
-tracksRoutes.post("/", uploadTrack.single("fileTrack"), upload.single("filePhoto"),  createTrack);
+tracksRoutes.post("/",
+      Auth.decodeToken,
+      uploadTrack.single("fileTrack"),
+      createTrack);
 
 // ? GET tracks BY ID
 tracksRoutes.get("/:trackId", Auth.decodeToken, getTrackById);

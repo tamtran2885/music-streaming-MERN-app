@@ -41,10 +41,10 @@ export const createTrack = async (req, res) => {
             resource_type: "auto"
         });
 
-        //? UPLOAD PHOTO
-        const photo = await cloudinary.v2.uploader.upload(req.file.path, {
-            resource_type: "image"
-        });
+        // const photo = await cloudinary.v2.uploader.upload(req.file.path, { resource_type: "image" })
+
+        // result ? photo : null
+
 
         const track = new Tracks({
             //? PASSING DATA TO NEW TRACK
