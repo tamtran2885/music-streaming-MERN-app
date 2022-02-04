@@ -27,7 +27,7 @@ const UserEdit = () => {
 
   useEffect(() => {
     APIcall();
-  });
+  }, []);
 
   const onChange = (e) => {
     setEditUser({

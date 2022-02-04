@@ -35,7 +35,7 @@ const Dashboard = () => {
         if (user.accessToken) {
             APIcall();
         }
-    });
+    }, []);
 
     const APIcall = async () => {
         const userReq = await axios.get(`/api/user/${user.uid}`, {
