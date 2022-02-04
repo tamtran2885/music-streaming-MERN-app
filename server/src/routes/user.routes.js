@@ -25,3 +25,7 @@ userRoutes.put("/:userId",  Auth.decodeToken, upload.single("profile"), updateUs
 
 // //? DELETE USER BY ID
 userRoutes.delete("/:userId",  Auth.decodeToken, deleteUser);
+
+
+
+
