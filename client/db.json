@@ -77,19 +77,6 @@
       "creation_date": "2021-12-01 23:59:59",
       "listen": "400",
       "rating": "8.5"
-    },
-    {
-      "id": 7,
-      "name": "Alice Spring 7",
-      "artist": "Alice 7",
-      "url": "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/MusOpen/Skidmore_College_Orchestra/Mussorgskys_Pictures_at_an_Exhibition/Skidmore_College_Orchestra_-_10_-_VI_Samuel_Goldenberg_and_Schmuyle_Andante.mp3",
-      "popularity": "",
-      "thumbnail": "https://images.pexels.com/photos/5827880/pexels-photo-5827880.jpeg",
-      "duration": 3,
-      "color": "",
-      "creation_date": "2021-12-01 23:59:59",
-      "listen": "140",
-      "rating": "4.5"
     }
   ],
   "playlists": [
