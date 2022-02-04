@@ -22,9 +22,9 @@ const Dashboard = () => {
 
     useEffect(() => {
         if (token) {
-            APIcall(token);
+            APIcall();
         }
-    }, [token]);
+    }, []);
 
 
 
@@ -49,10 +49,7 @@ const Dashboard = () => {
     // return (
     //     <>
 
-    //         <div>
-    //             <h1>Hola {mongoUser.firstName}</h1>
-    //             <h1>{user.uid}</h1>
-    //         </div>
+    //    
     //     </>
     // )
 
@@ -61,6 +58,8 @@ const Dashboard = () => {
         <>
             <div className='dashboard__background'>
                 <Navbar />
+                <h1>Hola {mongoUser.firstName}</h1>
+                <h1>{user.uid}</h1>
                 <div className='dashboard__absolute'>
                     <div className='dashboard__display'>
                         <Playlists />

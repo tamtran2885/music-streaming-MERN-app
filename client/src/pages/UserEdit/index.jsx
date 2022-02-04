@@ -18,21 +18,18 @@ const UserEdit = () => {
     email: ""
   });
 
-    // take a token
-    const { user } = useAuth();
-    console.log(user)
-    const token = user.accessToken;
-    console.log(token)
+  // take a token
+  const { user } = useAuth();
+  const token = user.accessToken;
+
 
   const navigate = useNavigate()
 
   useEffect(() => {
     APIcall();
-    console.log(editUser)
   });
 
   const onChange = (e) => {
-    console.log(e.target.value)
     setEditUser({
       ...editUser,
       [e.target.name]: e.target.value
@@ -51,9 +48,9 @@ const UserEdit = () => {
   const APIcall = async () => {
     const userReq = await axios.get(`/api/user/${getIdFromURL()}`, {
       headers: {
-          Authorization: 'Bearer ' + token,
+        Authorization: 'Bearer ' + token,
       },
-  });
+    });
     setEditUser(userReq.data);
   };
 

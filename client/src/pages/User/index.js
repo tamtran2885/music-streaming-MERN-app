@@ -11,7 +11,7 @@ import { onAuthStateChanged } from "firebase/auth";
 
 const User = () => {
   const { user, logout } = useAuth()
-  console.log(user.accessToken)
+  // console.log(user.accessToken)
 
   const [userProfile, setUserProfile] = useState({
     firstName: "",
@@ -23,16 +23,16 @@ const User = () => {
   });
 
   // take a token
-  console.log(user)
+  // console.log(user)
   const token = user.accessToken;
-  console.log(token)
+  // console.log(token)
 
   useEffect(() => {
     if (token) {
 
       APIcall();
     }
-  }, [token]);
+  }, []);
 
   const { pathname } = useLocation();
 
@@ -50,7 +50,6 @@ const User = () => {
       },
     });
     setUserProfile(userReq.data);
-    console.log(userProfile);
   };
 
   return (

@@ -6,7 +6,7 @@ import SearchBar from "../SearchBar";
 
 const Navbar = () => {
     const { user, logout } = useAuth()
-    console.log(user.accessToken)
+    // console.log(user.accessToken)
 
     const navigate = useNavigate()
 
