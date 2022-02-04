@@ -37,8 +37,8 @@ const Dashboard = () => {
         <>
             <div className='dashboard__background'>
                 <Navbar />
-                <h1>Hola {mongoUser.firstName}</h1>
-                <h1>{user.uid}</h1>
+                <h1>Welcome {mongoUser.firstName}!</h1>
+                {/* <h1>{user.uid}</h1> */}
                 <div className='dashboard__absolute'>
                     <div className='dashboard__display'>
                         <Playlists />

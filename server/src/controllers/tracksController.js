@@ -13,8 +13,6 @@ export const getTracks = async (req, res) => {
     }
 };
 
-
-
 //? ADDING NEW TRACK IN USERS COLLECTION
 export const addTracksToUser = async (req, res, track) => {
     try {
@@ -27,12 +25,18 @@ export const addTracksToUser = async (req, res, track) => {
             data,
             { new: true }
         );
-        res.status(200).json({ data: "Added track to user!", newTrack })
+        // res.status(200).json({ data: "Added track to user!", newTrack })
     } catch (error) {
         console.log(error);
     }
 
 };
+
+// export const addPhotoToTrack = (req,res) => {
+//     const thumbnail = await cloudinary.v2.uploader.upload(req.file.path, {
+//         resource_type: "auto"
+//     });
+// }
 
 //? CREATE A NEW TRACK
 export const createTrack = async (req, res) => {
@@ -43,12 +47,20 @@ export const createTrack = async (req, res) => {
             resource_type: "auto"
         });
 
+        // addPhotoToTrack(req,res)
+
+
         const track = new Tracks({
             //? PASSING DATA TO NEW TRACK
             ...req.body,
+
             //? PASSING AUDIO FILE TO NEW TRACK
             cloudinaryId: result.public_id,
             urlTrack: result.secure_url,
+
+            //? PASSING PHOTO FILE TO NEW TRACK
+            // thumbnail: photo.secure_url,
+            // thumbnailId: photo.public_id
 
         });
         //? SAVING NEW TRACK IN TRACKS COLLECTION

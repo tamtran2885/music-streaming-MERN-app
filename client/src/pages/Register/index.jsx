@@ -64,12 +64,13 @@ const Register = () => {
             formData.append("firebaseUser", firebaseUser.user.uid)
 
             firebaseUser ? await axios.post("http://localhost:4000/api/user", formData, config) : console.log("ho");
+
             navigate("/login")
         } catch (error) {
             console.log(error.message);
         }
     }
-    
+
     const onChange = (name) => (e) => {
         const value = name === "profile" && e.target.files ? e.target.files[0] : e.target.value;
         setValues({ ...values, [name]: value })
@@ -96,7 +97,7 @@ const Register = () => {
                             <RegisterInput className="form__input" name="country" type="text" placeholder="Country" onChange={onChange("country")} />
                             <RegisterInput accept="image/*" className="form__input" name="profile" type="file" placeholder="Upload Image" onChange={onChange("profile")}/>
 
-                            <RegisterInput value={values.email} className="form__input" name="email" type="email" placeholder="Email" onChange={onChange("email")}  />
+                            <RegisterInput value={values.email} className="form__input" name="email" type="email" placeholder="Email" onChange={onChange("email")} />
                             {errors.email && <p>{errors.email}</p>}
                             <RegisterInput value={values.password} className="form__input" name="password" type="password" placeholder="Password" onChange={onChange("password")} />
                             {errors.password && <p>{errors.password}</p>}

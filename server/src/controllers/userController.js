@@ -12,12 +12,27 @@ export const getUsers = async (req, res) => {
   }
 };
 
+import * as bcrypt from "bcrypt";
+const saltRounds = 12;
+
+// (async () => {
+//   // Technique 1 (generate a salt and hash on separate function calls):
+//   const salt = await bcrypt.genSalt(saltRounds);
+//   const hash = await bcrypt.hash(myPlaintextPassword, salt);
+//   // Store hash in your password DB.
+
+//   // Technique 2 (auto-gen a salt and hash):
+//   const hash2 = await bcrypt.hash(myPlaintextPassword, saltRounds);
+//   // Store hash in your password DB.
+// })();
+
 export const createUser = async (req, res) => {
   console.log(req.body);
+  const hash = await bcrypt.hash(req.body.password, saltRounds);
+
   try {
     // Upload image to cloudinary
-    const result = await cloudinary.uploader.upload(req.file.path);
-
+    const result = await cloudinary.v2.uploader.upload(req.file.path);
     // Create instance of User
     const user = new User({
       firstName: req.body.firstName,
@@ -26,7 +41,7 @@ export const createUser = async (req, res) => {
       country: req.body.country,
       profile: result.secure_url,
       email: req.body.email,
-      password: req.body.password,
+      password: hash,
       cloudinaryId: result.public_id,
       firebaseUser: req.body.firebaseUser,
       // uploadedTracks: [],

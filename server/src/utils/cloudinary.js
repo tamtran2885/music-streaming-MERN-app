@@ -10,4 +10,5 @@ cloudinary.v2.config({
 });
 
 
+
 export default cloudinary;

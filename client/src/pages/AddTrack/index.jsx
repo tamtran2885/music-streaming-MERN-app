@@ -41,7 +41,7 @@ const AddTrack = () => {
         formData.append("genre", values.genre);
 
         try {
-            await axios.post("", formData, config)
+            await axios.post("/tracks", formData, config)
             navigate("/")
         } catch (e) {
             console.log(e.message);
