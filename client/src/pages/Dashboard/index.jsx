@@ -31,11 +31,11 @@ const Dashboard = () => {
     // axios get
     // console.log(user.uid);
 
-    useEffect(() => {
-        if (user.accessToken) {
-            APIcall();
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (user.accessToken) {
+    //         APIcall();
+    //     }
+    // }, []);
 
     const APIcall = async () => {
         const userReq = await axios.get(`/api/user/${user.uid}`, {
@@ -46,12 +46,6 @@ const Dashboard = () => {
         setMongoUser(userReq.data);
     };
 
-    // return (
-    //     <>
-
-    //    
-    //     </>
-    // )
 
 
     return (
