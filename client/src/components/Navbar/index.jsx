@@ -5,10 +5,10 @@ import logo from "../../assets/images/logo.svg";
 import SearchBar from "../SearchBar";
 
 const Navbar = () => {
+    const navigate = useNavigate();
     const { user, logout } = useAuth()
-    // console.log(user.accessToken)
 
-    const navigate = useNavigate()
+    // console.log(JSON.stringify(user));
 
     const handleLogout = async () => {
         try {

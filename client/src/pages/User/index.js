@@ -2,15 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 
-// import th token
 import { useAuth } from "../../context/authContext";
 
 import withLayout from "../../hoc/withLayout";
-import { onAuthStateChanged } from "firebase/auth";
-
 
 const User = () => {
-  const { user, logout } = useAuth()
+  const { user, logout } = useAuth();
   // console.log(user.accessToken)
 
   const [userProfile, setUserProfile] = useState({
@@ -22,14 +19,10 @@ const User = () => {
     email: "",
   });
 
-  // take a token
-  // console.log(user)
   const token = user.accessToken;
-  // console.log(token)
 
   useEffect(() => {
     if (token) {
-
       APIcall();
     }
   }, []);
@@ -46,7 +39,7 @@ const User = () => {
   const APIcall = async () => {
     const userReq = await axios.get(`/api/user/${getIdFromURL()}`, {
       headers: {
-        Authorization: 'Bearer ' + token,
+        Authorization: "Bearer " + token,
       },
     });
     setUserProfile(userReq.data);

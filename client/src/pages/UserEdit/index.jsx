@@ -7,7 +7,6 @@ import { useAuth } from "../../context/authContext";
 
 import withLayout from "../../hoc/withLayout";
 
-
 const UserEdit = () => {
   const [editUser, setEditUser] = useState({
     firstName: "",
@@ -77,7 +76,7 @@ const UserEdit = () => {
 
     try {
       await axios.put(`/api/user/${getIdFromURL()}`, formData, config);
-      console.log(formData)
+      // console.log(formData)
 
     } catch (e) {
       console.log(e)

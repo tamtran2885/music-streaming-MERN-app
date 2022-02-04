@@ -15,24 +15,11 @@ import axios from 'axios';
 const Dashboard = () => {
     const { user } = useAuth();
     const [mongoUser, setMongoUser] = useState({});
-
-
-    // const navigate = useNavigate()
     const token = user.accessToken;
+    // console.log(JSON.stringify(user));
 
     useEffect(() => {
         if (token) {
-            APIcall();
-        }
-    }, []);
-
-
-
-    // axios get
-    // console.log(user.uid);
-
-    useEffect(() => {
-        if (user.accessToken) {
             APIcall();
         }
     }, []);
@@ -45,14 +32,6 @@ const Dashboard = () => {
         });
         setMongoUser(userReq.data);
     };
-
-    // return (
-    //     <>
-
-    //    
-    //     </>
-    // )
-
 
     return (
         <>

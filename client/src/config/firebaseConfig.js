@@ -1,6 +1,5 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-// import "dotenv/config";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -10,10 +9,7 @@ const firebaseConfig = {
   storageBucket: process.env.REACT_APP_FB_STORAGEBUCKET,
   messagingSenderId: process.env.REACT_APP_FB_MESSAGINGSENDERID,
   appId: process.env.REACT_APP_FB_APPID,
-
-
 };
-
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);

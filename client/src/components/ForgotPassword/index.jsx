@@ -1,22 +1,25 @@
-import React from 'react';
-import { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from 'react-router-dom';
 import { useAuth } from "../../context/authContext";
 import logo from "../../assets/images/logo.svg";
 
 const ForgotPassword = () => {
-
-      const { user, resetPassword } = useAuth();
-      const [forgot, setForgot] = useState();
+      const emailRef = useRef()
+      const { resetPassword } = useAuth();
       const [error, setError] = useState();
+      const [message, setMessage] = useState();
+      const [loading, setLoading] = useState(false)
 
       const handleResetPassword = async (e) => {
         e.preventDefault();
         try {
-            await resetPassword(user.email);
-            setError('We sent you an email. Check your inbox')
+            setError("");
+            setMessage("");
+            setLoading(true)
+            await resetPassword(emailRef.current.value);
+            setMessage("Please check your email to reset your new password")
         } catch (err) {
-            console.log(err.message);
+            setError("Failed to reset password")
         }
       }
 
@@ -27,18 +30,19 @@ const ForgotPassword = () => {
                 <img src={logo} alt="TamTamGo Logo" />
             </div>
             <div className="login__container">
-          <form className="form" handleSubmit={handleResetPassword}>
+          <form className="form" onSubmit={handleResetPassword}>
             {error && <p>{error}</p>}
+            {message && <p>{message}</p>}
             <h3>Forgot Password</h3>
             <input
               type="text"
               className="form__input"
               placeholder="Email address..."
-              onChange={(e) => setForgot(e.target.value)}
+              ref={emailRef}
             />
             <div className="form__questions">
               <div className="form__buttons">
-            <button type="submit" className="button">Submit</button>
+            <button disabled={loading} type="submit" className="button">Submit</button>
             </div>
             </div>
             <div className='form__options'>

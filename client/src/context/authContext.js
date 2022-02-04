@@ -26,7 +26,7 @@ export function AuthProvider({ children }) {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const logInWithEmailAndPassword = (email, password) => {
+  const logInWithEmailAndPassword = async (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
@@ -37,12 +37,14 @@ export function AuthProvider({ children }) {
 
   const logout = () => signOut(auth);
 
-  const resetPassword = async (email) => sendPasswordResetEmail(auth, email);
+  const resetPassword = (email) => sendPasswordResetEmail(auth, email);
+
+  const updatePassword = (password) => updatePassword(auth, password, user);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
         setLoading(false);
         // store the user on local storage
         localStorage.setItem("user", true);
@@ -64,6 +66,7 @@ export function AuthProvider({ children }) {
         loginWithGoogle,
         logout,
         resetPassword,
+        updatePassword,
       }}
     >
       {children}

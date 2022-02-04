@@ -13,33 +13,17 @@ const Login = () => {
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
 
-    const navigate = useNavigate()
-
-    const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     const login = async (e) => {
-        e.preventDefault()
-        // console.log(loginEmail)
-        // console.log(loginPassword)
+        e.preventDefault();
         try {
-            const result = await logInWithEmailAndPassword(loginEmail, loginPassword)
+            await logInWithEmailAndPassword(loginEmail, loginPassword)
             navigate(`/`)
         } catch (error) {
-            // console.log(error.message);
             console.log(error.message);
         }
     }
-
-    // const handleResetPassword = async (e) => {
-    //     e.preventDefault();
-    //     if (!loginEmail) return setError("Write an email to reset password");
-    //     try {
-    //         await resetPassword(loginEmail);
-    //         setError('We sent you an email. Check your inbox')
-    //     } catch (err) {
-    //         console.log(err.message);
-    //     }
-    // }
 
     return (
         <>
@@ -49,8 +33,6 @@ const Login = () => {
                 </div>
                 <div className="login__container">
                     <h1 className="header">Log In</h1>
-                    {error && <p>{error}</p>}
-                    {/* <p>{user?.email || user === undefined + "creado con éxito!"}</p> */}
 
                     <div className="form__container">
                         <form className="form" onClick={login}>

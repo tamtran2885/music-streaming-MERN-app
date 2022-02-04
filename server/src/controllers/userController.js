@@ -4,11 +4,9 @@ import cloudinary from "../utils/cloudinary.js";
 
 export const getUsers = async (req, res) => {
   try {
-    const users = await User.find().populate("uploadedTracks")
+    const users = await User.find().populate("uploadedTracks");
 
     res.json(users);
-
-
   } catch (error) {
     console.log(error);
   }
@@ -19,7 +17,7 @@ export const createUser = async (req, res) => {
   try {
     // Upload image to cloudinary
     const result = await cloudinary.uploader.upload(req.file.path);
-    // res.json(result);
+
     // Create instance of User
     const user = new User({
       firstName: req.body.firstName,
@@ -31,8 +29,8 @@ export const createUser = async (req, res) => {
       password: req.body.password,
       cloudinaryId: result.public_id,
       firebaseUser: req.body.firebaseUser,
-      uploadedTracks: [],
-      playlists: []
+      // uploadedTracks: [],
+      // playlists: []
     });
 
     await user.save();
@@ -81,9 +79,9 @@ export const updateUser = async (req, res) => {
     // Delete image from cloudinary if change image of profile
     // await cloudinary.uploader.destroy(user.cloudinaryId);
 
-    // // Upload image to cloudinary
+    // Upload image to cloudinary
     // const result = await cloudinary.uploader.upload(req.file.path);
-    // // console.log(req.file.path)
+
     const dataUser = {
       firstName: req.body.firstName || user.firstName,
       lastName: req.body.lastName || user.lastName,
@@ -94,7 +92,7 @@ export const updateUser = async (req, res) => {
       cloudinaryId: user.cloudinaryId,
       firebaseUser: req.body.firebaseUser,
     };
-    // // console.log(firebaseUser);
+    // console.log(firebaseUser);
 
     const userToEdit = await User.findOneAndUpdate(
       {
