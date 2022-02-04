@@ -4,10 +4,16 @@ import User from "../models/User.js";
 
 //? GET ALL TRACKS
 export const getTracks = async (req, res) => {
-    console.log(process.env);
     try {
-        const tracks = await Tracks.find().populate("user")
-        res.json(tracks);
+        const url = req.params.userId;
+        const tracks = await Tracks.findOne({
+            firebase: url,
+        }).populate("user")
+        const MyTracks = tracks.user.uploadedTracks
+        console.log(MyTracks)
+
+
+        res.json(MyTracks);
     } catch (error) {
         console.log(error)
     }
@@ -32,11 +38,13 @@ export const addTracksToUser = async (req, res, track) => {
 
 };
 
-// export const addPhotoToTrack = (req,res) => {
-//     const thumbnail = await cloudinary.v2.uploader.upload(req.file.path, {
-//         resource_type: "auto"
-//     });
-// }
+export const addPhotoToTrack = async (req, res) => {
+    const thumbnail = await cloudinary.v2.uploader.upload(req.file.path, {
+        resource_type: "auto"
+    });
+}
+
+
 
 //? CREATE A NEW TRACK
 export const createTrack = async (req, res) => {
@@ -47,7 +55,7 @@ export const createTrack = async (req, res) => {
             resource_type: "auto"
         });
 
-        // addPhotoToTrack(req,res)
+        addPhotoToTrack(req, res)
 
 
         const track = new Tracks({
@@ -128,7 +136,7 @@ export const updateTrack = async (req, res) => {
             album: req.body.album,
             duration: req.body.duration,
             track_id: "",
-            //TODO---------------------------- FIX THE UPLOAD AND DELETE -----------------------
+            //TODO ---------------------------- FIX THE UPLOAD AND DELETE -----------------------
             cloudinaryId: track.cloudinaryId || result.public_id,
             urlTrack: result.secure_url
         };

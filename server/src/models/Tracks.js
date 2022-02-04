@@ -24,16 +24,14 @@ const TracksSchema = new Schema({
         type: Number,
         trim: true,
     },
-    photoTrack: {
-        type: String,
-    },
-    thumbId: {
+
+    thumbnail: {
         type: String,
     },
     cloudinaryId: {
         type: String,
     },
-    urlTrack: {
+    url: {
         type: String,
     },
     user: {
