@@ -10,25 +10,17 @@ const Dashboard = () => {
     const { user } = useAuth();
     const [mongoUser, setMongoUser] = useState({});
 
-    console.log(user);
 
     // const navigate = useNavigate()
     const token = user.accessToken;
-    console.log(token)
 
     useEffect(() => {
-        if(token){
+        if (token) {
             APIcall(token);
         }
     }, [token]);
 
-    // const { pathname } = useLocation();
 
-    // // GET ID FROM URL
-    // const getIdFromURL = () => {
-    //     const pathSplit = pathname.split("/");
-    //     return pathSplit[pathSplit.length - 1];
-    // };
 
     // axios get
     const APIcall = async () => {
@@ -46,9 +38,6 @@ const Dashboard = () => {
             <div>
                 <h1>Hola {mongoUser.firstName}</h1>
                 <h1>{user.uid}</h1>
-                {/* <Link to={`/user/${user.uid}`}>User Profile</Link>
-                <button onClick={handleLogout} className='button__primary'>Log Out</button> */}
-                {/* <audio src="" controls></audio> */}
             </div>
         </>
     )

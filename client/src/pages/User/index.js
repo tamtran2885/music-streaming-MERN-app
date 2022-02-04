@@ -3,9 +3,15 @@ import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 
 import withLayout from "../../hoc/withLayout";
+import { useAuth } from "../../context/authContext";
+import { onAuthStateChanged } from "firebase/auth";
+
 
 const User = () => {
-  const [user, setUser] = useState({
+  const { user, logout } = useAuth()
+  console.log(user.accessToken)
+
+  const [profileUser, setProfileUser] = useState({
     firstName: "",
     lastName: "",
     birthday: "",
@@ -13,10 +19,14 @@ const User = () => {
     profilePicture: "",
     email: "",
   });
+  const token = user.accessToken
 
   useEffect(() => {
-    APIcall();
-  }, []);
+    if (token) {
+
+      APIcall();
+    }
+  }, [token]);
 
   const { pathname } = useLocation();
 
@@ -29,42 +39,42 @@ const User = () => {
   // axios get
   const APIcall = async () => {
     const userReq = await axios.get(`/api/user/${getIdFromURL()}`);
-    setUser(userReq.data);
-    console.log(user);
+    setProfileUser(userReq.data);
+    console.log(profileUser);
   };
 
   return (
     <>
       <h1>Users</h1>
-      <Link to={`/user/edit/${user.firebaseUser}`}>Edit User</Link>
+      <Link to={`/user/edit/${profileUser.firebaseUser}`}>Edit User</Link>
       <Link to={`/`}>Back to Dashboard</Link>
 
       <div className="flex">
         <div>
           <h3>Name</h3>
-          <p> {user.firstName}</p>
+          <p> {profileUser.firstName}</p>
         </div>
         <div>
           <h3>Last Name</h3>
-          <p> {user.lastName}</p>
+          <p> {profileUser.lastName}</p>
         </div>
         <div>
           <h3>Birthday</h3>
-          <p> {user.birthday}</p>
+          <p> {profileUser.birthday}</p>
         </div>
         <div>
           <h3>Country</h3>
-          <p> {user.country}</p>
+          <p> {profileUser.country}</p>
         </div>
         <h3>Profile Picture</h3>
         <img
-          src={user.profile}
-          alt="user_image"
+          src={profileUser.profile}
+          alt="profileUser_image"
           style={{ height: "100px", width: "100px" }}
         />
         <div>
           <h3>Email</h3>
-          <p> {user.email}</p>
+          <p> {profileUser.email}</p>
         </div>
       </div>
       <button type="button">Change Password</button>

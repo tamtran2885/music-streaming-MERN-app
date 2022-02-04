@@ -1,7 +1,6 @@
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
+import * as dotenv from 'dotenv';
+dotenv.config();
 
-require('dotenv').config()
 
 const ENV = process.env.NODE_ENV || "development";
 
@@ -41,7 +40,6 @@ const CONFIG = {
   },
 };
 
-console.log(process.env.DB_URL)
 
 
 export default CONFIG[ENV];
