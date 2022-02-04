@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { getTracks, createTrack, getTrackById, deleteTrack, updateTrack } from "../controllers/tracksController.js";
 import uploadTrack from "../utils/multerTracks.js";
+import upload from "../utils/multer.js";
 import Auth from '../middlewares/index.js';
 
 export const tracksRoutes = Router();
@@ -9,7 +10,7 @@ export const tracksRoutes = Router();
 tracksRoutes.get("/", Auth.decodeToken, getTracks);
 
 // ? CREATE tracks
-tracksRoutes.post("/", Auth.decodeToken, uploadTrack.single("fileTrack"), createTrack);
+tracksRoutes.post("/", uploadTrack.single("fileTrack"), upload.single("filePhoto"),  createTrack);
 
 // ? GET tracks BY ID
 tracksRoutes.get("/:trackId", Auth.decodeToken, getTrackById);

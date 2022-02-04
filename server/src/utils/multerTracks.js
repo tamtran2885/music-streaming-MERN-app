@@ -1,8 +1,6 @@
 import multer from "multer";
 import * as path from "path";
 
-
-
 const multerConfig = {
     storage: multer.diskStorage({}),
     fileFilter: (req, file, cb) => {

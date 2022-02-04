@@ -9,6 +9,7 @@ import {
 import upload from "../utils/multer.js";
 import Auth from '../middlewares/index.js';
 
+
 export const userRoutes = Router();
 
 // ? GET USERS

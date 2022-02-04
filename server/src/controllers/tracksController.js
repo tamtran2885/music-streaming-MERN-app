@@ -13,8 +13,6 @@ export const getTracks = async (req, res) => {
     }
 };
 
-
-
 //? ADDING NEW TRACK IN USERS COLLECTION
 export const addTracksToUser = async (req, res, track) => {
     try {
@@ -43,12 +41,22 @@ export const createTrack = async (req, res) => {
             resource_type: "auto"
         });
 
+        //? UPLOAD PHOTO
+        const photo = await cloudinary.v2.uploader.upload(req.file.path, {
+            resource_type: "image"
+        });
+
         const track = new Tracks({
             //? PASSING DATA TO NEW TRACK
             ...req.body,
+
             //? PASSING AUDIO FILE TO NEW TRACK
             cloudinaryId: result.public_id,
             urlTrack: result.secure_url,
+
+            //? PASSING PHOTO FILE TO NEW TRACK
+            thumbnail: photo.secure_url,
+            thumbnailId: photo.public_id
 
         });
         //? SAVING NEW TRACK IN TRACKS COLLECTION

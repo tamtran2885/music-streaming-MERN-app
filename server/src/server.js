@@ -5,7 +5,7 @@ import cors from "cors";
 
 import { userRoutes } from "./routes/user.routes.js";
 import { tracksRoutes } from "./routes/tracks.routes.js";
-import middleware from './middlewares/index.js';
+//import middleware from './middlewares/index.js';
 
 const app = express();
 
@@ -20,7 +20,7 @@ app.use(
     origin: config.client.URL,
   })
 );
-app.use(middleware.decodeToken);
+//app.use(middleware.decodeToken);
 
 //?routes
 

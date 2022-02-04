@@ -10,25 +10,20 @@ const AlbumSchema = new Schema({
     year: {
         type: Integer,
     },
-	
 	thumbnail: {
 		type: String,
 	},
-	
 	totalTracks: {
 		type: Number
 	},
-
     tracks: {
         type: Schema.Types.ObjectId,
         ref: "tracks"
     },
-	
 	userId: {
 		type: Schema.Types.ObjectId,
         ref: "user"
 	},
-	
 	likedBy: {
 		type: Schema.Types.ObjectId,
         ref: "user"
