@@ -28,7 +28,7 @@ const Navbar = () => {
                         <Link to={`/user/`}><img src={logo} alt="TamTamGo Logo" /></Link>
                     </div>
                     <div className='nav__options'>
-                        <Link className='nav__link' to={`/user/songs`}>Songs</Link>
+                        <Link className='nav__link' to="/track">Songs</Link>
                         <Link className='nav__link' to={`/user/playlists`}>Playlists</Link>
                         <Link className='nav__link' to={`/user/albums`}>Albums</Link>
                         <Link className='nav__link' to={`/user/${user.uid}`}>{user.displayName}</Link>

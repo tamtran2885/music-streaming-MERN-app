@@ -31,18 +31,11 @@ const Register = () => {
         firebaseUser: ""
     });
 
-    // const profileRef = useRef();
-    // const [errorProfile, setErrorProfile] = useState("");
-
     const [errors, setErrors] = useState({});
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors(userValidation(values))
-
-        // if (!profileRef.current.files) {
-        //     return setErrorProfile("Please select a photo")
-        // }
 
         const config = {
             header: {

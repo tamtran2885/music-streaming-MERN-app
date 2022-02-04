@@ -1,12 +1,16 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import trackValidation from "../../utils/validation/trackValidation"
 import genreOptions from "./genreOptions";
+import { useAuth } from "../../context/authContext";
 
 import axios from "axios";
 
 const AddTrack = () => {
     const navigate = useNavigate()
+    const { user } = useAuth();
+
+    console.log(user.uid);
 
     const [values, setValues] = useState({
         name: "",
@@ -40,6 +44,8 @@ const AddTrack = () => {
         formData.append("duration", values.duration);
         formData.append("genre", values.genre);
 
+        // console.log(Object.fromEntries(data.entries()));
+
         try {
             await axios.post("/tracks", formData, config)
             navigate("/")
@@ -56,6 +62,9 @@ const AddTrack = () => {
     return (
         <>
             <div className="login__absolute">
+            {/* <Navbar /> */}
+            <Link to="/"><button>Dashboard</button></Link>
+
                 <div className="login__container">
                     <h1 className="header">Add New Track</h1>
 
@@ -84,7 +93,6 @@ const AddTrack = () => {
                                 className="form__input"
                                 placeholder="Url"
                                 name="url"
-                                value={values.url}
                                 onChange={onChange("url")}
                             />
                             {errors.url && <p>{errors.url}</p>}
@@ -94,7 +102,6 @@ const AddTrack = () => {
                                 className="form__input"
                                 placeholder="Thumbnail"
                                 name="thumbnail"
-                                value={values.thumbnail}
                                 onChange={onChange("thumbnail")}
                             />
                             {errors.thumbnail && <p>{errors.thumbnail}</p>}

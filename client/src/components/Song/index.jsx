@@ -15,11 +15,9 @@ const Song = (track) => {
     dispatch(setTracks(track))
   }
 
-  const toggleFavAction = () => {
-    console.log("toggleFavAction")
-    // dispatch to add Fav
-    // dispatch(setFavoriteTrack(track))
-  }
+  // const toggleFavAction = () => {
+  //   console.log("toggleFavAction")
+  // }
 
   return (
     <>
@@ -28,7 +26,7 @@ const Song = (track) => {
           {/* {track.track.indexOf()} */}
         </div>
         <div className='song__image__container'>
-          <button className='song__button' onClick={handleClick}><img className='song__image' src={thumbnail} alt="song-thumb" style={{ width: '50px', height: '50px' }} /></button>
+          <button className='song__button' onClick={handleClick}><img className='song__image' src="https://images.pexels.com/photos/1114896/pexels-photo-1114896.jpeg" alt="song-thumb" style={{ width: '50px', height: '50px' }} /></button>
         </div>
         <div className='song__like'>
           <form>
@@ -42,11 +40,11 @@ const Song = (track) => {
         </div>
         <img className='song__like__icon' src={star} alt="" />
         <div className='song__info'>
-          <p className='song__tittle'>{title} </p>
-          <p className='song__artist'>{user.firstName} · {genre}</p>
-          <p className='song__tittle'>{album}</p>
+          <p className='song__tittle'>{title && title} </p>
+          <p className='song__artist'>{user && user.firstName} · {genre && genre}</p>
+          <p className='song__tittle'>{album && album}</p>
         </div>
-        <div className='song__duration'>{duration}</div>
+        <div className='song__duration'>{duration && duration}</div>
       </div>
     </>
   )
