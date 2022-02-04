@@ -6,7 +6,6 @@ import axios from "axios";
 import { useAuth } from "../../context/authContext";
 
 import withLayout from "../../hoc/withLayout";
-import { useAuth } from "../../context/authContext";
 import { onAuthStateChanged } from "firebase/auth";
 
 
@@ -22,10 +21,8 @@ const User = () => {
     profilePicture: "",
     email: "",
   });
-  const token = user.accessToken
 
   // take a token
-  const { user } = useAuth();
   console.log(user)
   const token = user.accessToken;
   console.log(token)
