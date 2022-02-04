@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react';
 // import { useLocation } from 'react-router-dom';
+import Navbar from '../../components/Navbar';
+import Playlists from '../../components/Playlists';
+import Songs from '../../components/Songs';
+import Genres from '../../components/Genres';
+import Albums from '../../components/Albums';
+import MusicPlayer from '../../components/MusicPlayer';
 
 import withLayout from "../../hoc/withLayout";
 
@@ -23,6 +29,14 @@ const Dashboard = () => {
 
 
     // axios get
+    // console.log(user.uid);
+
+    useEffect(() => {
+        if (user.accessToken) {
+            APIcall();
+        }
+    });
+
     const APIcall = async () => {
         const userReq = await axios.get(`/api/user/${user.uid}`, {
             headers: {
@@ -32,12 +46,32 @@ const Dashboard = () => {
         setMongoUser(userReq.data);
     };
 
+    // return (
+    //     <>
+
+    //         <div>
+    //             <h1>Hola {mongoUser.firstName}</h1>
+    //             <h1>{user.uid}</h1>
+    //         </div>
+    //     </>
+    // )
+
+
     return (
         <>
-
-            <div>
-                <h1>Hola {mongoUser.firstName}</h1>
-                <h1>{user.uid}</h1>
+            <div className='dashboard__background'>
+                <Navbar />
+                <div className='dashboard__absolute'>
+                    <div className='dashboard__display'>
+                        <Playlists />
+                        <Songs />
+                    </div>
+                    <div className='dashboard__side'>
+                        <Genres />
+                        <Albums />
+                    </div>
+                </div>
+                <MusicPlayer />
             </div>
         </>
     )

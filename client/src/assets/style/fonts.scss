@@ -40,12 +40,20 @@
   font-weight: normal;
 }
 
+@font-face {
+  font-family: 'Intro Rust';
+  src: url('../fonts/IntroRust.otf');
+  font-style: normal;
+  font-weight: normal;
+}
+
 $fontBol: 'Raleway Bold';
 $fontLig: 'Raleway Light';
 $fontMed: 'Raleway Medium';
 $fontReg: 'Raleway Regular';
 $fontSem: 'Raleway SemiBold';
 $fontThi: 'Raleway Thin';
+$fontRust: 'Intro Rust';
 
 body {
   font-family: $fontReg;
@@ -59,11 +67,37 @@ body {
   }
   .link {
     font-family: $fontBol;
-  }.form__questions{
+  }
+  .form__questions{
     .form__buttons{
       button {
         font-family: $fontBol;
         font-size: 1.2rem;
+      }
+    }
+  }
+  .dashboard__background {
+    .nav__absolute {
+      .nav__links {
+        .nav__options {
+          .nav__link{
+            font-family: $fontThi;
+            font-size: 1.5rem;
+          }
+        }
+      }
+      .nav__buttons {
+        .nav__tittle {
+          font-family: $fontRust;
+          font-size: 6rem;
+        }
+      }
+      .nav__filters {
+        .searchbar__container {
+          .searchbar {
+            font-size: 1.3rem;
+          }
+        }
       }
     }
   }

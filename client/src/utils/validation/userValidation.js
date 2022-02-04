@@ -1,29 +1,35 @@
 export default function userValidation(values) {
-  let errorMessage = {};
+  let errors = {};
 
   if (!values.firstName) {
-    errorMessage.firstName = "Please enter your first name";
+    errors.firstName = "Please enter your first name";
   }
 
   if (!values.lastName) {
-    errorMessage.lastName = "Please enter your last name";
+    errors.lastName = "Please enter your last name";
+  }
+
+  if (!values.profile) {
+    errors.profile = "Please enter your photo";
   }
 
   if (!values.email) {
-    errorMessage.email = "Please enter your email";
+    errors.email = "Please enter your email";
   } else if (!/\S+@\S+\.\S+/.test(values.email)) {
-    errorMessage.email = "Email address is invalid";
+    errors.email = "Email address is invalid";
   }
+
+  // pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,20}$`
   if (!values.password) {
-    errorMessage.password = "Password is required";
+    errors.password = "Password is required";
   } else if (values.password.length < 6) {
-    errorMessage.password = "Password needs to be 6 characters or more";
+    errors.password = "Password needs to be 6 characters or more";
   }
 
   if (!values.confirmPassword) {
-    errorMessage.confirmPassword = "Password is required";
+    errors.confirmPassword = "Password is required";
   } else if (values.confirmPassword !== values.password) {
-    errorMessage.confirmPassword = "Passwords do not match";
+    errors.confirmPassword = "Passwords do not match";
   }
-  return errorMessage;
+  return errors;
 }

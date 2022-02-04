@@ -2,6 +2,7 @@ $color1: #383838;
 $color2: #000000;
 $color3: #FFFFFF;
 $color4: rgb(255, 255, 255, 0.5);
+$color5: #2F2F2F;
 $transparent: rgba(255, 255, 255, 0);
 
 Body {
@@ -45,6 +46,74 @@ Body {
           background-color: $color1;
           color: $color3;
         }
+      }
+    }
+  }
+  .dashboard__background {
+    background: linear-gradient($color1, $color2);
+  }
+  .dashboard__background {
+    .nav__absolute {
+      .nav__links {
+        .nav__options {
+          .nav__link {
+            color: $color3;
+          }
+        }
+      }
+      .nav__buttons {
+        .nav__filters {
+          .searchbar__container {
+            .searchbar {
+              background: $transparent;
+              border: solid 1px $color1;
+              color: $color4;
+            }
+            .searchbar:focus {
+              color: $color3;
+              border-bottom: solid 1px $color3;
+            }
+          }
+          .nav__filters__button {
+            .button {
+              background: $color1;
+              border: solid 1px $color1;
+              color: $color3;
+            }
+            .nav__filters__owner {
+              .button__owner {
+                background: $color1;
+                border: solid 1px $color5;
+                color: $color3;
+              }
+              .active {
+                background: $color5;
+              }
+            }
+          }
+        }
+      }
+    }
+    .dashboard__absolute {
+      .dashboard__display{
+        .playlists__absolute {
+          .playlists__container {
+            .playlist__container {
+              color: $color3;
+            }
+            .playlist__follow {
+              color: $color3;
+            }
+          }
+        }
+      }
+    }
+    .songs__absolute {
+      width: 50%;
+      margin-left: 3%;
+      .songs__tittle {
+        display: flex;
+        justify-content: space-between;
       }
     }
   }
