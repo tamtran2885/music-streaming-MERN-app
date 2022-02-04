@@ -94,6 +94,28 @@ Body {
         }
       }
     }
+    .dashboard__absolute {
+      .dashboard__display{
+        .playlists__absolute {
+          .playlists__container {
+            .playlist__container {
+              color: $color3;
+            }
+            .playlist__follow {
+              color: $color3;
+            }
+          }
+        }
+      }
+    }
+    .songs__absolute {
+      width: 50%;
+      margin-left: 3%;
+      .songs__tittle {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
   }
   .link {
     color: $color3;

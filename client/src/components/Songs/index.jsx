@@ -19,7 +19,7 @@ const Songs = ({tracks}) => {
     <div className='songs__absolute'>
       <div className='songs__tittle'>
         <h2>Songs</h2>
-        <Link to={`/user/songs`}>See All</Link>
+        <Link className='link' to={`/user/songs`}>See All</Link>
       </div>
       <div className='songs__container'>
         {tracksInfo && tracksInfo.map((track) => (

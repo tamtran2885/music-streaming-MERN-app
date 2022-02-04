@@ -1,22 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import star from '../../assets/images/star.svg'
 
 const Playlist = (playlist) => {
 
   return (
     <>
       <div className='playlist__absolute'>
-        <Link to={`/user/playlist`}>
-        <div className='playlist__tittle'>
+        <Link className='playlist__absolute' to={`/user/playlist`}>
+        <div>
           {playlist.playlist && (
             <>
-              <h3>{playlist.playlist.name}</h3>
-              <img src={playlist.playlist.thumbnail} alt="playlist" style={{ width:"150px", height:"120px"}}/>
+              <h3 className='playlist__tittle'>{playlist.playlist.name}</h3>
+                <img className='playlist__background' src={playlist.playlist.thumbnail} alt="playlist"/>
             </>
           )}
         </div>
         <div className='playlist__follow'>
-          Follow
+        <img src={star} alt="" />
         </div>
         </Link>
       </div>

@@ -21,7 +21,7 @@ const Albums = ({albums}) => {
     <div className='albums__absolute'>
       <div className='albums__tittle'>
         <h2>Albums</h2>
-        <Link to={`/user/albums`}>See All</Link>
+        <Link className='link' to={`/user/albums`}>See All</Link>
       </div>
       <div className='albums__container'>
         {albumsInfo && albumsInfo.map((album) => (
