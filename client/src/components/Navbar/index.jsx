@@ -51,7 +51,7 @@ const Navbar = () => {
         <div className='hr'>
           <hr />
         </div>
-        <button onClick={handleLogout} className='button__primary'>Log Out</button>
+        <button onClick={handleLogout} className='button__primary logout'>Log Out</button>
       </div>
     </nav>
   )

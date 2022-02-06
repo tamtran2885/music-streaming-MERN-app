@@ -1,6 +1,5 @@
 body {
   // overflow: hidden;
-
   .login__absolute {
     display: flex;
     margin: 3%;
@@ -258,6 +257,10 @@ body {
         width: 57.5%;
         margin-left: 40.5%;
       }
+      .logout {
+        position: absolute;
+        top: 0;
+      }
     }
     .dashboard__absolute {
       display: flex;
@@ -352,6 +355,7 @@ body {
             }
             .song__info {
               margin-left: -25%;
+              margin-top: 3%;
             }
             .song__duration {
               margin-top: 5%;
@@ -390,6 +394,7 @@ body {
           .albums__container {
             .album__absolute{
               .album__block {
+                margin-top: -5%;
                 display: flex;
                 .album__icon{
                   width: 36px;
