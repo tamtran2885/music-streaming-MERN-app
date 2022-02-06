@@ -10,17 +10,11 @@ import {
 const audioPlayReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_TRACKS_ARRAY:
-      console.log(action.payload);
       return {
         ...state,
-        // trackList: state.trackList.some(
-        //   ({ id }) => id === action.payload.track.id
-        // )
-        //   ? state.trackList
-        //   : [...state.trackList, action.payload],
         trackList:
           state.trackList.findIndex(
-            (track) => track.id === action.payload.track.id
+            (track) => track._id === action.payload.track._id
           ) >= 0
             ? state.trackList
             : [...state.trackList, action.payload],

@@ -1,4 +1,6 @@
-import "dotenv/config";
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 
 const ENV = process.env.NODE_ENV || "development";
 
@@ -37,5 +39,7 @@ const CONFIG = {
     },
   },
 };
+
+
 
 export default CONFIG[ENV];

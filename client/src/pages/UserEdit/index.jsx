@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from "react-router-dom"
 import axios from "axios"
 
-import withLayout from "../../hoc/withLayout";
+// import th token
+import { useAuth } from "../../context/authContext";
 
+import withLayout from "../../hoc/withLayout";
 
 const UserEdit = () => {
   const [editUser, setEditUser] = useState({
@@ -15,15 +17,18 @@ const UserEdit = () => {
     email: ""
   });
 
+  // take a token
+  const { user } = useAuth();
+  const token = user.accessToken;
+
+
   const navigate = useNavigate()
 
   useEffect(() => {
     APIcall();
-    console.log(editUser)
-  });
+  }, []);
 
   const onChange = (e) => {
-    console.log(e.target.value)
     setEditUser({
       ...editUser,
       [e.target.name]: e.target.value
@@ -40,7 +45,11 @@ const UserEdit = () => {
 
   // axios get
   const APIcall = async () => {
-    const userReq = await axios.get(`/api/user/${getIdFromURL()}`);
+    const userReq = await axios.get(`/api/user/${getIdFromURL()}`, {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    });
     setEditUser(userReq.data);
   };
 
@@ -49,8 +58,9 @@ const UserEdit = () => {
     e.preventDefault();
 
     const config = {
-      header: {
-        "Content-Type": "multipart/form-data"
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: 'Bearer ' + token,
       },
     };
 
@@ -66,7 +76,7 @@ const UserEdit = () => {
 
     try {
       await axios.put(`/api/user/${getIdFromURL()}`, formData, config);
-      console.log(formData)
+      // console.log(formData)
 
     } catch (e) {
       console.log(e)

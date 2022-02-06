@@ -10,7 +10,9 @@ import ConnectWithGoogle from '../../components/ConnectWithGoogle';
 import logo from '../../assets/images/logo.svg';
 
 const Register = () => {
-    const { signUpWithEmailAndPassword } = useAuth();
+    const { signUpWithEmailAndPassword} = useAuth();
+
+    // console.log(JSON.stringify(user));
 
     const [registerEmail, setRegisterEmail] = useState("");
     const [registerPassword, setRegisterPassword] = useState("");
@@ -42,7 +44,6 @@ const Register = () => {
         };
 
         try {
-
             const firebaseUser = await signUpWithEmailAndPassword(registerEmail, registerPassword)
             // console.log(firebaseUser.user.uid)
             const formData = new FormData();
@@ -56,13 +57,13 @@ const Register = () => {
             formData.append("firebaseUser", firebaseUser.user.uid)
 
             firebaseUser ? await axios.post("http://localhost:4000/api/user", formData, config) : console.log("ho");
-            
+
             navigate("/login")
         } catch (error) {
             console.log(error.message);
         }
     }
-    
+
     const onChange = (name) => (e) => {
         const value = name === "profile" && e.target.files ? e.target.files[0] : e.target.value;
         setValues({ ...values, [name]: value })
@@ -88,8 +89,8 @@ const Register = () => {
                             <RegisterInput className="form__input" name="birthday" type="date" placeholder="Birthday" onChange={onChange("birthday")} />
                             <RegisterInput className="form__input" name="country" type="text" placeholder="Country" onChange={onChange("country")} />
                             <RegisterInput accept="image/*" className="form__input" name="profile" type="file" placeholder="Upload Image" onChange={onChange("profile")}/>
-                            
-                            <RegisterInput value={values.email} className="form__input" name="email" type="email" placeholder="Email" onChange={onChange("email")}  />
+
+                            <RegisterInput value={values.email} className="form__input" name="email" type="email" placeholder="Email" onChange={onChange("email")} />
                             {errors.email && <p>{errors.email}</p>}
                             <RegisterInput value={values.password} className="form__input" name="password" type="password" placeholder="Password" onChange={onChange("password")} />
                             {errors.password && <p>{errors.password}</p>}
@@ -103,7 +104,7 @@ const Register = () => {
                                 </label>
                             </div>
                             <div className='form__questions'>
-                                <p>Already have an account?<br /> Please, <Link className="link" to="/register">log in.</Link></p>
+                                <p>Already have an account?<br /> Please, <Link className="link" to="/login">log in.</Link></p>
                                 <div className='form__buttons'>
                                     <ConnectWithGoogle />
                                     <button type="submit">Sign up</button>

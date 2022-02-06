@@ -1,4 +1,3 @@
-// import { Schema, model } from 'mongoose';
 import pkg from "mongoose";
 const { Schema, model } = pkg;
 
@@ -43,6 +42,14 @@ const UserSchema = new Schema({
   cloudinaryId: {
     type: String,
   },
+  // TODO ¿?¿?¿?¿?
+  uploadedTracks: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "tracks",
+    },
+  ],
+  //playlists: [{}]
 });
 
-export default model("User", UserSchema);
+export default model("user", UserSchema);

@@ -1,42 +1,29 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Song from '../Song'
 
-import {connect, useDispatch} from "react-redux";
-import {getTracks} from "../../redux/dashboard/actions";
+import { useSelector } from "react-redux";
 
-const Songs = ({tracks}) => {
-  const dispatch = useDispatch(); 
 
-  useEffect(() => {
-    dispatch(getTracks());
-  }, [dispatch])
-
-  const tracksInfo = tracks.data
+const Songs = () => {
+  const tracks = useSelector((state) => state.dashboard.tracks.data);
+  // console.log(tracks)
 
   return (
     <>
-    <div className='songs__absolute'>
-      <div className='songs__tittle'>
-        <h2>Songs</h2>
-        <Link className='link' to={`/user/songs`}>See All</Link>
+      <div className='songs__absolute'>
+        <div className='songs__tittle'>
+          <h2>Songs</h2>
+          <Link className='link' to={`/user/songs`}>See All</Link>
+        </div>
+        <div className='songs__container'>
+          {tracks && tracks.map((track) => (
+            <div><Song key={track._id} track={track} /></div>
+          ))}
+        </div>
       </div>
-      <div className='songs__container'>
-        {tracksInfo && tracksInfo.map((track) => (
-            <div key={track.id}><Song key={track.id} track={track}/></div>
-        ))}
-      </div>
-    </div>
     </>
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    tracks: state.dashboard.tracks
-  }
-}
-
-const reduxHoc = connect(mapStateToProps)
-
-export default reduxHoc(Songs);
+export default Songs;

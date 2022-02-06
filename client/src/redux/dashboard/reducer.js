@@ -1,5 +1,10 @@
 import initialState from "./state";
-import { SET_TRACKS_INFO, SET_PLAYLISTS_INFO, SET_ALBUMS_INFO } from "./types";
+import {
+  SET_TRACKS_INFO,
+  SET_PLAYLISTS_INFO,
+  SET_ALBUMS_INFO,
+  SET_TRACKS_BY_USER,
+} from "./types";
 
 const dashboardReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -17,6 +22,11 @@ const dashboardReducer = (state = initialState, action) => {
       return {
         ...state,
         albums: action.payload,
+      };
+    case SET_TRACKS_BY_USER:
+      return {
+        ...state,
+        tracksByUser: action.payload,
       };
     default:
       return state;
