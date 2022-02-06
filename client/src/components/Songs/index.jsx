@@ -1,25 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Song from '../Song'
 
-import { connect, useDispatch } from "react-redux";
-import { getTracks } from "../../redux/dashboard/actions";
-import { useAuth } from '../../context/authContext';
+import { useSelector } from "react-redux";
 
 
-const Songs = ({ tracks }) => {
-  const dispatch = useDispatch();
-  const { user } = useAuth();
-
-  const token = user.accessToken
-  useEffect(() => {
-    if (token) {
-      dispatch(getTracks());
-    }
-
-  }, [dispatch])
-
-  const tracksInfo = tracks.data
+const Songs = () => {
+  const tracks = useSelector((state) => state.dashboard.tracks.data);
+  // console.log(tracks)
 
   return (
     <>
@@ -29,8 +17,8 @@ const Songs = ({ tracks }) => {
           <Link className='link' to={`/user/songs`}>See All</Link>
         </div>
         <div className='songs__container'>
-          {tracksInfo && tracksInfo.map((track) => (
-            <div key={track.id}><Song key={track.id} track={track} /></div>
+          {tracks && tracks.map((track) => (
+            <div><Song key={track._id} track={track} /></div>
           ))}
         </div>
       </div>
@@ -38,12 +26,4 @@ const Songs = ({ tracks }) => {
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    tracks: state.dashboard.tracks
-  }
-}
-
-const reduxHoc = connect(mapStateToProps)
-
-export default reduxHoc(Songs);
+export default Songs;

@@ -10,7 +10,6 @@ import {
 const audioPlayReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_TRACKS_ARRAY:
-      console.log(action.payload);
       return {
         ...state,
         trackList:

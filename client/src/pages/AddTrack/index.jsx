@@ -10,18 +10,16 @@ const AddTrack = () => {
     const navigate = useNavigate()
     const { user } = useAuth();
 
-    console.log(user.uid);
-
     const [values, setValues] = useState({
-        name: "",
-        rating: "",
-        url: "",
-        thumbnail: "",
+        title: "",
+        reproductions: "",
+        artist: "",
+        album: "",
+        genre: "",
         duration: "",
-        color: "",
-        genre: {},
-        albums: [],
-        likedBy: ""
+        photoTrack: "",
+        urlTrack: "",
+        firebaseUser: "",
     });
 
     const [errors, setErrors] = useState({});
@@ -37,17 +35,19 @@ const AddTrack = () => {
         };
 
         const formData = new FormData();
-        formData.append("name", values.name);
-        formData.append("rating", values.rating);
-        formData.append("url", values.url);
-        formData.append("thumbnail", values.thumbnail);
-        formData.append("duration", values.duration);
+        formData.append("title", values.title);
+        formData.append("reproductions", values.reproductions);
+        formData.append("album", values.album);
+        formData.append("artist", values.artist);
         formData.append("genre", values.genre);
-
-        // console.log(Object.fromEntries(data.entries()));
+        formData.append("duration", values.duration);
+        formData.append("photoTrack", values.photoTrack);
+        formData.append("urlTrack", values.urlTrack);
+        formData.append("firebaseUser", user.uid); // Firebase Identifier
+        // console.log(Object.fromEntries(formData.entries()));
 
         try {
-            await axios.post("/tracks", formData, config)
+            await axios.post("http://localhost:4000/api/tracks", formData, config)
             navigate("/")
         } catch (e) {
             console.log(e.message);
@@ -55,7 +55,7 @@ const AddTrack = () => {
     }
 
     const onChange = (name) => (e) => {
-        const value = name === "url" || name === "thumbnail" ? e.target.files[0] : e.target.value;
+        const value = name === "photoTrack" || name === "urlTrack" ? e.target.files[0] : e.target.value;
         setValues({ ...values, [name]: value })
     }
 
@@ -73,54 +73,35 @@ const AddTrack = () => {
                             <input
                                 type="text"
                                 className="form__input"
-                                placeholder="Name"
-                                name="name"
-                                value={values.name}
-                                onChange={onChange("name")}
+                                placeholder="Title"
+                                name="title"
+                                value={values.title}
+                                onChange={onChange("title")}
                             />
-                            {errors.name && <p>{errors.name}</p>}
+                            {errors.title && <p>{errors.title}</p>}
                             <input
                                 type="number"
                                 className="form__input"
-                                placeholder="Rating"
-                                name="rating"
-                                value={values.rating}
-                                onChange={onChange("rating")}
+                                placeholder="Views"
+                                name="reproductions"
+                                value={values.reproductions}
+                                onChange={onChange("reproductions")}
                             />
-                            <label htmlFor="url">Url: </label>
-                            <input
-                                type="file"
-                                className="form__input"
-                                placeholder="Url"
-                                name="url"
-                                onChange={onChange("url")}
-                            />
-                            {errors.url && <p>{errors.url}</p>}
-                            <label htmlFor="thumbnail">Thumbnail: </label>
-                            <input
-                                type="file"
-                                className="form__input"
-                                placeholder="Thumbnail"
-                                name="thumbnail"
-                                onChange={onChange("thumbnail")}
-                            />
-                            {errors.thumbnail && <p>{errors.thumbnail}</p>}
-                            <input
-                                type="number"
-                                className="form__input"
-                                placeholder="duration"
-                                name="duration"
-                                value={values.duration}
-                                onChange={onChange("duration")}
-                            />
-                            {errors.duration && <p>{errors.duration}</p>}
                             <input
                                 type="text"
                                 className="form__input"
-                                placeholder="Color"
-                                name="color"
-                                value={values.color}
-                                onChange={onChange("color")}
+                                placeholder="Album"
+                                name="album"
+                                value={values.album}
+                                onChange={onChange("album")}
+                            />
+                            <input
+                                type="text"
+                                className="form__input"
+                                placeholder="Artist"
+                                name="artist"
+                                value={values.artist}
+                                onChange={onChange("artist")}
                             />
                             <label htmlFor="genre">Genre: </label>
                             <select name="genre" value={values.value} onChange={onChange("genre")}>
@@ -130,14 +111,30 @@ const AddTrack = () => {
                             </select>
                             {errors.genre && <p>{errors.genre}</p>}
                             <input
-                                type="text"
+                                type="number"
                                 className="form__input"
-                                placeholder="Albums"
-                                name="albums"
-                                value={values.albums}
-                                onChange={onChange("albums")}
+                                placeholder="duration"
+                                name="duration"
+                                value={values.duration}
+                                onChange={onChange("duration")}
                             />
-                            {errors.albums && <p>{errors.albums}</p>}
+                            {errors.duration && <p>{errors.duration}</p>}
+                            <label htmlFor="photoTrack">Thumbnail: </label>
+                            <input
+                                type="file"
+                                className="form__input"
+                                placeholder="Thumbnail"
+                                name="photoTrack"
+                                onChange={onChange("photoTrack")}
+                            />
+                            <label htmlFor="urlTrack">Audio Url: </label>
+                            <input
+                                type="file"
+                                className="form__input"
+                                placeholder="Url"
+                                name="urlTrack"
+                                onChange={onChange("urlTrack")}
+                            />
                             <button type="submit">Submit</button>
                         </form>
                     </div>

@@ -4,7 +4,8 @@ import { useAuth } from '../../context/authContext';
 import logo from "../../assets/images/logo.svg";
 import SearchBar from "../SearchBar";
 
-const Navbar = () => {
+const Navbar = (props) => {
+    const {page} = props
     const navigate = useNavigate();
     const { user, logout } = useAuth()
 
@@ -31,13 +32,13 @@ const Navbar = () => {
                         <Link className='nav__link' to="/track">Songs</Link>
                         <Link className='nav__link' to={`/user/playlists`}>Playlists</Link>
                         <Link className='nav__link' to={`/user/albums`}>Albums</Link>
-                        <Link className='nav__link' to={`/user/${user.uid}`}>{user.displayName}</Link>
-                        <Link className='avatar' to={`user/${user.uid}`}><img className='avatar' src={logo} alt="" /></Link>
+                        <Link className='nav__link' to={user ? `/user/${user.uid}` : "/"}>{user && user.displayName}</Link>
+                        <Link className='avatar' to={user ? `user/${user.uid}` : "/"}><img className='avatar' src={logo} alt="" /></Link>
                     </div>
                 </div>
                 <div className='nav__buttons'>
                     <div className='nav__tittle'>
-                        Popular Now
+                        {page && page}
                     </div>
                     <div className='nav__filters'>
                         <div className='searchbar__container'>

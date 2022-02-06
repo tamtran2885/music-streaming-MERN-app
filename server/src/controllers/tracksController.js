@@ -1,6 +1,5 @@
 import Tracks from "../models/Tracks.js";
 import cloudinary from "../utils/cloudinary.js";
-import User from "../models/User.js";
 
 //? GET ALL TRACKS
 export const getTracks = async (req, res) => {
@@ -36,16 +35,47 @@ export const addTracksToUser = async (req, res, track) => {
 // }
 
 //? CREATE A NEW TRACK
+// export const createTrack = async (req, res) => {
+//   try {
+//     //? UPLOAD AUDIO
+//     const result = await cloudinary.v2.uploader.upload(req.file.path, {
+//       resource_type: "auto",
+//     });
+
+//     // const result = await cloudinary.v2.uploader.upload(req.file.path);
+
+//     // addPhotoToTrack(req,res)
+
+//     const track = new Tracks({
+//       //? PASSING DATA TO NEW TRACK
+//       ...req.body,
+
+//       //? PASSING AUDIO FILE TO NEW TRACK
+//       cloudinaryId: result.public_id,
+//       urlTrack: result.secure_url,
+//       firebaseUser: req.body.firebaseUser,
+
+//       //? PASSING PHOTO FILE TO NEW TRACK
+//       // thumbnail: photo.secure_url,
+//       // thumbnailId: photo.public_id
+//     });
+//     //? SAVING NEW TRACK IN TRACKS COLLECTION
+//     await track.save();
+//     res.status(200).json({ data: "Track created", track });
+
+//     //? SAVING NEW TRACK IN USER DOCUMENT
+//     // addTracksToUser(req, res, track);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
 export const createTrack = async (req, res) => {
   try {
     //? UPLOAD AUDIO
     const result = await cloudinary.v2.uploader.upload(req.file.path, {
       resource_type: "auto",
     });
-
-    // const result = await cloudinary.v2.uploader.upload(req.file.path);
-
-    // addPhotoToTrack(req,res)
 
     const track = new Tracks({
       //? PASSING DATA TO NEW TRACK
@@ -54,17 +84,11 @@ export const createTrack = async (req, res) => {
       //? PASSING AUDIO FILE TO NEW TRACK
       cloudinaryId: result.public_id,
       urlTrack: result.secure_url,
-
-      //? PASSING PHOTO FILE TO NEW TRACK
-      // thumbnail: photo.secure_url,
-      // thumbnailId: photo.public_id
+      firebaseUser: req.body.firebaseUser,
     });
     //? SAVING NEW TRACK IN TRACKS COLLECTION
     await track.save();
     res.status(200).json({ data: "Track created", track });
-
-    //? SAVING NEW TRACK IN USER DOCUMENT
-    addTracksToUser(req, res, track);
   } catch (error) {
     console.log(error);
   }
@@ -103,27 +127,30 @@ export const deleteTrack = async (req, res) => {
 
 //? UPDATE TRACK
 export const updateTrack = async (req, res) => {
+  // console.log(req.body);
+  // console.log(req.params.trackId);
   try {
     const url = req.params.trackId;
     const track = await Tracks.findById(url);
 
-    //? DELETE IMAGE FROM CLOUDINARY IF THE USER CHANGES IT AT PROFILE
-    await cloudinary.v2.uploader.destroy(track.cloudinaryId, {
-      resource_type: "video",
-    });
-    const result = await cloudinary.v2.uploader.upload(req.file.path, {
-      resource_type: "auto",
-    });
+    // //? DELETE IMAGE FROM CLOUDINARY IF THE USER CHANGES IT AT PROFILE
+    // await cloudinary.v2.uploader.destroy(track.cloudinaryId, {
+    //   resource_type: "video",
+    // });
+    // const result = await cloudinary.v2.uploader.upload(req.file.path, {
+    //   resource_type: "auto",
+    // });
 
     const dataTrack = {
-      title: req.body.title,
-      reproductions: req.body.reproductions,
-      album: req.body.album,
-      duration: req.body.duration,
-      track_id: "",
+      title: req.body.title || track.title,
+      reproductions: req.body.reproductions || track.reproductions,
+      album: req.body.album || track.album,
+      duration: req.body.duration || track.duration,
+      artist: req.body.artist || track.artist,
+      genre: req.body.genre || track.genre,
       //TODO---------------------------- FIX THE UPLOAD AND DELETE -----------------------
-      cloudinaryId: track.cloudinaryId || result.public_id,
-      urlTrack: result.secure_url,
+      cloudinaryId: track.cloudinaryId,
+      urlTrack: track.urlTrack,
     };
 
     const trackToEdit = await Tracks.findByIdAndUpdate(
@@ -135,6 +162,68 @@ export const updateTrack = async (req, res) => {
     );
 
     res.status(200).json({ data: "Track updated", trackToEdit });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// GET TRACKS BY USER
+export const getTracksByUser = async (req, res) => {
+  // console.log(req.query);
+  try {
+    const param = req.query.firebaseUser;
+    const tracks = await Tracks.find({
+      firebaseUser: param,
+    }).populate("user");
+    res.json(tracks);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// Add Fav to a track
+// @route PUT api/tracks/like/:trackId
+export const addFavToTrack = async (req, res) => {
+  const param = req.query.firebaseUser;
+  try {
+    const trackId = req.params.trackId;
+    const track = await Tracks.findById(trackId);
+
+    // Check if the track has already been liked
+    if (track.likes.filter((like) => like.firebaseUser === param).length > 0) {
+      return res.status(400).json({ msg: "Track has been liked" });
+    }
+    track.likes.unshift({ firebaseUser: param });
+    await track.save();
+    res.json(track.likes);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// Remove Fav from a track
+// @route PUT api/tracks/unlike/:trackId
+export const removeFavFromTrack = async (req, res) => {
+  const param = req.query.firebaseUser;
+  try {
+    const trackId = req.params.trackId;
+    const track = await Tracks.findById(trackId);
+
+    // Check if the track has already been liked
+    if (
+      track.likes.filter((like) => like.firebaseUser === param).length === 0
+    ) {
+      return res.status(400).json({ msg: "Track has not been liked" });
+    }
+
+    // Get remove index
+    const removeIndex = track.likes
+      .map((like) => like.firebaseUser)
+      .indexOf(param);
+
+    track.likes.splice(removeIndex, 1);
+    await track.save();
+    res.json(track.likes);
   } catch (error) {
     console.log(error);
   }

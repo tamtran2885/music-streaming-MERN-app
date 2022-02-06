@@ -1,27 +1,22 @@
-import React from 'react';
+import React from "react";
 import { Link } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import MusicPlayer from '../../components/MusicPlayer';
-
-// import withLayout from "../../hoc/withLayout";
+import TrackRows from "../../components/TrackRows";
 
 import { useAuth } from "../../context/authContext";
-// import axios from 'axios';
 
-const Tracks = () => {
+const TrackPage = () => {
     const { user } = useAuth();
 
-    // console.log(JSON.stringify(user));
-
-    return (
+    return(
         <>
             <div className='dashboard__background'>
-                <Navbar />
+                <Navbar page="Songs"/>
                 <h1>Welcome Guest!</h1>
                 <Link to="/track/add"><button>Upload Song</button></Link>
-                
-                <div className='dashboard__absolute'>
-                    
+                <div>
+                    <TrackRows />
                 </div>
                 <MusicPlayer />
             </div>
@@ -29,4 +24,4 @@ const Tracks = () => {
     )
 }
 
-export default Tracks;
+export default TrackPage;

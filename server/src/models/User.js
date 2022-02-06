@@ -43,13 +43,13 @@ const UserSchema = new Schema({
     type: String,
   },
   // TODO ¿?¿?¿?¿?
-  uploadedTracks: [{
-    type: Schema.ObjectId,
-    ref: "tracks"
-  }],
+  uploadedTracks: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "tracks",
+    },
+  ],
   //playlists: [{}]
-
-
 });
 
 export default model("user", UserSchema);

@@ -18,10 +18,10 @@ export const getTracks = () => {
   };
 };
 
-export const getSingleTrack = () => {
+export const getSingleTrack = (_id) => {
   return async (dispatch) => {
     try {
-      const response = await fetchSingleTrack();
+      const response = await fetchSingleTrack(_id);
       dispatch(setTracks(response));
     } catch (error) {
       console.error(error);
