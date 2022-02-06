@@ -8,6 +8,7 @@ import MusicPlayer from '../../components/MusicPlayer';
 
 import { connect, useDispatch } from "react-redux";
 import { getTracks, getTracksByUser } from "../../redux/dashboard/actions";
+import { useSelector } from "react-redux";
 
 import { useAuth } from "../../context/authContext";
 import axios from 'axios';

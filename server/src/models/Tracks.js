@@ -47,7 +47,15 @@ const TracksSchema = new Schema({
     type: String,
   },
   likes: {
-    type: Array,
+    type: [
+      {
+        user: {
+          type: Schema.Types.ObjectId,
+          ref: "user",
+        },
+        firebaseUser: String,
+      },
+    ],
   },
 });
 

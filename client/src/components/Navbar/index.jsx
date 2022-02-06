@@ -26,7 +26,7 @@ const Navbar = (props) => {
             <div className='nav__absolute'>
                 <div className='nav__links'>
                     <div className="nav__logo">
-                        <Link to={`/user/`}><img src={logo} alt="TamTamGo Logo" /></Link>
+                        <Link to={`/`}><img src={logo} alt="TamTamGo Logo" /></Link>
                     </div>
                     <div className='nav__options'>
                         <Link className='nav__link' to="/track">Songs</Link>
