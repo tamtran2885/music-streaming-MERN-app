@@ -34,9 +34,9 @@ const Song = (track) => {
         <div className='song__like'>
         </div>
         <input type="checkbox" />
-        {like}
-        <img className='song__like__icon' src={star} alt="" onClick={handleToggle}/>
-        <img className='song__like__icon' src={staractive} alt="" onClick={handleToggle}/>
+        {like ? (<img className='song__like__icon' src={staractive} alt="" onClick={handleToggle}/>) : (<img className='song__like__icon' src={star} alt="" onClick={handleToggle}/>)}
+        {/* <img className='song__like__icon' src={star} alt="" onClick={handleToggle}/>
+        <img className='song__like__icon' src={staractive} alt="" onClick={handleToggle}/> */}
         <div className='song__info'>
           <p className='song__tittle'>{title && title} </p>
           <p className='song__artist'>{user && user.firstName} · {genre && genre}</p>
