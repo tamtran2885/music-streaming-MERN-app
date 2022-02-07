@@ -23,7 +23,7 @@ app.use(
     origin: config.client.URL,
   })
 );
-// app.use(middleware.decodeToken);
+//app.use(middleware.decodeToken);
 
 //?routes
 
