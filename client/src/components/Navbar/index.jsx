@@ -5,7 +5,7 @@ import logo from "../../assets/images/logo.svg";
 import SearchBar from "../SearchBar";
 
 const Navbar = (props) => {
-    const {page} = props
+    const {page, handleMine, handlePopular} = props
     const navigate = useNavigate();
     const { user, logout } = useAuth()
 
@@ -47,8 +47,8 @@ const Navbar = (props) => {
                         <div className='nav__filters__button'>
                             <button className='button'>I'm feeling lucky!</button>
                             <div className='nav__filters__owner'>
-                                <button className='button__owner left active'>Popular</button>
-                                <button className='button__owner right'>Mine</button>
+                                <button className='button__owner left active' onClick={handlePopular}>Popular</button>
+                                <button className='button__owner right' onClick={handleMine}>Mine</button>
                             </div>
                         </div>
                     </div>
