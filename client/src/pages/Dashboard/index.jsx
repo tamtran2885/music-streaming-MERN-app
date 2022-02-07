@@ -42,6 +42,7 @@ const Dashboard = () => {
                 Authorization: 'Bearer ' + token,
             },
         });
+        
         setMongoUser(userReq.data);
     };
 

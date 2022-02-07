@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import axios from "axios"
 
 // import th token
@@ -103,7 +103,7 @@ const UserEdit = () => {
           <label>Email</label>
           <input onChange={onChange} name="email" defaultValue={editUser.email} />
 
-          <button type="button">Change Password</button>
+          <Link to={`/user/edit/change-password/${editUser.firebaseUser}`}>Edit password</Link>
           <button type="submit">Save Changes</button>
         </form>
 
