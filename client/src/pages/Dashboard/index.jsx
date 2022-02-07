@@ -23,9 +23,6 @@ const Dashboard = () => {
     const tracks = useSelector((state) => state.dashboard.tracks.data);
     const tracksByUser = useSelector((state) => state.dashboard.tracksByUser.data);
 
-    // console.log(tracks);
-    // console.log(tracksByUser);
-
     const [tracksDashboard, setTracksDashboard] = useState(tracks);
 
     useEffect(() => {
