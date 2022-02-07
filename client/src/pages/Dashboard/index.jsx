@@ -7,7 +7,7 @@ import Albums from '../../components/Albums';
 import MusicPlayer from '../../components/MusicPlayer';
 
 import { connect, useDispatch } from "react-redux";
-import { getTracks, getTracksByUser } from "../../redux/dashboard/actions";
+import { getAllTracks, getTracksByUser } from "../../redux/track/actions";
 import { useSelector } from "react-redux";
 
 import { useAuth } from "../../context/authContext";
@@ -20,15 +20,15 @@ const Dashboard = () => {
     const token = user.accessToken;
     // console.log(JSON.stringify(user));
 
-    const tracks = useSelector((state) => state.dashboard.tracks.data);
-    const tracksByUser = useSelector((state) => state.dashboard.tracksByUser.data);
+    const allTracks = useSelector((state) => state.track.allTracks.data);
+    const myTracks = useSelector((state) => state.track.myTracks.data);
 
-    const [tracksDashboard, setTracksDashboard] = useState(tracks);
+    const [tracksDashboard, setTracksDashboard] = useState(allTracks);
 
     useEffect(() => {
         if (token) {
             APIcall();
-            dispatch(getTracks());
+            dispatch(getAllTracks());
             dispatch(getTracksByUser(user.uid));
         }
     }, [dispatch, token]);
@@ -43,11 +43,11 @@ const Dashboard = () => {
     };
 
     const handleMine = () => {
-        setTracksDashboard(tracksByUser)
+        setTracksDashboard([...myTracks])
     }
 
     const handlePopular = () => {
-        setTracksDashboard(tracks)
+        setTracksDashboard([...allTracks])
     }
 
     return (
@@ -74,8 +74,8 @@ const Dashboard = () => {
 
 const mapStateToProps = state => {
     return {
-      tracks: state.dashboard.tracks,
-      tracksByUser: state.dashboard.tracksByUser
+      allTrack: state.track.allTracks,
+      myTracks: state.dashboard.myTracks
     }
   }
   
