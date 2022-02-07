@@ -2,6 +2,17 @@ import React, { useRef, useState } from 'react';
 
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentTrack, setPlaying, setRepeat, setRandom } from "../../redux/audioPlay/actions";
+import cover from "../../assets/images/cover.jpg";
+import star from '../../assets/images/star.svg'
+import menu from '../../assets/images/menu.svg'
+import play from '../../assets/images/playbutton.svg'
+import pause from '../../assets/images/pausebutton.svg'
+import previous from '../../assets/images/previousbutton.svg'
+import next from '../../assets/images/nextbutton.svg'
+import repeatbutton from '../../assets/images/repeatbutton.svg'
+import randombutton from '../../assets/images/randombutton.svg'
+import playerdisc from '../../assets/images/playerdisc.svg'
+import volume from '../../assets/images/volume.svg'
 
 const MusicPlayer = () => {
   const dispatch = useDispatch();
@@ -84,16 +95,23 @@ const MusicPlayer = () => {
     <>
       <div className='musicplayer__absolute'>
         <div className='musicplayer__icon'>
-          <img src="Icon" alt="Icon" />
+          <img className='icon' src={cover} alt="Icon" />
+        </div>
+        <div className='like'>
+          <img className='song__like__icon' src={star} alt="" onClick=""/>
         </div>
         <div className='musicplayer__info'>
-          <div className='like'>Like</div>
           <div className='musicplayer__info__song'>
             <p className='tittle'>{currentTrack && currentTrack.track.title}</p>
             <p className='artist'>{currentTrack && currentTrack.track.album}· Genre</p>
           </div>
-          <div className='musicplayer__options'>Options</div>
         </div>
+        <div className='musicplayer__options'>
+          <img className='song__options__icon' src={menu} alt="" onClick=""/>
+        </div>
+
+
+
         <div className='musicplayer__player'>
           <audio
             onTimeUpdate={(e) => setCurrentTime(e.target.currentTime)}
@@ -103,35 +121,55 @@ const MusicPlayer = () => {
             preload="true"
             src={currentTrack && currentTrack.track.urlTrack}
           />
-          <div>
-            <label>Volume: </label>
-            <input
-              value={Math.round(stateVolume * 100)}
-              type="range"
-              onChange={(e) => onChangeVoLume(e.target.value/100)}
-            />
+          <button className='button' onClick={getRepeatTrack}>
+            <img className='icon' src={repeatbutton} alt="Repeat"/>
+          </button>
+          <button className='button' onClick={getPrevTrack}>
+            <img className='icon' src={previous} alt="Previous"/>
+          </button>
+          <button className='button' onClick={() => {
+            handleTrack()
+            handleAudio()
+          }}>
+            <img className='icon pause' src={pause} alt="Pause"/>
+          </button>
+          <button className='button' onClick={getNextTrack}>
+            <img className='icon' src={next} alt="Next"/>
+          </button>
+          <button className='button' onClick={getRandomTrack}>
+            <img className='icon' src={randombutton} alt="Random"/>
+          </button>
+        </div>
+        <img className='icon__disc' src={playerdisc} alt="Disc"/>
+        <div className='musicplayer__duration'>
+          <div className='currentTime'>
+            {fmtMSS(currentTime)}
           </div>
-          <div>
-            <label>Song Progress: </label>
+          <div className='input'>
             <input
               onChange={handleProgress}
               value={duration ? (currentTime * 100) / duration : 0}
               type="range"
             />
-            <span>{fmtMSS(currentTime)}/{fmtMSS(duration)}</span>
           </div>
-          <button onClick={getRepeatTrack}>Repeat</button>
-          <button onClick={getPrevTrack}>Previous</button>
-          <button onClick={() => {
-            handleTrack()
-            handleAudio()
-          }}>Play/Pause</button>
-          <button onClick={getNextTrack}>Next</button>
-          {/* <button>Forward</button> */}
-          <button onClick={getRandomTrack}>Aleatory</button>
+          <div className='duration'>
+            {fmtMSS(duration - currentTime)}
+          </div>
         </div>
-        <div className='musicplayer__foward'></div>
-        <div className='musicplayer__volume'></div>
+
+        <div className='musicplayer__volume'>
+          <div className='musicplayer__volume__icon'>
+            <img className='icon' src={volume} alt="Random"/>
+          </div>
+          <div className='input'>
+          <input
+            value={Math.round(stateVolume * 100)}
+            type="range"
+            onChange={(e) => onChangeVoLume(e.target.value/100)}
+          />
+          </div>
+        </div>
+
       </div>
     </>
   )

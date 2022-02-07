@@ -5,7 +5,7 @@ import logo from "../../assets/images/logo.svg";
 import SearchBar from "../SearchBar";
 
 const Navbar = (props) => {
-    const {page, handleMine, handlePopular} = props
+    const {page, handleMine, handlePopular, userName} = props
     const navigate = useNavigate();
     const { user, logout } = useAuth()
 
@@ -32,7 +32,7 @@ const Navbar = (props) => {
                         <Link className='nav__link' to="/track">Songs</Link>
                         <Link className='nav__link' to={`/user/playlists`}>Playlists</Link>
                         <Link className='nav__link' to={`/user/albums`}>Albums</Link>
-                        <Link className='nav__link' to={user ? `/user/${user.uid}` : "/"}>{user && user.displayName}</Link>
+                        <Link className='nav__link' to={user ? `/user/${user.uid}` : "/"}>Username</Link>
                         <Link className='avatar' to={user ? `user/${user.uid}` : "/"}><img className='avatar' src={logo} alt="" /></Link>
                     </div>
                 </div>
@@ -56,7 +56,7 @@ const Navbar = (props) => {
                 <div className='hr'>
                     <hr />
                 </div>
-                <button onClick={handleLogout} className='button__primary'>Log Out</button>
+                <button onClick={handleLogout} className='button__primary logout'>Log Out</button>
             </div>
         </nav>
     )

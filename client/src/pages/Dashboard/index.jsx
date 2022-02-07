@@ -42,20 +42,20 @@ const Dashboard = () => {
         setMongoUser(userReq.data);
     };
 
-    const handleMine = () => {
-        setTracksDashboard([...myTracks])
-    }
 
     const handlePopular = () => {
-        setTracksDashboard([...allTracks])
-    }
+        setTracksDashboard(allTracks)
+    };
+
+    const handleMine = () => {
+        setTracksDashboard(myTracks)
+    };
 
     return (
         <>
             <div className='dashboard__background'>
                 <Navbar page="Popular Now" handleMine={handleMine} handlePopular={handlePopular}/>
-                <h1>Welcome {mongoUser.firstName}!</h1>
-                {/* <h1>{user.uid}</h1> */}
+                {/*<h1>Welcome {mongoUser.firstName}!</h1>*/}
                 <div className='dashboard__absolute'>
                     <div className='dashboard__display'>
                         <Playlists />

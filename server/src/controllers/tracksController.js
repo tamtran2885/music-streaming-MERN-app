@@ -28,19 +28,22 @@ export const addTracksToUser = async (req, res, track) => {
   }
 };
 
-// export const addPhotoToTrack = (req,res) => {
-//     const thumbnail = await cloudinary.v2.uploader.upload(req.file.path, {
-//         resource_type: "auto"
-//     });
-// }
+export const addPhotoToTrack = async (req, res) => {
+  const thumbnail = await cloudinary.v2.uploader.upload(req.file.path, {
+    resource_type: "auto",
+  });
+};
 
-//? CREATE A NEW TRACK
+// //? CREATE A NEW TRACK
 // export const createTrack = async (req, res) => {
-//   try {
-//     //? UPLOAD AUDIO
-//     const result = await cloudinary.v2.uploader.upload(req.file.path, {
-//       resource_type: "auto",
-//     });
+//     try {
+
+//         //? UPLOAD AUDIO
+//         const result = await cloudinary.v2.uploader.upload(req.file.path, {
+//             resource_type: "auto"
+//         });
+
+//         addPhotoToTrack(req, res)
 
 //     // const result = await cloudinary.v2.uploader.upload(req.file.path);
 
