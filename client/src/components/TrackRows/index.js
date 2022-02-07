@@ -7,7 +7,7 @@ import axios from "axios";
 import { useAuth } from "../../context/authContext";
 
 const TrackRows = () => {
-  // take a token
+  // get token
   const { user } = useAuth();
   // const token = user.accessToken;
 
@@ -78,7 +78,7 @@ const TrackRows = () => {
 
     try {
       await axios.put(`/api/tracks/edit/${editRowId}`, formData, config);
-      // setTracksInfo(formData);
+      setEditRowId(null);
     } catch (e) {
       console.log(e);
     }

@@ -8,6 +8,7 @@ import MusicPlayer from '../../components/MusicPlayer';
 
 import { connect, useDispatch } from "react-redux";
 import { getTracks, getTracksByUser } from "../../redux/dashboard/actions";
+import { useSelector } from "react-redux";
 
 import { useAuth } from "../../context/authContext";
 import axios from 'axios';
@@ -18,6 +19,14 @@ const Dashboard = () => {
     const [mongoUser, setMongoUser] = useState({});
     const token = user.accessToken;
     // console.log(JSON.stringify(user));
+
+    const tracks = useSelector((state) => state.dashboard.tracks.data);
+    const tracksByUser = useSelector((state) => state.dashboard.tracksByUser.data);
+
+    // console.log(tracks);
+    // console.log(tracksByUser);
+
+    const [tracksDashboard, setTracksDashboard] = useState(tracks);
 
     useEffect(() => {
         if (token) {
@@ -36,16 +45,24 @@ const Dashboard = () => {
         setMongoUser(userReq.data);
     };
 
+    const handleMine = () => {
+        setTracksDashboard(tracksByUser)
+    }
+
+    const handlePopular = () => {
+        setTracksDashboard(tracks)
+    }
+
     return (
         <>
             <div className='dashboard__background'>
-                <Navbar page="Popular Now"/>
+                <Navbar page="Popular Now" handleMine={handleMine} handlePopular={handlePopular}/>
                 <h1>Welcome {mongoUser.firstName}!</h1>
                 {/* <h1>{user.uid}</h1> */}
                 <div className='dashboard__absolute'>
                     <div className='dashboard__display'>
                         <Playlists />
-                        <Songs />
+                        <Songs tracksDashboard={tracksDashboard}/>
                     </div>
                     <div className='dashboard__side'>
                         <Genres />
