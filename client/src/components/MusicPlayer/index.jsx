@@ -93,7 +93,7 @@ const MusicPlayer = () => {
 
   return (
     <>
-      <div className='musicplayer__absolute'>
+      <div className='musicplayer__absolute hide'>
         <div className='musicplayer__icon'>
           <img className='icon' src={cover} alt="Icon" />
         </div>

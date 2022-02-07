@@ -552,6 +552,11 @@ body {
       }
     }
   }
+  .hide {
+    position: absolute;
+    bottom: -100%;
+    transition: 2s;
+  }
   .credits {
     display: flex;
     justify-content: space-between;
