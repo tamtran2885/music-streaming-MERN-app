@@ -124,3 +124,46 @@ export const updateUser = async (req, res) => {
     console.log(error);
   }
 };
+
+
+
+export const changePass = async (req, res) => {
+  try {
+    const url = req.headers;
+    console.log(url)
+    /*const user = await User.findOne({
+      firebaseUser: url,
+    });
+
+    const dataUser = {
+      firstName: req.body.firstName || user.firstName,
+      lastName: req.body.lastName || user.lastName,
+      birthday: req.body.birthday || user.birthday,
+      country: req.body.country || user.country,
+      profile: user.profile,
+      email: req.body.email || user.email,
+      cloudinaryId: user.cloudinaryId,
+      firebaseUser: req.body.firebaseUser,
+    };
+    // console.log(firebaseUser);
+
+    const userToEdit = await User.findOneAndUpdate(
+      {
+        firebaseUser: url,
+      },
+      dataUser,
+      {
+        new: true,
+      }
+    );
+
+    res.status(200).json({ data: "User updated", userToEdit });*/
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+//const hash = await bcrypt.hash(req.body.password, saltRounds);
+
+changePass();
