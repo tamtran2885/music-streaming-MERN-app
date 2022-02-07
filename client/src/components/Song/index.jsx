@@ -33,8 +33,12 @@ const Song = (track) => {
         </div>
         <div className='song__like'>
         </div>
-        <input type="checkbox" />
-        {like ? (<img className='song__like__icon' src={staractive} alt="" onClick={handleToggle}/>) : (<img className='song__like__icon' src={star} alt="" onClick={handleToggle}/>)}
+        {like ? (
+          <img className='song__like__icon' src={staractive} alt="" onClick={handleToggle}/>
+          ) : (
+          <img className='song__like__icon' src={star} alt="" onClick={handleToggle}/>
+          )
+        }
         {/* <img className='song__like__icon' src={star} alt="" onClick={handleToggle}/>
         <img className='song__like__icon' src={staractive} alt="" onClick={handleToggle}/> */}
         <div className='song__info'>

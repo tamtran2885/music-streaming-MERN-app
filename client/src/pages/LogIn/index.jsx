@@ -58,6 +58,7 @@ const Login = () => {
                             </div>
                             <div className="form__questions">
                                 <p>First time in TamTamGo?<br /> Please, <Link className="link" to="/register">sign up.</Link></p>
+                                <p>I'd like to reset password?<br /> Please, <Link className="link" to="/reset-password">Reset.</Link></p>
                                 <div className="form__buttons">
                                     <ConnectWithGoogle />
                                     <button type="submit" className="button">Log in</button>
