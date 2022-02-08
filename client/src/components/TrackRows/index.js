@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { useAuth } from "../../context/authContext";
 import { useDispatch } from "react-redux";
-import { deleteSingleTrack } from "../../redux/track/actions";
 
 const TrackRows = () => {
   // get token
@@ -92,9 +91,17 @@ const TrackRows = () => {
     setEditRowId(null);
   };
 
-  const handleDelete = (_id) => {
-    console.log("delete" + _id);
-    dispatch(deleteSingleTrack(_id));
+  const handleDelete = async (_id) => {
+    // console.log("delete" + _id);
+    // dispatch(deleteSingleTrack(_id));
+    try {
+      const response = await axios.delete(
+        `http://localhost:4000/api/tracks/${_id}`
+      );
+      console.log(_id);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
