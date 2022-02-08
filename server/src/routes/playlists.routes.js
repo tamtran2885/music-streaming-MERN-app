@@ -9,7 +9,7 @@ export const playlistsRoutes = Router();
 playlistsRoutes.get("/", getPlaylists);
 
 // ? CREATE PLAYLIST
-playlistsRoutes.post("/", upload.single("..."), createPlaylist);
+playlistsRoutes.post("/", upload.single("thumbnail"), createPlaylist);
 
 //? GET PLAYLIST BY ID
 playlistsRoutes.get("/:playlistId", getPlaylistById);

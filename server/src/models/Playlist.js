@@ -13,11 +13,7 @@ const PlaylistSchema = new Schema({
 	},
 
 	description: {
-		type: TextBlob,
-	},
-
-	primaryColor: {
-		type: String
+		type: String,
 	},
 
 	cover: {
@@ -28,20 +24,24 @@ const PlaylistSchema = new Schema({
 		type: String
 	},
 
+	cloudinaryId: {
+		type: String
+	},
+
 	publicAccessible: {
 		type: Boolean
 	},
 
 	numberSongs: {
-		type: Integer
+		type: Number
 	},
 
 	followers: {
-		type: Integer
+		type: Number
 	},
 
 	rating: {
-		type: Double
+		type: Number
 	},
 
 	userId: {
@@ -54,7 +54,7 @@ const PlaylistSchema = new Schema({
 		ref: "tracks"
 	},
 
-	fllowedBy: {
+	followedBy: {
 		type: Schema.Types.ObjectId,
 		ref: "user"
 	}

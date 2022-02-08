@@ -1,11 +1,9 @@
 import React  from 'react';
 import { useState } from 'react';
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 // import userValidation from "../../utils/validation/userValidation"
 
-import { getAuth, updatePassword } from "firebase/auth";
-
-
+import { getAuth, updatePassword, reauthenticateWithCredential } from "firebase/auth";
 
 import logo from '../../assets/images/logo.svg';
 
@@ -14,10 +12,7 @@ const ResetPassword = () => {
     const [newPass, setNewPass] = useState("");
 
     const auth = getAuth();
-
     const user = auth.currentUser;
-
-    console.log(user)
 
     const onChangeOld = (e) => {
         setOldPass({
@@ -38,12 +33,20 @@ const ResetPassword = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        updatePassword(user, newPass).then(() => {
-                console.log("change password complete")
-            }).catch((error) => {
-                console.log(error)
-            });
+        //const credential = promptForCredentials();
 
+        //user.reauthenticateWithCredential(credential).then(() => {
+            console.log("Change password 2 complete")
+        //}).catch((error) => {
+            //console.log(error)
+        //});
+
+        updatePassword(user, JSON.stringify(newPass)).then(() => {
+            console.log("Change password complete")
+            console.log(JSON.stringify(newPass))
+        }).catch((error) => {
+                console.log(error)
+        });
     }
 
     return (

@@ -125,13 +125,13 @@ export const updateUser = async (req, res) => {
   }
 };
 
-
-
+export const changePass = async (req, res) => {}
+/*
 export const changePass = async (req, res) => {
   try {
     const url = req.headers;
     console.log(url)
-    /*const user = await User.findOne({
+    const user = await User.findOne({
       firebaseUser: url,
     });
 
@@ -157,13 +157,12 @@ export const changePass = async (req, res) => {
       }
     );
 
-    res.status(200).json({ data: "User updated", userToEdit });*/
+    res.status(200).json({ data: "User updated", userToEdit });
   } catch (error) {
     console.log(error);
   }
 };
 
-
 //const hash = await bcrypt.hash(req.body.password, saltRounds);
 
-changePass();
+changePass();*/
