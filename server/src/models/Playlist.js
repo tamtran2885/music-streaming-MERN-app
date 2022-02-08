@@ -2,63 +2,63 @@ import pkg from "mongoose";
 const { Schema, model } = pkg;
 
 const PlaylistSchema = new Schema({
+  title: {
+    type: String,
+  },
 
-	title: {
-		type: String,
-	},
+  collaborative: {
+    type: Boolean,
+    trim: true,
+  },
 
-	collaborative: {
-		type: Boolean,
-		trim: true,
-	},
+  description: {
+    type: String,
+  },
 
-	description: {
-		type: String,
-	},
+  cover: {
+    type: String,
+  },
 
-	cover: {
-		type: String
-	},
+  thumbnail: {
+    type: String,
+  },
 
-	thumbnail: {
-		type: String
-	},
+  cloudinaryId: {
+    type: String,
+  },
 
-	cloudinaryId: {
-		type: String
-	},
+  publicAccessible: {
+    type: Boolean,
+  },
 
-	publicAccessible: {
-		type: Boolean
-	},
+  numberSongs: {
+    type: Number,
+  },
 
-	numberSongs: {
-		type: Number
-	},
+  followers: {
+    type: Number,
+  },
 
-	followers: {
-		type: Number
-	},
+  rating: {
+    type: Number,
+  },
 
-	rating: {
-		type: Number
-	},
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "user",
+  },
+  tracks: {
+    type: Schema.Types.ObjectId,
+    ref: "tracks",
+  },
 
-	userId: {
-		type: Schema.Types.ObjectId,
-		ref: "user"
-	},
-
-	tracks: {
-		type: Schema.Types.ObjectId,
-		ref: "tracks"
-	},
-
-	followedBy: {
-		type: Schema.Types.ObjectId,
-		ref: "user"
-	}
-
+  followedBy: {
+    type: Schema.Types.ObjectId,
+    ref: "user",
+  },
+  firebaseUser: {
+    type: String,
+  },
 });
 
 export default model("playlist", PlaylistSchema);

@@ -5,20 +5,22 @@ import { useSelector } from "react-redux";
 
 import axios from "axios";
 import { useAuth } from "../../context/authContext";
+import { useDispatch } from "react-redux";
+import { deleteSingleTrack } from "../../redux/track/actions";
 
 const TrackRows = () => {
   // get token
   const { user } = useAuth();
   // const token = user.accessToken;
 
+  const dispatch = useDispatch();
+
   // retrieve tracks from redux store
-  const tracksByUser = useSelector(
-    (state) => state.dashboard.tracksByUser.data
-  );
-  // console.log(tracksByUser);
+  const myTracks = useSelector((state) => state.track.myTracks.data);
+  // console.log(myTracks);
 
   // Set state
-  const [tracksInfo, setTracksInfo] = useState(tracksByUser);
+  const [tracksInfo, setTracksInfo] = useState(myTracks);
 
   const [editRowId, setEditRowId] = useState(null);
 
@@ -90,6 +92,11 @@ const TrackRows = () => {
     setEditRowId(null);
   };
 
+  const handleDelete = (_id) => {
+    console.log("delete" + _id);
+    dispatch(deleteSingleTrack(_id));
+  };
+
   return (
     <>
       <div style={{ display: "flex" }}>
@@ -120,6 +127,7 @@ const TrackRows = () => {
                     key={track._id}
                     track={track}
                     handleEditClick={handleEditClick}
+                    handleDelete={handleDelete}
                   />
                 )}
               </div>

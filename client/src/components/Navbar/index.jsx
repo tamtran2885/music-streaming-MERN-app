@@ -5,11 +5,12 @@ import logo from "../../assets/images/logo.svg";
 import SearchBar from "../SearchBar";
 
 const Navbar = (props) => {
-    const {page, handleMine, handlePopular} = props
+    const {page, handleMine, handlePopular } = props;
     const navigate = useNavigate();
     const { user, logout } = useAuth()
 
     // console.log(JSON.stringify(user));
+    console.log(user)
 
     const handleLogout = async () => {
         try {
@@ -20,7 +21,6 @@ const Navbar = (props) => {
         }
     }
 
-
     return (
         <nav>
             <div className='nav__absolute'>
@@ -30,9 +30,9 @@ const Navbar = (props) => {
                     </div>
                     <div className='nav__options'>
                         <Link className='nav__link' to="/track">Songs</Link>
-                        <Link className='nav__link' to={`/user/playlists`}>Playlists</Link>
+                        <Link className='nav__link' to={`/playlist`}>Playlists</Link>
                         <Link className='nav__link' to={`/user/albums`}>Albums</Link>
-                        <Link className='nav__link' to={user ? `/user/${user.uid}` : "/"}>{user && user.displayName}</Link>
+                        <Link className='nav__link' to={user ? `/user/${user.uid}` : "/"}>{user && user.email}</Link>
                         <Link className='avatar' to={user ? `user/${user.uid}` : "/"}><img className='avatar' src={logo} alt="" /></Link>
                     </div>
                 </div>
@@ -56,7 +56,7 @@ const Navbar = (props) => {
                 <div className='hr'>
                     <hr />
                 </div>
-                <button onClick={handleLogout} className='button__primary'>Log Out</button>
+                <button onClick={handleLogout} className='button__primary logout'>Log Out</button>
             </div>
         </nav>
     )

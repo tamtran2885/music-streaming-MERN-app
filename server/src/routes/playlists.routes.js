@@ -1,9 +1,19 @@
 import { Router } from "express";
 import upload from "../utils/multer.js";
-import Auth from '../middlewares/index.js';
-import { createPlaylist, deletePlaylistById, getPlaylistById, getPlaylists, updatePlaylistById, addTrackToPlaylist } from "../controllers/playlistsController.js";
+import Auth from "../middlewares/index.js";
+import {
+      createPlaylist,
+      deletePlaylistById,
+      getPlaylistById,
+      getPlaylists,
+      updatePlaylistById,
+      getPlaylistsByUser,
+} from "../controllers/playlistsController.js";
 
 export const playlistsRoutes = Router();
+
+//? GET PLAYLISTS By User - firebaseUser
+playlistsRoutes.get("/mine", getPlaylistsByUser);
 
 // ? GET PLAYLIST
 playlistsRoutes.get("/", getPlaylists);

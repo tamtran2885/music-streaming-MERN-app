@@ -9,36 +9,44 @@ export const getPlaylists = async (req, res, next) => {
     } catch (error) {
         console.log(error);
     }
-}
+};
+
+//? GET PLAYLISTS BY USER
+export const getPlaylistsByUser = async (req, res) => {
+    // console.log(req.query);
+    try {
+        const param = req.query.firebaseUser;
+        const playlists = await Playlist.find({
+            firebaseUser: param,
+        }).populate("user");
+        res.json(playlists);
+    } catch (error) {
+        console.log(error);
+    }
+};
 
 //? CREATE PLAYLIST
 export const createPlaylist = async (req, res, next) => {
     try {
         // Upload image to cloudinary
         const result = await cloudinary.v2.uploader.upload(req.file.path);
-        console.log(result.public_id)
+        // console.log(result.public_id);
 
         const playlist = new Playlist({
-            title: req.body.title,
-            collaborative: req.body.collaborative,
-            description: req.body.description,
-            cover: req.body.cover,
+            //? PASSING DATA TO NEW TRACK
+            ...req.body,
+
             thumbnail: result.secure_url,
             cloudinaryId: result.public_id,
-            publicAccessible: req.body.publicAccessible,
-            numberSongs: 0,
-            followers: 0,
-            userId: req.body.userId,
-            tracks: req.body.tracks
+            firebaseUser: req.body.firebaseUser,
         });
 
         await playlist.save();
-        res.status(200).json({ data: "Playlist created", playlist })
-
+        res.status(200).json({ data: "Playlist created", playlist });
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
-}
+};
 
 //? GET PLAYLIST BY ID
 export const getPlaylistById = async (req, res, next) => {
@@ -49,7 +57,7 @@ export const getPlaylistById = async (req, res, next) => {
     } catch (error) {
         console.log(error);
     }
-}
+};
 
 //? UPDATE PLAYLIST BY ID
 export const updatePlaylistById = async (req, res, next) => {
@@ -74,7 +82,6 @@ export const updatePlaylistById = async (req, res, next) => {
             email: req.body.email || playlist.email,
             cloudinaryId: playlist.cloudinaryId,
             firebaseUser: req.body.firebaseUser,
-
         };
 
         const userToEdit = await Playlist.findOneAndUpdate(
@@ -91,7 +98,7 @@ export const updatePlaylistById = async (req, res, next) => {
     } catch (error) {
         console.log(error);
     }
-}
+};
 
 //? DELETE PLAYLIST
 export const deletePlaylistById = async (req, res, next) => {
@@ -109,26 +116,26 @@ export const deletePlaylistById = async (req, res, next) => {
     } catch (error) {
         console.log(error);
     }
-}
+};
 
 //? ADD TRACK TO PLAYLIST
 export const addTrackToPlaylist = async (req, res, next) => {
     try {
-        const trackId = req.query.tracks;
-        const playlistId = req.params.playlistId;
+        const trackId = req.query.trackId;
+        const playlistId = req.query.playlistId;
 
         const playlist = await Playlist.findById(playlistId);
-        console.log(playlist.tracks)
-        // console.log(trackId)
 
-        // Check if the track is already in the playlist
-        // if (playlist.tracks.filter((track) => track.trackId === trackId).length > 0) {
-        //     return res.status(400).json({ msg: "Track has been added" });
-        // }
-        // playlist.tracks.unshift({ tracks: trackId });
-        // await playlist.save();
-        res.json(playlist);
+        // Check if the track has already in the playlist
+        if (
+            playlist.tracks.filter((track) => track.trackId === trackId).length > 0
+        ) {
+            return res.status(400).json({ msg: "Track has been added" });
+        }
+        playlist.tracks.unshift({ firebaseUser: param });
+        await playlist.save();
+        res.json(playlist.tracks);
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
-}
+};

@@ -1,6 +1,6 @@
 import React from "react";
 
-const ReadOnlyTrackRow = ({ track, handleEditClick }) => {
+const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
   const { title, artist, album, reproductions, genre, _id, duration } = track;
   return (
     <div style={{ display: "flex" }}>
@@ -23,6 +23,9 @@ const ReadOnlyTrackRow = ({ track, handleEditClick }) => {
           onClick={(event) => handleEditClick(event, track)}
         >
           Edit
+        </button>
+        <button type="button" onClick={(event) => handleDelete(track._id)}>
+          Delete
         </button>
       </div>
     </div>
