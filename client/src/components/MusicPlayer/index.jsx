@@ -3,7 +3,8 @@ import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentTrack, setPlaying, setRepeat, setRandom } from "../../redux/audioPlay/actions";
 import cover from "../../assets/images/cover.jpg";
-import star from '../../assets/images/star.svg'
+import star from '../../assets/images/star.svg';
+import staractive from '../../assets/images/staractive.svg';
 import menu from '../../assets/images/menu.svg'
 import play from '../../assets/images/playbutton.svg'
 import pause from '../../assets/images/pausebutton.svg'
@@ -12,10 +13,15 @@ import next from '../../assets/images/nextbutton.svg'
 import repeatbutton from '../../assets/images/repeatbutton.svg'
 import randombutton from '../../assets/images/randombutton.svg'
 import playerdisc from '../../assets/images/playerdisc.svg'
-import volume from '../../assets/images/volume.svg'
+import volume from '../../assets/images/volume.svg';
+
+import { useAuth } from "../../context/authContext";
+import { addLike, removeLike } from "../../redux/track/actions";
 
 const MusicPlayer = () => {
   const dispatch = useDispatch();
+  const { user } = useAuth();
+
   const currentTrack = useSelector((state) => state.audioPlayer.currentTrack);
   const trackList = useSelector((state) => state.audioPlayer.trackList);
   const playing = useSelector((state) => state.audioPlayer.playing);
@@ -28,6 +34,34 @@ const MusicPlayer = () => {
   const [currentTime, setCurrentTime] = useState(0)
 
   const audio = useRef("audio_tag")
+  let likes = "";
+  let trackId = ""
+  if (currentTrack) {
+    likes = currentTrack.track.likes;
+    trackId = currentTrack.track._id
+  }
+
+  // console.log(likes)
+  const uid = user.uid;
+  const checkLike = (uid) => {
+    if (likes && likes.filter(like => like.firebaseUser === uid).length === 0) {
+      return false
+    } else {
+      return true
+    }
+  }
+
+  // set state of like
+  // const [like, setLike] = useState(checkLike(uid))
+
+  const like = checkLike(uid);
+  const handleToggle = () => {
+    if (like) {
+      dispatch(removeLike(trackId, uid));
+    } else {
+      dispatch(addLike(trackId, uid));
+    }
+  }
 
   // Set state of track
   const handleTrack = () => {
@@ -99,7 +133,12 @@ const MusicPlayer = () => {
           <img className='icon' src={cover} alt="Icon" />
         </div>
         <div className='like'>
-          <img className='song__like__icon' src={star} alt="" onClick=""/>
+        {like === false ? (
+          <img className='song__like__icon' src={star} alt="" onClick={handleToggle}/>
+          ) : (
+          <img className='song__like__icon' src={staractive} alt=""  onClick={handleToggle}/>
+          )
+        }
         </div>
         <div className='musicplayer__info'>
           <div className='musicplayer__info__song'>

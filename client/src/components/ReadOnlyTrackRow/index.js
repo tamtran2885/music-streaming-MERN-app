@@ -2,7 +2,7 @@ import React from "react";
 import star from "../../assets/images/star.svg";
 import menu from "../../assets/images/menu.svg";
 
-const ReadOnlyTrackRow = ({ track, handleEditClick }) => {
+const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
   const { title, artist, album, reproductions, genre, _id, duration } = track;
   return (
     <div className="trackrow">
@@ -43,6 +43,9 @@ const ReadOnlyTrackRow = ({ track, handleEditClick }) => {
           onClick={(event) => handleEditClick(event, track)}
         >
           <img className="song__edit__icon" src={menu} alt="Menu" />
+        </button>
+        <button type="button" onClick={(event) => handleDelete(track._id)}>
+          Delete
         </button>
       </div>
     </div>

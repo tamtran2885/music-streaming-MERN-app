@@ -12,6 +12,7 @@ import AddTrack from "./pages/AddTrack";
 import AddAlbum from "./pages/AddAlbum";
 import AddPlaylist from "./pages/AddPlaylist";
 import TrackPage from "./pages/TrackPage";
+import PlaylistPage from "./pages/PlaylistPage";
 import ResetPassword from "./pages/ResetPassword";
 
 import { AuthProvider } from "./context/authContext";
@@ -52,6 +53,7 @@ function App() {
 
           <Route path="/album/add" element={<AddAlbum />} />
 
+          <Route path="/playlist" element={<PlaylistPage />} />
           <Route path="/playlist/add" element={<AddPlaylist />} />
 
           <Route path="/track" element={<TrackPage />} />

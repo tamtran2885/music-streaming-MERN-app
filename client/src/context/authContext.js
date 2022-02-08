@@ -10,6 +10,8 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 
+import axios from "axios";
+
 export const authContext = createContext();
 
 export const useAuth = () => {
@@ -41,6 +43,15 @@ export function AuthProvider({ children }) {
 
   const updatePassword = (password) => updatePassword(auth, password, user);
 
+  const getUserProfile = (user) => {
+    const userReq = axios.get(`/api/user/${user.uid}`, {
+      headers: {
+        Authorization: "Bearer " + user.accessToken,
+      },
+    });
+    return userReq.data;
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
@@ -60,6 +71,7 @@ export function AuthProvider({ children }) {
     <authContext.Provider
       value={{
         user,
+        getUserProfile,
         loading,
         signUpWithEmailAndPassword,
         logInWithEmailAndPassword,
