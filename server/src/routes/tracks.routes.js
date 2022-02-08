@@ -8,7 +8,6 @@ import {
   getTracksByUser,
   addFavToTrack,
   removeFavFromTrack,
-  checkLike,
 } from "../controllers/tracksController.js";
 import uploadTrack from "../utils/multerTracks.js";
 import upload from "../utils/multer.js";
@@ -26,15 +25,16 @@ tracksRoutes.put("/like/:trackId", addFavToTrack);
 // @route PUT api/tracks/unlike/:trackId
 tracksRoutes.put("/unlike/:trackId", removeFavFromTrack);
 
-// Check like of user of a single song
-// @route GET api/tracks/checkLike/:trackId
-tracksRoutes.get("/checkLike/:trackId", checkLike);
-
 // ? GET TRACKS
 tracksRoutes.get("/", getTracks);
 
 // ? CREATE tracks
-tracksRoutes.post("/", uploadTrack.single("urlTrack"), createTrack);
+tracksRoutes.post(
+  "/",
+  uploadTrack.single("urlTrack"),
+  upload.single("photoTrack"),
+  createTrack
+);
 
 // ? GET tracks BY ID
 tracksRoutes.get("/:trackId", getTrackById);

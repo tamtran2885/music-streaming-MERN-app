@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import Playlist from '../Playlist';
+import Playlist from '../Playlist';
 
-const Playlists = () => {
+const Playlists = ({playlistsDashboard}) => {
 
   return (
     <>
@@ -12,9 +12,9 @@ const Playlists = () => {
           <Link className='link' to={`/user/playlists`}>See All</Link>
         </div>
         <div className='playlists__container'>
-          {/* {playlistsInfo && playlistsInfo.map((playlist) => (
+          {playlistsDashboard && playlistsDashboard.map((playlist) => (
             <div className='playlist__container' key={playlist.id}><Playlist key={playlist.id} playlist={playlist}/></div>
-          ))} */}
+          ))}
         </div>
       </div>
     </>

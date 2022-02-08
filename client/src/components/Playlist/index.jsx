@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import star from '../../assets/images/star.svg'
 
 const Playlist = (playlist) => {
+  const {title, thumbnail} = playlist.playlist;
 
   return (
     <>
@@ -11,8 +12,8 @@ const Playlist = (playlist) => {
         <div>
           {playlist.playlist && (
             <>
-              <h3 className='playlist__tittle'>{playlist.playlist.name}</h3>
-                <img className='playlist__background' src={playlist.playlist.thumbnail} alt="playlist"/>
+              <h3 className='playlist__tittle'>{title && title}</h3>
+                <img className='playlist__background' src={thumbnail && thumbnail} alt="playlist"/>
             </>
           )}
         </div>

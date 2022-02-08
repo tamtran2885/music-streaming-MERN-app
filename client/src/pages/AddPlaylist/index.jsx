@@ -1,25 +1,30 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import playlistValidation from "../../utils/validation/playlistValidation";
+import { useAuth } from "../../context/authContext";
 
 import axios from "axios";
 
 const AddPlaylist = () => {
     const navigate = useNavigate()
+    const { user } = useAuth();
 
     const [values, setValues] = useState({
-        name: "",
+        title: "",
+        // collaborative: false,
         description: "",
-        primaryColor: "",
         cover: "",
         thumbnail: "",
-        publicAccessible: "",
+        // publicAccessible: "",
         numberSongs: "",
         followers: "",
-        rating: ""
+        rating: "",
+        tracks: [],
+        followedBy: []
     });
 
-    const [checkbox, setCheckbox] = useState(false);
+    const [collaborative, setCollaborative] = useState(false);
+    const [publicAccessible, setPublicAccessible] = useState(false);
 
     const [errors, setErrors] = useState({});
 
@@ -34,17 +39,19 @@ const AddPlaylist = () => {
         };
 
         const formData = new FormData();
-        formData.append("name", values.name);
-        formData.append("collaborative", checkbox);
+        formData.append("title", values.title);
+        formData.append("collaborative", collaborative);
         formData.append("description", values.description);
-        formData.append("primaryColor", values.primaryColor);
         formData.append("cover", values.cover);
         formData.append("thumbnail", values.thumbnail);
+        formData.append("publicAccessible", publicAccessible)
         formData.append("numberSongs", values.numberSongs);
+        formData.append("rating", values.rating);
+        formData.append("firebaseUser", user.uid);
 
-        // console.log(Object.fromEntries(formData.entries()));
+        console.log(Object.fromEntries(formData.entries()));
         try {
-            await axios.post("", formData, config)
+            await axios.post("http://localhost:4000/api/playlists", formData, config)
             navigate("/")
         } catch (error) {
             console.error(error.message);
@@ -54,17 +61,15 @@ const AddPlaylist = () => {
     const onChange = (name) => (e) => {
         const value = name === "thumbnail" ? e.target.files[0] : e.target.value;
         setValues({ ...values, [name]: value })
+        setCollaborative(!collaborative)
+        setPublicAccessible(!publicAccessible)
     }
-
-    const onChangeCheckbox = () => {
-        setCheckbox(!checkbox)
-    }
-
-    // console.log(checkbox)
 
     return (
         <>
             <div className="login__absolute">
+                {/* <Navbar /> */}
+            <Link to="/"><button>Dashboard</button></Link>
                 <div className="login__container">
                     <h1 className="header">Add New Playlist</h1>
 
@@ -74,12 +79,12 @@ const AddPlaylist = () => {
                                 type="text"
                                 className="form__input"
                                 placeholder="Title"
-                                name="name"
-                                value={values.name}
-                                onChange={onChange("name")}
+                                name="title"
+                                value={values.title}
+                                onChange={onChange("title")}
                             />
-                            {errors.name && <p>{errors.name}</p>}
-                            <label>Collaborative : <input type="checkbox" name="collaborative" onChange={onChangeCheckbox} value={checkbox}/></label>
+                            {errors.title && <p>{errors.title}</p>}
+                            <label>Collaborative : <input type="checkbox" name="collaborative" onChange={onChange("collaborative")} value={collaborative}/></label>
                             <input
                                 type="text"
                                 className="form__input"
@@ -89,14 +94,7 @@ const AddPlaylist = () => {
                                 onChange={onChange("description")}
                             />
                             {errors.description && <p>{errors.description}</p>}
-                            <input
-                                type="text"
-                                className="form__input"
-                                placeholder="Primary Color"
-                                name="primaryColor"
-                                value={values.primaryColor}
-                                onChange={onChange("primaryColor")}
-                            />
+                            <label>Public Accessible : <input type="checkbox" name="publicAccessible" onChange={onChange("publicAccessible")} value={publicAccessible}/></label>
                             <input
                                 type="text"
                                 className="form__input"
@@ -111,7 +109,6 @@ const AddPlaylist = () => {
                                 className="form__input"
                                 placeholder="Thumbnail"
                                 name="thumbnail"
-                                // value={values.thumbnail}
                                 onChange={onChange("thumbnail")}
                             />
                             {errors.thumbnail && <p>{errors.thumbnail}</p>}
@@ -122,6 +119,14 @@ const AddPlaylist = () => {
                                 name="numberSongs"
                                 value={values.numberSongs}
                                 onChange={onChange("numberSongs")}
+                            />
+                            <input
+                                type="number"
+                                className="form__input"
+                                placeholder="Rating"
+                                name="rating"
+                                value={values.rating}
+                                onChange={onChange("rating")}
                             />
                             <button type="submit">Submit</button>
                         </form>

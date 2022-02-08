@@ -231,22 +231,3 @@ export const removeFavFromTrack = async (req, res) => {
     console.log(error);
   }
 };
-
-// Check like of user of a single song
-// @route GET api/tracks/checkLike/:trackId
-export const checkLike = async (req, res) => {
-  const param = req.query.firebaseUser;
-  try {
-    const trackId = req.params.trackId;
-    const track = await Tracks.findById(trackId);
-
-    if (
-      track.likes.filter((like) => like.firebaseUser === param).length === 0
-    ) {
-      return res.status(400).json({ msg: "Track has not been liked by user" });
-    }
-    res.json(likes);
-  } catch (error) {
-    console.log(error);
-  }
-};

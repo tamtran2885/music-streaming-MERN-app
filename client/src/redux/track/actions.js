@@ -47,12 +47,7 @@ export const addLike = (trackId, firebaseUser) => {
   return async (dispatch) => {
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/tracks/like/${trackId}`,
-        {
-          params: {
-            firebaseUser: firebaseUser,
-          },
-        }
+        `http://localhost:4000/api/tracks/like/${trackId}?firebaseUser=${firebaseUser}`
       );
       dispatch(updateLikes(response));
     } catch (err) {
@@ -65,12 +60,7 @@ export const removeLike = (trackId, firebaseUser) => {
   return async (dispatch) => {
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/tracks/unlike/${trackId}`,
-        {
-          params: {
-            firebaseUser: firebaseUser,
-          },
-        }
+        `http://localhost:4000/api/tracks/unlike/${trackId}?firebaseUser=${firebaseUser}`
       );
       dispatch(updateLikes(response));
     } catch (err) {
