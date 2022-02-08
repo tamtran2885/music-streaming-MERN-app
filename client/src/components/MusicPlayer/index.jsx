@@ -93,6 +93,7 @@ const MusicPlayer = () => {
 
   return (
     <>
+      <div className='difuse__background'></div>
       <div className='musicplayer__absolute'>
         <div className='musicplayer__icon'>
           <img className='icon' src={cover} alt="Icon" />
@@ -109,7 +110,6 @@ const MusicPlayer = () => {
         <div className='musicplayer__options'>
           <img className='song__options__icon' src={menu} alt="" onClick=""/>
         </div>
-
 
 
         <div className='musicplayer__player'>

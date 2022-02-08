@@ -56,7 +56,7 @@ const Dashboard = () => {
                 <Navbar page="Popular Now" handleMine={handleMine} handlePopular={handlePopular}/>
                 {/*<h1>Welcome {mongoUser.firstName}!</h1>*/}
                 <div className='dashboard__absolute'>
-                    <div className='dashboard__display'> 
+                    <div className='dashboard__display'>
                         <Playlists />
                         <Songs tracksDashboard={tracksDashboard}/>
                     </div>
