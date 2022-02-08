@@ -19,20 +19,21 @@ export const createPlaylist = async (req, res, next) => {
         console.log(result.public_id)
 
         const playlist = new Playlist({
-        title: req.body.title,
-        collaborative: req.body.collaborative,
-        description: req.body.description,
-        cover: req.body.cover,
-        thumbnail: result.secure_url,
-        cloudinaryId: result.public_id,
-        publicAccessible: req.body.publicAccessible,
-        numberSongs: 0,
-        followers: 0,
-        userId: req.body.userId,
+            title: req.body.title,
+            collaborative: req.body.collaborative,
+            description: req.body.description,
+            cover: req.body.cover,
+            thumbnail: result.secure_url,
+            cloudinaryId: result.public_id,
+            publicAccessible: req.body.publicAccessible,
+            numberSongs: 0,
+            followers: 0,
+            userId: req.body.userId,
+            tracks: req.body.tracks
         });
 
         await playlist.save();
-        res.status(200).json({data: "Playlist created", playlist})
+        res.status(200).json({ data: "Playlist created", playlist })
 
     } catch (error) {
         console.log(error)
@@ -73,13 +74,14 @@ export const updatePlaylistById = async (req, res, next) => {
             email: req.body.email || playlist.email,
             cloudinaryId: playlist.cloudinaryId,
             firebaseUser: req.body.firebaseUser,
+
         };
 
         const userToEdit = await Playlist.findOneAndUpdate(
             {
                 firebaseUser: url,
             },
-                dataPlaylist,
+            dataPlaylist,
             {
                 new: true,
             }
@@ -112,18 +114,20 @@ export const deletePlaylistById = async (req, res, next) => {
 //? ADD TRACK TO PLAYLIST
 export const addTrackToPlaylist = async (req, res, next) => {
     try {
-        const trackId = req.query.trackId;
-        const playlistId = req.query.playlistId;
+        const trackId = req.query.tracks;
+        const playlistId = req.params.playlistId;
 
         const playlist = await Playlist.findById(playlistId);
+        console.log(playlist.tracks)
+        // console.log(trackId)
 
-        // Check if the track has already in the playlist
-        if (playlist.tracks.filter((track) => track.trackId === trackId).length > 0) {
-            return res.status(400).json({ msg: "Track has been added" });
-        }
-        playlist.tracks.unshift({ firebaseUser: param });
-        await playlist.save();
-        res.json(playlist.tracks);
+        // Check if the track is already in the playlist
+        // if (playlist.tracks.filter((track) => track.trackId === trackId).length > 0) {
+        //     return res.status(400).json({ msg: "Track has been added" });
+        // }
+        // playlist.tracks.unshift({ tracks: trackId });
+        // await playlist.save();
+        res.json(playlist);
     } catch (error) {
         console.log(error)
     }
