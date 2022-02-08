@@ -8,6 +8,7 @@ import {
       getPlaylists,
       updatePlaylistById,
       getPlaylistsByUser,
+      addTrackToPlaylist
 } from "../controllers/playlistsController.js";
 
 export const playlistsRoutes = Router();
