@@ -27,17 +27,18 @@ playlistsRoutes.post("/", upload.single("thumbnail"), createPlaylist);
 //? GET PLAYLIST BY ID
 playlistsRoutes.get("/:playlistId", getPlaylistById);
 
-// //? UPDATE PLAYLIST BY ID
+//? UPDATE PLAYLIST BY ID
 playlistsRoutes.put("/:playlistId", upload.single("thumbnail"), updatePlaylistById);
 
-// //? UPDATE PLAYLIST BY ID
+//? UPDATE PLAYLIST BY ID
 playlistsRoutes.put("/addTrackToPlaylist/:playlistId", upload.single("thumbnail"), addTrackToPlaylist);
 
-// //? DELETE PLAYLIST BY ID
+//? DELETE PLAYLIST BY ID
 playlistsRoutes.delete("/:playlistId", deletePlaylistById);
 
-// //? FOLLOW PLAYLIST
+//? FOLLOW PLAYLIST
 playlistsRoutes.put("/follow/:playlistId", followPlaylist);
 
-// //? UNFOLLOW PLAYLIST
+//? UNFOLLOW PLAYLIST
 playlistsRoutes.put("/unfollow/:playlistId", unfollowPlaylist);
+
