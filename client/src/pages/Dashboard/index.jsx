@@ -35,6 +35,7 @@ const Dashboard = ({ allTracks, allPlaylists, myTracks, myPlaylists }) => {
             dispatch(getTracksByUser(user.uid));
             dispatch(getAllPlaylists());
             dispatch(getPlaylistsByUser(user.uid));
+
         }
     }, [dispatch, token]);
 
@@ -65,7 +66,7 @@ const Dashboard = ({ allTracks, allPlaylists, myTracks, myPlaylists }) => {
     return (
         <>
             <div className='dashboard__background'>
-                <Navbar page="Popular Now" handleMine={handleMine} handlePopular={handlePopular} />
+                <Navbar page="Popular Now" handleMine={handleMine} handlePopular={handlePopular} mongoUser={mongoUser} />
                 {/*<h1>Welcome {mongoUser.firstName}!</h1>*/}
                 <div className='dashboard__absolute'>
                     <div className='dashboard__display'>
