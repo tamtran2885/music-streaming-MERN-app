@@ -17,27 +17,31 @@ const Dashboard = ({ allTracks, allPlaylists, myTracks, myPlaylists }) => {
     const dispatch = useDispatch();
     const { user } = useAuth();
     const [mongoUser, setMongoUser] = useState({});
-    const token = user.accessToken;
+    const token = user.accessToken
+    window.localStorage.setItem("token", token)
     // console.log(JSON.stringify(user));
 
     const [tracksDashboard, setTracksDashboard] = useState([]);
     const [playlistsDashboard, setPlaylistsDashboard] = useState([]);
+    const [loaded, setLoaded] = useState(false);
 
     // console.log(allPlaylists);
     // console.log(myPlaylists);
     console.log(allTracks)
 
 
+
     useEffect(() => {
         if (token) {
-            APIcall();
             dispatch(getAllTracks());
-            dispatch(getTracksByUser(user.uid));
             dispatch(getAllPlaylists());
-            dispatch(getPlaylistsByUser(user.uid));
-
+            APIcall();
+            // dispatch(getTracksByUser(user.uid));
+            // dispatch(getPlaylistsByUser(user.uid));
         }
-    }, [dispatch, token]);
+
+
+    }, [tracksDashboard, playlistsDashboard, token]);
 
     const APIcall = async () => {
         const userReq = await axios.get(`/api/user/${user.uid}`, {
@@ -46,8 +50,10 @@ const Dashboard = ({ allTracks, allPlaylists, myTracks, myPlaylists }) => {
             },
         });
         setMongoUser(userReq.data);
-        setTracksDashboard([...allTracks]);
-        setPlaylistsDashboard([...allPlaylists]);
+        // setTracksDashboard([...allTracks]);
+        // setPlaylistsDashboard([...allPlaylists]);
+
+
     };
 
 

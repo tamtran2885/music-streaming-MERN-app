@@ -10,7 +10,7 @@ const Navbar = (props) => {
     const { user, logout } = useAuth()
 
     // console.log(JSON.stringify(user));
-    console.log(user)
+    // console.log(user)
 
     const handleLogout = async () => {
         try {
