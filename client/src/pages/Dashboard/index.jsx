@@ -13,7 +13,7 @@ import { getAllPlaylists, getPlaylistsByUser } from "../../redux/playlist/action
 import { useAuth } from "../../context/authContext";
 import axios from 'axios';
 
-const Dashboard = ({allTracks, allPlaylists, myTracks, myPlaylists}) => {
+const Dashboard = ({ allTracks, allPlaylists, myTracks, myPlaylists }) => {
     const dispatch = useDispatch();
     const { user } = useAuth();
     const [mongoUser, setMongoUser] = useState({});
@@ -23,8 +23,10 @@ const Dashboard = ({allTracks, allPlaylists, myTracks, myPlaylists}) => {
     const [tracksDashboard, setTracksDashboard] = useState([]);
     const [playlistsDashboard, setPlaylistsDashboard] = useState([]);
 
-    console.log(allPlaylists);
-    console.log(myPlaylists);
+    // console.log(allPlaylists);
+    // console.log(myPlaylists);
+    console.log(allTracks)
+
 
     useEffect(() => {
         if (token) {
@@ -33,8 +35,6 @@ const Dashboard = ({allTracks, allPlaylists, myTracks, myPlaylists}) => {
             dispatch(getTracksByUser(user.uid));
             dispatch(getAllPlaylists());
             dispatch(getPlaylistsByUser(user.uid));
-            setTracksDashboard([...allTracks]);
-            setPlaylistsDashboard([...allPlaylists]);
         }
     }, [dispatch, token]);
 
@@ -45,6 +45,8 @@ const Dashboard = ({allTracks, allPlaylists, myTracks, myPlaylists}) => {
             },
         });
         setMongoUser(userReq.data);
+        setTracksDashboard([...allTracks]);
+        setPlaylistsDashboard([...allPlaylists]);
     };
 
 
@@ -67,8 +69,8 @@ const Dashboard = ({allTracks, allPlaylists, myTracks, myPlaylists}) => {
                 {/*<h1>Welcome {mongoUser.firstName}!</h1>*/}
                 <div className='dashboard__absolute'>
                     <div className='dashboard__display'>
-                        <Playlists playlistsDashboard={playlistsDashboard}/>
-                        <Songs tracksDashboard={tracksDashboard} num={num}/>
+                        <Playlists playlistsDashboard={playlistsDashboard} />
+                        <Songs tracksDashboard={tracksDashboard} num={num} />
                     </div>
                     <div className='dashboard__side'>
                         <Genres />
@@ -83,13 +85,13 @@ const Dashboard = ({allTracks, allPlaylists, myTracks, myPlaylists}) => {
 
 const mapStateToProps = state => {
     return {
-      allTracks: state.track.allTracks.data,
-      myTracks: state.track.myTracks.data,
-      allPlaylists: state.playlist.allPlaylists.data,
-      myPlaylists: state.playlist.myPlaylists.data
+        allTracks: state.track.allTracks.data,
+        myTracks: state.track.myTracks.data,
+        allPlaylists: state.playlist.allPlaylists.data,
+        myPlaylists: state.playlist.myPlaylists.data
     }
-  }
-  
-  const reduxHoc = connect(mapStateToProps)
+}
+
+const reduxHoc = connect(mapStateToProps)
 
 export default reduxHoc(Dashboard);
