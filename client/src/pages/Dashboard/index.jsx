@@ -20,8 +20,8 @@ const Dashboard = ({allTracks, allPlaylists, myTracks, myPlaylists}) => {
     const token = user.accessToken;
     // console.log(JSON.stringify(user));
 
-    const [tracksDashboard, setTracksDashboard] = useState(allTracks);
-    const [playlistsDashboard, setPlaylistsDashboard] = useState(allPlaylists);
+    const [tracksDashboard, setTracksDashboard] = useState([]);
+    const [playlistsDashboard, setPlaylistsDashboard] = useState([]);
 
     console.log(allPlaylists);
     console.log(myPlaylists);
@@ -33,8 +33,8 @@ const Dashboard = ({allTracks, allPlaylists, myTracks, myPlaylists}) => {
             dispatch(getTracksByUser(user.uid));
             dispatch(getAllPlaylists());
             dispatch(getPlaylistsByUser(user.uid));
-            setTracksDashboard(allTracks);
-            setPlaylistsDashboard(allPlaylists);
+            setTracksDashboard([...allTracks]);
+            setPlaylistsDashboard([...allPlaylists]);
         }
     }, [dispatch, token]);
 
