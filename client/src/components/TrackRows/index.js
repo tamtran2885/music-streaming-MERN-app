@@ -99,19 +99,7 @@ const TrackRows = () => {
 
   return (
     <>
-      <div style={{ display: "flex" }}>
-        <div style={{ width: "100px" }}>No. </div>
-        <div style={{ width: "150px" }}>Image</div>
-        <div style={{ width: "100px" }}>Star</div>
-        <div style={{ width: "200px" }}>Title</div>
-        <div style={{ width: "200px" }}>Artist</div>
-        <div style={{ width: "200px" }}>Album</div>
-        <div style={{ width: "100px" }}>Views</div>
-        <div style={{ width: "100px" }}>Genre</div>
-        <div style={{ width: "100px" }}>Duration</div>
-        <div style={{ width: "200px" }}>Actions</div>
-      </div>
-      <div style={{ marginTop: "20px" }}>
+      <div className="trackrow__absolute">
         {tracksInfo &&
           tracksInfo.map((track) => (
             <form onSubmit={handleEditFormSubmit}>
