@@ -83,6 +83,8 @@ export const deleteUser = async (req, res) => {
   }
 };
 
+// TODO
+
 export const updateUser = async (req, res) => {
   try {
     const url = req.params.userId;
@@ -125,6 +127,8 @@ export const updateUser = async (req, res) => {
   }
 };
 
+// TODO
+
 export const changePass = async (req, res) => {}
 /*
 export const changePass = async (req, res) => {
@@ -166,3 +170,35 @@ export const changePass = async (req, res) => {
 //const hash = await bcrypt.hash(req.body.password, saltRounds);
 
 changePass();*/
+
+
+// TODO FOLLOW USER
+
+export const followUser = async (req, res, next) => {
+  try {
+    const url= req.params.userId
+    const followed = req.query.followedBy
+    console.log(followed)
+    const user = await User.findOneAndUpdate(
+      {
+      firebaseUser: url,
+      },
+      followedBy.unshift({ followedBy: followed }),
+      {
+        new: true,
+      }
+    );
+
+    /*const followedBy = {
+      followedBy
+    }*/
+
+    res.status(200).json({ data: "User followed", userToFollow });
+
+  } catch (error) {
+    console.log(error)
+  }
+  next()
+}
+
+// TODO UNFOLLOW USER

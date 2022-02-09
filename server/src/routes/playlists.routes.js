@@ -8,8 +8,12 @@ import {
       getPlaylists,
       updatePlaylistById,
       getPlaylistsByUser,
+<<<<<<< Updated upstream
       addTrackToPlaylist,
       followPlaylist
+=======
+      addTrackToPlaylist
+>>>>>>> Stashed changes
 } from "../controllers/playlistsController.js";
 
 export const playlistsRoutes = Router();

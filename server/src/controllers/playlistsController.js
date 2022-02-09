@@ -59,7 +59,7 @@ export const getPlaylistById = async (req, res, next) => {
     }
 };
 
-//? UPDATE PLAYLIST BY ID
+// TODO UPDATE PLAYLIST BY ID
 export const updatePlaylistById = async (req, res, next) => {
     try {
         const url = req.params.playlistId;
@@ -118,11 +118,13 @@ export const deletePlaylistById = async (req, res, next) => {
     }
 };
 
-//? ADD TRACK TO PLAYLIST
+//TODO ADD TRACK TO PLAYLIST
 export const addTrackToPlaylist = async (req, res, next) => {
     try {
-        const trackId = req.query.trackId;
-        const playlistId = req.query.playlistId;
+        const playlistId = req.params.playlistId;
+        console.log(req.params.playlistId)
+        console.log(req.body.trackId)
+        const trackId = req.body.trackId;
 
         const playlist = await Playlist.findById(playlistId);
 
@@ -132,7 +134,7 @@ export const addTrackToPlaylist = async (req, res, next) => {
         ) {
             return res.status(400).json({ msg: "Track has been added" });
         }
-        playlist.tracks.unshift({ firebaseUser: param });
+        playlist.tracks.unshift({ trackId: trackId });
         await playlist.save();
         res.json(playlist.tracks);
     } catch (error) {
@@ -140,6 +142,7 @@ export const addTrackToPlaylist = async (req, res, next) => {
     }
 };
 
+<<<<<<< Updated upstream
 
 //? FOLLOW PLAYLIST
 export const followPlaylist = async (req, res, next) => {
@@ -172,3 +175,10 @@ export const followPlaylist = async (req, res, next) => {
         console.log(error)
     }
 }
+=======
+// TODO DELETE SONG IN PLAYLIST
+
+// TODO FOLLOW PLAYLIST
+
+// TODO UNFOLLOW PLAYLIST
+>>>>>>> Stashed changes

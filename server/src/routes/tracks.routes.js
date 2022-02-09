@@ -32,7 +32,7 @@ tracksRoutes.get("/", getTracks);
 tracksRoutes.post(
   "/",
   uploadTrack.single("urlTrack"),
-  upload.single("photoTrack"),
+  
   createTrack
 );
 

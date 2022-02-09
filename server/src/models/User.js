@@ -49,7 +49,10 @@ const UserSchema = new Schema({
       ref: "tracks",
     },
   ],
-  //playlists: [{}]
+  followedBy: {
+    type: Schema.Types.ObjectId,
+    ref: "user",
+  },
 });
 
 export default model("user", UserSchema);
