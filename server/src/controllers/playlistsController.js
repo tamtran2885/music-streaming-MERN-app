@@ -128,7 +128,7 @@ export const addTrackToPlaylist = async (req, res, next) => {
 
         const playlist = await Playlist.findById(playlistId);
 
-        // Check if the track has already in the playlist
+        // Check if the track is already in the playlist
         if (
             playlist.tracks.filter((track) => track.trackId === trackId).length > 0
         ) {
@@ -142,43 +142,99 @@ export const addTrackToPlaylist = async (req, res, next) => {
     }
 };
 
-<<<<<<< Updated upstream
 
 //? FOLLOW PLAYLIST
 export const followPlaylist = async (req, res, next) => {
-    const param = req.params.playlistId
+    // const param = req.params.playlistId
+    // try {
+    //     const playlistToFollow = await Playlist.findById(param)
+    //     // console.log(playlistToFollow)
+
+    //     const userWhoFollows = req.query.firebaseUser;
+    //     console.log(userWhoFollows)
+
+    //     const data = {
+    //         followedBy: [
+    //             ...playlistToFollow.followedBy,
+    //             { userWhoFollows }
+    //         ]
+    //     }
+
+    //     const findMongo = await Playlist.findOne({
+    //         firebaseUser: userWhoFollows,
+    //     })
+    //     console.log(findMongo)
+
+    //     const playlistToUpdate = await Playlist.findOneAndUpdate(
+    //         {
+    //             _id: param
+    //         },
+    //         data,
+    //         {
+    //             new: true
+    //         }
+    //     ).populate("user")
+
+
+    //     // if (playlist.followedBy.filter((follow) => follow.playlistId === playlistId).length > 0) {
+    //     //     return res.status(400).json({ msg: "You are already following this playlist" });
+    //     res.status(200).json({ data: "Following playlist", playlistToUpdate });
+    //     track.likes.unshift({ firebaseUser: param });
+
+    //     await playlistToUpdate.save()
+    // } catch (error) {
+    //     console.log(error)
+    // }
+    const param = req.query.firebaseUser;
+    console.log(param)
     try {
-        const playlistToFollow = await Playlist.findOne(
-            { _id: param }
-        )
-        // console.log(playlistToFollow)
-        console.log(playlistToFollow.followedBy)
+        const playlistId = req.params.playlistId;
+        const playlist = await Playlist.findById(playlistId);
 
-        const userWhoFollows = req.query.userId;
-        // console.log(userWhoFollows)
+        // Check if the playlist has already been followed
+        if (playlist.followedBy.filter((follow) => follow.firebaseUser === param).length > 0) {
+            return res.status(400).json({ msg: "Playlist has already been added to favorites" });
+        }
+        playlist.followedBy.unshift({ firebaseUser: param });
+        await playlist.save();
+        res.json(playlist.followedBy);
+    } catch (error) {
+        console.log(error);
+    }
 
-        const data = {
-            followedBy: [{ userWhoFollows }]
+}
+
+//? UNFOLLOW PLAYLIST
+export const unfollowPlaylist = async (req, res, next) => {
+    const param = req.query.firebaseUser;
+    try {
+        const playlistId = req.params.playlistId;
+        const playlist = await Playlist.findById(playlistId);
+
+        // Check if the playlist has already been followed
+        if (
+            playlist.followedBy.filter((follow) => follow.firebaseUser === param).length === 0
+        ) {
+            return res.status(400).json({ msg: "Playlist has been removed from favorites" });
         }
 
-        const playlistToUpdate = await Playlist.findOneAndUpdate(
-            param, data, { new: true }
-        )
+        // Get remove index
+        const removeIndex = playlist.followedBy
+            .map((unfollow) => unfollow.firebaseUser)
+            .indexOf(param);
 
-
-        // if (playlist.followedBy.filter((follow) => follow.playlistId === playlistId).length > 0) {
-        //     return res.status(400).json({ msg: "You are already following this playlist" });
-        res.status(200).json({ data: "Following playlist", playlistToUpdate });
-
-        await playlistToUpdate.save()
+        playlist.followedBy.splice(removeIndex, 1);
+        await playlist.save();
+        res.json(playlist.followedBy);
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }
-=======
+
 // TODO DELETE SONG IN PLAYLIST
 
 // TODO FOLLOW PLAYLIST
 
 // TODO UNFOLLOW PLAYLIST
->>>>>>> Stashed changes
+
+

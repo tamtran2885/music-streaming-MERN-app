@@ -8,12 +8,9 @@ import {
       getPlaylists,
       updatePlaylistById,
       getPlaylistsByUser,
-<<<<<<< Updated upstream
       addTrackToPlaylist,
-      followPlaylist
-=======
-      addTrackToPlaylist
->>>>>>> Stashed changes
+      followPlaylist,
+      unfollowPlaylist
 } from "../controllers/playlistsController.js";
 
 export const playlistsRoutes = Router();
@@ -41,3 +38,6 @@ playlistsRoutes.delete("/:playlistId", deletePlaylistById);
 
 // //? FOLLOW PLAYLIST
 playlistsRoutes.put("/follow/:playlistId", followPlaylist);
+
+// //? UNFOLLOW PLAYLIST
+playlistsRoutes.put("/unfollow/:playlistId", unfollowPlaylist);
