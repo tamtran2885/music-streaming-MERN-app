@@ -8,7 +8,8 @@ import {
       getPlaylists,
       updatePlaylistById,
       getPlaylistsByUser,
-      addTrackToPlaylist
+      addTrackToPlaylist,
+      followPlaylist
 } from "../controllers/playlistsController.js";
 
 export const playlistsRoutes = Router();
@@ -33,3 +34,6 @@ playlistsRoutes.put("/addTrackToPlaylist/:playlistId", upload.single("thumbnail"
 
 // //? DELETE PLAYLIST BY ID
 playlistsRoutes.delete("/:playlistId", deletePlaylistById);
+
+// //? FOLLOW PLAYLIST
+playlistsRoutes.put("/follow/:playlistId", followPlaylist);

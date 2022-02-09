@@ -4,7 +4,7 @@ import cloudinary from "../utils/cloudinary.js";
 //? GET PLAYLISTS
 export const getPlaylists = async (req, res, next) => {
     try {
-        const playlist = await Playlist.find();
+        const playlist = await Playlist.find().populate("followedBy")
         res.json(playlist);
     } catch (error) {
         console.log(error);
@@ -139,3 +139,36 @@ export const addTrackToPlaylist = async (req, res, next) => {
         console.log(error);
     }
 };
+
+
+//? FOLLOW PLAYLIST
+export const followPlaylist = async (req, res, next) => {
+    const param = req.params.playlistId
+    try {
+        const playlistToFollow = await Playlist.findOne(
+            { _id: param }
+        )
+        // console.log(playlistToFollow)
+        console.log(playlistToFollow.followedBy)
+
+        const userWhoFollows = req.query.userId;
+        // console.log(userWhoFollows)
+
+        const data = {
+            followedBy: [{ userWhoFollows }]
+        }
+
+        const playlistToUpdate = await Playlist.findOneAndUpdate(
+            param, data, { new: true }
+        )
+
+
+        // if (playlist.followedBy.filter((follow) => follow.playlistId === playlistId).length > 0) {
+        //     return res.status(400).json({ msg: "You are already following this playlist" });
+        res.status(200).json({ data: "Following playlist", playlistToUpdate });
+
+        await playlistToUpdate.save()
+    } catch (error) {
+        console.log(error)
+    }
+}
