@@ -7,7 +7,6 @@ import Albums from '../../components/Albums';
 import MusicPlayer from '../../components/MusicPlayer';
 
 import { connect, useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import { getAllTracks, getTracksByUser } from "../../redux/track/actions";
 import { getAllPlaylists, getPlaylistsByUser } from "../../redux/playlist/actions";
 
@@ -51,15 +50,8 @@ const Dashboard = ({myPlaylists, myTracks, allPlaylists, allTracks}) => {
                 Authorization: 'Bearer ' + token,
             },
         });
-
         setMongoUser(userReq.data);
-        setTracksDashboard([...allTracks]);
-        setPlaylistsDashboard([...allPlaylists]);
-
-
     };
-
-
 
     const handlePopular = () => {
         setTracksDashboard(allTracks)
@@ -71,8 +63,6 @@ const Dashboard = ({myPlaylists, myTracks, allPlaylists, allTracks}) => {
         setPlaylistsDashboard(myPlaylists)
     };
 
-    const [num, setNum] = useState(2)
-
     return (
         <>
             <div className='dashboard__background'>
@@ -81,7 +71,7 @@ const Dashboard = ({myPlaylists, myTracks, allPlaylists, allTracks}) => {
                 <div className='dashboard__absolute'>
                     <div className='dashboard__display'>
                         <Playlists playlistsDashboard={playlistsDashboard} />
-                        <Songs tracksDashboard={tracksDashboard} num={num} />
+                        <Songs tracksDashboard={tracksDashboard} />
                     </div>
                     <div className='dashboard__side'>
                         <Genres />

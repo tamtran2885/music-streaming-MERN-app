@@ -4,9 +4,11 @@ import Playlist from '../Playlist';
 
 const Playlists = ({playlistsDashboard}) => {
   const [playlists, setPlaylists] = useState([])
+
   useEffect(() => {
     setPlaylists(playlistsDashboard)
   }, [playlistsDashboard, setPlaylists])
+
   return (
     <>
       <div className='playlists__absolute'>
