@@ -29,12 +29,7 @@ tracksRoutes.put("/unlike/:trackId", removeFavFromTrack);
 tracksRoutes.get("/", getTracks);
 
 // ? CREATE tracks
-tracksRoutes.post(
-  "/",
-  uploadTrack.single("urlTrack"),
-  
-  createTrack
-);
+tracksRoutes.post("/", uploadTrack.single("urlTrack"), createTrack);
 
 // ? GET tracks BY ID
 tracksRoutes.get("/:trackId", getTrackById);

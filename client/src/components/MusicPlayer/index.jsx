@@ -84,7 +84,7 @@ const MusicPlayer = () => {
   }
 
   const handleProgress = (e) => {
-    const compute = (e.target.value * duration)/100
+    const compute = (e.target.value * duration) / 100
     setCurrentTime(compute)
     audio.current.currentTime = compute
   }
@@ -92,18 +92,18 @@ const MusicPlayer = () => {
   // Move to previous track
   const getPrevTrack = () => {
     if (currentTrack && trackList && trackList.indexOf(currentTrack) === 1) {
-      dispatch(setCurrentTrack(trackList[trackList.length-1]));
+      dispatch(setCurrentTrack(trackList[trackList.length - 1]));
     } else {
-      dispatch(setCurrentTrack(trackList[trackList.indexOf(currentTrack)-1]))
+      dispatch(setCurrentTrack(trackList[trackList.indexOf(currentTrack) - 1]))
     }
   }
 
   // Move to next track
   const getNextTrack = () => {
-    if (currentTrack && trackList && trackList.indexOf(currentTrack) === trackList.length-1) {
+    if (currentTrack && trackList && trackList.indexOf(currentTrack) === trackList.length - 1) {
       dispatch(setCurrentTrack(trackList[0]));
     } else {
-      dispatch(setCurrentTrack(trackList[trackList.indexOf(currentTrack)+1]))
+      dispatch(setCurrentTrack(trackList[trackList.indexOf(currentTrack) + 1]))
     }
   }
 
@@ -118,7 +118,7 @@ const MusicPlayer = () => {
     dispatch(setRepeat(repeat));
     if (repeat) {
       dispatch(setCurrentTrack(currentTrack));
-    } else if (currentTrack && currentTrack === trackList.data.length-1) {
+    } else if (currentTrack && currentTrack === trackList.data.length - 1) {
       return;
     } else {
       dispatch(setCurrentTrack(currentTrack));
@@ -133,12 +133,12 @@ const MusicPlayer = () => {
           <img className='icon' src={cover} alt="Icon" />
         </div>
         <div className='like'>
-        {like === false ? (
-          <img className='song__like__icon' src={star} alt="" onClick={handleToggle}/>
+          {like === false ? (
+            <img className='song__like__icon' src={star} alt="" onClick={handleToggle} />
           ) : (
-          <img className='song__like__icon' src={staractive} alt=""  onClick={handleToggle}/>
+            <img className='song__like__icon' src={staractive} alt="" onClick={handleToggle} />
           )
-        }
+          }
         </div>
         <div className='musicplayer__info'>
           <div className='musicplayer__info__song'>
@@ -147,7 +147,7 @@ const MusicPlayer = () => {
           </div>
         </div>
         <div className='musicplayer__options'>
-          <img className='song__options__icon' src={menu} alt="" onClick=""/>
+          <img className='song__options__icon' src={menu} alt="" />
         </div>
 
 
@@ -161,25 +161,25 @@ const MusicPlayer = () => {
             src={currentTrack && currentTrack.track.urlTrack}
           />
           <button className='button' onClick={getRepeatTrack}>
-            <img className='icon' src={repeatbutton} alt="Repeat"/>
+            <img className='icon' src={repeatbutton} alt="Repeat" />
           </button>
           <button className='button' onClick={getPrevTrack}>
-            <img className='icon' src={previous} alt="Previous"/>
+            <img className='icon' src={previous} alt="Previous" />
           </button>
           <button className='button' onClick={() => {
             handleTrack()
             handleAudio()
           }}>
-            <img className='icon pause' src={pause} alt="Pause"/>
+            <img className='icon pause' src={pause} alt="Pause" />
           </button>
           <button className='button' onClick={getNextTrack}>
-            <img className='icon' src={next} alt="Next"/>
+            <img className='icon' src={next} alt="Next" />
           </button>
           <button className='button' onClick={getRandomTrack}>
-            <img className='icon' src={randombutton} alt="Random"/>
+            <img className='icon' src={randombutton} alt="Random" />
           </button>
         </div>
-        <img className='icon__disc' src={playerdisc} alt="Disc"/>
+        <img className='icon__disc' src={playerdisc} alt="Disc" />
         <div className='musicplayer__duration'>
           <div className='currentTime'>
             {fmtMSS(currentTime)}
@@ -198,14 +198,14 @@ const MusicPlayer = () => {
 
         <div className='musicplayer__volume'>
           <div className='musicplayer__volume__icon'>
-            <img className='icon' src={volume} alt="Random"/>
+            <img className='icon' src={volume} alt="Random" />
           </div>
           <div className='input'>
-          <input
-            value={Math.round(stateVolume * 100)}
-            type="range"
-            onChange={(e) => onChangeVoLume(e.target.value/100)}
-          />
+            <input
+              value={Math.round(stateVolume * 100)}
+              type="range"
+              onChange={(e) => onChangeVoLume(e.target.value / 100)}
+            />
           </div>
         </div>
 

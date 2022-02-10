@@ -76,13 +76,15 @@ export const deleteTrack = async (req, res) => {
     const track = await Tracks.findById(req.params.trackId);
 
     //? DELETE IMAGE FROM CLOUDINARY
-    console.log(track.cloudinaryId);
+    // console.log(track.cloudinaryId);
     await cloudinary.v2.uploader.destroy(track.cloudinaryId, {
       resource_type: "video",
     });
 
     //? DELETE USER FROM DB
     await track.remove();
+    // await getTracks();
+
     res.json({ message: "Track deleted", track });
   } catch (error) {
     console.log(error);
