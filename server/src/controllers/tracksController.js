@@ -34,52 +34,13 @@ export const addPhotoToTrack = async (req, res) => {
   });
 };
 
-// //? CREATE A NEW TRACK
-// export const createTrack = async (req, res) => {
-//     try {
-
-//         //? UPLOAD AUDIO
-//         const result = await cloudinary.v2.uploader.upload(req.file.path, {
-//             resource_type: "auto"
-//         });
-
-//         addPhotoToTrack(req, res)
-
-//     // const result = await cloudinary.v2.uploader.upload(req.file.path);
-
-//     // addPhotoToTrack(req,res)
-
-//     const track = new Tracks({
-//       //? PASSING DATA TO NEW TRACK
-//       ...req.body,
-
-//       //? PASSING AUDIO FILE TO NEW TRACK
-//       cloudinaryId: result.public_id,
-//       urlTrack: result.secure_url,
-//       firebaseUser: req.body.firebaseUser,
-
-//       //? PASSING PHOTO FILE TO NEW TRACK
-//       // thumbnail: photo.secure_url,
-//       // thumbnailId: photo.public_id
-//     });
-//     //? SAVING NEW TRACK IN TRACKS COLLECTION
-//     await track.save();
-//     res.status(200).json({ data: "Track created", track });
-
-//     //? SAVING NEW TRACK IN USER DOCUMENT
-//     // addTracksToUser(req, res, track);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
 export const createTrack = async (req, res) => {
   try {
     //? UPLOAD AUDIO
     const result = await cloudinary.v2.uploader.upload(req.file.path, {
       resource_type: "auto",
     });
-
+    console.log(req.body)
     const track = new Tracks({
       //? PASSING DATA TO NEW TRACK
       ...req.body,
@@ -130,7 +91,7 @@ export const deleteTrack = async (req, res) => {
   }
 };
 
-//? UPDATE TRACK
+// TODO UPDATE TRACK
 export const updateTrack = async (req, res) => {
   // console.log(req.body);
   // console.log(req.params.trackId);

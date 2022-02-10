@@ -59,6 +59,7 @@ function App() {
           <Route path="/track" element={<TrackPage />} />
           <Route path="/track/add" element={<AddTrack />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/user/edit/change-password/:userId" element={<ResetPassword />} />
         </Routes>
       </AuthProvider>
     </div>

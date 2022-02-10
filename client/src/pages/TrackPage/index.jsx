@@ -12,10 +12,14 @@ import { useAuth } from "../../context/authContext";
 const TrackPage = () => {
     const { user } = useAuth();
 
-    return(
+    const token = user.accessToken;
+    console.log(token)
+
+
+    return (
         <>
             <div className='dashboard__background'>
-                <Navbar page="Songs"/>
+                <Navbar page="Songs" />
                 <div className='tracks__absolute'>
                     <div className='tracks__display'>
                         <div className="tracks__title">

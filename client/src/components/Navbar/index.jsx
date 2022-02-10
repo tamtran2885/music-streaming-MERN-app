@@ -5,12 +5,12 @@ import logo from "../../assets/images/logo.svg";
 import SearchBar from "../SearchBar";
 
 const Navbar = (props) => {
-    const {page, handleMine, handlePopular } = props;
+    const { page, handleMine, handlePopular, mongoUser } = props;
     const navigate = useNavigate();
     const { user, logout } = useAuth()
 
     // console.log(JSON.stringify(user));
-    console.log(user)
+    // console.log(user)
 
     const handleLogout = async () => {
         try {
@@ -32,6 +32,7 @@ const Navbar = (props) => {
                         <Link className='nav__link' to="/track">Songs</Link>
                         <Link className='nav__link' to={`/playlist`}>Playlists</Link>
                         <Link className='nav__link' to={`/user/albums`}>Albums</Link>
+                        {/* <Link className='nav__link' to={user ? `/user/${user.uid}` : "/"}>{mongoUser.firstName} Profile</Link> */}
                         <Link className='nav__link' to={user ? `/user/${user.uid}` : "/"}>{user && user.email}</Link>
                         <Link className='avatar' to={user ? `user/${user.uid}` : "/"}><img className='avatar' src={logo} alt="" /></Link>
                     </div>

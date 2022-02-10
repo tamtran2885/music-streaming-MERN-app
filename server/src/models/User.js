@@ -49,7 +49,17 @@ const UserSchema = new Schema({
       ref: "tracks",
     },
   ],
-  //playlists: [{}]
+  followedBy: {
+    type: [
+      {
+        user: {
+          type: Schema.Types.ObjectId,
+          ref: "user",
+        },
+        firebaseUser: String,
+      }
+    ],
+  }
 });
 
 export default model("user", UserSchema);

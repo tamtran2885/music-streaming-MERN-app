@@ -18,7 +18,8 @@ const Dashboard = ({myPlaylists, myTracks, allPlaylists, allTracks}) => {
     const dispatch = useDispatch();
     const { user } = useAuth();
     const [mongoUser, setMongoUser] = useState({});
-    const token = user.accessToken;
+    const token = user.accessToken
+    window.localStorage.setItem("token", token)
     // console.log(JSON.stringify(user));
 
     console.log(allPlaylists);
@@ -50,8 +51,14 @@ const Dashboard = ({myPlaylists, myTracks, allPlaylists, allTracks}) => {
                 Authorization: 'Bearer ' + token,
             },
         });
+
         setMongoUser(userReq.data);
+        setTracksDashboard([...allTracks]);
+        setPlaylistsDashboard([...allPlaylists]);
+
+
     };
+
 
 
     const handlePopular = () => {
@@ -69,12 +76,12 @@ const Dashboard = ({myPlaylists, myTracks, allPlaylists, allTracks}) => {
     return (
         <>
             <div className='dashboard__background'>
-                <Navbar page="Popular Now" handleMine={handleMine} handlePopular={handlePopular} />
+                <Navbar page="Popular Now" handleMine={handleMine} handlePopular={handlePopular} mongoUser={mongoUser} />
                 {/*<h1>Welcome {mongoUser.firstName}!</h1>*/}
                 <div className='dashboard__absolute'>
                     <div className='dashboard__display'>
-                        <Playlists playlistsDashboard={playlistsDashboard}/>
-                        <Songs tracksDashboard={tracksDashboard} num={num}/>
+                        <Playlists playlistsDashboard={playlistsDashboard} />
+                        <Songs tracksDashboard={tracksDashboard} num={num} />
                     </div>
                     <div className='dashboard__side'>
                         <Genres />
@@ -94,8 +101,8 @@ const mapStateToProps = state => {
         allPlaylists: state.playlist.allPlaylists.data,
         myPlaylists: state.playlist.myPlaylists.data
     }
-  }
-  
-  const reduxHoc = connect(mapStateToProps)
+}
+
+const reduxHoc = connect(mapStateToProps)
 
 export default reduxHoc(Dashboard);
