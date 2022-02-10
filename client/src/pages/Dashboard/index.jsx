@@ -7,36 +7,42 @@ import Albums from '../../components/Albums';
 import MusicPlayer from '../../components/MusicPlayer';
 
 import { connect, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { getAllTracks, getTracksByUser } from "../../redux/track/actions";
 import { getAllPlaylists, getPlaylistsByUser } from "../../redux/playlist/actions";
 
 import { useAuth } from "../../context/authContext";
 import axios from 'axios';
 
-const Dashboard = ({allTracks, allPlaylists, myTracks, myPlaylists}) => {
+const Dashboard = ({myPlaylists, myTracks, allPlaylists, allTracks}) => {
     const dispatch = useDispatch();
     const { user } = useAuth();
     const [mongoUser, setMongoUser] = useState({});
     const token = user.accessToken;
     // console.log(JSON.stringify(user));
 
-    const [tracksDashboard, setTracksDashboard] = useState([]);
-    const [playlistsDashboard, setPlaylistsDashboard] = useState([]);
-
     console.log(allPlaylists);
     console.log(myPlaylists);
 
     useEffect(() => {
-        if (token) {
-            APIcall();
-            dispatch(getAllTracks());
-            dispatch(getTracksByUser(user.uid));
-            dispatch(getAllPlaylists());
-            dispatch(getPlaylistsByUser(user.uid));
-            setTracksDashboard([...allTracks]);
-            setPlaylistsDashboard([...allPlaylists]);
-        }
+        setTimeout( async () => {
+            if (token) {
+                APIcall();
+                dispatch(getAllTracks());
+                dispatch(getAllPlaylists());
+                dispatch(getTracksByUser(user.uid));
+                dispatch(getPlaylistsByUser(user.uid));
+            }
+        }, 3000)
     }, [dispatch, token]);
+
+    const [tracksDashboard, setTracksDashboard] = useState([]);
+    const [playlistsDashboard, setPlaylistsDashboard] = useState([]);
+
+    useEffect(() => {
+            setTracksDashboard(allTracks);
+            setPlaylistsDashboard(allPlaylists);
+    }, [allTracks, allPlaylists])
 
     const APIcall = async () => {
         const userReq = await axios.get(`/api/user/${user.uid}`, {
@@ -83,10 +89,10 @@ const Dashboard = ({allTracks, allPlaylists, myTracks, myPlaylists}) => {
 
 const mapStateToProps = state => {
     return {
-      allTracks: state.track.allTracks.data,
-      myTracks: state.track.myTracks.data,
-      allPlaylists: state.playlist.allPlaylists.data,
-      myPlaylists: state.playlist.myPlaylists.data
+        allTracks: state.track.allTracks.data,
+        myTracks: state.track.myTracks.data,
+        allPlaylists: state.playlist.allPlaylists.data,
+        myPlaylists: state.playlist.myPlaylists.data
     }
   }
   

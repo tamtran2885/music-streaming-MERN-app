@@ -18,6 +18,7 @@ const Playlists = ({playlistsDashboard}) => {
           {playlists && playlists.map((playlist) => (
             <div className='playlist__container' key={playlist.id}><Playlist key={playlist.id} playlist={playlist}/></div>
           ))}
+          {!playlists && <div>Loading...</div>}
         </div>
       </div>
     </>
