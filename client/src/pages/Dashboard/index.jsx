@@ -27,23 +27,36 @@ const Dashboard = ({ allTracks, allPlaylists, myTracks, myPlaylists }) => {
 
     // console.log(allPlaylists);
     // console.log(myPlaylists);
-    console.log(allTracks)
-    if (token) {
 
-    }
+
 
 
     useEffect(() => {
-        dispatch(getAllTracks());
-        dispatch(getAllPlaylists());
-        APIcall();
-        dispatch(getTracksByUser(user.uid));
-        dispatch(getPlaylistsByUser(user.uid));
-        // setTracksDashboard([...allTracks]);
-        // setPlaylistsDashboard([...allPlaylists]);
+
+        if (token) {
+            APIcall();
+
+            setTimeout(() => {
+                // dispatch(getAllTracks());
+                // dispatch(getAllPlaylists());
+                // dispatch(getTracksByUser(user.uid));
+                // dispatch(getPlaylistsByUser(user.uid));
+                // console.log([...allTracks])
+            }, 6000);
 
 
-    }, [dispatch, token]);
+
+
+            // setTracksDashboard([...tracksDashboard]);
+            // setPlaylistsDashboard([...playlistsDashboard]);
+
+
+        }
+
+
+    }, [dispatch, token, tracksDashboard, playlistsDashboard]);
+
+
 
     const APIcall = async () => {
         const userReq = await axios.get(`/api/user/${user.uid}`, {
@@ -53,10 +66,12 @@ const Dashboard = ({ allTracks, allPlaylists, myTracks, myPlaylists }) => {
         });
 
         setMongoUser(userReq.data);
-
+        setTracksDashboard([...allTracks]);
+        setPlaylistsDashboard([...allPlaylists]);
 
 
     };
+
 
 
     const handlePopular = () => {
