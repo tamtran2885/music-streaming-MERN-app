@@ -4,9 +4,11 @@ import Playlist from '../Playlist';
 
 const Playlists = ({playlistsDashboard}) => {
   const [playlists, setPlaylists] = useState([])
+
   useEffect(() => {
     setPlaylists(playlistsDashboard)
   }, [playlistsDashboard, setPlaylists])
+
   return (
     <>
       <div className='playlists__absolute'>
@@ -18,6 +20,7 @@ const Playlists = ({playlistsDashboard}) => {
           {playlists && playlists.map((playlist) => (
             <div className='playlist__container' key={playlist.id}><Playlist key={playlist.id} playlist={playlist}/></div>
           ))}
+          {!playlists && <div>Loading...</div>}
         </div>
       </div>
     </>
