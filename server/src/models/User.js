@@ -50,9 +50,16 @@ const UserSchema = new Schema({
     },
   ],
   followedBy: {
-    type: Schema.Types.ObjectId,
-    ref: "user",
-  },
+    type: [
+      {
+        user: {
+          type: Schema.Types.ObjectId,
+          ref: "user",
+        },
+        firebaseUser: String,
+      }
+    ],
+  }
 });
 
 export default model("user", UserSchema);

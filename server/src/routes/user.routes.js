@@ -33,7 +33,7 @@ userRoutes.delete("/:userId", deleteUser);
 
 //? FOLLOW USER
 
-userRoutes.post("/follow/:userId", followUser);
+userRoutes.put("/follow/:userId", followUser);
 
 //? UNFOLLOW USER
 

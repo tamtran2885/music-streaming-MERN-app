@@ -176,23 +176,25 @@ changePass();*/
 
 export const followUser = async (req, res, next) => {
   try {
-    const url= req.params.userId
-    const followed = req.query.followedBy
-    console.log(followed)
-    const user = await User.findOneAndUpdate(
-      {
-      firebaseUser: url,
-      },
-      followedBy.unshift({ followedBy: followed }),
-      {
-        new: true,
-      }
-    );
+    const UserFbId= req.params.userId;
 
-    /*const followedBy = {
-      followedBy
+    const UserWhoFollow = req.query.fbUserFollow;
+
+    console.log(UserWhoFollow);
+    console.log(UserFbId);
+
+    const userToFollow = await User.findOne({firebaseUser: UserFbId});
+
+    console.log(userToFollow);
+
+    /*if(userToFollow.followedBy.filter((user) => user.followedBy === UserWhoFollow).length > 0)
+    {
+      return res.status(400).json({ data: "User has been followed", userToFollow });
     }*/
 
+    userToFollow.followedBy.unshift({firebaseUser: UserWhoFollow});
+
+    await userToFollow.save();
     res.status(200).json({ data: "User followed", userToFollow });
 
   } catch (error) {
