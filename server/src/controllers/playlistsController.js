@@ -38,7 +38,7 @@ export const createPlaylist = async (req, res, next) => {
 
             thumbnail: result.secure_url,
             cloudinaryId: result.public_id,
-            firebaseUser: req.body.firebaseUser,
+            firebaseUser: req.query.firebaseUser,
         });
 
         await playlist.save();
@@ -63,25 +63,23 @@ export const getPlaylistById = async (req, res, next) => {
 export const updatePlaylistById = async (req, res, next) => {
     try {
         const url = req.params.playlistId;
-        const playlist = await Playlist.findOne({
-            firebaseUser: url,
-        });
+
+        const playlist = await Playlist.findById(url)
+        console.log(playlist, 'la playlist que queremos')
+
+        /*if(){}
 
         // Delete image from cloudinary if change image of profile
         // await cloudinary.uploader.destroy(user.cloudinaryId);
 
         // Upload image to cloudinary
-        // const result = await cloudinary.uploader.upload(req.file.path);
+        const result = await cloudinary.uploader.upload(req.file.path);
 
         const dataPlaylist = {
-            firstName: req.body.firstName || playlist.firstName,
-            lastName: req.body.lastName || playlist.lastName,
-            birthday: req.body.birthday || playlist.birthday,
-            country: req.body.country || playlist.country,
-            profile: playlist.profile,
-            email: req.body.email || playlist.email,
-            cloudinaryId: playlist.cloudinaryId,
-            firebaseUser: req.body.firebaseUser,
+            ...req.body,
+
+            thumbnail: result.thumbnail,
+            cloudinaryId: result.cloudinaryId
         };
 
         const userToEdit = await Playlist.findOneAndUpdate(
@@ -94,7 +92,7 @@ export const updatePlaylistById = async (req, res, next) => {
             }
         );
 
-        res.status(200).json({ data: "Playlist updated", userToEdit });
+        res.status(200).json({ data: "Playlist updated", userToEdit });*/
     } catch (error) {
         console.log(error);
     }
@@ -127,7 +125,6 @@ export const addTrackToPlaylist = async (req, res, next) => {
         const trackId = req.query.trackId;
         console.log(trackId)
 
-
         const playlist = await Playlist.findById(playlistId)
         console.log(playlist)
 
@@ -145,7 +142,7 @@ export const addTrackToPlaylist = async (req, res, next) => {
     }
 };
 
-// TODO DELETE SONG IN PLAYLIST
+// DELETE SONG IN PLAYLIST
 
 export const deleteTrackInPlaylist = async (req, res, next) => {
     const playlistId = req.params.playlistId
@@ -154,7 +151,6 @@ export const deleteTrackInPlaylist = async (req, res, next) => {
         // console.log(playlistId)
         // console.log(trackId)
         const playlist = await Playlist.findById(playlistId)
-
 
         //? REMOVE THE INDEX
         const removeIndex = playlist.tracks
@@ -168,7 +164,6 @@ export const deleteTrackInPlaylist = async (req, res, next) => {
         console.log(error)
     }
 }
-
 
 //? FOLLOW PLAYLIST
 export const followPlaylist = async (req, res, next) => {
@@ -189,7 +184,6 @@ export const followPlaylist = async (req, res, next) => {
     } catch (error) {
         console.log(error);
     }
-
 }
 
 //? UNFOLLOW PLAYLIST
@@ -218,5 +212,3 @@ export const unfollowPlaylist = async (req, res, next) => {
         console.log(error);
     }
 }
-
-// TODO DELETE SONG IN PLAYLIST
