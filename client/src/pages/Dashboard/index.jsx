@@ -49,7 +49,7 @@ const Dashboard = () => {
                 Authorization: 'Bearer ' + token,
             },
         });
-        
+
         setMongoUser(userReq.data);
     };
 
@@ -72,8 +72,8 @@ const Dashboard = () => {
                 {/*<h1>Welcome {mongoUser.firstName}!</h1>*/}
                 <div className='dashboard__absolute'>
                     <div className='dashboard__display'>
-                        <Playlists playlistsDashboard={playlistsDashboard}/>
-                        <Songs tracksDashboard={tracksDashboard}/>
+                        <Playlists playlistsDashboard={playlistsDashboard} />
+                        <Songs tracksDashboard={tracksDashboard} />
                     </div>
                     <div className='dashboard__side'>
                         <Genres />
@@ -88,14 +88,14 @@ const Dashboard = () => {
 
 const mapStateToProps = state => {
     return {
-      allTrack: state.track.allTracks,
-      myTracks: state.track.myTracks,
-      allPlaylists: state.playlist.allPlaylists,
-      myPlayLists: state.playlist.myPlayLists
+        allTrack: state.track.allTracks,
+        myTracks: state.track.myTracks,
+        allPlaylists: state.playlist.allPlaylists,
+        myPlayLists: state.playlist.myPlayLists
     }
-  }
-  
-  const reduxHoc = connect(mapStateToProps)
+}
+
+const reduxHoc = connect(mapStateToProps)
 
 export default reduxHoc(Dashboard);
 

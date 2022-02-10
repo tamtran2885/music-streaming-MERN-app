@@ -118,7 +118,7 @@ export const deletePlaylistById = async (req, res, next) => {
     }
 };
 
-//TODO ADD TRACK TO PLAYLIST
+//? ADD TRACK TO PLAYLIST
 export const addTrackToPlaylist = async (req, res, next) => {
     const playlistId = req.params.playlistId;
     // console.log(playlistId)
@@ -144,6 +144,22 @@ export const addTrackToPlaylist = async (req, res, next) => {
         console.log(error);
     }
 };
+
+// TODO DELETE SONG IN PLAYLIST
+
+export const deleteTrackInPlaylist = async (req, res, next) => {
+    const playlistId = req.params.playlistId
+    const trackId = req.query.trackId
+    try {
+        // console.log(playlistId)
+        // console.log(trackId)
+        const playlist = await Playlist.findById(playlistId)
+        console.log(playlist)
+        res.json(trackId)
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 
 //? FOLLOW PLAYLIST
@@ -195,7 +211,9 @@ export const unfollowPlaylist = async (req, res, next) => {
     }
 }
 
-// TODO DELETE SONG IN PLAYLIST
+
+
+
 
 // TODO FOLLOW PLAYLIST
 
