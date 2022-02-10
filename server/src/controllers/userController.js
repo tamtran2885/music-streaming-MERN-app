@@ -178,21 +178,21 @@ export const followUser = async (req, res, next) => {
   try {
     const UserFbId= req.params.userId;
 
-    const UserFollowed = req.query.followedBy;
+    const UserWhoFollow = req.query.fbUserFollow;
 
-    console.log(UserFollowed);
+    console.log(UserWhoFollow);
     console.log(UserFbId);
 
     const userToFollow = await User.findOne({firebaseUser: UserFbId});
 
     console.log(userToFollow);
 
-    /*if(userToFollow.followedBy.filter((user) => user.followedBy === UserFollowed).length > 0)
+    /*if(userToFollow.followedBy.filter((user) => user.followedBy === UserWhoFollow).length > 0)
     {
       return res.status(400).json({ data: "User has been followed", userToFollow });
     }*/
 
-    userToFollow.followedBy.unshift({firebaseUser: UserFollowed});
+    userToFollow.followedBy.unshift({firebaseUser: UserWhoFollow});
 
     await userToFollow.save();
     res.status(200).json({ data: "User followed", userToFollow });
