@@ -65,18 +65,12 @@ export const updatePlaylistById = async (req, res, next) => {
         const url = req.params.playlistId;
 
         const playlist = await Playlist.findById(url)
-        //console.log(playlist, 'la playlist que queremos')
-        // Delete image from cloudinary if change image of profile
-        const deletePhoto = await cloudinary.uploader.destroy(
-            playlist.cloudinaryId);
-            console.log(deletePhoto)
 
-            if(!req.file.path){
-                thumbnail: req.file.path 
-            }
+        // DELETE image from cloudinary
+        const deletePhoto = await cloudinary.uploader.destroy(playlist.cloudinaryId);
 
         // Upload image to cloudinary
-        const result = await cloudinary.uploader.upload(req.file.path);
+        const result = await cloudinary.uploader.upload(req.file.path)
 
         const dataPlaylist = {
             ...req.body,
@@ -85,7 +79,7 @@ export const updatePlaylistById = async (req, res, next) => {
         };
 
         const playlistUpdate = await Playlist.findByIdAndUpdate(
-                playlist
+            playlist
             ,
             dataPlaylist,
             {
