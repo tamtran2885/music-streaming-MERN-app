@@ -154,8 +154,16 @@ export const deleteTrackInPlaylist = async (req, res, next) => {
         // console.log(playlistId)
         // console.log(trackId)
         const playlist = await Playlist.findById(playlistId)
-        console.log(playlist)
-        res.json(trackId)
+
+
+        //? REMOVE THE INDEX
+        const removeIndex = playlist.tracks
+            .map((unfollow) => unfollow.firebaseUser)
+            .indexOf(trackId);
+
+        playlist.tracks.splice(removeIndex, 1);
+        await playlist.save();
+        res.json(playlist.tracks);
     } catch (error) {
         console.log(error)
     }

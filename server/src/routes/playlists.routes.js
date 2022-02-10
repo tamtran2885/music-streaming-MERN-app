@@ -32,7 +32,7 @@ playlistsRoutes.get("/:playlistId", getPlaylistById);
 playlistsRoutes.put("/:playlistId", upload.single("thumbnail"), updatePlaylistById);
 
 //? UPDATE PLAYLIST BY ID
-playlistsRoutes.put("/addTrackToPlaylist/:playlistId", upload.single("thumbnail"), addTrackToPlaylist);
+playlistsRoutes.put("/addTrackToPlaylist/:playlistId", addTrackToPlaylist);
 
 //? DELETE PLAYLIST BY ID
 playlistsRoutes.delete("/:playlistId", deletePlaylistById);
