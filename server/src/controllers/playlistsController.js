@@ -219,12 +219,4 @@ export const unfollowPlaylist = async (req, res, next) => {
     }
 }
 
-
-
-
-
-// TODO FOLLOW PLAYLIST
-
-// TODO UNFOLLOW PLAYLIST
-
-
+// TODO DELETE SONG IN PLAYLIST

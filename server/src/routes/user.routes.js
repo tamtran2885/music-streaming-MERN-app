@@ -6,7 +6,8 @@ import {
   deleteUser,
   updateUser,
   changePass,
-  followUser
+  followUser,
+  unfollowUser,
 } from "../controllers/userController.js";
 import upload from "../utils/multer.js";
 
@@ -37,4 +38,4 @@ userRoutes.put("/follow/:userId", followUser);
 
 //? UNFOLLOW USER
 
-//userRoutes.put("/unfollow/:userId", unFollowUser);
+userRoutes.put("/unfollow/:userId", unfollowUser);
