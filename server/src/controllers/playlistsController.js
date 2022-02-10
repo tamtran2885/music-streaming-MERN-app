@@ -65,37 +65,39 @@ export const updatePlaylistById = async (req, res, next) => {
         const url = req.params.playlistId;
 
         const playlist = await Playlist.findById(url)
-        console.log(playlist, 'la playlist que queremos')
-
-        /*if(){}
-
+        //console.log(playlist, 'la playlist que queremos')
         // Delete image from cloudinary if change image of profile
-        // await cloudinary.uploader.destroy(user.cloudinaryId);
+        const deletePhoto = await cloudinary.uploader.destroy(
+            playlist.cloudinaryId);
+            console.log(deletePhoto)
+
+            if(!req.file.path){
+                thumbnail: req.file.path 
+            }
 
         // Upload image to cloudinary
         const result = await cloudinary.uploader.upload(req.file.path);
 
         const dataPlaylist = {
             ...req.body,
-
-            thumbnail: result.thumbnail,
-            cloudinaryId: result.cloudinaryId
+            thumbnail: result.url || undefined,
+            cloudinaryId: result.public_id
         };
 
-        const userToEdit = await Playlist.findOneAndUpdate(
-            {
-                firebaseUser: url,
-            },
+        const playlistUpdate = await Playlist.findByIdAndUpdate(
+                playlist
+            ,
             dataPlaylist,
             {
                 new: true,
             }
         );
 
-        res.status(200).json({ data: "Playlist updated", userToEdit });*/
+        res.status(200).json({ data: "Playlist updated", deletePhoto });
     } catch (error) {
         console.log(error);
     }
+    next()
 };
 
 //? DELETE PLAYLIST
