@@ -79,7 +79,7 @@ const User = () => {
           <p> {userProfile.email}</p>
         </div>
       </div>
-      <button type="button">Change Password</button>
+      <Link to={`/user/edit/change-password/${userProfile.firebaseUser}`}>Edit password</Link>
 
       <h1>My Playlists</h1>
       <h1>My Songs</h1>

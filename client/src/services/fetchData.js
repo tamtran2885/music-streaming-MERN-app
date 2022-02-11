@@ -10,17 +10,17 @@ export const fetchTracks = () =>
 
 export const fetchPlaylists = () =>
   new Promise((resolve) => {
-    const tracks = axios.get("http://localhost:4000/api/playlists");
+    const playlists = axios.get("http://localhost:4000/api/playlists");
     setTimeout(() => {
-      resolve(tracks);
+      resolve(playlists);
     }, 1000);
   });
 
 export const fetchAlbums = () =>
   new Promise((resolve) => {
-    const tracks = axios.get("http://localhost:4000/api/albums");
+    const albums = axios.get("http://localhost:4000/api/albums");
     setTimeout(() => {
-      resolve(tracks);
+      resolve(albums);
     }, 1000);
   });
 

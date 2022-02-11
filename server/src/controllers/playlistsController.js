@@ -4,7 +4,7 @@ import cloudinary from "../utils/cloudinary.js";
 //? GET PLAYLISTS
 export const getPlaylists = async (req, res, next) => {
   try {
-    const playlist = await Playlist.find();
+    const playlist = await Playlist.find().populate("followedBy");
     res.json(playlist);
   } catch (error) {
     console.log(error);
@@ -59,35 +59,26 @@ export const getPlaylistById = async (req, res, next) => {
   }
 };
 
-//? UPDATE PLAYLIST BY ID
+// TODO UPDATE PLAYLIST BY ID
 export const updatePlaylistById = async (req, res, next) => {
+  console.log(req.body);
   try {
     const url = req.params.playlistId;
-    const playlist = await Playlist.findOne({
-      firebaseUser: url,
-    });
-
-    // Delete image from cloudinary if change image of profile
-    // await cloudinary.uploader.destroy(user.cloudinaryId);
-
-    // Upload image to cloudinary
-    // const result = await cloudinary.uploader.upload(req.file.path);
+    const playlist = await Playlist.findById(url);
 
     const dataPlaylist = {
-      firstName: req.body.firstName || playlist.firstName,
-      lastName: req.body.lastName || playlist.lastName,
-      birthday: req.body.birthday || playlist.birthday,
-      country: req.body.country || playlist.country,
-      profile: playlist.profile,
-      email: req.body.email || playlist.email,
+      title: req.body.title || playlist.title,
+      collaborative: req.body.collaborative || playlist.collaborative,
+      description: req.body.description || playlist.description,
+      cover: req.body.cover || playlist.cover,
+      thumbnail: playlist.thumbnail,
+      publicAccessible: req.body.publicAccessible || playlist.publicAccessible,
       cloudinaryId: playlist.cloudinaryId,
-      firebaseUser: req.body.firebaseUser,
+      firebaseUser: playlist.firebaseUser,
     };
 
-    const userToEdit = await Playlist.findOneAndUpdate(
-      {
-        firebaseUser: url,
-      },
+    const userToEdit = await Playlist.findByIdAndUpdate(
+      req.params.playlistId,
       dataPlaylist,
       {
         new: true,
@@ -118,23 +109,56 @@ export const deletePlaylistById = async (req, res, next) => {
   }
 };
 
-//? ADD TRACK TO PLAYLIST
-export const addTrackToPlaylist = async (req, res, next) => {
+//? FOLLOW PLAYLIST
+export const followPlaylist = async (req, res, next) => {
+  const param = req.query.firebaseUser;
+  console.log(param);
   try {
-    const trackId = req.query.trackId;
-    const playlistId = req.query.playlistId;
-
+    const playlistId = req.params.playlistId;
     const playlist = await Playlist.findById(playlistId);
 
-    // Check if the track has already in the playlist
+    // Check if the playlist has already been followed
     if (
-      playlist.tracks.filter((track) => track.trackId === trackId).length > 0
+      playlist.followedBy.filter((follow) => follow.firebaseUser === param)
+        .length > 0
     ) {
-      return res.status(400).json({ msg: "Track has been added" });
+      return res
+        .status(400)
+        .json({ msg: "Playlist has already been added to favorites" });
     }
-    playlist.tracks.unshift({ firebaseUser: param });
+    playlist.followedBy.unshift({ firebaseUser: param });
     await playlist.save();
-    res.json(playlist.tracks);
+    res.json(playlist.followedBy);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//? UNFOLLOW PLAYLIST
+export const unfollowPlaylist = async (req, res, next) => {
+  const param = req.query.firebaseUser;
+  try {
+    const playlistId = req.params.playlistId;
+    const playlist = await Playlist.findById(playlistId);
+
+    // Check if the playlist has already been followed
+    if (
+      playlist.followedBy.filter((follow) => follow.firebaseUser === param)
+        .length === 0
+    ) {
+      return res
+        .status(400)
+        .json({ msg: "Playlist has been removed from favorites" });
+    }
+
+    // Get remove index
+    const removeIndex = playlist.followedBy
+      .map((follow) => follow.firebaseUser)
+      .indexOf(param);
+
+    playlist.followedBy.splice(removeIndex, 1);
+    await playlist.save();
+    res.json(playlist.followedBy);
   } catch (error) {
     console.log(error);
   }

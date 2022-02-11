@@ -9,39 +9,40 @@ import MusicPlayer from '../../components/MusicPlayer';
 import { connect, useDispatch } from "react-redux";
 import { getAllTracks, getTracksByUser } from "../../redux/track/actions";
 import { getAllPlaylists, getPlaylistsByUser } from "../../redux/playlist/actions";
-import { useSelector } from "react-redux";
 
 import { useAuth } from "../../context/authContext";
 import axios from 'axios';
 
-const Dashboard = () => {
+const Dashboard = ({myPlaylists, myTracks, allPlaylists, allTracks}) => {
     const dispatch = useDispatch();
     const { user } = useAuth();
     const [mongoUser, setMongoUser] = useState({});
-    const token = user.accessToken;
+    const token = user.accessToken
+    window.localStorage.setItem("token", token)
     // console.log(JSON.stringify(user));
 
-    const allTracks = useSelector((state) => state.track.allTracks.data);
-    const myTracks = useSelector((state) => state.track.myTracks.data);
-
-    const allPlaylists = useSelector((state) => state.playlist.allPlaylists.data);
-    const myPlayLists = useSelector((state) => state.playlist.myPlayLists.data);
-
-    const [tracksDashboard, setTracksDashboard] = useState(allTracks);
-    const [playlistsDashboard, setPlaylistsDashboard] = useState(allPlaylists);
-
     console.log(allPlaylists);
-    console.log(myPlayLists);
+    console.log(myPlaylists);
 
     useEffect(() => {
-        if (token) {
-            APIcall();
-            dispatch(getAllTracks());
-            dispatch(getTracksByUser(user.uid));
-            dispatch(getAllPlaylists());
-            dispatch(getPlaylistsByUser(user.uid));
-        }
+        setTimeout( async () => {
+            if (token) {
+                APIcall();
+                dispatch(getAllTracks());
+                dispatch(getAllPlaylists());
+                dispatch(getTracksByUser(user.uid));
+                dispatch(getPlaylistsByUser(user.uid));
+            }
+        }, 3000)
     }, [dispatch, token]);
+
+    const [tracksDashboard, setTracksDashboard] = useState([]);
+    const [playlistsDashboard, setPlaylistsDashboard] = useState([]);
+
+    useEffect(() => {
+            setTracksDashboard(allTracks);
+            setPlaylistsDashboard(allPlaylists);
+    }, [allTracks, allPlaylists])
 
     const APIcall = async () => {
         const userReq = await axios.get(`/api/user/${user.uid}`, {
@@ -52,7 +53,6 @@ const Dashboard = () => {
         setMongoUser(userReq.data);
     };
 
-
     const handlePopular = () => {
         setTracksDashboard(allTracks)
         setPlaylistsDashboard(allPlaylists)
@@ -60,19 +60,18 @@ const Dashboard = () => {
 
     const handleMine = () => {
         setTracksDashboard(myTracks)
-        setPlaylistsDashboard(myPlayLists)
+        setPlaylistsDashboard(myPlaylists)
     };
-
 
     return (
         <>
             <div className='dashboard__background'>
-                <Navbar page="Popular Now" handleMine={handleMine} handlePopular={handlePopular} />
+                <Navbar page="Popular Now" handleMine={handleMine} handlePopular={handlePopular} mongoUser={mongoUser} />
                 {/*<h1>Welcome {mongoUser.firstName}!</h1>*/}
                 <div className='dashboard__absolute'>
                     <div className='dashboard__display'>
-                        <Playlists playlistsDashboard={playlistsDashboard}/>
-                        <Songs tracksDashboard={tracksDashboard}/>
+                        <Playlists playlistsDashboard={playlistsDashboard} />
+                        <Songs tracksDashboard={tracksDashboard} />
                     </div>
                     <div className='dashboard__side'>
                         <Genres />
@@ -87,14 +86,13 @@ const Dashboard = () => {
 
 const mapStateToProps = state => {
     return {
-      allTrack: state.track.allTracks,
-      myTracks: state.track.myTracks,
-      allPlaylists: state.playlist.allPlaylists,
-      myPlayLists: state.playlist.myPlayLists
+        allTracks: state.track.allTracks.data,
+        myTracks: state.track.myTracks.data,
+        allPlaylists: state.playlist.allPlaylists.data,
+        myPlaylists: state.playlist.myPlaylists.data
     }
-  }
-  
-  const reduxHoc = connect(mapStateToProps)
+}
+
+const reduxHoc = connect(mapStateToProps)
 
 export default reduxHoc(Dashboard);
-

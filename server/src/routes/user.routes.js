@@ -5,6 +5,8 @@ import {
   getUserById,
   deleteUser,
   updateUser,
+  changePass,
+  followUser
 } from "../controllers/userController.js";
 import upload from "../utils/multer.js";
 
@@ -19,8 +21,20 @@ userRoutes.post("/", upload.single("profile"), createUser);
 //? GET USER BY ID
 userRoutes.get("/:userId", getUserById);
 
-// //? UPDATE USER BY ID
+//? UPDATE USER BY ID
 userRoutes.put("/:userId", upload.single("profile"), updateUser);
 
-// //? DELETE USER BY ID
+//? UPDATE USER PASSWORD BY ID
+
+userRoutes.put("/change-password/:userId", changePass);
+
+//? DELETE USER BY ID
 userRoutes.delete("/:userId", deleteUser);
+
+//? FOLLOW USER
+
+userRoutes.put("/follow/:userId", followUser);
+
+//? UNFOLLOW USER
+
+//userRoutes.put("/unfollow/:userId", unFollowUser);

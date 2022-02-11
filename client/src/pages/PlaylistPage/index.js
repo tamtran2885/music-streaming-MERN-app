@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
-import Playlists from "../../components/Playlists";
+import CreatedPlaylists from "../../components/CreatedPlaylists";
 import Genres from "../../components/Genres";
 import Albums from "../../components/Albums";
 import MusicPlayer from "../../components/MusicPlayer";
@@ -61,6 +61,7 @@ const Playlist = () => {
     setTracksDashboard(myTracks);
     setPlaylistsDashboard(myPlayLists);
   };
+  const myPlaylists = useSelector((state) => state.playlist.myPlaylists.data);
 
   return (
     <>
@@ -73,8 +74,8 @@ const Playlist = () => {
         {/*<h1>Welcome {mongoUser.firstName}!</h1>*/}
         <div className="dashboard__absolute">
           <div className="dashboard__display">
-            <Playlists playlistsDashboard={playlistsDashboard} />
-            <Playlists playlistsDashboard={playlistsDashboard} />
+            <CreatedPlaylists playlistsDashboard={playlistsDashboard} />
+            <CreatedPlaylists playlistsDashboard={playlistsDashboard} />
           </div>
           <div className="dashboard__side">
             <Genres />

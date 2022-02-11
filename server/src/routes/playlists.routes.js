@@ -8,6 +8,8 @@ import {
   getPlaylists,
   updatePlaylistById,
   getPlaylistsByUser,
+  followPlaylist,
+  unfollowPlaylist,
 } from "../controllers/playlistsController.js";
 
 export const playlistsRoutes = Router();
@@ -24,8 +26,20 @@ playlistsRoutes.post("/", upload.single("thumbnail"), createPlaylist);
 //? GET PLAYLIST BY ID
 playlistsRoutes.get("/:playlistId", getPlaylistById);
 
-// //? UPDATE PLAYLIST BY ID
-playlistsRoutes.put("/:playlistId", upload.single("..."), updatePlaylistById);
+//? UPDATE PLAYLIST BY ID
+playlistsRoutes.put("/:playlistId", updatePlaylistById);
 
-// //? DELETE PLAYLIST BY ID
+//? ADD TRACK TO PLAYLIST
+// playlistsRoutes.put("/addTrackToPlaylist/:playlistId", addTrackToPlaylist);
+
+//? DELETE PLAYLIST BY ID
 playlistsRoutes.delete("/:playlistId", deletePlaylistById);
+
+//? DELETE TRACK IN PLAYLIST
+// playlistsRoutes.delete("/deleteTrack/:playlistId", deleteTrackInPlaylist);
+
+//? FOLLOW PLAYLIST
+playlistsRoutes.put("/follow/:playlistId", followPlaylist);
+
+//? UNFOLLOW PLAYLIST
+playlistsRoutes.put("/unfollow/:playlistId", unfollowPlaylist);

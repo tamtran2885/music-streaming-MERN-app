@@ -5,15 +5,11 @@ import { useSelector } from "react-redux";
 
 import axios from "axios";
 import { useAuth } from "../../context/authContext";
-import { useDispatch } from "react-redux";
-import { deleteSingleTrack } from "../../redux/track/actions";
 
 const TrackRows = () => {
   // get token
   const { user } = useAuth();
   // const token = user.accessToken;
-
-  const dispatch = useDispatch();
 
   // retrieve tracks from redux store
   const myTracks = useSelector((state) => state.track.myTracks.data);
@@ -21,7 +17,6 @@ const TrackRows = () => {
 
   // Set state
   const [tracksInfo, setTracksInfo] = useState(myTracks);
-
   const [editRowId, setEditRowId] = useState(null);
 
   const [editFormData, setEditFormData] = useState({
@@ -92,9 +87,14 @@ const TrackRows = () => {
     setEditRowId(null);
   };
 
-  const handleDelete = (_id) => {
-    console.log("delete" + _id);
-    dispatch(deleteSingleTrack(_id));
+  const handleDelete = async (_id) => {
+    // console.log("delete" + _id);
+    try {
+      await axios.delete(`http://localhost:4000/api/tracks/${_id}`);
+      console.log(_id);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

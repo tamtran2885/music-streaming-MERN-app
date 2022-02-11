@@ -83,6 +83,8 @@ export const deleteUser = async (req, res) => {
   }
 };
 
+// TODO
+
 export const updateUser = async (req, res) => {
   try {
     const url = req.params.userId;
@@ -124,3 +126,81 @@ export const updateUser = async (req, res) => {
     console.log(error);
   }
 };
+
+// TODO
+
+export const changePass = async (req, res) => {}
+/*
+export const changePass = async (req, res) => {
+  try {
+    const url = req.headers;
+    console.log(url)
+    const user = await User.findOne({
+      firebaseUser: url,
+    });
+
+    const dataUser = {
+      firstName: req.body.firstName || user.firstName,
+      lastName: req.body.lastName || user.lastName,
+      birthday: req.body.birthday || user.birthday,
+      country: req.body.country || user.country,
+      profile: user.profile,
+      email: req.body.email || user.email,
+      cloudinaryId: user.cloudinaryId,
+      firebaseUser: req.body.firebaseUser,
+    };
+    // console.log(firebaseUser);
+
+    const userToEdit = await User.findOneAndUpdate(
+      {
+        firebaseUser: url,
+      },
+      dataUser,
+      {
+        new: true,
+      }
+    );
+
+    res.status(200).json({ data: "User updated", userToEdit });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//const hash = await bcrypt.hash(req.body.password, saltRounds);
+
+changePass();*/
+
+
+// TODO FOLLOW USER
+
+export const followUser = async (req, res, next) => {
+  try {
+    const UserFbId= req.params.userId;
+
+    const UserWhoFollow = req.query.fbUserFollow;
+
+    console.log(UserWhoFollow);
+    console.log(UserFbId);
+
+    const userToFollow = await User.findOne({firebaseUser: UserFbId});
+
+    console.log(userToFollow);
+
+    /*if(userToFollow.followedBy.filter((user) => user.followedBy === UserWhoFollow).length > 0)
+    {
+      return res.status(400).json({ data: "User has been followed", userToFollow });
+    }*/
+
+    userToFollow.followedBy.unshift({firebaseUser: UserWhoFollow});
+
+    await userToFollow.save();
+    res.status(200).json({ data: "User followed", userToFollow });
+
+  } catch (error) {
+    console.log(error)
+  }
+  next()
+}
+
+// TODO UNFOLLOW USER

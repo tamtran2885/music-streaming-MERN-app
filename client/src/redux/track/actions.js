@@ -50,6 +50,7 @@ export const addLike = (trackId, firebaseUser) => {
         `http://localhost:4000/api/tracks/like/${trackId}?firebaseUser=${firebaseUser}`
       );
       dispatch(updateLikes(response));
+      dispatch(getAllTracks());
     } catch (err) {
       console.error(err);
     }
@@ -63,6 +64,7 @@ export const removeLike = (trackId, firebaseUser) => {
         `http://localhost:4000/api/tracks/unlike/${trackId}?firebaseUser=${firebaseUser}`
       );
       dispatch(updateLikes(response));
+      dispatch(getAllTracks());
     } catch (err) {
       console.error(err);
     }

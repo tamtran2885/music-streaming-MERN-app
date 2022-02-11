@@ -5,12 +5,12 @@ import logo from "../../assets/images/logo.svg";
 import SearchBar from "../SearchBar";
 
 const Navbar = (props) => {
-    const {page, handleMine, handlePopular } = props;
+    const { page, handleMine, handlePopular, mongoUser } = props;
     const navigate = useNavigate();
     const { user, logout } = useAuth()
 
     // console.log(JSON.stringify(user));
-    console.log(user)
+    // console.log(user)
 
     const handleLogout = async () => {
         try {

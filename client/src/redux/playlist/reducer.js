@@ -12,7 +12,7 @@ const playlistReducer = (state = initialState, action) => {
     case SET_PLAYLISTS_BY_USER:
       return {
         ...state,
-        myPlayLists: action.payload,
+        myPlaylists: action.payload,
         loading: false,
       };
     default:
