@@ -8,7 +8,6 @@ import {
   getPlaylists,
   updatePlaylistById,
   getPlaylistsByUser,
-
   followPlaylist,
   unfollowPlaylist,
 } from "../controllers/playlistsController.js";
