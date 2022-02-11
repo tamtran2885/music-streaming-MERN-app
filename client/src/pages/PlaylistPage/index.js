@@ -127,18 +127,7 @@ const PlaylistPage = () => {
     <>
       <div className="dashboard__background">
         <Navbar page="Playlists" />
-
-        <h1>Welcome Guest!</h1>
-
-        {/* <Link to="/playlist/add"> */}
-
-        <button>Add New Playlist</button>
-
         <CreatedPlaylists myPlaylists={myPlaylists} />
-
-        {/* </Link> */}
-
-        {/* <div>Playlist</div> */}
       </div>
     </>
   );
