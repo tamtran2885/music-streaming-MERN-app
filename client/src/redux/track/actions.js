@@ -51,6 +51,7 @@ export const addLike = (trackId, firebaseUser) => {
       );
       dispatch(updateLikes(response));
       dispatch(getAllTracks());
+      dispatch(getTracksByUser(firebaseUser));
     } catch (err) {
       console.error(err);
     }
@@ -65,6 +66,7 @@ export const removeLike = (trackId, firebaseUser) => {
       );
       dispatch(updateLikes(response));
       dispatch(getAllTracks());
+      dispatch(getTracksByUser(firebaseUser));
     } catch (err) {
       console.error(err);
     }
