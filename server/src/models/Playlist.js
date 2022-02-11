@@ -50,7 +50,10 @@ const PlaylistSchema = new Schema({
   tracks: {
     type: [
       {
-        trackId: String,
+        trackId: {
+          type: Schema.Types.ObjectId,
+          ref: "tracks",
+        },
       },
     ],
   },

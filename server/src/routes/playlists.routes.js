@@ -10,6 +10,7 @@ import {
   getPlaylistsByUser,
   followPlaylist,
   unfollowPlaylist,
+  getPlaylistByIdAndDetails
 } from "../controllers/playlistsController.js";
 
 export const playlistsRoutes = Router();
@@ -39,3 +40,7 @@ playlistsRoutes.put("/follow/:playlistId", followPlaylist);
 
 //? UNFOLLOW PLAYLIST
 playlistsRoutes.put("/unfollow/:playlistId", unfollowPlaylist);
+
+//? GET PLAYLIST BY ID AND SHOW TRACKS DETAILS
+playlistsRoutes.get("/details/:playlistId", getPlaylistByIdAndDetails);
+
