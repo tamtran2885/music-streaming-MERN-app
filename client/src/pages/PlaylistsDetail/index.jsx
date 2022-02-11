@@ -1,47 +1,45 @@
-import React, { useEffect, useState } from 'react';
-// import { useLocation } from 'react-router-dom';
+import React from "react";
+import { Link } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
-import Playlists from '../../components/Playlists';
+import Genres from '../../components/Genres';
+import Albums from '../../components/Albums';
 import MusicPlayer from '../../components/MusicPlayer';
-
-import withLayout from "../../hoc/withLayout";
+import TrackRows from "../../components/TrackRows";
+import upload from "../../assets/images/upload.svg";
 
 import { useAuth } from "../../context/authContext";
-import axios from 'axios';
 
-const PlaylistDetail = () => {
+const TrackPage = () => {
     const { user } = useAuth();
-    const [mongoUser, setMongoUser] = useState({});
 
-    // console.log(user.uid);
-
-    useEffect(() => {
-      if (user.accessToken) {
-        APIcall();
-      }
-    });
-
-    const APIcall = async () => {
-        const userReq = await axios.get(`/api/user/${user.uid}`);
-        setMongoUser(userReq.data);
-    };
+    const token = user.accessToken;
+    console.log(token)
 
 
-
-  return (
-    <>
-      <div className='dashboard__background'>
-          <Navbar />
-        <div className='dashboard__absolute'>
-          <div className='dashboard__display'>
-            
-          </div>
-        </div>
-          <MusicPlayer />
-      </div>
-    </>
-  )
+    return (
+        <>
+            <div className='dashboard__background'>
+                <Navbar page="Songs" />
+                <div className='tracks__absolute'>
+                    <div className='tracks__display'>
+                        <div className="tracks__title">
+                            <h2 className="tittle">Uploaded</h2>
+                            <Link className='link' to="/track/add">
+                                <button className="button">Upload Song</button>
+                                <img className="upload" src={upload} alt="Upload" />
+                            </Link>
+                        </div>
+                        <TrackRows />
+                    </div>
+                    <div className='dashboard__side'>
+                        <Genres />
+                        <Albums />
+                    </div>
+                </div>
+                <MusicPlayer />
+            </div>
+        </>
+    )
 }
 
-export default withLayout(PlaylistDetail);
-
+export default TrackPage;
