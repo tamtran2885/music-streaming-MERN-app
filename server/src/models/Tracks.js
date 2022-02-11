@@ -40,20 +40,12 @@ const TracksSchema = new Schema(
     urlTrack: {
       type: String,
     },
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: "user",
-    },
     firebaseUser: {
       type: String,
     },
     likes: {
       type: [
         {
-          user: {
-            type: Schema.Types.ObjectId,
-            ref: "user",
-          },
           firebaseUser: String,
         },
       ],

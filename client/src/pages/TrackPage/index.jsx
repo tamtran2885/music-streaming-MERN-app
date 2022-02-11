@@ -12,8 +12,8 @@ import { useAuth } from "../../context/authContext";
 const TrackPage = () => {
     const { user } = useAuth();
 
-    const token = user.accessToken;
-    console.log(token)
+    // const token = user.accessToken;
+    // console.log(token)
 
 
     return (
