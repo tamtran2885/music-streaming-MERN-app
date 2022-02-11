@@ -41,6 +41,13 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
           <img className="song__edit__icon" src={menu} alt="Menu" />
           <div className="float__menu">
             <button className="nav__link">Add to playlist</button>
+            <div>
+              <select>
+                <option>1</option>
+                <option>2</option>
+              </select>
+              {/* <input className="nav__link" placeholder="playlists" /> */}
+            </div>
             <hr />
             <button
               onClick={(event) => handleEditClick(event, track)}
