@@ -168,7 +168,7 @@ export const addFavToTrack = async (req, res) => {
     const user = await User.findOne({
       firebaseUser: param,
     });
-    user.favTrackList.unshift({ trackId: track });
+    user.favTrackList.unshift({ trackId: track._id });
     await user.save();
 
     // return respond
