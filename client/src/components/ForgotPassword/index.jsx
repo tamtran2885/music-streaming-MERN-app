@@ -17,9 +17,9 @@ const ForgotPassword = () => {
             setMessage("");
             setLoading(true)
             await resetPassword(emailRef.current.value);
-            setMessage("Please check your email to reset your new password")
+            setMessage("Please check your email to get your new password.")
         } catch (err) {
-            setError("Failed to reset password")
+            setError("Failed to reset password.")
         }
       }
 
@@ -31,13 +31,11 @@ const ForgotPassword = () => {
             </div>
             <div className="login__container">
           <form className="form" onSubmit={handleResetPassword}>
-            {error && <p>{error}</p>}
-            {message && <p>{message}</p>}
             <h3>Forgot Password</h3>
             <input
               type="text"
               className="form__input"
-              placeholder="Email address..."
+              placeholder="Email address"
               ref={emailRef}
             />
             <div className="form__questions">
@@ -45,11 +43,10 @@ const ForgotPassword = () => {
             <button disabled={loading} type="submit" className="button">Submit</button>
             </div>
             </div>
+            {error && <p>{error}</p>}
+            {message && <p>{message}</p>}
             <div className='form__options'>
-              <p>Enter your mail to restore your password<br /> Or go to <Link className="link" to="/login">log in.</Link></p>
-              <p>
-                If you need to contact  <Link className="link" to="/register">Get Support</Link>
-              </p>
+              <p>Enter your mail to restore your password. Or go to <Link className="link" to="/login">log in.</Link></p>
             </div>
           </form>
           </div>

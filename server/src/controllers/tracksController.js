@@ -264,17 +264,24 @@ export const deleteTrackFromPlaylist = async (req, res, next) => {
 };
 
 //TODO GET TRACK DETAILS IN MY FAVORITES
-
 export const getTrackDetailsInFav = async (req, res, next) => {
-  const user = req.params.userId
-  console.log(user)
+  const firebaseId = req.params.userId
   try {
-    const track = await Tracks.find({ words: { $in: ["text", "here"] } });
 
-    console.log(track)
-    const likes = track.likes
-    console.log(likes)
-    res.status(200).json({ msg: "Done", track })
+    const user = await User.findOne({ firebaseUser: firebaseId })
+    console.log(user)
+
+    const array = [];
+    user.favTrackList.map((x) => array.push(x.trackId))
+
+    const tracksInfo = [];
+
+    for (let i = 0; i < array.length; i++) {
+      const detailsTracks = await Tracks.findById(array[i]);
+      tracksInfo.push(detailsTracks);
+    }
+
+    res.status(200).json({ msg: "Done", tracksInfo })
   } catch (error) {
     console.log(error)
   }

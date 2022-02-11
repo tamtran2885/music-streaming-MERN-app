@@ -43,27 +43,17 @@ const PlaylistSchema = new Schema({
     type: Number,
   },
 
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: "user",
-  },
   tracks: {
     type: [
       {
-        trackId: {
-          type: Schema.Types.ObjectId,
-          ref: "tracks",
-        },
+        trackId: String
       },
     ],
   },
+
   followedBy: {
     type: [
       {
-        user: {
-          type: Schema.Types.ObjectId,
-          ref: "user",
-        },
         firebaseUser: String,
       },
     ],

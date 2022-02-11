@@ -72,11 +72,15 @@ export const updatePlaylistById = async (req, res, next) => {
 
         // Upload image to cloudinary
         const result = await cloudinary.uploader.upload(req.file.path)
-
         const dataPlaylist = {
-            ...req.body,
-            thumbnail: result.url || undefined,
-            cloudinaryId: result.public_id
+            title: req.body.title || playlist.title,
+            collaborative: req.body.collaborative || playlist.collaborative,
+            description: req.body.description || playlist.description,
+            cover: req.body.cover || playlist.cover,
+            thumbnail: playlist.thumbnail,
+            publicAccessible: req.body.publicAccessible || playlist.publicAccessible,
+            cloudinaryId: playlist.cloudinaryId,
+            firebaseUser: playlist.firebaseUser,
         };
 
         const playlistUpdate = await Playlist.findByIdAndUpdate(
@@ -112,50 +116,6 @@ export const deletePlaylistById = async (req, res, next) => {
         console.log(error);
     }
 };
-
-// Need to check
-
-//? ADD TRACK TO PLAYLIST
-// export const addTrackToPlaylist = async (req, res, next) => {
-//   const playlistId = req.params.playlistId;
-//   // console.log(playlistId)
-//   try {
-//     console.log(req.params.playlistId);
-//     const trackId = req.query.trackId;
-//     console.log(trackId);
-
-//     const playlist = await Playlist.findById(playlistId);
-//     console.log(playlist);
-
-//     // Check if the track is already in the playlist
-//     if (
-//       playlist.tracks.filter((track) => track.trackId === trackId).length > 0
-//     ) {
-//       return res.status(400).json({ msg: "Track has been added" });
-//     }
-//     playlist.tracks.unshift({ trackId: trackId });
-//     await playlist.save();
-//     res.json(playlist.tracks);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
-// DELETE SONG IN PLAYLIST
-
-// export const deleteTrackInPlaylist = async (req, res, next) => {
-//   const playlistId = req.params.playlistId;
-//   const trackId = req.query.trackId;
-//   try {
-//     // console.log(playlistId)
-//     // console.log(trackId)
-//     const playlist = await Playlist.findById(playlistId);
-//     console.log(playlist);
-//     res.json(trackId);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
 
 //? FOLLOW PLAYLIST
 export const followPlaylist = async (req, res, next) => {
@@ -237,10 +197,4 @@ export const getPlaylistByIdAndDetails = async (req, res, next) => {
         console.log(error);
     }
 };
-//TODO SHOW TRACKS WITH DETAILS IN PLAYLIST
 
-// FIND PLAYLIST
-
-// TAKE ARRAY OF IDs INSIDE TRACKS
-
-// FIND DETAILS IN ARRAY BY ID

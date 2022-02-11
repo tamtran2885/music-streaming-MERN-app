@@ -37,15 +37,31 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
       </div>
       <div className="song__duration">{duration ? duration : "N/A"}</div>
       <div className="song__edit__container">
-        <button
-          className="song__edit__button"
-          type="button"
-          onClick={(event) => handleEditClick(event, track)}
-        >
+        <button className="song__edit__button" type="button">
           <img className="song__edit__icon" src={menu} alt="Menu" />
-        </button>
-        <button type="button" onClick={(event) => handleDelete(track._id)}>
-          Delete
+          <div className="float__menu">
+            <button className="nav__link">Add to playlist</button>
+            <div>
+              <select>
+                <option>1</option>
+                <option>2</option>
+              </select>
+              {/* <input className="nav__link" placeholder="playlists" /> */}
+            </div>
+            <hr />
+            <button
+              onClick={(event) => handleEditClick(event, track)}
+              className="nav__link"
+            >
+              Edit
+            </button>
+            <button
+              onClick={(event) => handleDelete(track._id)}
+              className="nav__link"
+            >
+              Delete
+            </button>
+          </div>
         </button>
       </div>
     </div>
