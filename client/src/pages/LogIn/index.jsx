@@ -57,8 +57,8 @@ const Login = () => {
                                 <Link className="link" to="/forgot">Forgot your password?</Link>
                             </div>
                             <div className="form__questions">
-                                <p>First time in TamTamGo?<br /> Please, <Link className="link" to="/register">sign up.</Link></p>
-                                <p>I'd like to reset password?<br /> Please, <Link className="link" to="/reset-password">Reset.</Link></p>
+                                <p>First time in TamTamGo?<br /> Please, <Link className="link" to="/register">sing up.</Link></p>
+                                {/*<p>I'd like to reset password?<br /> Please, <Link className="link" to="/reset-password">Reset.</Link></p>*/}
                                 <div className="form__buttons">
                                     <ConnectWithGoogle />
                                     <button type="submit" className="button">Log in</button>
@@ -69,7 +69,7 @@ const Login = () => {
                 </div>
             </div>
             <div className="credits">
-                <p>TamTamGo App © 2022 | <a className="link" href="https://assemblerschool.com/" target="_blank" rel="noreferrer">Assembler School</a> Jun21 Final Project</p>
+                <p>TamTamGo App © 2022 | <a className="link" href="https://assemblerinstitute.com/" target="_blank" rel="noreferrer">Assembler Institute of Technology</a> Jun21 Final Project</p>
                 <p>Developed with love by Tam Team</p>
             </div>
         </>

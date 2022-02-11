@@ -8,6 +8,7 @@ import axios from "axios";
 import { useAuth } from "../../context/authContext"
 import ConnectWithGoogle from '../../components/ConnectWithGoogle';
 import logo from '../../assets/images/logo.svg';
+import upload from "../../assets/images/upload.svg";
 
 const Register = () => {
     const { signUpWithEmailAndPassword} = useAuth();
@@ -86,10 +87,11 @@ const Register = () => {
                             {errors.firstName && <p>{errors.firstName}</p>}
                             <RegisterInput value={values.lastName} className="form__input" name="lastName" type="text" placeholder="Last Name" onChange={onChange("lastName")} />
                             {errors.lastName && <p>{errors.lastName}</p>}
-                            <RegisterInput className="form__input" name="birthday" type="date" placeholder="Birthday" onChange={onChange("birthday")} />
+                            <RegisterInput className="form__input" name="birthday" type="text" placeholder="Birthday" onChange={onChange("birthday")} />
                             <RegisterInput className="form__input" name="country" type="text" placeholder="Country" onChange={onChange("country")} />
-                            <RegisterInput accept="image/*" className="form__input" name="profile" type="file" placeholder="Upload Image" onChange={onChange("profile")}/>
-
+                            <label for="file"><p className='file'>Profile Picture</p></label>
+                            <RegisterInput id="file" accept="image/*" className="form__input" name="profile" type="file" placeholder="Upload Image" onChange={onChange("profile")} />
+                                <img className="upload" src={upload} alt="Upload" />
                             <RegisterInput value={values.email} className="form__input" name="email" type="email" placeholder="Email" onChange={onChange("email")} />
                             {errors.email && <p>{errors.email}</p>}
                             <RegisterInput value={values.password} className="form__input" name="password" type="password" placeholder="Password" onChange={onChange("password")} />
