@@ -8,7 +8,7 @@ const Songs = ({ tracksDashboard }) => {
   const [tracks, setTracks] = useState([]);
 
   const token = localStorage.getItem("token")
-  console.log(token)
+  // console.log(token)
 
   useEffect(() => {
     if (token) {
