@@ -1,5 +1,10 @@
 import initialState from "./state";
-import { SET_ALL_PLAYLISTS, SET_PLAYLISTS_BY_USER } from "./types";
+import {
+  SET_ALL_PLAYLISTS,
+  SET_PLAYLISTS_BY_USER,
+  SET_CURRENT_PLAYLIST,
+  SET_CURRENT_PLAYLIST_INFO,
+} from "./types";
 
 const playlistReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -13,6 +18,18 @@ const playlistReducer = (state = initialState, action) => {
       return {
         ...state,
         myPlaylists: action.payload,
+        loading: false,
+      };
+    case SET_CURRENT_PLAYLIST:
+      return {
+        ...state,
+        currentPlaylist: action.payload,
+        loading: false,
+      };
+    case SET_CURRENT_PLAYLIST_INFO:
+      return {
+        ...state,
+        currentPlaylistInfo: action.payload,
         loading: false,
       };
     default:

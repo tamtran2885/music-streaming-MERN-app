@@ -59,3 +59,10 @@ export const fetchAlbumsByUser = (userUid) => {
   });
   return userAlbums;
 };
+
+export const fetchPlaylistTracks = (playlistId) => {
+  const playlistTracks = axios.get(
+    `http://localhost:4000/api/playlists/details/${playlistId}`
+  );
+  return playlistTracks;
+};

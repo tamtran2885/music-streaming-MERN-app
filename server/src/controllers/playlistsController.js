@@ -1,5 +1,6 @@
 import Playlist from "../models/Playlist.js";
 import cloudinary from "../utils/cloudinary.js";
+import Tracks from "../models/Tracks.js";
 
 //? GET PLAYLISTS
 export const getPlaylists = async (req, res, next) => {

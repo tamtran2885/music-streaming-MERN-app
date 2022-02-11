@@ -1,35 +1,21 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import star from "../../assets/images/star.svg";
 import staractive from "../../assets/images/staractive.svg";
 import menu from "../../assets/images/menu.svg";
-import { useSelector, useDispatch } from "react-redux";
 import { useAuth } from "../../context/authContext";
-import {
-  getAllPlaylists,
-  getPlaylistsByUser,
-} from "../../redux/playlist/actions";
 import { addLike, removeLike } from "../../redux/track/actions";
-import axios from "axios";
 
-const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
+const PlaylistTrackRow = ({ track }) => {
   const dispatch = useDispatch();
   const { user } = useAuth();
   const uid = user.uid;
 
-  const {
-    title,
-    artist,
-    album,
-    reproductions,
-    genre,
-    _id,
-    duration,
-    firebaseUser,
-    likes,
-  } = track;
+  const { title, album, duration, genre, artist, likes, _id } = track;
 
-  const myPlaylists = useSelector((state) => state.playlist.myPlaylists.data);
-  // console.log(myPlaylists)
+  const handleDelete = () => {
+    console.log("delete track");
+  };
 
   const checkLike = (uid) => {
     if (likes.filter((like) => like.firebaseUser === uid).length === 0) {
@@ -51,20 +37,6 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
     }
   };
 
-  const handleChange = async (e) => {
-    const playlistId = e.target.value;
-    try {
-      await axios.put(
-        `http://localhost:4000/api/tracks/addToPlaylist/${_id}?playlistId=${playlistId}`
-      );
-      // console.log(response);
-    } catch (err) {
-      console.error(err);
-    }
-    dispatch(getAllPlaylists());
-    dispatch(getPlaylistsByUser(firebaseUser));
-  };
-
   return (
     <div className="trackrow">
       <div className="song__number">1</div>
@@ -78,7 +50,7 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
         </button>
       </div>
       <div className="song__like">
-        {/* <img className="song__like__icon" src={star} alt="" /> */}
+        {/* <img className="song__like__icon" src={star} alt="" onClick="" /> */}
         {like === false ? (
           <img
             className="song__like__icon"
@@ -102,33 +74,12 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
         </p>
       </div>
       <div className="song__album">{album ? album : "N/A"}</div>
-      <div className="song__popularity">
-        {reproductions ? reproductions : "N/A"}
-      </div>
+      <div className="song__popularity">{likes ? likes.length : "N/A"}</div>
       <div className="song__duration">{duration ? duration : "N/A"}</div>
       <div className="song__edit__container">
         <button className="song__edit__button" type="button">
           <img className="song__edit__icon" src={menu} alt="Menu" />
           <div className="float__menu">
-            <button className="nav__link">Add to playlist</button>
-            <div>
-              <select onChange={handleChange}>
-                <option>Please choose your playlist</option>
-                {myPlaylists &&
-                  myPlaylists.map((item) => (
-                    <option key={item._id && item._id} value={item._id}>
-                      {item.title && item.title}
-                    </option>
-                  ))}
-              </select>
-            </div>
-            <hr />
-            <button
-              onClick={(event) => handleEditClick(event, track)}
-              className="nav__link"
-            >
-              Edit
-            </button>
             <button
               onClick={(event) => handleDelete(track._id)}
               className="nav__link"
@@ -142,4 +93,4 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
   );
 };
 
-export default ReadOnlyTrackRow;
+export default PlaylistTrackRow;

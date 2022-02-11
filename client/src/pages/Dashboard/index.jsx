@@ -19,10 +19,9 @@ const Dashboard = ({myPlaylists, myTracks, allPlaylists, allTracks}) => {
     const [mongoUser, setMongoUser] = useState({});
     const token = user.accessToken
     window.localStorage.setItem("token", token)
-    // console.log(JSON.stringify(user));
 
-    console.log(allPlaylists);
-    console.log(myPlaylists);
+    // console.log(allPlaylists);
+    // console.log(myPlaylists);
 
     useEffect(() => {
         setTimeout( async () => {

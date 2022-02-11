@@ -14,11 +14,11 @@ const Playlists = ({playlistsDashboard}) => {
       <div className='playlists__absolute'>
         <div className='playlists__tittle'>
           <h2>Playlists</h2>
-          <Link className='link' to={`/user/playlists`}>See All</Link>
+          <Link className='link' to={`/playlist`}>See All</Link>
         </div>
         <div className='playlists__container'>
           {playlists && playlists.map((playlist) => (
-            <div className='playlist__container' key={playlist.id}><Playlist key={playlist.id} playlist={playlist}/></div>
+            <div className='playlist__container' key={playlist._id}><Playlist key={playlist._id} playlist={playlist}/></div>
           ))}
           {!playlists && <div>Loading...</div>}
         </div>

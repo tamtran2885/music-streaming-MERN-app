@@ -1,7 +1,8 @@
 const initialState = {
   allPlaylists: [],
   myPlaylists: [],
-  playlist: null,
+  currentPlaylist: [],
+  currentPlaylistInfo: {},
   loading: true,
   error: {},
 };
