@@ -47,6 +47,9 @@ export const fetchTracksByUser = async (userUid) => {
     params: {
       firebaseUser: userUid,
     },
+    headers: {
+      Authorization: "Bearer " + token
+    }
   });
   return userTracks;
 };

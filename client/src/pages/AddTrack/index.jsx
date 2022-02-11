@@ -62,8 +62,8 @@ const AddTrack = () => {
     return (
         <>
             <div className="login__absolute">
-            {/* <Navbar /> */}
-            <Link to="/"><button>Dashboard</button></Link>
+                {/* <Navbar /> */}
+                <Link to="/"><button>Dashboard</button></Link>
 
                 <div className="login__container">
                     <h1 className="header">Add New Track</h1>

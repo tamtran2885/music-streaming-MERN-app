@@ -5,7 +5,7 @@ import logo from "../../assets/images/logo.svg";
 import SearchBar from "../SearchBar";
 
 const Navbar = (props) => {
-    const { page, handleMine, handlePopular, mongoUser } = props;
+    const { page, handleMine, handlePopular } = props;
     const navigate = useNavigate();
     const { user, logout } = useAuth()
 
@@ -15,6 +15,7 @@ const Navbar = (props) => {
     const handleLogout = async () => {
         try {
             await logout();
+            localStorage.removeItem("token")
             navigate("/login")
         } catch (error) {
             console.error(error);
@@ -29,16 +30,16 @@ const Navbar = (props) => {
                         <Link to={`/`}><img src={logo} alt="TamTamGo Logo" /></Link>
                     </div>
                     <div className='nav__options'>
-                            <Link className='nav__link' to="/track">Songs</Link>
-                            <Link className='nav__link' to={`/playlist`}>Playlists</Link>
-                            <Link className='nav__link' to={`/user/albums`}>Albums</Link>
-                            <Link className='nav__link' to={user ? `/user/${user.uid}` : "/"}>{user && user.email}</Link>
-                            <Link className='avatar' to={""}><img className='avatar' src={logo} alt="" />
+                        <Link className='nav__link' to="/track">Songs</Link>
+                        <Link className='nav__link' to={`/playlist`}>Playlists</Link>
+                        <Link className='nav__link' to={`/user/albums`}>Albums</Link>
+                        <Link className='nav__link' to={user ? `/user/${user.uid}` : "/"}>{user && user.email}</Link>
+                        <Link className='avatar' to={""}><img className='avatar' src={logo} alt="" />
                             <div className='float__menu'>
                                 <Link className='nav__link link' to={user ? `user/${user.uid}` : "/"}>Account details</Link>
                                 <button onClick={handleLogout} className='nav__link logout'>Log Out</button>
                             </div>
-                            </Link>
+                        </Link>
                     </div>
                 </div>
                 <div className='nav__buttons'>
