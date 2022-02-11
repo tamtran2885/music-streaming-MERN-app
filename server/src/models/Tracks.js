@@ -40,6 +40,10 @@ const TracksSchema = new Schema(
     urlTrack: {
       type: String,
     },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+    },
     firebaseUser: {
       type: String,
     },

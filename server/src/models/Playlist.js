@@ -18,6 +18,7 @@ const PlaylistSchema = new Schema({
   thumbnail: {
     type: String,
   },
+
   cloudinaryId: {
     type: String,
   },
@@ -32,6 +33,10 @@ const PlaylistSchema = new Schema({
   },
   rating: {
     type: Number,
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "user",
   },
   tracks: {
     type: [

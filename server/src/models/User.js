@@ -23,6 +23,7 @@ const UserSchema = new Schema(
     },
     profile: {
       type: String,
+      // unique: true,
     },
     email: {
       type: String,
@@ -42,9 +43,20 @@ const UserSchema = new Schema(
     cloudinaryId: {
       type: String,
     },
+    // TODO ¿?¿?¿?¿?
+    uploadedTracks: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "tracks",
+      },
+    ],
     followedBy: {
       type: [
         {
+          user: {
+            type: Schema.Types.ObjectId,
+            ref: "user",
+          },
           firebaseUser: String,
         },
       ],
