@@ -8,6 +8,7 @@ import axios from "axios";
 const AddPlaylist = () => {
     const navigate = useNavigate()
     const { user } = useAuth();
+    const token = user.accessToken || localStorage.getItem("token")
 
     const [values, setValues] = useState({
         title: "",
@@ -33,8 +34,9 @@ const AddPlaylist = () => {
         setErrors(playlistValidation(values))
 
         const config = {
-            header: {
+            headers: {
                 "Content-Type": "multipart/form-data",
+                Authorization: 'Bearer ' + token
             },
         };
 
@@ -69,7 +71,7 @@ const AddPlaylist = () => {
         <>
             <div className="login__absolute">
                 {/* <Navbar /> */}
-            <Link to="/"><button>Dashboard</button></Link>
+                <Link to="/"><button>Dashboard</button></Link>
                 <div className="login__container">
                     <h1 className="header">Add New Playlist</h1>
 
@@ -84,7 +86,7 @@ const AddPlaylist = () => {
                                 onChange={onChange("title")}
                             />
                             {errors.title && <p>{errors.title}</p>}
-                            <label>Collaborative : <input type="checkbox" name="collaborative" onChange={onChange("collaborative")} value={collaborative}/></label>
+                            <label>Collaborative : <input type="checkbox" name="collaborative" onChange={onChange("collaborative")} value={collaborative} /></label>
                             <input
                                 type="text"
                                 className="form__input"
@@ -94,7 +96,7 @@ const AddPlaylist = () => {
                                 onChange={onChange("description")}
                             />
                             {errors.description && <p>{errors.description}</p>}
-                            <label>Public Accessible : <input type="checkbox" name="publicAccessible" onChange={onChange("publicAccessible")} value={publicAccessible}/></label>
+                            <label>Public Accessible : <input type="checkbox" name="publicAccessible" onChange={onChange("publicAccessible")} value={publicAccessible} /></label>
                             <input
                                 type="text"
                                 className="form__input"
