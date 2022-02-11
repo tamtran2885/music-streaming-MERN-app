@@ -4,7 +4,7 @@ import cloudinary from "../utils/cloudinary.js";
 //? GET PLAYLISTS
 export const getPlaylists = async (req, res, next) => {
     try {
-        const playlist = await Playlist.find().populate("followedBy")
+        const playlist = await Playlist.find().populate("followedBy");
         res.json(playlist);
     } catch (error) {
         console.log(error);
@@ -112,67 +112,66 @@ export const deletePlaylistById = async (req, res, next) => {
     }
 };
 
+// Need to check
+
 //? ADD TRACK TO PLAYLIST
-export const addTrackToPlaylist = async (req, res, next) => {
-    const playlistId = req.params.playlistId;
-    // console.log(playlistId)
-    try {
-        console.log(req.params.playlistId)
-        const trackId = req.query.trackId;
-        console.log(trackId)
+// export const addTrackToPlaylist = async (req, res, next) => {
+//   const playlistId = req.params.playlistId;
+//   // console.log(playlistId)
+//   try {
+//     console.log(req.params.playlistId);
+//     const trackId = req.query.trackId;
+//     console.log(trackId);
 
-        const playlist = await Playlist.findById(playlistId)
-        console.log(playlist)
+//     const playlist = await Playlist.findById(playlistId);
+//     console.log(playlist);
 
-        // Check if the track is already in the playlist
-        if (
-            playlist.tracks.filter((track) => track.trackId === trackId).length > 0
-        ) {
-            return res.status(400).json({ msg: "Track has been added" });
-        }
-        playlist.tracks.unshift({ trackId: trackId });
-        await playlist.save();
-        res.json(playlist.tracks);
-    } catch (error) {
-        console.log(error);
-    }
-};
+//     // Check if the track is already in the playlist
+//     if (
+//       playlist.tracks.filter((track) => track.trackId === trackId).length > 0
+//     ) {
+//       return res.status(400).json({ msg: "Track has been added" });
+//     }
+//     playlist.tracks.unshift({ trackId: trackId });
+//     await playlist.save();
+//     res.json(playlist.tracks);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 // DELETE SONG IN PLAYLIST
 
-export const deleteTrackInPlaylist = async (req, res, next) => {
-    const playlistId = req.params.playlistId
-    const trackId = req.query.trackId
-    try {
-        // console.log(playlistId)
-        // console.log(trackId)
-        const playlist = await Playlist.findById(playlistId)
-
-        //? REMOVE THE INDEX
-        const removeIndex = playlist.tracks
-            .map((unfollow) => unfollow.firebaseUser)
-            .indexOf(trackId);
-
-        playlist.tracks.splice(removeIndex, 1);
-        await playlist.save();
-        res.json(playlist.tracks);
-    } catch (error) {
-        console.log(error)
-    }
-}
+// export const deleteTrackInPlaylist = async (req, res, next) => {
+//   const playlistId = req.params.playlistId;
+//   const trackId = req.query.trackId;
+//   try {
+//     // console.log(playlistId)
+//     // console.log(trackId)
+//     const playlist = await Playlist.findById(playlistId);
+//     console.log(playlist);
+//     res.json(trackId);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 //? FOLLOW PLAYLIST
 export const followPlaylist = async (req, res, next) => {
-
     const param = req.query.firebaseUser;
-    console.log(param)
+    console.log(param);
     try {
         const playlistId = req.params.playlistId;
         const playlist = await Playlist.findById(playlistId);
 
         // Check if the playlist has already been followed
-        if (playlist.followedBy.filter((follow) => follow.firebaseUser === param).length > 0) {
-            return res.status(400).json({ msg: "Playlist has already been added to favorites" });
+        if (
+            playlist.followedBy.filter((follow) => follow.firebaseUser === param)
+                .length > 0
+        ) {
+            return res
+                .status(400)
+                .json({ msg: "Playlist has already been added to favorites" });
         }
         playlist.followedBy.unshift({ firebaseUser: param });
         await playlist.save();
@@ -180,7 +179,7 @@ export const followPlaylist = async (req, res, next) => {
     } catch (error) {
         console.log(error);
     }
-}
+};
 
 //? UNFOLLOW PLAYLIST
 export const unfollowPlaylist = async (req, res, next) => {
@@ -191,9 +190,12 @@ export const unfollowPlaylist = async (req, res, next) => {
 
         // Check if the playlist has already been followed
         if (
-            playlist.followedBy.filter((follow) => follow.firebaseUser === param).length === 0
+            playlist.followedBy.filter((follow) => follow.firebaseUser === param)
+                .length === 0
         ) {
-            return res.status(400).json({ msg: "Playlist has been removed from favorites" });
+            return res
+                .status(400)
+                .json({ msg: "Playlist has been removed from favorites" });
         }
 
         // Get remove index
@@ -207,4 +209,5 @@ export const unfollowPlaylist = async (req, res, next) => {
     } catch (error) {
         console.log(error);
     }
-}
+};
+

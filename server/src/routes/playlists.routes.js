@@ -2,16 +2,15 @@ import { Router } from "express";
 import upload from "../utils/multer.js";
 import Auth from "../middlewares/index.js";
 import {
-      createPlaylist,
-      deletePlaylistById,
-      getPlaylistById,
-      getPlaylists,
-      updatePlaylistById,
-      getPlaylistsByUser,
-      addTrackToPlaylist,
-      followPlaylist,
-      unfollowPlaylist,
-      deleteTrackInPlaylist
+  createPlaylist,
+  deletePlaylistById,
+  getPlaylistById,
+  getPlaylists,
+  updatePlaylistById,
+  getPlaylistsByUser,
+
+  followPlaylist,
+  unfollowPlaylist,
 } from "../controllers/playlistsController.js";
 
 export const playlistsRoutes = Router();
@@ -31,14 +30,10 @@ playlistsRoutes.get("/:playlistId", getPlaylistById);
 //? UPDATE PLAYLIST BY ID
 playlistsRoutes.put("/edit/:playlistId", upload.single("thumbnail"), updatePlaylistById);
 
-//? ADD TRACK TO PLAYLIST BY ID
-playlistsRoutes.put("/addTrackToPlaylist/:playlistId", addTrackToPlaylist);
 
 //? DELETE PLAYLIST BY ID
 playlistsRoutes.delete("/:playlistId", deletePlaylistById);
 
-//? DELETE TRACK IN PLAYLIST
-playlistsRoutes.delete("/deleteTrack/:playlistId", deleteTrackInPlaylist);
 
 //? FOLLOW PLAYLIST
 playlistsRoutes.put("/follow/:playlistId", followPlaylist);

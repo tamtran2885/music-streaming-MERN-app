@@ -1,5 +1,7 @@
 import Tracks from "../models/Tracks.js";
 import cloudinary from "../utils/cloudinary.js";
+import User from "../models/User.js";
+import Playlist from "../models/Playlist.js";
 
 //? GET ALL TRACKS
 export const getTracks = async (req, res) => {
@@ -40,7 +42,7 @@ export const createTrack = async (req, res) => {
     const result = await cloudinary.v2.uploader.upload(req.file.path, {
       resource_type: "auto",
     });
-    console.log(req.body)
+    console.log(req.body);
     const track = new Tracks({
       //? PASSING DATA TO NEW TRACK
       ...req.body,
@@ -161,6 +163,15 @@ export const addFavToTrack = async (req, res) => {
     }
     track.likes.unshift({ firebaseUser: param });
     await track.save();
+
+    // Ad fav track to fav list of user
+    const user = await User.findOne({
+      firebaseUser: param,
+    });
+    user.favTrackList.unshift({ trackId: track });
+    await user.save();
+
+    // return respond
     res.json(track.likes);
   } catch (error) {
     console.log(error);
@@ -186,10 +197,55 @@ export const removeFavFromTrack = async (req, res) => {
     const removeIndex = track.likes
       .map((like) => like.firebaseUser)
       .indexOf(param);
-
     track.likes.splice(removeIndex, 1);
+
     await track.save();
     res.json(track.likes);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// Need to check
+//? ADD TRACK TO PLAYLIST
+export const addTrackToPlaylist = async (req, res, next) => {
+  const query = req.query.playlistId;
+  // console.log(playlistId)
+  try {
+    //console.log(req.query.playlistId);
+    const param = req.params.trackId;
+    console.log(param);
+
+    const playlist = await Playlist.findById(query);
+    console.log(playlist);
+
+    // Check if the track is already in the playlist
+    if (playlist.tracks.filter((track) => track.trackId === param).length > 0) {
+      return res.status(400).json({ msg: "Track has been added" });
+    }
+
+    playlist.tracks.unshift({ trackId: param });
+    await playlist.save();
+    res.json(playlist.tracks);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// TODO DELETE TRACK IN PLAYLIST
+
+export const deleteTrackFromPlaylist = async (req, res, next) => {
+  const query = req.query.playlistId;
+  const param = req.params.trackId;
+  try {
+    const playlist = await Playlist.findById(query);
+    const removeIndex = playlist.tracks
+      .map((track) => track.trackId)
+      .indexOf(param);
+    playlist.tracks.splice(removeIndex, 1);
+
+    await playlist.save();
+    res.json(playlist.tracks);
   } catch (error) {
     console.log(error);
   }

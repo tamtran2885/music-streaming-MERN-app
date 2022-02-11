@@ -8,6 +8,8 @@ import {
   getTracksByUser,
   addFavToTrack,
   removeFavFromTrack,
+  addTrackToPlaylist,
+  deleteTrackFromPlaylist,
 } from "../controllers/tracksController.js";
 import uploadTrack from "../utils/multerTracks.js";
 import upload from "../utils/multer.js";
@@ -24,6 +26,14 @@ tracksRoutes.put("/like/:trackId", addFavToTrack);
 // Remove Fav from a track
 // @route PUT api/tracks/unlike/:trackId
 tracksRoutes.put("/unlike/:trackId", removeFavFromTrack);
+
+// Add track to playlist
+// @route PUT api/tracks/addToPlaylist/:trackId
+tracksRoutes.put("/addToPlaylist/:trackId", addTrackToPlaylist);
+
+// Remove track from playlist
+// @route PUT api/tracks/deleteFromPlaylist/:trackId
+tracksRoutes.put("/deleteFromPlaylist/:trackId", deleteTrackFromPlaylist);
 
 // ? GET TRACKS
 tracksRoutes.get("/", getTracks);
