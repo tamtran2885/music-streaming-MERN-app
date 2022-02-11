@@ -9,7 +9,7 @@ import withLayout from "../../hoc/withLayout";
 import { useAuth } from "../../context/authContext";
 import axios from 'axios';
 
-const Dashboard = () => {
+const PlaylistDetail = () => {
     const { user } = useAuth();
     const [mongoUser, setMongoUser] = useState({});
 
@@ -34,8 +34,7 @@ const Dashboard = () => {
           <Navbar />
         <div className='dashboard__absolute'>
           <div className='dashboard__display'>
-            <Playlists />
-            <Playlists />
+            
           </div>
         </div>
           <MusicPlayer />
@@ -44,5 +43,5 @@ const Dashboard = () => {
   )
 }
 
-export default withLayout(Playlists);
+export default withLayout(PlaylistDetail);
 

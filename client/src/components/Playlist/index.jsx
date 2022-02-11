@@ -8,7 +8,7 @@ const Playlist = (playlist) => {
   return (
     <>
       <div>
-        <Link className='playlist__absolute' to={`/user/playlist`} style={{ background: `url(${thumbnail && thumbnail}) no-repeat center center`}}>
+        <Link className='playlist__absolute' to={`/playlists`} style={{ background: `url(${thumbnail && thumbnail}) no-repeat center center`}}>
           <div className='playlist__follow'>
           <img src={star} alt="" />
           </div>
