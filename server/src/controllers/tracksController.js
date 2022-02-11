@@ -7,7 +7,7 @@ import Playlist from "../models/Playlist.js";
 export const getTracks = async (req, res) => {
   console.log(process.env);
   try {
-    const tracks = await Tracks.find().populate("user");
+    const tracks = await Tracks.find().populate("user").populate("likes");
     res.json(tracks);
   } catch (error) {
     console.log(error);
@@ -186,6 +186,7 @@ export const removeFavFromTrack = async (req, res) => {
     const trackId = req.params.trackId;
     const track = await Tracks.findById(trackId);
 
+    // console.log(track.likes)
     // Check if the track has already been liked
     if (
       track.likes.filter((like) => like.firebaseUser === param).length === 0
@@ -199,7 +200,18 @@ export const removeFavFromTrack = async (req, res) => {
       .indexOf(param);
     track.likes.splice(removeIndex, 1);
 
+    // //TODO DELETE FAVORITE TRACK FROM USER FAVTRACK
+
+    const user = await User.findOne({ firebaseUser: param })
+    const removeIndexUser = user.favTrackList
+      .map((like) => like.trackId === trackId)
+      .indexOf(trackId);
+
+    user.favTrackList.splice(removeIndexUser, 1);
+    console.log(removeIndexUser)
+
     await track.save();
+    await user.save()
     res.json(track.likes);
   } catch (error) {
     console.log(error);
@@ -250,3 +262,20 @@ export const deleteTrackFromPlaylist = async (req, res, next) => {
     console.log(error);
   }
 };
+
+//TODO GET TRACK DETAILS IN MY FAVORITES
+
+export const getTrackDetailsInFav = async (req, res, next) => {
+  const user = req.params.userId
+  console.log(user)
+  try {
+    const track = await Tracks.find({ words: { $in: ["text", "here"] } });
+
+    console.log(track)
+    const likes = track.likes
+    console.log(likes)
+    res.status(200).json({ msg: "Done", track })
+  } catch (error) {
+    console.log(error)
+  }
+}

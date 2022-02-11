@@ -226,7 +226,7 @@ export const getPlaylistByIdAndDetails = async (req, res, next) => {
 
         const tracksInfo = []
 
-        for(let i = 0; i < array.length; i++){
+        for (let i = 0; i < array.length; i++) {
 
             const detailsTracks = await Tracks.findById(array[i]);
             tracksInfo.push(detailsTracks);
@@ -237,3 +237,10 @@ export const getPlaylistByIdAndDetails = async (req, res, next) => {
         console.log(error);
     }
 };
+//TODO SHOW TRACKS WITH DETAILS IN PLAYLIST
+
+// FIND PLAYLIST
+
+// TAKE ARRAY OF IDs INSIDE TRACKS
+
+// FIND DETAILS IN ARRAY BY ID
