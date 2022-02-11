@@ -35,10 +35,10 @@ const CreatedPlaylists = ({myPlaylists}) => {
                                     <div className='playlist__container' key={playlist._id}>
                                         <Draggable key={playlist._id} draggableId={'draggable-'+playlist.rating} index={index}>
                                             {(provided, snapshot) => (
-                                                <div 
-                                                    ref={provided.innerRef} 
-                                                    {...provided.draggableProps} 
-                                                    {...provided.dragHandleProps} 
+                                                <div
+                                                    ref={provided.innerRef}
+                                                    {...provided.draggableProps}
+                                                    {...provided.dragHandleProps}
                                                     style={{ ...provided.draggableProps.style, boxShadow: snapshot.isDragging ? "0 0 0.5rem #666" : "none"}}
                                                     >
                                                     <CreatedPlaylist key={playlist._id} playlist={playlist} />

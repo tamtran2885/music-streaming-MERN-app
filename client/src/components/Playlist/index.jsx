@@ -8,7 +8,7 @@ const Playlist = (playlist) => {
   return (
     <>
       <div className='playlist__absolute'>
-        <Link className='playlist__absolute' to={`/user/playlist`}>
+        <Link className='playlist__absolute' to={`/playlist/:playlistId`}>
         <div>
           {playlist.playlist && (
             <>

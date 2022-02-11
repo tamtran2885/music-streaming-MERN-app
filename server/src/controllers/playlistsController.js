@@ -66,12 +66,6 @@ export const updatePlaylistById = async (req, res, next) => {
     const url = req.params.playlistId;
     const playlist = await Playlist.findById(url);
 
-    // Delete image from cloudinary if change image of profile
-    // await cloudinary.uploader.destroy(user.cloudinaryId);
-
-    // Upload image to cloudinary
-    // const result = await cloudinary.uploader.upload(req.file.path);
-
     const dataPlaylist = {
       title: req.body.title || playlist.title,
       collaborative: req.body.collaborative || playlist.collaborative,
@@ -114,50 +108,6 @@ export const deletePlaylistById = async (req, res, next) => {
     console.log(error);
   }
 };
-
-// Need to check
-
-//? ADD TRACK TO PLAYLIST
-// export const addTrackToPlaylist = async (req, res, next) => {
-//   const playlistId = req.params.playlistId;
-//   // console.log(playlistId)
-//   try {
-//     console.log(req.params.playlistId);
-//     const trackId = req.query.trackId;
-//     console.log(trackId);
-
-//     const playlist = await Playlist.findById(playlistId);
-//     console.log(playlist);
-
-//     // Check if the track is already in the playlist
-//     if (
-//       playlist.tracks.filter((track) => track.trackId === trackId).length > 0
-//     ) {
-//       return res.status(400).json({ msg: "Track has been added" });
-//     }
-//     playlist.tracks.unshift({ trackId: trackId });
-//     await playlist.save();
-//     res.json(playlist.tracks);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
-// TODO DELETE SONG IN PLAYLIST
-
-// export const deleteTrackInPlaylist = async (req, res, next) => {
-//   const playlistId = req.params.playlistId;
-//   const trackId = req.query.trackId;
-//   try {
-//     // console.log(playlistId)
-//     // console.log(trackId)
-//     const playlist = await Playlist.findById(playlistId);
-//     console.log(playlist);
-//     res.json(trackId);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
 
 //? FOLLOW PLAYLIST
 export const followPlaylist = async (req, res, next) => {
@@ -203,7 +153,7 @@ export const unfollowPlaylist = async (req, res, next) => {
 
     // Get remove index
     const removeIndex = playlist.followedBy
-      .map((unfollow) => unfollow.firebaseUser)
+      .map((follow) => follow.firebaseUser)
       .indexOf(param);
 
     playlist.followedBy.splice(removeIndex, 1);
@@ -213,7 +163,3 @@ export const unfollowPlaylist = async (req, res, next) => {
     console.log(error);
   }
 };
-
-// TODO FOLLOW PLAYLIST
-
-// TODO UNFOLLOW PLAYLIST
