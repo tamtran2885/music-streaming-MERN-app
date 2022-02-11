@@ -2,16 +2,14 @@ import { Router } from "express";
 import upload from "../utils/multer.js";
 import Auth from "../middlewares/index.js";
 import {
-      createPlaylist,
-      deletePlaylistById,
-      getPlaylistById,
-      getPlaylists,
-      updatePlaylistById,
-      getPlaylistsByUser,
-      addTrackToPlaylist,
-      followPlaylist,
-      unfollowPlaylist,
-      deleteTrackInPlaylist
+  createPlaylist,
+  deletePlaylistById,
+  getPlaylistById,
+  getPlaylists,
+  updatePlaylistById,
+  getPlaylistsByUser,
+  followPlaylist,
+  unfollowPlaylist,
 } from "../controllers/playlistsController.js";
 
 export const playlistsRoutes = Router();
@@ -29,20 +27,19 @@ playlistsRoutes.post("/", upload.single("thumbnail"), createPlaylist);
 playlistsRoutes.get("/:playlistId", getPlaylistById);
 
 //? UPDATE PLAYLIST BY ID
-playlistsRoutes.put("/:playlistId", upload.single("thumbnail"), updatePlaylistById);
+playlistsRoutes.put("/:playlistId", updatePlaylistById);
 
-//? UPDATE PLAYLIST BY ID
-playlistsRoutes.put("/addTrackToPlaylist/:playlistId", upload.single("thumbnail"), addTrackToPlaylist);
+//? ADD TRACK TO PLAYLIST
+// playlistsRoutes.put("/addTrackToPlaylist/:playlistId", addTrackToPlaylist);
 
 //? DELETE PLAYLIST BY ID
 playlistsRoutes.delete("/:playlistId", deletePlaylistById);
 
 //? DELETE TRACK IN PLAYLIST
-playlistsRoutes.delete("/deleteTrack/:playlistId", deleteTrackInPlaylist);
+// playlistsRoutes.delete("/deleteTrack/:playlistId", deleteTrackInPlaylist);
 
 //? FOLLOW PLAYLIST
 playlistsRoutes.put("/follow/:playlistId", followPlaylist);
 
 //? UNFOLLOW PLAYLIST
 playlistsRoutes.put("/unfollow/:playlistId", unfollowPlaylist);
-
