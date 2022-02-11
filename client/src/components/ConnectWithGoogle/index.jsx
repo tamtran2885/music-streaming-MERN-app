@@ -26,7 +26,7 @@ const ConnectWithGoogle = () => {
 
       return (
             <button type="button" onClick={registerWithGoogle} className="google__signin">
-                  <img className="google__icon" src={googleIcon} alt="TamTamGo Logo" />
+                  <img className="google__icon" src={googleIcon} alt="Gooogle Logo" />
             </button>
       )
 };

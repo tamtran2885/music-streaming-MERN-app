@@ -29,12 +29,16 @@ const Navbar = (props) => {
                         <Link to={`/`}><img src={logo} alt="TamTamGo Logo" /></Link>
                     </div>
                     <div className='nav__options'>
-                        <Link className='nav__link' to="/track">Songs</Link>
-                        <Link className='nav__link' to={`/playlist`}>Playlists</Link>
-                        <Link className='nav__link' to={`/user/albums`}>Albums</Link>
-                        {/* <Link className='nav__link' to={user ? `/user/${user.uid}` : "/"}>{mongoUser.firstName} Profile</Link> */}
-                        <Link className='nav__link' to={user ? `/user/${user.uid}` : "/"}>{user && user.email}</Link>
-                        <Link className='avatar' to={user ? `user/${user.uid}` : "/"}><img className='avatar' src={logo} alt="" /></Link>
+                            <Link className='nav__link' to="/track">Songs</Link>
+                            <Link className='nav__link' to={`/playlist`}>Playlists</Link>
+                            <Link className='nav__link' to={`/user/albums`}>Albums</Link>
+                            <Link className='nav__link' to={user ? `/user/${user.uid}` : "/"}>{user && user.email}</Link>
+                            <Link className='avatar' to={""}><img className='avatar' src={logo} alt="" />
+                            <div className='float__menu'>
+                                <Link className='nav__link link' to={user ? `user/${user.uid}` : "/"}>Account details</Link>
+                                <button onClick={handleLogout} className='nav__link logout'>Log Out</button>
+                            </div>
+                            </Link>
                     </div>
                 </div>
                 <div className='nav__buttons'>
@@ -57,7 +61,6 @@ const Navbar = (props) => {
                 <div className='hr'>
                     <hr />
                 </div>
-                <button onClick={handleLogout} className='button__primary logout'>Log Out</button>
             </div>
         </nav>
     )
