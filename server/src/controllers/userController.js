@@ -172,7 +172,7 @@ changePass();*/
 
 export const followUser = async (req, res, next) => {
   try {
-    const UserFbId = req.params.userId;
+    const UserWhoFollow = req.params.userId;
 
     const UserFbId = req.query.fbUserToFollow;
 

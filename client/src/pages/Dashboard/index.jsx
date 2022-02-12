@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import {useNavigate} from "react-router-dom";
 import Navbar from '../../components/Navbar';
 import Playlists from '../../components/Playlists';
 import Songs from '../../components/Songs';
 import Genres from '../../components/Genres';
-import Albums from '../../components/Albums';
+// import Albums from '../../components/Albums';
 import MusicPlayer from '../../components/MusicPlayer';
+import {useNavigate} from "react-router-dom"
 
 import { connect, useDispatch } from "react-redux";
 import { getAllTracks, getTracksByUser } from "../../redux/track/actions";
@@ -14,47 +14,43 @@ import { getAllPlaylists, getPlaylistsByUser } from "../../redux/playlist/action
 import { useAuth } from "../../context/authContext";
 import axios from 'axios';
 
-<<<<<<< HEAD
 const Dashboard = ({ myPlaylists, myTracks, allPlaylists, allTracks }) => {
-    const dispatch = useDispatch();
-    const { user } = useAuth();
-    const [mongoUser, setMongoUser] = useState({});
-    const token = localStorage.getItem("token")
-    // window.localStorage.setItem("token", token)
-    // console.log(JSON.stringify(user));
-=======
-const Dashboard = ({myPlaylists, myTracks, allPlaylists, allTracks}) => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const { user } = useAuth();
     const [mongoUser, setMongoUser] = useState({});
-    const token = user.accessToken
-    window.localStorage.setItem("token", token)
->>>>>>> playlist
+    const loggedToken = localStorage.getItem("token");
+    const userId = localStorage.getItem("userId");
 
     // console.log(allPlaylists);
     // console.log(myPlaylists);
-    // useEffect(() => {
-    //     const loggedToken = localStorage.getItem("token");
-    //     if (!loggedToken) {
-    //         navigate("/login")
-    //     }
-    // })
 
     useEffect(() => {
-        if (token) {
+        if (!loggedToken) {
+            navigate("/login")
+        }
+        if (loggedToken) {
             setTimeout(async () => {
-                if (token) {
-                    APIcall();
-                    dispatch(getAllTracks());
-                    dispatch(getAllPlaylists());
-                    dispatch(getTracksByUser(user.uid));
-                    dispatch(getPlaylistsByUser(user.uid));
-                }
+                APIcall();
+                dispatch(getAllTracks());
+                dispatch(getAllPlaylists());
+                dispatch(getTracksByUser(userId));
+                dispatch(getPlaylistsByUser(userId));
             }, 3000)
         }
 
-    }, [dispatch, token]);
+    }, [dispatch, loggedToken]);
+
+    const APIcall = async () => {
+        const userReq = await axios.get(`/api/user/${userId}`, {
+            headers: {
+                Authorization: 'Bearer ' + loggedToken,
+            },
+        });
+        setMongoUser(userReq.data);
+    };
+
+    // console.log(mongoUser)
 
     const [tracksDashboard, setTracksDashboard] = useState([]);
     const [playlistsDashboard, setPlaylistsDashboard] = useState([]);
@@ -63,15 +59,6 @@ const Dashboard = ({myPlaylists, myTracks, allPlaylists, allTracks}) => {
         setTracksDashboard(allTracks);
         setPlaylistsDashboard(allPlaylists);
     }, [allTracks, allPlaylists])
-
-    const APIcall = async () => {
-        const userReq = await axios.get(`/api/user/${user.uid}`, {
-            headers: {
-                Authorization: 'Bearer ' + token,
-            },
-        });
-        setMongoUser(userReq.data);
-    };
 
     const handlePopular = () => {
         setTracksDashboard(allTracks)

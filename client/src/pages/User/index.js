@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import { useAuth } from "../../context/authContext";
@@ -7,8 +7,16 @@ import { useAuth } from "../../context/authContext";
 import withLayout from "../../hoc/withLayout";
 
 const User = () => {
+  const navigate = useNavigate();
   const { user, logout } = useAuth();
   // console.log(user.accessToken)
+  const loggedToken = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (!loggedToken) {
+      navigate("/login");
+    }
+  });
 
   const [userProfile, setUserProfile] = useState({
     firstName: "",
@@ -19,7 +27,7 @@ const User = () => {
     email: "",
   });
 
-  const token = user.accessToken;
+  const token = loggedToken;
 
   useEffect(() => {
     if (token) {
@@ -79,7 +87,9 @@ const User = () => {
           <p> {userProfile.email}</p>
         </div>
       </div>
-      <Link to={`/user/edit/change-password/${userProfile.firebaseUser}`}>Edit password</Link>
+      <Link to={`/user/edit/change-password/${userProfile.firebaseUser}`}>
+        Edit password
+      </Link>
 
       <h1>My Playlists</h1>
       <h1>My Songs</h1>

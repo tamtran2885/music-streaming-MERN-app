@@ -19,6 +19,7 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
     const dispatch = useDispatch();
     const { pathname } = useLocation();
     const navigate = useNavigate();
+    const userId = localStorage.getItem("userId");
     // const uid = user.uid;
 
     useEffect(() => {

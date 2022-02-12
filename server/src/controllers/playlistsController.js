@@ -1,7 +1,6 @@
 import Playlist from "../models/Playlist.js";
 import Tracks from "../models/Tracks.js";
 import cloudinary from "../utils/cloudinary.js";
-import Tracks from "../models/Tracks.js";
 
 //? GET PLAYLISTS
 export const getPlaylists = async (req, res, next) => {
@@ -176,32 +175,6 @@ export const unfollowPlaylist = async (req, res, next) => {
 
 //? GET PLAYLIST BY ID AND TRACKS DETAILS
 
-export const getPlaylistByIdAndDetails = async (req, res, next) => {
-  try {
-    const url = req.params.playlistId;
-    const playlist = await Playlist.findById(url);
-
-    const array = [];
-    playlist.tracks.map((x) => {
-      array.push(x.trackId);
-    });
-
-    const tracksInfo = [];
-
-    for (let i = 0; i < array.length; i++) {
-      const detailsTracks = await Tracks.findById(array[i]);
-      tracksInfo.push(detailsTracks);
-    }
-
-    tracksInfo
-      ? res.json(tracksInfo)
-      : res.json({ message: "playlist not found" });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-//? GET PLAYLIST DETAILS
 export const getPlaylistByIdAndDetails = async (req, res, next) => {
   try {
     const url = req.params.playlistId;

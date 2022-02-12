@@ -12,9 +12,10 @@ import {
 } from "../../redux/audioPlay/actions";
 
 const PlaylistTrackRow = ({ track }) => {
+  const userId = localStorage.getItem("userId");
   const dispatch = useDispatch();
   const { user } = useAuth();
-  const uid = user.uid;
+  const uid = userId;
 
   const { title, album, duration, genre, artist, likes, _id } = track;
 

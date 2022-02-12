@@ -9,11 +9,13 @@ import { useAuth } from "../../context/authContext";
 const Playlist = (playlist) => {
   // const dispatch = useDispatch();
     const { user } = useAuth();
-    const uid = user.uid;
+    // const uid = user.uid;
+    const userId = localStorage.getItem("userId");
+
     const {title, thumbnail, _id, followedBy } = playlist.playlist;
 
-    const checkFollow = (uid) => {
-        if (followedBy && followedBy.filter((item) => item.firebaseUser === uid).length === 0) {
+    const checkFollow = (userId) => {
+        if (followedBy && followedBy.filter((item) => item.firebaseUser === userId).length === 0) {
           return false;
         } else {
           return true;
@@ -22,7 +24,7 @@ const Playlist = (playlist) => {
 
     // console.log(checkFollow(uid))
 
-    const [follow, setFollow] = useState(checkFollow(uid));
+    const [follow, setFollow] = useState(checkFollow(userId));
 
     // const handleToggle = () => {
     //   if (follow) {

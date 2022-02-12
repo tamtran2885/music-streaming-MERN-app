@@ -9,9 +9,9 @@ import axios from "axios";
 const AddTrack = () => {
     const navigate = useNavigate()
     const { user } = useAuth();
+    const loggedToken = localStorage.getItem("token");
 
     useEffect(() => {
-        const loggedToken = localStorage.getItem("token");
         if (!loggedToken) {
             navigate("/login")
         }

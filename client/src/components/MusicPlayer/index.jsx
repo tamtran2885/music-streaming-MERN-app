@@ -19,6 +19,7 @@ import { useAuth } from "../../context/authContext";
 import { addLike, removeLike } from "../../redux/track/actions";
 
 const MusicPlayer = () => {
+  const userId = localStorage.getItem("userId");
   const dispatch = useDispatch();
   const { user } = useAuth();
 
@@ -42,7 +43,7 @@ const MusicPlayer = () => {
   }
 
   // console.log(likes)
-  const uid = user.uid;
+  const uid = userId;
   const checkLike = (uid) => {
     if (likes && likes.filter(like => like.firebaseUser === uid).length === 0) {
       return false

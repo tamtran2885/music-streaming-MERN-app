@@ -6,10 +6,7 @@ const Playlists = ({ playlistsDashboard }) => {
   const [playlists, setPlaylists] = useState([])
 
   useEffect(() => {
-
-
     setPlaylists(playlistsDashboard)
-
   }, [playlistsDashboard, setPlaylists])
 
   return (

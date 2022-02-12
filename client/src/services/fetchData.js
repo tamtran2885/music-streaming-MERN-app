@@ -1,12 +1,11 @@
 import axios from "axios";
-const token = localStorage.getItem("token")
+const token = localStorage.getItem("token");
 
 const config = {
   headers: {
-    Authorization: 'Bearer ' + token,
-
-  }
-}
+    Authorization: "Bearer " + token,
+  },
+};
 
 export const fetchTracks = () =>
   new Promise((resolve) => {
@@ -43,13 +42,12 @@ export const fetchSingleTrack = (_id) => {
 
 export const fetchTracksByUser = async (userUid) => {
   const userTracks = await axios.get("http://localhost:4000/api/tracks/mine", {
-
     params: {
       firebaseUser: userUid,
     },
     headers: {
-      Authorization: "Bearer " + token
-    }
+      Authorization: "Bearer " + token,
+    },
   });
   return userTracks;
 };
@@ -60,8 +58,8 @@ export const fetchPlayListsByUser = (userUid) => {
       firebaseUser: userUid,
     },
     headers: {
-      Authorization: "Bearer " + token
-    }
+      Authorization: "Bearer " + token,
+    },
   });
   return userPlaylists;
 };
@@ -72,15 +70,16 @@ export const fetchAlbumsByUser = (userUid) => {
       firebaseUser: userUid,
     },
     headers: {
-      Authorization: "Bearer " + token
-    }
+      Authorization: "Bearer " + token,
+    },
   });
   return userAlbums;
 };
 
 export const fetchPlaylistTracks = (playlistId) => {
   const playlistTracks = axios.get(
-    `http://localhost:4000/api/playlists/details/${playlistId}`
+    `http://localhost:4000/api/playlists/details/${playlistId}`,
+    config
   );
   return playlistTracks;
 };

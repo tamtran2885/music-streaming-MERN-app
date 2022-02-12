@@ -22,15 +22,11 @@ const Login = () => {
         try {
             const user = await logInWithEmailAndPassword(loginEmail, loginPassword)
             localStorage.setItem("token", user.user.accessToken)
-
-            console.log(user.user.accessToken)
-
-
-
-
+            localStorage.setItem("userId", user.user.uid)
+            // console.log(user.user.accessToken)
             navigate(`/`)
         } catch (error) {
-            console.log(error.message);
+            // console.log(error.message);
         }
     }
 

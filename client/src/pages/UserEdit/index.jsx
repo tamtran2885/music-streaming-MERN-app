@@ -16,13 +16,20 @@ const UserEdit = () => {
     profilePicture: "",
     email: ""
   });
+  const loggedToken = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
 
   // take a token
   const { user } = useAuth();
-  const token = user.accessToken;
-
+  const token = loggedToken;
 
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!loggedToken) {
+        navigate("/login")
+    }
+  })
 
   useEffect(() => {
     APIcall();

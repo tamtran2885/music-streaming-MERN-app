@@ -4,7 +4,7 @@ import Dashboard from "./pages/Dashboard";
 import LogIn from "./pages/LogIn";
 import Register from "./pages/Register";
 import User from "./pages/User";
-import Account from "./pages/Account";
+// import Account from "./pages/Account";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ForgotPassword from "./components/ForgotPassword";
 import UserEdit from "./pages/UserEdit";
@@ -26,9 +26,9 @@ function App() {
           <Route
             path="/"
             element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
+              // <ProtectedRoute>
+              <Dashboard />
+              // </ProtectedRoute>
             }
           />
           <Route path="/register" element={<Register />} />
@@ -36,19 +36,19 @@ function App() {
           <Route
             path="/user/:id"
             element={
-              <ProtectedRoute>
-                <User />
-              </ProtectedRoute>
+              // <ProtectedRoute>
+              <User />
+              // </ProtectedRoute>
             }
           />
-          <Route
+          {/* <Route
             path="/account"
             element={
               <ProtectedRoute>
                 <Account />
               </ProtectedRoute>
             }
-          />
+          /> */}
           <Route path="/user/edit/:userId" element={<UserEdit />} />
           <Route path="/forgot" element={<ForgotPassword />} />
 
@@ -56,7 +56,7 @@ function App() {
 
           <Route path="/playlist" element={<PlaylistPage />} />
           <Route path="/playlist/add" element={<AddPlaylist />} />
-          {/* <Route path="/playlist/:playlistId" element={<PlaylistDetail />} /> */}
+          <Route path="/playlist/:playlistId" element={<PlaylistDetail />} />
 
           <Route path="/track" element={<TrackPage />} />
           <Route path="/track/add" element={<AddTrack />} />
