@@ -1,12 +1,15 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Playlist from '../Playlist';
 
-const Playlists = ({playlistsDashboard}) => {
+const Playlists = ({ playlistsDashboard }) => {
   const [playlists, setPlaylists] = useState([])
 
   useEffect(() => {
+
+
     setPlaylists(playlistsDashboard)
+
   }, [playlistsDashboard, setPlaylists])
 
   return (
@@ -18,7 +21,7 @@ const Playlists = ({playlistsDashboard}) => {
         </div>
         <div className='playlists__container'>
           {playlists && playlists.map((playlist) => (
-            <div className='playlist__container' key={playlist.id}><Playlist key={playlist.id} playlist={playlist}/></div>
+            <div className='playlist__container' key={playlist._id}><Playlist key={playlist._id} playlist={playlist} /></div>
           ))}
           {!playlists && <div>Loading...</div>}
         </div>

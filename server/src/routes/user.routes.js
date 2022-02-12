@@ -13,6 +13,7 @@ import upload from "../utils/multer.js";
 
 export const userRoutes = Router();
 
+
 // ? GET USERS
 userRoutes.get("/", getUsers);
 

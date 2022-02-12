@@ -11,7 +11,7 @@ import logo from '../../assets/images/logo.svg';
 import upload from "../../assets/images/upload.svg";
 
 const Register = () => {
-    const { signUpWithEmailAndPassword} = useAuth();
+    const { signUpWithEmailAndPassword } = useAuth();
 
     // console.log(JSON.stringify(user));
 
@@ -38,15 +38,14 @@ const Register = () => {
         e.preventDefault();
         setErrors(userValidation(values))
 
-        const config = {
-            header: {
-                "Content-Type": "multipart/form-data",
-            },
-        };
+
 
         try {
             const firebaseUser = await signUpWithEmailAndPassword(registerEmail, registerPassword)
-            // console.log(firebaseUser.user.uid)
+            console.log(firebaseUser.user.accessToken)
+
+
+
             const formData = new FormData();
             formData.append("firstName", values.firstName);
             formData.append("lastName", values.lastName);
@@ -57,7 +56,13 @@ const Register = () => {
             formData.append("password", values.password);
             formData.append("firebaseUser", firebaseUser.user.uid)
 
-            firebaseUser ? await axios.post("http://localhost:4000/api/user", formData, config) : console.log("ho");
+            const config = {
+                header: {
+                    "Content-Type": "multipart/form-data",
+                },
+            };
+
+            firebaseUser ? await axios.post("http://localhost:4000/api/user", config, formData,) : console.log("ho");
 
             navigate("/login")
         } catch (error) {
@@ -91,7 +96,7 @@ const Register = () => {
                             <RegisterInput className="form__input" name="country" type="text" placeholder="Country" onChange={onChange("country")} />
                             <label for="file"><p className='file'>Profile Picture</p></label>
                             <RegisterInput id="file" accept="image/*" className="form__input" name="profile" type="file" placeholder="Upload Image" onChange={onChange("profile")} />
-                                <img className="upload" src={upload} alt="Upload" />
+                            <img className="upload" src={upload} alt="Upload" />
                             <RegisterInput value={values.email} className="form__input" name="email" type="email" placeholder="Email" onChange={onChange("email")} />
                             {errors.email && <p>{errors.email}</p>}
                             <RegisterInput value={values.password} className="form__input" name="password" type="password" placeholder="Password" onChange={onChange("password")} />

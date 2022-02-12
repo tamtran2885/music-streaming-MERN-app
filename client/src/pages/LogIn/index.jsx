@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
@@ -13,12 +13,21 @@ const Login = () => {
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
 
+
+
     const navigate = useNavigate();
 
     const login = async (e) => {
         e.preventDefault();
         try {
-            await logInWithEmailAndPassword(loginEmail, loginPassword)
+            const user = await logInWithEmailAndPassword(loginEmail, loginPassword)
+            localStorage.setItem("token", user.user.accessToken)
+
+            console.log(user.user.accessToken)
+
+
+
+
             navigate(`/`)
         } catch (error) {
             console.log(error.message);

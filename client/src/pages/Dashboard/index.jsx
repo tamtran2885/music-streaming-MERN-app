@@ -13,35 +13,38 @@ import { getAllPlaylists, getPlaylistsByUser } from "../../redux/playlist/action
 import { useAuth } from "../../context/authContext";
 import axios from 'axios';
 
-const Dashboard = ({myPlaylists, myTracks, allPlaylists, allTracks}) => {
+const Dashboard = ({ myPlaylists, myTracks, allPlaylists, allTracks }) => {
     const dispatch = useDispatch();
     const { user } = useAuth();
     const [mongoUser, setMongoUser] = useState({});
-    const token = user.accessToken
-    window.localStorage.setItem("token", token)
+    const token = localStorage.getItem("token")
+    // window.localStorage.setItem("token", token)
     // console.log(JSON.stringify(user));
 
     console.log(allPlaylists);
     console.log(myPlaylists);
 
     useEffect(() => {
-        setTimeout( async () => {
-            if (token) {
-                APIcall();
-                dispatch(getAllTracks());
-                dispatch(getAllPlaylists());
-                dispatch(getTracksByUser(user.uid));
-                dispatch(getPlaylistsByUser(user.uid));
-            }
-        }, 3000)
+        if (token) {
+            setTimeout(async () => {
+                if (token) {
+                    APIcall();
+                    dispatch(getAllTracks());
+                    dispatch(getAllPlaylists());
+                    dispatch(getTracksByUser(user.uid));
+                    dispatch(getPlaylistsByUser(user.uid));
+                }
+            }, 3000)
+        }
+
     }, [dispatch, token]);
 
     const [tracksDashboard, setTracksDashboard] = useState([]);
     const [playlistsDashboard, setPlaylistsDashboard] = useState([]);
 
     useEffect(() => {
-            setTracksDashboard(allTracks);
-            setPlaylistsDashboard(allPlaylists);
+        setTracksDashboard(allTracks);
+        setPlaylistsDashboard(allPlaylists);
     }, [allTracks, allPlaylists])
 
     const APIcall = async () => {
@@ -75,7 +78,7 @@ const Dashboard = ({myPlaylists, myTracks, allPlaylists, allTracks}) => {
                     </div>
                     <div className='dashboard__side'>
                         <Genres />
-                        <Albums />
+                        {/* <Albums /> */}
                     </div>
                 </div>
                 <MusicPlayer />

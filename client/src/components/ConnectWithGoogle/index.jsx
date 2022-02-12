@@ -11,6 +11,7 @@ const ConnectWithGoogle = () => {
       const { loginWithGoogle } = useAuth();
 
       const navigate = useNavigate()
+      const [credentials, setCredentials] = useState({});
 
       const [values, setValues] = useState({
             firstName: "",
@@ -25,37 +26,31 @@ const ConnectWithGoogle = () => {
 
       const registerWithGoogle = async () => {
             try {
-
-
                   await loginWithGoogle()
                         .then((userCredentials) => {
                               console.log(userCredentials.user.accessToken)
                               console.log(userCredentials.user.displayName)
                               console.log(userCredentials.user.uid)
                               console.log(userCredentials.user.email)
-
-                              const config = {
-                                    headers: {
-                                          "Content-Type": "multipart/form-data",
-                                          Authorization: "Bearer " + userCredentials.user.accessToken
-                                    },
-                              };
-                              const data = {
-                                    firstName: userCredentials.user.displayName,
-                                    lastName: "",
-                                    birthday: "",
-                                    country: "",
-                                    profile: "",
-                                    email: userCredentials.user.email,
-                                    firebaseUser: userCredentials.user.uid
-                              }
-                              setTimeout(async () => {
-                                    // set user to mongo
-                                    await axios.post("http://localhost:4000/api/user", config, data)
-                              }, 3000);
-
-
+                              setCredentials(userCredentials)
                         })
+                  const config = {
+                        headers: {
+                              "Content-Type": "multipart/form-data",
+                              Authorization: "Bearer " + credentials.user.accessToken
+                        },
+                  };
+                  const data = {
+                        firstName: credentials.user.displayName,
+                        lastName: "",
+                        birthday: "",
+                        country: "",
+                        profile: "",
+                        email: credentials.user.email,
+                        firebaseUser: credentials.user.uid
+                  }
+                  // set user to mongo
+                  await axios.post("http://localhost:4000/api/user", config, data)
                   navigate("/")
 
             } catch (error) {
