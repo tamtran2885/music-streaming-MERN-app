@@ -1,11 +1,10 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
-import Genres from '../../components/Genres';
-import Albums from '../../components/Albums';
 import MusicPlayer from '../../components/MusicPlayer';
 import TrackRows from "../../components/TrackRows";
-import upload from "../../assets/images/upload.svg";
+import play from "../../assets/images/playbutton.svg";
+import star from "../../assets/images/star.svg";
 
 import { useAuth } from "../../context/authContext";
 import Genre from "../../components/Genre";
@@ -25,9 +24,11 @@ const TrackPage = () => {
                     <div className='dashboard__side'>
                         <p>Created by User</p>
                         <p>1 followers</p>
-                        <Genre />
-                        <button>Play</button>
-                        <button>Follow</button>
+                        <div className="genre">
+                            <Genre />
+                        </div>
+                        <button className="button play"><img src={play} alt="Play" /></button>
+                        <button className="button follow"><img src={star} alt="Follow" /></button>
                     </div>
                     <div className='tracks__display'>
                         <TrackRows />

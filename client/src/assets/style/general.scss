@@ -367,6 +367,20 @@ body {
               }
             }
           }
+          .skeleton__playlist {
+            display: grid;
+            grid-template-columns: 50% 50%;
+            grid-template-rows: 50% 50%;
+            gap: 1.5% 1%;
+            grid-template-areas:
+              ". ."
+              ". .";
+            .skeleton__playlist__single {
+              width: 100%;
+              height: 150px;
+              background: linear-gradient(95deg, #32323267, rgba(55, 55, 55, 0.426));
+            }
+          }
         }
         .songs__absolute {
           width: 50%;
@@ -379,6 +393,15 @@ body {
             height: 300px;
             overflow: scroll;
             padding-bottom: 150px;
+            .skeleton__track {
+              width: 100%;
+              .skeleton__track__single {
+                width: 100%;
+                height: 75px;
+                margin-bottom: 2%;
+                background: linear-gradient(95deg, #32323267, rgba(55, 55, 55, 0.426));
+              }
+            }
             .song__absolute {
               display: grid;
               grid-template-columns: 5% 15% 10% 50% 10% 10%;
@@ -426,6 +449,80 @@ body {
                 text-align: end;
                 margin-top: 40%;
                 width: 100%;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .created__playlists__absolute {
+    margin-left: 4%;
+    margin-right: 4%;
+    display: flex;
+    .playlists__absolute {
+      width: 50%;
+      .playlist__tittle{
+        display: flex;
+        justify-content: space-between;
+        button {
+          width: 300px;
+          margin-right: 70px;
+          margin-top: 4%;
+          height: 2rem;
+          border-radius: 25px;
+          text-align: center;
+          cursor: pointer;
+          background: #383838;
+          border: solid 1px #383838;
+          color: #FFFFFF;
+        }
+      }
+      .droppable__container {
+        margin-right: 2%;
+        height: 300px;
+        overflow: scroll;
+        padding-bottom: 150px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        gap: 0.5% 1%;
+        grid-template-areas:
+        ". ."
+        ". ."
+        ". .";
+        .droppable__single {
+          .createdplaylists__container {
+            .playlists__container {
+              .playlist__container {
+                width: 98%;
+                margin-bottom: 2%;
+                .playlist__absolute {
+                  text-decoration: none;
+                  width: 100%;
+                  display: grid;
+                  grid-template-columns: 33% 33% 33%;
+                  grid-template-rows: 33% 33% 33%;
+                  gap: 1% 1%;
+                  grid-template-areas:
+                    ". . ."
+                    ". . ."
+                    ". . .";
+                  height: 200px;
+                  .playlist__tittle {
+                    width: 100%;
+                    color: white;
+                    margin-top: 65%;
+                    margin-left: 10%;
+                  }
+                  .playlist__follow {
+                    width: 24px;
+                    grid-column: 3;
+                    margin-top: 5%;
+                    margin-left: 65%;
+                    color: white;
+                  }
+                }
               }
             }
           }
@@ -596,6 +693,7 @@ body {
       }
       .trackrow__absolute {
         height: 250px;
+        margin-right: 4%;
         overflow: scroll;
         padding-bottom: 150px;
         .trackrow {
@@ -730,6 +828,47 @@ body {
             margin-top: 30%;
           }
         }
+      }
+    }
+    .dashboard__side {
+      width: 20%;
+      margin-left: 3%;
+      margin-right: 5%;
+      .genre {
+        width: 15%;
+        background-color: #323232;
+        padding: 1%;
+        border: solid 1px #323232;
+        border-radius: 25px;
+        color: white;
+        text-decoration: none;
+        margin-bottom: 5%;
+      }
+      .button {
+        border: none;
+        border-radius: 50px;
+        padding: 6%;
+        cursor: pointer;
+      }
+      .play {
+        background: white;
+        margin-right: 5%;
+        img {
+          margin-bottom: -10%;
+          margin-left: 5%;
+          width: 48px;
+        }
+      }
+      .follow {
+        background: #323232;
+        transition: 0.6s;
+        img {
+          margin-bottom: -10%;
+          width: 24px;
+        }
+      }
+      .follow:hover {
+        box-shadow: 2px 2px 2px 1px white;
       }
     }
   }

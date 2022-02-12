@@ -19,15 +19,17 @@ const Songs = ({tracksDashboard}) => {
           <Link className='link' to={`/user/songs`}>See All</Link>
         </div>
         <div className='songs__container'>
-          {/* <SkeletonElements type="title" />
-          <SkeletonElements type="text" />
-          <SkeletonElements type="thumbnail" />
-          <SkeletonElements type="avatar" /> */}
-
           {tracks && tracks.map((track) => (
             <div><Song key={track._id} track={track} /></div>
           ))}
-          {!tracks && <div>Loading...</div>}
+          {!tracks && <div className='skeleton__track'>
+            <div className='skeleton__track__single'></div>
+            <div className='skeleton__track__single'></div>
+            <div className='skeleton__track__single'></div>
+            <div className='skeleton__track__single'></div>
+            <div className='skeleton__track__single'></div>
+            <div className='skeleton__track__single'></div>
+            </div>}
         </div>
       </div>
     </>

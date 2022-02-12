@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import CreatedPlaylist from '../CreatedPlaylist';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { Draggable } from 'react-beautiful-dnd';
+import MusicPlayer from '../../components/MusicPlayer';
 
 const CreatedPlaylists = ({myPlaylists}) => {
 
@@ -14,7 +15,7 @@ const CreatedPlaylists = ({myPlaylists}) => {
   console.log(myCreatedPlaylists)
 
   return (
-  <>
+  <><div className='created__playlists__absolute'>
     <DragDropContext
       onDragEnd={(param) => {
         const srcI = param.source.index;
@@ -24,18 +25,18 @@ const CreatedPlaylists = ({myPlaylists}) => {
       }}
     >
       <div className='playlists__absolute'>
-        <div className='playlists__tittle'>
+        <div className='playlist__tittle'>
         <h2>Uploaded</h2>
-        <Link to="/playlist/add">
-        <button>Add New Playlist</button>
-        </Link>
+          <Link to="/playlist/add">
+          <button>Create a playlist</button>
+          </Link>
         </div>
-        <Droppable droppableId="droppable-1">
+        <Droppable className='droppable__absolute' droppableId="droppable-1">
           {(provided, _) => (
-            <div className='playlists__container' ref={provided.innerRef} {...provided.droppableProps}>
+            <div className='droppable__container' ref={provided.innerRef} {...provided.droppableProps}>
               {myCreatedPlaylists && myCreatedPlaylists.map((playlist, index) => (
-                <div key={playlist._id}>
-                  <Draggable key={playlist._id} draggableId={'draggable-'+playlist.rating} index={index}>
+                <div key={playlist._id} className='droppable__single'>
+                  <Draggable className='draggable__absolute' key={playlist._id} draggableId={'draggable-'+playlist.rating} index={index}>
                     {(provided, snapshot) => (
                       <div className='createdplaylists__container'
                         ref={provided.innerRef}
@@ -59,6 +60,50 @@ const CreatedPlaylists = ({myPlaylists}) => {
         </Droppable>
       </div>
     </DragDropContext>
+    <DragDropContext
+      onDragEnd={(param) => {
+        const srcI = param.source.index;
+        const desI = param.destination?.index;
+        myCreatedPlaylists.splice(desI, 0, myCreatedPlaylists.splice(srcI, 1)[0]);
+        console.log(param)
+      }}
+    >
+      <div className='playlists__absolute'>
+        <div className='playlists__tittle'>
+        <h2>Followed</h2>
+        </div>
+        <Droppable className='droppable__absolute' droppableId="droppable-1">
+          {(provided, _) => (
+            <div className='droppable__container' ref={provided.innerRef} {...provided.droppableProps}>
+              {myCreatedPlaylists && myCreatedPlaylists.map((playlist, index) => (
+                <div key={playlist._id} className='droppable__single'>
+                  <Draggable className='draggable__absolute' key={playlist._id} draggableId={'draggable-'+playlist.rating} index={index}>
+                    {(provided, snapshot) => (
+                      <div className='createdplaylists__container'
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        style={{ ...provided.draggableProps.style, boxShadow: snapshot.isDragging ? "0 0 0.5rem #666" : "none"}}
+                        >
+                        <div className='playlists__container'>
+                          <div className='playlist__container'>
+                          <CreatedPlaylist key={playlist._id} playlist={playlist} />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </Draggable>
+                </div>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </div>
+    </DragDropContext>
+    </div>
+    
+    <MusicPlayer />
   </>
   )
 }
