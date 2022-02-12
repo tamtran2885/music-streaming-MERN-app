@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {useNavigate} from "react-router-dom";
 import Navbar from '../../components/Navbar';
 import Playlists from '../../components/Playlists';
 import Songs from '../../components/Songs';
@@ -14,6 +15,7 @@ import { useAuth } from "../../context/authContext";
 import axios from 'axios';
 
 const Dashboard = ({myPlaylists, myTracks, allPlaylists, allTracks}) => {
+    const navigate = useNavigate()
     const dispatch = useDispatch();
     const { user } = useAuth();
     const [mongoUser, setMongoUser] = useState({});
@@ -22,6 +24,12 @@ const Dashboard = ({myPlaylists, myTracks, allPlaylists, allTracks}) => {
 
     // console.log(allPlaylists);
     // console.log(myPlaylists);
+    // useEffect(() => {
+    //     const loggedToken = localStorage.getItem("token");
+    //     if (!loggedToken) {
+    //         navigate("/login")
+    //     }
+    // })
 
     useEffect(() => {
         setTimeout( async () => {

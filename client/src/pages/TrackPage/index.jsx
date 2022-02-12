@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import Genres from '../../components/Genres';
 import Albums from '../../components/Albums';
@@ -10,11 +10,18 @@ import upload from "../../assets/images/upload.svg";
 import { useAuth } from "../../context/authContext";
 
 const TrackPage = () => {
+    const navigate = useNavigate()
     const { user } = useAuth();
 
     // const token = user.accessToken;
     // console.log(token)
 
+    useEffect(() => {
+        const loggedToken = localStorage.getItem("token");
+        if (!loggedToken) {
+            navigate("/login")
+        }
+    })
 
     return (
         <>

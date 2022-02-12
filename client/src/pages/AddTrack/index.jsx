@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom"
 import trackValidation from "../../utils/validation/trackValidation"
 import genreOptions from "./genreOptions";
@@ -9,6 +9,13 @@ import axios from "axios";
 const AddTrack = () => {
     const navigate = useNavigate()
     const { user } = useAuth();
+
+    useEffect(() => {
+        const loggedToken = localStorage.getItem("token");
+        if (!loggedToken) {
+            navigate("/login")
+        }
+    })
 
     const [values, setValues] = useState({
         title: "",

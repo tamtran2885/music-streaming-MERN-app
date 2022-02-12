@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import Genres from '../../components/Genres';
 import Albums from '../../components/Albums';
@@ -18,7 +18,15 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
     const { user } = useAuth();
     const dispatch = useDispatch();
     const { pathname } = useLocation();
-    const uid = user.uid;
+    const navigate = useNavigate();
+    // const uid = user.uid;
+
+    useEffect(() => {
+        const loggedToken = localStorage.getItem("token");
+        if (!loggedToken) {
+            navigate("/login")
+        }
+    })
 
     useEffect(() => {
         // GET ID FROM URL
