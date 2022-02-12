@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {useNavigate} from "react-router-dom";
 import Navbar from '../../components/Navbar';
 import Playlists from '../../components/Playlists';
 import Songs from '../../components/Songs';
@@ -13,6 +14,7 @@ import { getAllPlaylists, getPlaylistsByUser } from "../../redux/playlist/action
 import { useAuth } from "../../context/authContext";
 import axios from 'axios';
 
+<<<<<<< HEAD
 const Dashboard = ({ myPlaylists, myTracks, allPlaylists, allTracks }) => {
     const dispatch = useDispatch();
     const { user } = useAuth();
@@ -20,9 +22,24 @@ const Dashboard = ({ myPlaylists, myTracks, allPlaylists, allTracks }) => {
     const token = localStorage.getItem("token")
     // window.localStorage.setItem("token", token)
     // console.log(JSON.stringify(user));
+=======
+const Dashboard = ({myPlaylists, myTracks, allPlaylists, allTracks}) => {
+    const navigate = useNavigate()
+    const dispatch = useDispatch();
+    const { user } = useAuth();
+    const [mongoUser, setMongoUser] = useState({});
+    const token = user.accessToken
+    window.localStorage.setItem("token", token)
+>>>>>>> playlist
 
-    console.log(allPlaylists);
-    console.log(myPlaylists);
+    // console.log(allPlaylists);
+    // console.log(myPlaylists);
+    // useEffect(() => {
+    //     const loggedToken = localStorage.getItem("token");
+    //     if (!loggedToken) {
+    //         navigate("/login")
+    //     }
+    // })
 
     useEffect(() => {
         if (token) {

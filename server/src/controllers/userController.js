@@ -4,8 +4,7 @@ import cloudinary from "../utils/cloudinary.js";
 
 export const getUsers = async (req, res) => {
   try {
-    const users = await User.find().populate("uploadedTracks");
-
+    const users = await User.find();
     res.json(users);
   } catch (error) {
     console.log(error);
@@ -127,7 +126,7 @@ export const updateUser = async (req, res) => {
 
 // TODO
 
-export const changePass = async (req, res) => {}
+export const changePass = async (req, res) => {};
 /*
 export const changePass = async (req, res) => {
   try {
@@ -169,38 +168,41 @@ export const changePass = async (req, res) => {
 
 changePass();*/
 
-
-// FOLLOW USER
+// TODO FOLLOW USER
 
 export const followUser = async (req, res, next) => {
   try {
-    const UserFbWhoFollow= req.params.userId;
+    const UserFbId = req.params.userId;
 
     const UserFbId = req.query.fbUserToFollow;
 
     //console.log(UserFbWhoFollow, 'usuario que va a seguir')
     //console.log(UserFbId, 'usuario que va a ser seguido')
 
-    const userToFollow = await User.findOne({firebaseUser: UserFbId});
+    const userToFollow = await User.findOne({ firebaseUser: UserFbId });
 
     // search if exist one with the same UserFbId
-    if(userToFollow.followedBy.find(user => user.firebaseUser === UserFbWhoFollow))
-    {
-      return res.status(400).json({ data: "User has been followed", UserFbWhoFollow });
+    if (
+      userToFollow.followedBy.find(
+        (user) => user.firebaseUser === UserFbWhoFollow
+      )
+    ) {
+      return res
+        .status(400)
+        .json({ data: "User has been followed", UserFbWhoFollow });
     }
 
-    userToFollow.followedBy.unshift({firebaseUser: UserFbWhoFollow});
+    userToFollow.followedBy.unshift({ firebaseUser: UserWhoFollow });
 
     await userToFollow.save();
-    res.status(200).json({ data: "User followed", UserFbWhoFollow });
-
+    res.status(200).json({ data: "User followed", userToFollow });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-  next()
-}
+  next();
+};
 
-// UNFOLLOW USER
+// TODO UNFOLLOW USER
 
 export const unfollowUser = async (req, res, next) => {
   try {
@@ -211,22 +213,28 @@ export const unfollowUser = async (req, res, next) => {
     //console.log(UserWhoUnfollow, 'usuario que va a deseguir')
     //console.log(UserFbId, 'usuario que va a dejar de ser seguido')
 
-    const userToUnfollow = await User.findOne({firebaseUser: UserFbId});
+    const userToUnfollow = await User.findOne({ firebaseUser: UserFbId });
 
-    if(!userToUnfollow.followedBy.find(user => user.firebaseUser === UserWhoUnfollow))
-    {
-      return res.status(400).json({ data: "User has been unfollowed", userToUnfollow });
+    if (
+      !userToUnfollow.followedBy.find(
+        (user) => user.firebaseUser === UserWhoUnfollow
+      )
+    ) {
+      return res
+        .status(400)
+        .json({ data: "User has been unfollowed", userToUnfollow });
     }
 
-    const removeIndex = userToUnfollow.followedBy.map((user) => user.firebaseUser).indexOf(UserWhoUnfollow);
+    const removeIndex = userToUnfollow.followedBy
+      .map((user) => user.firebaseUser)
+      .indexOf(UserWhoUnfollow);
 
     userToUnfollow.followedBy.splice(removeIndex, 1);
 
     await userToUnfollow.save();
     res.status(200).json({ data: "User unfollowed", userToUnfollow });
-
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-  next()
-}
+  next();
+};

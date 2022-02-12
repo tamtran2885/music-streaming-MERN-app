@@ -64,10 +64,7 @@ const UserSchema = new Schema(
     favTrackList: {
       type: [
         {
-          trackId: {
-            type: Schema.Types.ObjectId,
-            ref: "tracks",
-          },
+          trackId: String,
         },
       ],
     },

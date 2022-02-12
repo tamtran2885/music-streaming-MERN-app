@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
 import { setTracks, setCurrentTrack, getSingleTrack } from "../../redux/audioPlay/actions";
-import { addLike, removeLike, getAllTracks } from "../../redux/track/actions";
+import { addLike, removeLike } from "../../redux/track/actions";
 import star from '../../assets/images/star.svg'
 import staractive from '../../assets/images/staractive.svg';
 import { useAuth } from "../../context/authContext";
@@ -10,8 +10,6 @@ const Song = (track) => {
   const dispatch = useDispatch();
   const { user } = useAuth();
   const uid = user.uid;
-
-  console.log(uid)
 
   const { title, album, duration, genre, artist, _id, likes, photoTrack } = track.track
 

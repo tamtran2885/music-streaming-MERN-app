@@ -10,7 +10,7 @@ import {
   getPlaylistsByUser,
   followPlaylist,
   unfollowPlaylist,
-  getPlaylistByIdAndDetails
+  getPlaylistByIdAndDetails,
 } from "../controllers/playlistsController.js";
 
 export const playlistsRoutes = Router();
@@ -28,12 +28,14 @@ playlistsRoutes.post("/", upload.single("thumbnail"), createPlaylist);
 playlistsRoutes.get("/:playlistId", getPlaylistById);
 
 //? UPDATE PLAYLIST BY ID
-playlistsRoutes.put("/edit/:playlistId", upload.single("thumbnail"), updatePlaylistById);
-
+playlistsRoutes.put(
+  "/edit/:playlistId",
+  upload.single("thumbnail"),
+  updatePlaylistById
+);
 
 //? DELETE PLAYLIST BY ID
 playlistsRoutes.delete("/:playlistId", deletePlaylistById);
-
 
 //? FOLLOW PLAYLIST
 playlistsRoutes.put("/follow/:playlistId", followPlaylist);
@@ -43,4 +45,3 @@ playlistsRoutes.put("/unfollow/:playlistId", unfollowPlaylist);
 
 //? GET PLAYLIST BY ID AND SHOW TRACKS DETAILS
 playlistsRoutes.get("/details/:playlistId", getPlaylistByIdAndDetails);
-

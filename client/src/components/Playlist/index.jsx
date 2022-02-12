@@ -1,16 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import star from '../../assets/images/star.svg'
+import star from '../../assets/images/star.svg';
+import staractive from "../../assets/images/staractive.svg";
+import { useAuth } from "../../context/authContext";
+// import { useDispatch } from "react-redux";
+// import { unfollowPlaylist, followPlaylist } from "../../redux/playlist/actions";
 
 const Playlist = (playlist) => {
-  const {title, thumbnail} = playlist.playlist;
+  // const dispatch = useDispatch();
+    const { user } = useAuth();
+    const uid = user.uid;
+    const {title, thumbnail, _id, followedBy } = playlist.playlist;
+
+    const checkFollow = (uid) => {
+        if (followedBy && followedBy.filter((item) => item.firebaseUser === uid).length === 0) {
+          return false;
+        } else {
+          return true;
+        }
+    };
+
+    // console.log(checkFollow(uid))
+
+    const [follow, setFollow] = useState(checkFollow(uid));
+
+    // const handleToggle = () => {
+    //   if (follow) {
+    //     dispatch(unfollowPlaylist(_id, uid));
+    //     setFollow(!follow);
+    //   } else {
+    //     dispatch(followPlaylist(_id, uid));
+    //     setFollow(!follow);
+    //   }
+    // };
 
   return (
     <>
       <div>
-        <Link className='playlist__absolute' to={`/playlist/:playlistId`} style={{ background: `url(${thumbnail && thumbnail}) no-repeat center center`}}>
+        <Link className='playlist__absolute' to={`/playlist/${_id}`} style={{ background: `url(${thumbnail && thumbnail}) no-repeat center center`}}>
           <div className='playlist__follow'>
-          <img src={star} alt="" />
+          {/* <img src={star} alt="" /> */}
+            {follow ? (
+              <img
+                className="song__like__icon"
+                src={staractive}
+                alt=""
+                // onClick={handleToggle}
+              />
+              ) : (
+              <img
+                className="song__like__icon"
+                src={star}
+                alt=""
+                // onClick={handleToggle}
+              />
+            )}
           </div>
           <div>
             {playlist.playlist && (

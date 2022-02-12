@@ -1,21 +1,74 @@
-import React from "react";
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import Genres from '../../components/Genres';
 import Albums from '../../components/Albums';
 import MusicPlayer from '../../components/MusicPlayer';
-import TrackRows from "../../components/TrackRows";
+import PlaylistTrackRows from '../../components/PlaylistTrackRows';
 import upload from "../../assets/images/upload.svg";
-
-import { useAuth } from "../../context/authContext";
+import { getPlaylistDetails, getCurrentPlaylistInfo, unfollowPlaylist, followPlaylist } from "../../redux/playlist/actions";
+import { connect, useDispatch } from "react-redux";
 import Genre from "../../components/Genre";
+import star from "../../assets/images/star.svg";
+import staractive from "../../assets/images/staractive.svg";
+import { useAuth } from "../../context/authContext";
+import axios from "axios";
 
-const TrackPage = () => {
+const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
     const { user } = useAuth();
+    const dispatch = useDispatch();
+    const { pathname } = useLocation();
+    const navigate = useNavigate();
+    // const uid = user.uid;
 
-    const token = user.accessToken;
-    console.log(token)
+    useEffect(() => {
+        const loggedToken = localStorage.getItem("token");
+        if (!loggedToken) {
+            navigate("/login")
+        }
+    })
 
+    useEffect(() => {
+        // GET ID FROM URL
+        const getIdFromURL = () => {
+            const pathSplit = pathname.split("/");
+            return pathSplit[pathSplit.length - 1];
+        };
+        setTimeout( async () => {
+            dispatch(getPlaylistDetails(getIdFromURL()));
+            dispatch(getCurrentPlaylistInfo(getIdFromURL()))
+        }, 3000)
+    }, [dispatch, pathname]);
+
+    const [playlistTrack, setPlaylistTrack] = useState([]);
+    const [playlistInfo, setPlaylistInfo] = useState([]);
+
+    useEffect(() => {
+        setPlaylistTrack(currentPlaylist);
+        setPlaylistInfo(currentPlaylistInfo)
+    }, [currentPlaylist, currentPlaylistInfo])
+
+    // const checkFollow = (uid) => {
+    //     if (playlistInfo && playlistInfo.followedBy.filter((item) => item.firebaseUser === uid).length === 0) {
+    //       return false;
+    //     } else {
+    //       return true;
+    //     }
+    // };
+
+    // console.log(checkFollow(uid))
+
+    // const [follow, setFollow] = useState(checkFollow(uid));
+
+    // const handleToggle = () => {
+    //     if (follow) {
+    //         dispatch(unfollowPlaylist(playlistInfo._id, uid));
+    //         setFollow(!follow);
+    //       } else {
+    //         dispatch(followPlaylist(playlistInfo._id, uid));
+    //         setFollow(!follow);
+    //       }
+    // };
 
     return (
         <>
@@ -26,11 +79,33 @@ const TrackPage = () => {
                         <p>Created by User</p>
                         <p>1 followers</p>
                         <Genre />
+                        {/* {follow ? (
+                            <img
+                                className="song__like__icon"
+                                src={staractive}
+                                alt=""
+                                onClick={handleToggle}
+                            />
+                            ) : (
+                            <img
+                                className="song__like__icon"
+                                src={star}
+                                alt=""
+                                onClick={handleToggle}
+                            />
+                        )} */}
                         <button>Play</button>
                         <button>Follow</button>
                     </div>
                     <div className='tracks__display'>
-                        <TrackRows />
+                        <div className="tracks__title">
+                            <h2 className="tittle">Uploaded</h2>
+                            <Link className='link' to="/track/add">
+                                <button className="button">Upload Song</button>
+                                <img className="upload" src={upload} alt="Upload" />
+                            </Link>
+                        </div>
+                        <PlaylistTrackRows playlistTrack={playlistTrack} />
                     </div>
                 </div>
                 <MusicPlayer />
@@ -39,4 +114,13 @@ const TrackPage = () => {
     )
 }
 
-export default TrackPage;
+const mapStateToProps = state => {
+    return {
+        currentPlaylist: state.playlist.currentPlaylist.data,
+        currentPlaylistInfo: state.playlist.currentPlaylistInfo.data
+    }
+}
+
+const reduxHoc = connect(mapStateToProps)
+
+export default reduxHoc(PlaylistDetail);

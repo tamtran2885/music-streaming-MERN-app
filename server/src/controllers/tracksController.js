@@ -31,36 +31,29 @@ export const addTracksToUser = async (req, res, track) => {
 };
 
 export const addPhotoToTrack = async (req, res) => {
-  const trackId = req.params.trackId
+  const trackId = req.params.trackId;
   try {
     const thumbnail = await cloudinary.v2.uploader.upload(req.file.path, {
       resource_type: "auto",
     });
-    console.log(thumbnail)
-
-
+    console.log(thumbnail);
 
     const newTrack = {
       cloudinaryId: thumbnail.public_id,
-      photoTrack: thumbnail.secure_url
-    }
+      photoTrack: thumbnail.secure_url,
+    };
 
-    const trackToUpdate = await Tracks.findByIdAndUpdate(
-      trackId,
-      newTrack,
-      { new: true }
-    )
-    console.log(trackToUpdate)
+    const trackToUpdate = await Tracks.findByIdAndUpdate(trackId, newTrack, {
+      new: true,
+    });
+    console.log(trackToUpdate);
 
-
-    res.status(200).json({ msg: "ERES UN CREMA" })
-    await trackToUpdate.save()
+    res.status(200).json({ msg: "ERES UN CREMA" });
+    await trackToUpdate.save();
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-
 };
-
 
 export const createTrack = async (req, res) => {
   try {
@@ -194,7 +187,7 @@ export const addFavToTrack = async (req, res) => {
     const user = await User.findOne({
       firebaseUser: param,
     });
-    user.favTrackList.unshift({ trackId: track });
+    user.favTrackList.unshift({ trackId: track._id });
     await user.save();
 
     // return respond
@@ -228,16 +221,16 @@ export const removeFavFromTrack = async (req, res) => {
 
     //? DELETE FAVORITE TRACK FROM USER FAVTRACK
 
-    const user = await User.findOne({ firebaseUser: param })
+    const user = await User.findOne({ firebaseUser: param });
     const removeIndexUser = user.favTrackList
       .map((like) => like.trackId === trackId)
       .indexOf(trackId);
 
     user.favTrackList.splice(removeIndexUser, 1);
-    console.log(removeIndexUser)
+    console.log(removeIndexUser);
 
     await track.save();
-    await user.save()
+    await user.save();
     res.json(track.likes);
   } catch (error) {
     console.log(error);
@@ -289,16 +282,15 @@ export const deleteTrackFromPlaylist = async (req, res, next) => {
   }
 };
 
-//? GET TRACK DETAILS IN MY FAVORITES
+//TODO GET TRACK DETAILS IN MY FAVORITES
 export const getTrackDetailsInFav = async (req, res, next) => {
-  const firebaseId = req.params.userId
+  const firebaseId = req.params.userId;
   try {
-
-    const user = await User.findOne({ firebaseUser: firebaseId })
-    console.log(user)
+    const user = await User.findOne({ firebaseUser: firebaseId });
+    console.log(user);
 
     const array = [];
-    user.favTrackList.map((x) => array.push(x.trackId))
+    user.favTrackList.map((x) => array.push(x.trackId));
 
     const tracksInfo = [];
 
@@ -307,8 +299,8 @@ export const getTrackDetailsInFav = async (req, res, next) => {
       tracksInfo.push(detailsTracks);
     }
 
-    res.status(200).json({ msg: "Done", tracksInfo })
+    res.status(200).json({ msg: "Done", tracksInfo });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
