@@ -2,7 +2,13 @@ import admin from "../middlewares/firebaseConfig.js";
 
 class Auth {
     async decodeToken(req, res, next) {
-        const token = await req.headers.authorization.split(' ')[1];
+        const request = await req.headers.authorization;
+        console.log(request)
+
+        const token = request.split(" ")[1]
+        console.log(token)
+
+
         try {
             const decodeValue = await admin.auth().verifyIdToken(token);
             if (decodeValue) {

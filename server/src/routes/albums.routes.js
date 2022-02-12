@@ -1,21 +1,28 @@
 import { Router } from "express";
 import upload from "../utils/multer.js";
-import Auth from '../middlewares/index.js';
+
+import {
+      getAlbums,
+      createAlbum,
+      getAlbumById,
+      updateAlbum,
+      deleteAlbum
+} from "../controllers/albumsController.js"
 
 export const albumRoutes = Router();
 
-// // ? GET ALBUM
-// albumRoutes.get("/", Auth.decodeToken, ...);
+// ? GET ALBUM
+albumRoutes.get("/", getAlbums);
 
-// // ? CREATE ALBUM
-// albumRoutes.post("/", Auth.decodeToken, upload.single("..."), ...);
+// ? CREATE ALBUM
+albumRoutes.post("/", createAlbum);
 
-// //? GET ALBUM BY ID
-// albumRoutes.get("/:albumId", Auth.decodeToken, ...);
+//? GET ALBUM BY ID
+albumRoutes.get("/:albumId", getAlbumById);
 
-// // //? UPDATE ALBUM BY ID
-// albumRoutes.put("/:albumId", Auth.decodeToken, upload.single("..."), ...);
+// //? UPDATE ALBUM BY ID
+albumRoutes.put("/:albumId", updateAlbum);
 
-// // //? DELETE ALBUM BY ID
-// albumRoutes.delete("/:albumId", Auth.decodeToken, ...);
+// //? DELETE ALBUM BY ID
+albumRoutes.delete("/:albumId", deleteAlbum);
 

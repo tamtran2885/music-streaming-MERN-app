@@ -56,7 +56,7 @@ function App() {
 
           <Route path="/playlist" element={<PlaylistPage />} />
           <Route path="/playlist/add" element={<AddPlaylist />} />
-          <Route path="/playlist/:playlistId" element={<PlaylistDetail />} />
+          {/* <Route path="/playlist/:playlistId" element={<PlaylistDetail />} /> */}
 
           <Route path="/track" element={<TrackPage />} />
           <Route path="/track/add" element={<AddTrack />} />

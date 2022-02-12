@@ -1,4 +1,5 @@
 import Playlist from "../models/Playlist.js";
+import Tracks from "../models/Tracks.js";
 import cloudinary from "../utils/cloudinary.js";
 import Tracks from "../models/Tracks.js";
 
@@ -19,7 +20,7 @@ export const getPlaylistsByUser = async (req, res) => {
     const param = req.query.firebaseUser;
     const playlists = await Playlist.find({
       firebaseUser: param,
-    });
+    }).populate("user");
     res.json(playlists);
   } catch (error) {
     console.log(error);
@@ -39,7 +40,7 @@ export const createPlaylist = async (req, res, next) => {
 
       thumbnail: result.secure_url,
       cloudinaryId: result.public_id,
-      firebaseUser: req.body.firebaseUser,
+      firebaseUser: req.query.firebaseUser,
     });
 
     await playlist.save();
@@ -62,11 +63,18 @@ export const getPlaylistById = async (req, res, next) => {
 
 // TODO UPDATE PLAYLIST BY ID
 export const updatePlaylistById = async (req, res, next) => {
-  console.log(req.body);
   try {
     const url = req.params.playlistId;
+
     const playlist = await Playlist.findById(url);
 
+    // DELETE image from cloudinary
+    const deletePhoto = await cloudinary.uploader.destroy(
+      playlist.cloudinaryId
+    );
+
+    // Upload image to cloudinary
+    const result = await cloudinary.uploader.upload(req.file.path);
     const dataPlaylist = {
       title: req.body.title || playlist.title,
       collaborative: req.body.collaborative || playlist.collaborative,
@@ -78,18 +86,19 @@ export const updatePlaylistById = async (req, res, next) => {
       firebaseUser: playlist.firebaseUser,
     };
 
-    const userToEdit = await Playlist.findByIdAndUpdate(
-      req.params.playlistId,
+    const playlistUpdate = await Playlist.findByIdAndUpdate(
+      playlist,
       dataPlaylist,
       {
         new: true,
       }
     );
 
-    res.status(200).json({ data: "Playlist updated", userToEdit });
+    res.status(200).json({ data: "Playlist updated", deletePhoto });
   } catch (error) {
     console.log(error);
   }
+  next();
 };
 
 //? DELETE PLAYLIST
@@ -154,12 +163,39 @@ export const unfollowPlaylist = async (req, res, next) => {
 
     // Get remove index
     const removeIndex = playlist.followedBy
-      .map((follow) => follow.firebaseUser)
+      .map((unfollow) => unfollow.firebaseUser)
       .indexOf(param);
 
     playlist.followedBy.splice(removeIndex, 1);
     await playlist.save();
     res.json(playlist.followedBy);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//? GET PLAYLIST BY ID AND TRACKS DETAILS
+
+export const getPlaylistByIdAndDetails = async (req, res, next) => {
+  try {
+    const url = req.params.playlistId;
+    const playlist = await Playlist.findById(url);
+
+    const array = [];
+    playlist.tracks.map((x) => {
+      array.push(x.trackId);
+    });
+
+    const tracksInfo = [];
+
+    for (let i = 0; i < array.length; i++) {
+      const detailsTracks = await Tracks.findById(array[i]);
+      tracksInfo.push(detailsTracks);
+    }
+
+    tracksInfo
+      ? res.json(tracksInfo)
+      : res.json({ message: "playlist not found" });
   } catch (error) {
     console.log(error);
   }

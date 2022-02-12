@@ -1,8 +1,16 @@
 import axios from "axios";
+const token = localStorage.getItem("token")
+
+const config = {
+  headers: {
+    Authorization: 'Bearer ' + token,
+
+  }
+}
 
 export const fetchTracks = () =>
   new Promise((resolve) => {
-    const tracks = axios.get("http://localhost:4000/api/tracks");
+    const tracks = axios.get("http://localhost:4000/api/tracks", config);
     setTimeout(() => {
       resolve(tracks);
     }, 1000);
@@ -10,7 +18,7 @@ export const fetchTracks = () =>
 
 export const fetchPlaylists = () =>
   new Promise((resolve) => {
-    const playlists = axios.get("http://localhost:4000/api/playlists");
+    const playlists = axios.get("http://localhost:4000/api/playlists", config);
     setTimeout(() => {
       resolve(playlists);
     }, 1000);
@@ -18,7 +26,7 @@ export const fetchPlaylists = () =>
 
 export const fetchAlbums = () =>
   new Promise((resolve) => {
-    const albums = axios.get("http://localhost:4000/api/albums");
+    const albums = axios.get("http://localhost:4000/api/albums", config);
     setTimeout(() => {
       resolve(albums);
     }, 1000);
@@ -26,7 +34,7 @@ export const fetchAlbums = () =>
 
 export const fetchSingleTrack = (_id) => {
   new Promise((resolve) => {
-    const track = axios.get(`http://localhost:4000/api/tracks/${_id}`);
+    const track = axios.get(`http://localhost:4000/api/tracks/${_id}`, config);
     setTimeout(() => {
       resolve(track);
     }, 1000);
@@ -35,9 +43,13 @@ export const fetchSingleTrack = (_id) => {
 
 export const fetchTracksByUser = async (userUid) => {
   const userTracks = await axios.get("http://localhost:4000/api/tracks/mine", {
+
     params: {
       firebaseUser: userUid,
     },
+    headers: {
+      Authorization: "Bearer " + token
+    }
   });
   return userTracks;
 };
@@ -47,6 +59,9 @@ export const fetchPlayListsByUser = (userUid) => {
     params: {
       firebaseUser: userUid,
     },
+    headers: {
+      Authorization: "Bearer " + token
+    }
   });
   return userPlaylists;
 };
@@ -56,6 +71,9 @@ export const fetchAlbumsByUser = (userUid) => {
     params: {
       firebaseUser: userUid,
     },
+    headers: {
+      Authorization: "Bearer " + token
+    }
   });
   return userAlbums;
 };

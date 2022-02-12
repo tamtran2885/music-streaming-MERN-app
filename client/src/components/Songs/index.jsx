@@ -3,12 +3,17 @@ import { Link } from 'react-router-dom';
 import Song from '../Song'
 // import SkeletonElements from "../../skeletons/SkeletonElements";
 
-const Songs = ({tracksDashboard}) => {
+const Songs = ({ tracksDashboard }) => {
   // console.log(tracksDashboard);
   const [tracks, setTracks] = useState([]);
 
+  const token = localStorage.getItem("token")
+  console.log(token)
+
   useEffect(() => {
-    setTracks(tracksDashboard)
+    if (token) {
+      setTracks(tracksDashboard)
+    }
   }, [tracksDashboard, setTracks])
 
   return (

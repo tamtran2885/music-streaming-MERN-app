@@ -7,7 +7,7 @@ import Playlist from "../models/Playlist.js";
 export const getTracks = async (req, res) => {
   console.log(process.env);
   try {
-    const tracks = await Tracks.find().populate("user");
+    const tracks = await Tracks.find().populate("user").populate("likes");
     res.json(tracks);
   } catch (error) {
     console.log(error);
@@ -31,9 +31,28 @@ export const addTracksToUser = async (req, res, track) => {
 };
 
 export const addPhotoToTrack = async (req, res) => {
-  const thumbnail = await cloudinary.v2.uploader.upload(req.file.path, {
-    resource_type: "auto",
-  });
+  const trackId = req.params.trackId;
+  try {
+    const thumbnail = await cloudinary.v2.uploader.upload(req.file.path, {
+      resource_type: "auto",
+    });
+    console.log(thumbnail);
+
+    const newTrack = {
+      cloudinaryId: thumbnail.public_id,
+      photoTrack: thumbnail.secure_url,
+    };
+
+    const trackToUpdate = await Tracks.findByIdAndUpdate(trackId, newTrack, {
+      new: true,
+    });
+    console.log(trackToUpdate);
+
+    res.status(200).json({ msg: "ERES UN CREMA" });
+    await trackToUpdate.save();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const createTrack = async (req, res) => {
@@ -186,6 +205,7 @@ export const removeFavFromTrack = async (req, res) => {
     const trackId = req.params.trackId;
     const track = await Tracks.findById(trackId);
 
+    // console.log(track.likes)
     // Check if the track has already been liked
     if (
       track.likes.filter((like) => like.firebaseUser === param).length === 0
@@ -199,7 +219,18 @@ export const removeFavFromTrack = async (req, res) => {
       .indexOf(param);
     track.likes.splice(removeIndex, 1);
 
+    //? DELETE FAVORITE TRACK FROM USER FAVTRACK
+
+    const user = await User.findOne({ firebaseUser: param });
+    const removeIndexUser = user.favTrackList
+      .map((like) => like.trackId === trackId)
+      .indexOf(trackId);
+
+    user.favTrackList.splice(removeIndexUser, 1);
+    console.log(removeIndexUser);
+
     await track.save();
+    await user.save();
     res.json(track.likes);
   } catch (error) {
     console.log(error);
@@ -232,7 +263,7 @@ export const addTrackToPlaylist = async (req, res, next) => {
   }
 };
 
-// TODO DELETE TRACK IN PLAYLIST
+// ?DELETE TRACK IN PLAYLIST
 
 export const deleteTrackFromPlaylist = async (req, res, next) => {
   const query = req.query.playlistId;
