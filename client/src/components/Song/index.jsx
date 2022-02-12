@@ -8,8 +8,10 @@ import { useAuth } from "../../context/authContext";
 
 const Song = (track) => {
   const dispatch = useDispatch();
+  const userId = localStorage.getItem("userId");
+
   const { user } = useAuth();
-  const uid = user.uid;
+  const uid = userId;
 
   const { title, album, duration, genre, artist, _id, likes, photoTrack } = track.track
 

@@ -4,6 +4,7 @@ import Song from '../Song'
 // import SkeletonElements from "../../skeletons/SkeletonElements";
 
 const Songs = ({ tracksDashboard }) => {
+  console.log(tracksDashboard)
   // console.log(tracksDashboard);
   const [tracks, setTracks] = useState([]);
 
@@ -11,9 +12,7 @@ const Songs = ({ tracksDashboard }) => {
   // console.log(token)
 
   useEffect(() => {
-    if (token) {
       setTracks(tracksDashboard)
-    }
   }, [tracksDashboard, setTracks])
 
   return (

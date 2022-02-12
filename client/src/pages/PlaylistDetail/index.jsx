@@ -8,13 +8,11 @@ import { getPlaylistDetails, getCurrentPlaylistInfo, unfollowPlaylist, followPla
 import { connect, useDispatch } from "react-redux";
 // import TrackRows from "../../components/TrackRows";
 import play from "../../assets/images/playbutton.svg";
-import star from "../../assets/images/star.svg";
 
 import { useAuth } from "../../context/authContext";
 import Genre from "../../components/Genre";
 import star from "../../assets/images/star.svg";
 import staractive from "../../assets/images/staractive.svg";
-import { useAuth } from "../../context/authContext";
 import axios from "axios";
 
 const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
