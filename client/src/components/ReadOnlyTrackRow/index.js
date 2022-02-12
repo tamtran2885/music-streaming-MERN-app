@@ -1,9 +1,13 @@
 import React from "react";
 import star from "../../assets/images/star.svg";
 import menu from "../../assets/images/menu.svg";
+import { useSelector } from "react-redux";
 
 const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
   const { title, artist, album, reproductions, genre, _id, duration } = track;
+  const myPlaylists = useSelector((state) => state.playlist.myPlaylists.data);
+  console.log(myPlaylists);
+
   return (
     <div className="trackrow">
       <div className="song__number">1</div>
@@ -43,8 +47,12 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
             <button className="nav__link">Add to playlist</button>
             <div>
               <select>
-                <option>1</option>
-                <option>2</option>
+                {myPlaylists &&
+                  myPlaylists.map((item) => (
+                    <option key={item._id && item._id}>
+                      {item.title && item.title}
+                    </option>
+                  ))}
               </select>
               {/* <input className="nav__link" placeholder="playlists" /> */}
             </div>

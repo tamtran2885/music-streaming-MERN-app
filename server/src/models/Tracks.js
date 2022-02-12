@@ -50,10 +50,6 @@ const TracksSchema = new Schema(
     likes: {
       type: [
         {
-          user: {
-            type: Schema.Types.ObjectId,
-            ref: "user",
-          },
           firebaseUser: String,
         },
       ],

@@ -4,8 +4,7 @@ import cloudinary from "../utils/cloudinary.js";
 
 export const getUsers = async (req, res) => {
   try {
-    const users = await User.find().populate("uploadedTracks");
-
+    const users = await User.find();
     res.json(users);
   } catch (error) {
     console.log(error);
@@ -129,7 +128,7 @@ export const updateUser = async (req, res) => {
 
 // TODO
 
-export const changePass = async (req, res) => {}
+export const changePass = async (req, res) => {};
 /*
 export const changePass = async (req, res) => {
   try {
@@ -171,19 +170,18 @@ export const changePass = async (req, res) => {
 
 changePass();*/
 
-
 // TODO FOLLOW USER
 
 export const followUser = async (req, res, next) => {
   try {
-    const UserFbId= req.params.userId;
+    const UserFbId = req.params.userId;
 
     const UserWhoFollow = req.query.fbUserFollow;
 
     console.log(UserWhoFollow);
     console.log(UserFbId);
 
-    const userToFollow = await User.findOne({firebaseUser: UserFbId});
+    const userToFollow = await User.findOne({ firebaseUser: UserFbId });
 
     console.log(userToFollow);
 
@@ -192,15 +190,14 @@ export const followUser = async (req, res, next) => {
       return res.status(400).json({ data: "User has been followed", userToFollow });
     }*/
 
-    userToFollow.followedBy.unshift({firebaseUser: UserWhoFollow});
+    userToFollow.followedBy.unshift({ firebaseUser: UserWhoFollow });
 
     await userToFollow.save();
     res.status(200).json({ data: "User followed", userToFollow });
-
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-  next()
-}
+  next();
+};
 
 // TODO UNFOLLOW USER
