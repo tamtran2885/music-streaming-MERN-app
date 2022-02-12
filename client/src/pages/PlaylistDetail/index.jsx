@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
-import Genres from '../../components/Genres';
-import Albums from '../../components/Albums';
 import MusicPlayer from '../../components/MusicPlayer';
 import PlaylistTrackRows from '../../components/PlaylistTrackRows';
 import upload from "../../assets/images/upload.svg";
 import { getPlaylistDetails, getCurrentPlaylistInfo, unfollowPlaylist, followPlaylist } from "../../redux/playlist/actions";
 import { connect, useDispatch } from "react-redux";
+// import TrackRows from "../../components/TrackRows";
+import play from "../../assets/images/playbutton.svg";
+import star from "../../assets/images/star.svg";
+
+import { useAuth } from "../../context/authContext";
 import Genre from "../../components/Genre";
 import star from "../../assets/images/star.svg";
 import staractive from "../../assets/images/staractive.svg";
@@ -79,7 +82,6 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
                     <div className='dashboard__side'>
                         <p>Created by User</p>
                         <p>1 followers</p>
-                        <Genre />
                         {/* {follow ? (
                             <img
                                 className="song__like__icon"
@@ -95,8 +97,11 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
                                 onClick={handleToggle}
                             />
                         )} */}
-                        <button>Play</button>
-                        <button>Follow</button>
+                        <div className="genre">
+                            <Genre />
+                        </div>
+                        <button className="button play"><img src={play} alt="Play" /></button>
+                        <button className="button follow"><img src={star} alt="Follow" /></button>
                     </div>
                     <div className='tracks__display'>
                         <div className="tracks__title">

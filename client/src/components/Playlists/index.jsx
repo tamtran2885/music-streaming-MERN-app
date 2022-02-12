@@ -16,11 +16,16 @@ const Playlists = ({ playlistsDashboard }) => {
           <h2>Playlists</h2>
           <Link className='link' to={`/playlist`}>See All</Link>
         </div>
+          {!playlists && <div className='skeleton__playlist'>
+            <div className='skeleton__playlist__single'></div>
+            <div className='skeleton__playlist__single'></div>
+            <div className='skeleton__playlist__single'></div>
+            <div className='skeleton__playlist__single'></div>
+            </div>}
         <div className='playlists__container'>
           {playlists && playlists.map((playlist) => (
             <div className='playlist__container' key={playlist._id}><Playlist key={playlist._id} playlist={playlist}/></div>
           ))}
-          {!playlists && <div>Loading...</div>}
         </div>
       </div>
     </>

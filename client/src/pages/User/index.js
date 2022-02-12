@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Navbar from "../../components/Navbar";
+import Playlists from "../../components/Playlists";
+import Songs from "../../components/Songs";
+import Genres from "../../components/Genres";
+import Albums from "../../components/Albums";
+import MusicPlayer from "../../components/MusicPlayer";
 
 import { useAuth } from "../../context/authContext";
 
@@ -55,45 +61,34 @@ const User = () => {
 
   return (
     <>
-      <h1>Users</h1>
-      <Link to={`/user/edit/${userProfile.firebaseUser}`}>Edit User</Link>
-      <Link to={`/`}>Back to Dashboard</Link>
-
-      <div className="flex">
-        <div>
-          <h3>Name</h3>
-          <p> {userProfile.firstName}</p>
+      <div className="dashboard__background">
+        <Navbar page="UserName" />
+        {/*<h1>Welcome {mongoUser.firstName}!</h1>*/}
+        <div className="dashboard__absolute">
+          <div className="dashboard__display">
+            <div className="created__content">
+              <h2>Playlists</h2>
+              <button>Create</button>
+              <p>Here show playlists</p>
+              <h2>Songs</h2>
+              <button>Upload</button>
+              <p>Here show songs</p>
+              <h2>Albums</h2>
+              <button>Create</button>
+              <p>Here show Albums</p>
+            </div>
+            <div className="followed__content">
+              <h2>Playlists</h2>
+              <p>Here show playlists</p>
+              <h2>Songs</h2>
+              <p>Here show songs</p>
+              <h2>Albums</h2>
+              <p>Here show Albums</p>
+            </div>
+          </div>
         </div>
-        <div>
-          <h3>Last Name</h3>
-          <p> {userProfile.lastName}</p>
-        </div>
-        <div>
-          <h3>Birthday</h3>
-          <p> {userProfile.birthday}</p>
-        </div>
-        <div>
-          <h3>Country</h3>
-          <p> {userProfile.country}</p>
-        </div>
-        <h3>Profile Picture</h3>
-        <img
-          src={userProfile.profile}
-          alt="user_image"
-          style={{ height: "100px", width: "100px" }}
-        />
-        <div>
-          <h3>Email</h3>
-          <p> {userProfile.email}</p>
-        </div>
+        <MusicPlayer />
       </div>
-      <Link to={`/user/edit/change-password/${userProfile.firebaseUser}`}>
-        Edit password
-      </Link>
-
-      <h1>My Playlists</h1>
-      <h1>My Songs</h1>
-      <h1>My Friends</h1>
     </>
   );
 };

@@ -13,13 +13,8 @@ const CreatedPlaylist = ({playlist}) => {
         <div className='playlist__follow'>
         <img src={star} alt="" />
         </div>
+          <h3 className='playlist__tittle'>{title && title}</h3>
         <div>
-          {playlist.playlist && (
-            <>
-              <h3 className='playlist__tittle'>{title && title}</h3>
-                {/*<img className='playlist__background' src={thumbnail && thumbnail} alt="playlist"/>*/}
-            </>
-          )}
         </div>
       </Link>
     </>
