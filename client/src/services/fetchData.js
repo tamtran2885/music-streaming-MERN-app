@@ -1,11 +1,7 @@
 import axios from "axios";
 const token = sessionStorage.getItem("token");
 
-const config = {
-  headers: {
-    Authorization: "Bearer " + token,
-  },
-};
+
 console.log(token)
 
 export const fetchTracks = () =>
