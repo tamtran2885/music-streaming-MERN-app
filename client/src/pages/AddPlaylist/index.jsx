@@ -8,7 +8,9 @@ import axios from "axios";
 const AddPlaylist = () => {
     const navigate = useNavigate()
     const { user } = useAuth();
-    const token = user.accessToken || localStorage.getItem("token")
+    const token = localStorage.getItem("token")
+    const userId = localStorage.getItem("userId");
+    const uid = userId;
 
     const [values, setValues] = useState({
         title: "",
@@ -49,7 +51,7 @@ const AddPlaylist = () => {
         formData.append("publicAccessible", publicAccessible)
         formData.append("numberSongs", values.numberSongs);
         formData.append("rating", values.rating);
-        formData.append("firebaseUser", user.uid);
+        formData.append("firebaseUser", uid);
 
         console.log(Object.fromEntries(formData.entries()));
         try {

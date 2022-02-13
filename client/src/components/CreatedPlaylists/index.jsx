@@ -12,7 +12,7 @@ const CreatedPlaylists = ({myPlaylists}) => {
     setMyCreatedPlaylists(myPlaylists)
   }, [setMyCreatedPlaylists, myPlaylists])
 
-  console.log(myCreatedPlaylists)
+  // console.log(myCreatedPlaylists)
 
   return (
   <><div className='created__playlists__absolute'>

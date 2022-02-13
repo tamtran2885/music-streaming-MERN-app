@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReadOnlyTrackRow from "../ReadOnlyTrackRow";
 import EditTrackRow from "../EditTrackRow";
 import { useSelector } from "react-redux";
@@ -6,18 +6,18 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { useAuth } from "../../context/authContext";
 
-const TrackRows = () => {
+const TrackRows = ({ totalTracks }) => {
   // get token
   const { user } = useAuth();
-  // const token = user.accessToken;
-
-  // retrieve tracks from redux store
-  const myTracks = useSelector((state) => state.track.myTracks.data);
-  // console.log(myTracks);
+  const loggedToken = localStorage.getItem("token");
 
   // Set state
-  const [tracksInfo, setTracksInfo] = useState(myTracks);
+  const [tracksInfo, setTracksInfo] = useState([]);
   const [editRowId, setEditRowId] = useState(null);
+
+  useEffect(() => {
+    setTracksInfo(totalTracks);
+  }, [totalTracks]);
 
   const [editFormData, setEditFormData] = useState({
     title: "",
@@ -55,15 +55,15 @@ const TrackRows = () => {
     setEditFormData(formValues);
   };
 
+  const config = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: "Bearer " + loggedToken,
+    },
+  };
+
   const handleEditFormSubmit = async (event) => {
     event.preventDefault();
-
-    const config = {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        // Authorization: "Bearer " + token,
-      },
-    };
 
     const formData = new FormData();
     formData.append("title", editFormData.title);
@@ -90,7 +90,7 @@ const TrackRows = () => {
   const handleDelete = async (_id) => {
     // console.log("delete" + _id);
     try {
-      await axios.delete(`http://localhost:4000/api/tracks/${_id}`);
+      await axios.delete(`http://localhost:4000/api/tracks/${_id}`, config);
       console.log(_id);
     } catch (err) {
       console.log(err);

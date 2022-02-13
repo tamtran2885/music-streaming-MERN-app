@@ -5,7 +5,7 @@ import logo from "../../assets/images/logo.svg";
 import SearchBar from "../SearchBar";
 
 const Navbar = (props) => {
-    const { page, handleMine, handlePopular } = props;
+    const { page, handleMine, handlePopular, setSearchWord} = props;
     const navigate = useNavigate();
     const { user, logout } = useAuth()
     const userId = localStorage.getItem("userId");
@@ -50,13 +50,14 @@ const Navbar = (props) => {
                     </div>
                     <div className='nav__filters'>
                         <div className='searchbar__container'>
-                            <SearchBar />
+                            <SearchBar setSearchWord={setSearchWord} />
                         </div>
                         <div className='nav__filters__button'>
                             <button className='button'>I'm feeling lucky!</button>
                             <div className='nav__filters__owner'>
                                 <button className='button__owner left active' onClick={handlePopular}>Popular</button>
                                 <button className='button__owner right' onClick={handleMine}>Mine</button>
+                                {/* {page && page === "Songs" ? (<button className='button__owner right' onClick={handleFav}>Mine</button>) : (<di></di>)} */}
                             </div>
                         </div>
                     </div>

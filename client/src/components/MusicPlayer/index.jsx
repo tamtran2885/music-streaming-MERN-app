@@ -34,12 +34,14 @@ const MusicPlayer = () => {
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0)
 
+  // console.log(currentTrack)
+
   const audio = useRef("audio_tag")
   let likes = "";
   let trackId = ""
   if (currentTrack) {
-    likes = currentTrack.track.likes;
-    trackId = currentTrack.track._id
+    likes = currentTrack.likes;
+    trackId = currentTrack._id
   }
 
   // console.log(likes)
@@ -53,8 +55,6 @@ const MusicPlayer = () => {
   }
 
   // set state of like
-  // const [like, setLike] = useState(checkLike(uid))
-
   const like = checkLike(uid);
   const handleToggle = () => {
     if (like) {
@@ -143,8 +143,8 @@ const MusicPlayer = () => {
         </div>
         <div className='musicplayer__info'>
           <div className='musicplayer__info__song'>
-            <p className='tittle'>{currentTrack && currentTrack.track.title}</p>
-            <p className='artist'>{currentTrack && currentTrack.track.album}· Genre</p>
+            <p className='tittle'>{currentTrack && currentTrack.title}</p>
+            <p className='artist'>{currentTrack && currentTrack.album}· Genre</p>
           </div>
         </div>
         <div className='musicplayer__options'>
@@ -159,7 +159,7 @@ const MusicPlayer = () => {
             ref={audio}
             type="audio/mpeg"
             preload="true"
-            src={currentTrack && currentTrack.track.urlTrack}
+            src={currentTrack && currentTrack.urlTrack}
           />
           <button className='button' onClick={getRepeatTrack}>
             <img className='icon' src={repeatbutton} alt="Repeat" />

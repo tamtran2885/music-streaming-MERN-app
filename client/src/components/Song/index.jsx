@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
 import { setTracks, setCurrentTrack, getSingleTrack } from "../../redux/audioPlay/actions";
-import { addLike, removeLike } from "../../redux/track/actions";
+import { addLike, removeLike, getAllTracks, getTracksByUser } from "../../redux/track/actions";
 import star from '../../assets/images/star.svg'
 import staractive from '../../assets/images/staractive.svg';
 import { useAuth } from "../../context/authContext";
@@ -9,9 +9,9 @@ import { useAuth } from "../../context/authContext";
 const Song = (track) => {
   const dispatch = useDispatch();
   const userId = localStorage.getItem("userId");
+  const uid = userId;
 
   const { user } = useAuth();
-  const uid = userId;
 
   const { title, album, duration, genre, artist, _id, likes, photoTrack } = track.track
 
@@ -22,22 +22,27 @@ const Song = (track) => {
       return true
     }
   }
+  // console.log(track.track)
 
   const [like, setLike] = useState(checkLike(uid))
 
   const handleClick = () => {
     // console.log("handleClick");
-    dispatch(setCurrentTrack(track))
+    dispatch(setCurrentTrack(track.track))
     dispatch(getSingleTrack(_id))
-    dispatch(setTracks(track))
+    dispatch(setTracks(track.track))
   }
 
   const handleToggle = () => {
     if (like) {
       dispatch(removeLike(_id, uid));
+      dispatch(getAllTracks());
+      dispatch(getTracksByUser(uid))
       setLike(!like);
     } else {
       dispatch(addLike(_id, uid));
+      dispatch(getAllTracks());
+      dispatch(getTracksByUser(uid))
       setLike(!like);
     }
   }

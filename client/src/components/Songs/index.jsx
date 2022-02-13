@@ -4,12 +4,9 @@ import Song from '../Song'
 // import SkeletonElements from "../../skeletons/SkeletonElements";
 
 const Songs = ({ tracksDashboard }) => {
-  console.log(tracksDashboard)
-  // console.log(tracksDashboard);
-  const [tracks, setTracks] = useState([]);
-
   const token = localStorage.getItem("token")
-  // console.log(token)
+
+  const [tracks, setTracks] = useState([]);
 
   useEffect(() => {
       setTracks(tracksDashboard)

@@ -14,7 +14,7 @@ const audioPlayReducer = (state = initialState, action) => {
         ...state,
         trackList:
           state.trackList.findIndex(
-            (track) => track._id === action.payload.track._id
+            (item) => item._id === action.payload._id
           ) >= 0
             ? state.trackList
             : [...state.trackList, action.payload],

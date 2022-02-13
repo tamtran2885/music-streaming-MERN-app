@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
@@ -7,13 +7,10 @@ import logo from "../../assets/images/logo.svg";
 import ConnectWithGoogle from "../../components/ConnectWithGoogle/index.jsx";
 
 const Login = () => {
-
     const { logInWithEmailAndPassword } = useAuth();
 
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
-
-
 
     const navigate = useNavigate();
 
@@ -23,7 +20,6 @@ const Login = () => {
             const user = await logInWithEmailAndPassword(loginEmail, loginPassword)
             localStorage.setItem("token", user.user.accessToken)
             localStorage.setItem("userId", user.user.uid)
-            // console.log(user.user.accessToken)
             navigate(`/`)
         } catch (error) {
             // console.log(error.message);

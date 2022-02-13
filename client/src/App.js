@@ -4,7 +4,6 @@ import Dashboard from "./pages/Dashboard";
 import LogIn from "./pages/LogIn";
 import Register from "./pages/Register";
 import User from "./pages/User";
-// import Account from "./pages/Account";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ForgotPassword from "./components/ForgotPassword";
 import UserEdit from "./pages/UserEdit";
@@ -41,14 +40,6 @@ function App() {
               // </ProtectedRoute>
             }
           />
-          {/* <Route
-            path="/account"
-            element={
-              <ProtectedRoute>
-                <Account />
-              </ProtectedRoute>
-            }
-          /> */}
           <Route path="/user/edit/:userId" element={<UserEdit />} />
           <Route path="/forgot" element={<ForgotPassword />} />
 

@@ -4,7 +4,12 @@ import star from "../../assets/images/star.svg";
 import staractive from "../../assets/images/staractive.svg";
 import menu from "../../assets/images/menu.svg";
 import { useAuth } from "../../context/authContext";
-import { addLike, removeLike } from "../../redux/track/actions";
+import {
+  addLike,
+  removeLike,
+  getAllTracks,
+  getTracksByUser,
+} from "../../redux/track/actions";
 import {
   setTracks,
   setCurrentTrack,
@@ -31,23 +36,29 @@ const PlaylistTrackRow = ({ track }) => {
     }
   };
 
+  // console.log(checkLike(uid));
+
   const [like, setLike] = useState(checkLike(uid));
 
   const handleToggle = () => {
     if (like) {
       dispatch(removeLike(_id, uid));
+      dispatch(getAllTracks());
+      dispatch(getTracksByUser(uid));
       setLike(!like);
     } else {
       dispatch(addLike(_id, uid));
+      dispatch(getAllTracks());
+      dispatch(getTracksByUser(uid));
       setLike(!like);
     }
   };
 
   const handleClick = () => {
-    console.log("handleClick");
-    // dispatch(setCurrentTrack(track));
-    // dispatch(getSingleTrack(_id));
-    // dispatch(setTracks(track));
+    // console.log("handleClick");
+    dispatch(setCurrentTrack(track));
+    dispatch(getSingleTrack(_id));
+    dispatch(setTracks(track));
   };
 
   return (

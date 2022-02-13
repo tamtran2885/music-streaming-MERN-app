@@ -11,7 +11,7 @@ import {
   addTrackToPlaylist,
   deleteTrackFromPlaylist,
   getTrackDetailsInFav,
-  addPhotoToTrack
+  addPhotoToTrack,
 } from "../controllers/tracksController.js";
 import uploadTrack from "../utils/multerTracks.js";
 import upload from "../utils/multer.js";
@@ -47,7 +47,11 @@ tracksRoutes.get("/", getTracks);
 tracksRoutes.post("/", uploadTrack.single("urlTrack"), createTrack);
 
 // ? UPLOAD THUMBNAIL TO TRACK
-tracksRoutes.put("/uploadThumbnail/:trackId", upload.single("photoTrack"), addPhotoToTrack);
+tracksRoutes.put(
+  "/uploadThumbnail/:trackId",
+  upload.single("photoTrack"),
+  addPhotoToTrack
+);
 
 // ? GET tracks BY ID
 tracksRoutes.get("/:trackId", getTrackById);

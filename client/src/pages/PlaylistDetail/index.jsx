@@ -4,7 +4,7 @@ import Navbar from '../../components/Navbar';
 import MusicPlayer from '../../components/MusicPlayer';
 import PlaylistTrackRows from '../../components/PlaylistTrackRows';
 import upload from "../../assets/images/upload.svg";
-import { getPlaylistDetails, getCurrentPlaylistInfo, unfollowPlaylist, followPlaylist } from "../../redux/playlist/actions";
+import { getPlaylistDetails, getCurrentPlaylistInfo, unfollowPlaylist, followPlaylist, getAllPlaylists, getPlaylistsByUser } from "../../redux/playlist/actions";
 import { connect, useDispatch } from "react-redux";
 // import TrackRows from "../../components/TrackRows";
 import play from "../../assets/images/playbutton.svg";
@@ -20,11 +20,11 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
     const dispatch = useDispatch();
     const { pathname } = useLocation();
     const navigate = useNavigate();
+    const loggedToken = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
-    // const uid = user.uid;
+    const uid = userId;
 
     useEffect(() => {
-        const loggedToken = localStorage.getItem("token");
         if (!loggedToken) {
             navigate("/login")
         }
@@ -43,34 +43,39 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
     }, [dispatch, pathname]);
 
     const [playlistTrack, setPlaylistTrack] = useState([]);
-    const [playlistInfo, setPlaylistInfo] = useState([]);
+    const [playlistInfo, setPlaylistInfo] = useState("");
 
     useEffect(() => {
         setPlaylistTrack(currentPlaylist);
         setPlaylistInfo(currentPlaylistInfo)
     }, [currentPlaylist, currentPlaylistInfo])
 
-    // const checkFollow = (uid) => {
-    //     if (playlistInfo && playlistInfo.followedBy.filter((item) => item.firebaseUser === uid).length === 0) {
-    //       return false;
-    //     } else {
-    //       return true;
-    //     }
-    // };
+    const checkFollow = (uid) => {
+        if (playlistInfo && playlistInfo.followedBy.filter((item) => item.firebaseUser === uid).length === 0) {
+          return false;
+        } else {
+          return true;
+        }
+    };
 
     // console.log(checkFollow(uid))
+    // console.log(playlistInfo)
 
-    // const [follow, setFollow] = useState(checkFollow(uid));
+    const [follow, setFollow] = useState(checkFollow(uid));
 
-    // const handleToggle = () => {
-    //     if (follow) {
-    //         dispatch(unfollowPlaylist(playlistInfo._id, uid));
-    //         setFollow(!follow);
-    //       } else {
-    //         dispatch(followPlaylist(playlistInfo._id, uid));
-    //         setFollow(!follow);
-    //       }
-    // };
+    const handleToggle = () => {
+        if (follow) {
+            dispatch(unfollowPlaylist(playlistInfo._id, uid));
+            dispatch(getAllPlaylists());
+            dispatch(getPlaylistsByUser(uid));
+            setFollow(!follow);
+          } else {
+            dispatch(followPlaylist(playlistInfo._id, uid));
+            dispatch(getAllPlaylists());
+            dispatch(getPlaylistsByUser(uid))
+            setFollow(!follow);
+          }
+    };
 
     return (
         <>
@@ -80,26 +85,26 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
                     <div className='dashboard__side'>
                         <p>Created by User</p>
                         <p>1 followers</p>
-                        {/* {follow ? (
-                            <img
-                                className="song__like__icon"
-                                src={staractive}
-                                alt=""
-                                onClick={handleToggle}
-                            />
-                            ) : (
-                            <img
-                                className="song__like__icon"
-                                src={star}
-                                alt=""
-                                onClick={handleToggle}
-                            />
-                        )} */}
                         <div className="genre">
                             <Genre />
                         </div>
                         <button className="button play"><img src={play} alt="Play" /></button>
-                        <button className="button follow"><img src={star} alt="Follow" /></button>
+                        {/* <button className="button follow"><img src={star} alt="Follow" /></button> */}
+                        {follow ? (
+                            <img
+                                className="button follow"
+                                src={staractive}
+                                alt="Follow"
+                                onClick={handleToggle}
+                            />
+                            ) : (
+                            <img
+                                className="button follow"
+                                src={star}
+                                alt="Follow"
+                                onClick={handleToggle}
+                            />
+                        )}
                     </div>
                     <div className='tracks__display'>
                         <div className="tracks__title">

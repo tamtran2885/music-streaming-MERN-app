@@ -3,6 +3,7 @@ const initialState = {
   myTracks: [],
   track: null,
   loading: true,
+  favTracksByUser: [],
   error: {},
 };
 

@@ -6,7 +6,15 @@ import {
   UPDATE_LIKES,
   DELETE_TRACK,
   SET_TRACKS_BY_USER,
+  SET_FAV_TRACKS_BY_USER,
 } from "./types";
+const token = localStorage.getItem("token");
+
+const config = {
+  headers: {
+    Authorization: "Bearer " + token,
+  },
+};
 
 // Get data
 export const getAllTracks = () => {
@@ -47,7 +55,8 @@ export const addLike = (trackId, firebaseUser) => {
   return async (dispatch) => {
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/tracks/like/${trackId}?firebaseUser=${firebaseUser}`
+        `http://localhost:4000/api/tracks/like/${trackId}?firebaseUser=${firebaseUser}`,
+        config
       );
       dispatch(updateLikes(response));
       dispatch(getAllTracks());
@@ -62,7 +71,8 @@ export const removeLike = (trackId, firebaseUser) => {
   return async (dispatch) => {
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/tracks/unlike/${trackId}?firebaseUser=${firebaseUser}`
+        `http://localhost:4000/api/tracks/unlike/${trackId}?firebaseUser=${firebaseUser}`,
+        config
       );
       dispatch(updateLikes(response));
       dispatch(getAllTracks());
@@ -82,9 +92,7 @@ export const updateLikes = (response) => ({
 export const deleteSingleTrack = (trackId) => {
   return async (dispatch) => {
     try {
-      const response = await axios.delete(
-        `http://localhost:4000/api/tracks/${trackId}`
-      );
+      await axios.delete(`http://localhost:4000/api/tracks/${trackId}`, config);
       dispatch(deleteTrack(trackId));
       console.log(trackId);
     } catch (err) {
@@ -96,4 +104,25 @@ export const deleteSingleTrack = (trackId) => {
 export const deleteTrack = (trackId) => ({
   type: DELETE_TRACK,
   payload: trackId,
+});
+
+// Get fav tracks of a certain user
+export const getFavTracksByUser = (userId) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:4000/api/tracks/likedByUser/${userId}`,
+        config
+      );
+      // console.log(response);
+      dispatch(setFavTracksByUser(response.data.tracksInfo));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+
+export const setFavTracksByUser = (response) => ({
+  type: SET_FAV_TRACKS_BY_USER,
+  payload: response,
 });

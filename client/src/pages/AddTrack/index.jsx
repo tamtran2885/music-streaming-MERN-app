@@ -10,6 +10,7 @@ const AddTrack = () => {
     const navigate = useNavigate()
     const { user } = useAuth();
     const loggedToken = localStorage.getItem("token");
+    const userId = localStorage.getItem("userId");
 
     useEffect(() => {
         if (!loggedToken) {
@@ -38,6 +39,7 @@ const AddTrack = () => {
         const config = {
             header: {
                 "Content-Type": "multipart/form-data",
+                Authorization: "Bearer " + loggedToken
             },
         };
 
@@ -50,7 +52,7 @@ const AddTrack = () => {
         formData.append("duration", values.duration);
         formData.append("photoTrack", values.photoTrack);
         formData.append("urlTrack", values.urlTrack);
-        formData.append("firebaseUser", user.uid); // Firebase Identifier
+        formData.append("firebaseUser", userId); // Firebase Identifier
         // console.log(Object.fromEntries(formData.entries()));
 
         try {

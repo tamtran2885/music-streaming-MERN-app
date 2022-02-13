@@ -19,7 +19,9 @@ import {
 const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
   const dispatch = useDispatch();
   const { user } = useAuth();
-  const uid = user.uid;
+  const loggedToken = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
+  const uid = userId;
 
   const {
     title,
@@ -57,17 +59,25 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
   };
 
   const handleClick = () => {
-    console.log("handleClick");
-    // dispatch(setCurrentTrack(track));
-    // dispatch(getSingleTrack(_id))
-    // dispatch(setTracks(track))
+    // console.log("handleClick");
+    dispatch(setCurrentTrack(track));
+    dispatch(getSingleTrack(_id));
+    dispatch(setTracks(track));
+  };
+
+  const config = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: "Bearer " + loggedToken,
+    },
   };
 
   const handleChange = async (e) => {
     const playlistId = e.target.value;
     try {
       await axios.put(
-        `http://localhost:4000/api/tracks/addToPlaylist/${_id}?playlistId=${playlistId}`
+        `http://localhost:4000/api/tracks/addToPlaylist/${_id}?playlistId=${playlistId}`,
+        config
       );
       // console.log(response);
     } catch (err) {

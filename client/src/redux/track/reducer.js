@@ -5,6 +5,7 @@ import {
   UPDATE_LIKES,
   DELETE_TRACK,
   SET_TRACKS_BY_USER,
+  SET_FAV_TRACKS_BY_USER,
 } from "./types";
 
 const trackReducer = (state = initialState, action) => {
@@ -38,6 +39,11 @@ const trackReducer = (state = initialState, action) => {
           (track) => track._id !== action.payload
         ),
         loading: false,
+      };
+    case SET_FAV_TRACKS_BY_USER:
+      return {
+        ...state,
+        favTracksByUser: action.payload,
       };
     default:
       return state;
