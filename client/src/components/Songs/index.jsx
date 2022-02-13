@@ -10,7 +10,7 @@ const Songs = ({ tracksDashboard }) => {
   const [tracks, setTracks] = useState([]);
 
   useEffect(() => {
-      setTracks(tracksDashboard)
+    setTracks(tracksDashboard)
   }, [tracksDashboard, setTracks])
 
   const trackNumber = () => {
@@ -49,7 +49,7 @@ const Songs = ({ tracksDashboard }) => {
             <div className='skeleton__track__single'></div>
             <div className='skeleton__track__single'></div>
             <div className='skeleton__track__single'></div>
-            </div>}
+          </div>}
         </div>
       </div>
     </>

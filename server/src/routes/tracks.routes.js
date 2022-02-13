@@ -12,6 +12,7 @@ import {
   deleteTrackFromPlaylist,
   getTrackDetailsInFav,
   addPhotoToTrack,
+  reproductionsCounter
 } from "../controllers/tracksController.js";
 import uploadTrack from "../utils/multerTracks.js";
 import upload from "../utils/multer.js";
@@ -36,6 +37,9 @@ tracksRoutes.put("/addToPlaylist/:trackId", addTrackToPlaylist);
 // Remove track from playlist
 // @route PUT api/tracks/deleteFromPlaylist/:trackId
 tracksRoutes.put("/deleteFromPlaylist/:trackId", deleteTrackFromPlaylist);
+
+//? UPDATE REPRODUCTION COUNTER
+tracksRoutes.put("/reproducing/:trackId", reproductionsCounter)
 
 // ? GET Tracks By User - firebaseUser
 tracksRoutes.get("/likedByUser/:userId", getTrackDetailsInFav);
