@@ -5,7 +5,7 @@ import logo from "../../assets/images/logo.svg";
 import SearchBar from "../SearchBar";
 
 const Navbar = (props) => {
-    const { page, handleMine, handlePopular, setSearchWord} = props;
+    const { page, handleMine, handlePopular, setSearchWord } = props;
     const navigate = useNavigate();
     const { user, logout } = useAuth()
     const userId = localStorage.getItem("userId");
