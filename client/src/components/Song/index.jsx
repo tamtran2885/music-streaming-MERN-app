@@ -8,7 +8,7 @@ import { useAuth } from "../../context/authContext";
 
 const Song = (track) => {
   const dispatch = useDispatch();
-  const userId = localStorage.getItem("userId");
+  const userId = sessionStorage.getItem("userId");
   const uid = userId;
 
   const { user } = useAuth();

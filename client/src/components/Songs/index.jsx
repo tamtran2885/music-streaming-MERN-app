@@ -4,7 +4,7 @@ import Song from '../Song'
 // import SkeletonElements from "../../skeletons/SkeletonElements";
 
 const Songs = ({ tracksDashboard }) => {
-  const token = localStorage.getItem("token")
+  const token = sessionStorage.getItem("token")
 
   const [tracks, setTracks] = useState([]);
 

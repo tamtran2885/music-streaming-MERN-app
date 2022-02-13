@@ -201,3 +201,19 @@ export const getPlaylistByIdAndDetails = async (req, res, next) => {
     console.log(error);
   }
 };
+
+
+//? CHANGE ORDER IN ARRAY AFTER DRAG AND DROP
+
+export const changeListOrder = async (req, res) => {
+  const { id, listID, oldIndex, newIndex } = req.body;
+  const thisPlaylist = await Playlist.find();
+
+}
+
+  // // this code won't run until thisBoard has returned a value
+  // let [oldValue, newValue] = [thisPlaylist.lists[oldIndex], thisPlaylist.lists[newIndex];
+  // thisBoard[oldIndex] = newValue;
+  // thisBoard[newIndex] = oldValue;
+
+  // let saveOperation = await Board.save(thisBoard);

@@ -25,6 +25,16 @@ const saltRounds = 12;
 //   // Store hash in your password DB.
 // })();
 
+export const LogIn = async (req, res, next) => {
+
+  try {
+    const loggedIn = req.headers.authorization
+    // console.log(loggedIn)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const createUser = async (req, res) => {
   console.log(req.body);
   const hash = await bcrypt.hash(req.body.password, saltRounds);
@@ -126,7 +136,7 @@ export const updateUser = async (req, res) => {
 
 // TODO
 
-export const changePass = async (req, res) => {};
+export const changePass = async (req, res) => { };
 /*
 export const changePass = async (req, res) => {
   try {

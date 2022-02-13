@@ -8,8 +8,8 @@ import axios from "axios";
 const AddPlaylist = () => {
     const navigate = useNavigate()
     const { user } = useAuth();
-    const token = localStorage.getItem("token")
-    const userId = localStorage.getItem("userId");
+    const token = sessionStorage.getItem("token")
+    const userId = sessionStorage.getItem("userId");
     const uid = userId;
 
     const [values, setValues] = useState({

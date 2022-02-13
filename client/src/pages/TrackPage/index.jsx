@@ -16,8 +16,8 @@ const TrackPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { user } = useAuth();
-    const loggedToken = localStorage.getItem("token");
-    const userId = localStorage.getItem("userId");
+    const loggedToken = sessionStorage.getItem("token");
+    const userId = sessionStorage.getItem("userId");
 
     useEffect(() => {
         if (!loggedToken) {
@@ -57,7 +57,7 @@ const TrackPage = () => {
     return (
         <>
             <div className='dashboard__background'>
-                <Navbar page="Songs" handleMine={handleMine} handlePopular={handlePopular}/>
+                <Navbar page="Songs" handleMine={handleMine} handlePopular={handlePopular} />
                 <div className='tracks__absolute'>
                     <div className='tracks__display'>
                         <div className="tracks__title">

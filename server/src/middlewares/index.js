@@ -3,10 +3,12 @@ import admin from "../middlewares/firebaseConfig.js";
 class Auth {
     async decodeToken(req, res, next) {
         const request = await req.headers.authorization;
-        console.log(request)
+        // console.log(request)
 
-        const token = request.split(" ")[1]
-        console.log(token)
+        const tokenArray = request.split(" ")
+        // console.log(tokenArray)
+        const token = tokenArray[1]
+        console.log(token, "Im your friend")
 
 
         try {

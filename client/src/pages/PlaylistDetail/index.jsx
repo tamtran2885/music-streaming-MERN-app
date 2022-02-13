@@ -15,13 +15,13 @@ import star from "../../assets/images/star.svg";
 import staractive from "../../assets/images/staractive.svg";
 import axios from "axios";
 
-const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
+const PlaylistDetail = ({ currentPlaylist, currentPlaylistInfo }) => {
     const { user } = useAuth();
     const dispatch = useDispatch();
     const { pathname } = useLocation();
     const navigate = useNavigate();
-    const loggedToken = localStorage.getItem("token");
-    const userId = localStorage.getItem("userId");
+    const loggedToken = sessionStorage.getItem("token");
+    const userId = sessionStorage.getItem("userId");
     const uid = userId;
 
     useEffect(() => {
@@ -36,7 +36,7 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
             const pathSplit = pathname.split("/");
             return pathSplit[pathSplit.length - 1];
         };
-        setTimeout( async () => {
+        setTimeout(async () => {
             dispatch(getPlaylistDetails(getIdFromURL()));
             dispatch(getCurrentPlaylistInfo(getIdFromURL()))
         }, 3000)
@@ -52,9 +52,9 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
 
     const checkFollow = (uid) => {
         if (playlistInfo && playlistInfo.followedBy.filter((item) => item.firebaseUser === uid).length === 0) {
-          return false;
+            return false;
         } else {
-          return true;
+            return true;
         }
     };
 
@@ -69,12 +69,12 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
             dispatch(getAllPlaylists());
             dispatch(getPlaylistsByUser(uid));
             setFollow(!follow);
-          } else {
+        } else {
             dispatch(followPlaylist(playlistInfo._id, uid));
             dispatch(getAllPlaylists());
             dispatch(getPlaylistsByUser(uid))
             setFollow(!follow);
-          }
+        }
     };
 
     return (
@@ -97,7 +97,7 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
                                 alt="Follow"
                                 onClick={handleToggle}
                             />
-                            ) : (
+                        ) : (
                             <img
                                 className="button follow"
                                 src={star}

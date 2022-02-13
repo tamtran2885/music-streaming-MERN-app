@@ -46,6 +46,7 @@ const Register = () => {
 
 
 
+
             const formData = new FormData();
             formData.append("firstName", values.firstName);
             formData.append("lastName", values.lastName);
@@ -57,12 +58,13 @@ const Register = () => {
             formData.append("firebaseUser", firebaseUser.user.uid)
 
             const config = {
-                header: {
+                headers: {
                     "Content-Type": "multipart/form-data",
+                    Authorization: "Bearer " + firebaseUser.user.accessToken
                 },
             };
 
-            firebaseUser ? await axios.post("http://localhost:4000/api/user", config, formData,) : console.log("ho");
+            firebaseUser ? await axios.post("http://localhost:4000/api/user", formData, config) : console.log("ho");
 
             navigate("/login")
         } catch (error) {

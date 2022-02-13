@@ -58,9 +58,9 @@ export function AuthProvider({ children }) {
         setUser(currentUser);
         setLoading(false);
         // store the user on local storage
-        localStorage.setItem("user", true);
+        sessionStorage.setItem("user", true);
       } else {
-        localStorage.removeItem("user");
+        sessionStorage.removeItem("user");
         setUser(null);
       }
     });

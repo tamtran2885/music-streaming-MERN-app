@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  LogIn,
   getUsers,
   createUser,
   getUserById,
@@ -10,18 +11,21 @@ import {
   unfollowUser,
 } from "../controllers/userController.js";
 import upload from "../utils/multer.js";
+import middleware from "../middlewares/index.js"
 
 export const userRoutes = Router();
 
 
 // ? GET USERS
-userRoutes.get("/", getUsers);
+userRoutes.get("/", middleware.decodeToken, getUsers);
+
+userRoutes.post("/loggedIn", middleware.decodeToken, LogIn);
 
 // ? CREATE USER
-userRoutes.post("/", upload.single("profile"), createUser);
+userRoutes.post("/", middleware.decodeToken, upload.single("profile"), createUser);
 
 //? GET USER BY ID
-userRoutes.get("/:userId", getUserById);
+userRoutes.get("/:userId", middleware.decodeToken, getUserById);
 
 //? UPDATE USER BY ID
 userRoutes.put("/:userId", upload.single("profile"), updateUser);

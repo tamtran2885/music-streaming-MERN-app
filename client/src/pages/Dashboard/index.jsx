@@ -5,7 +5,7 @@ import Songs from '../../components/Songs';
 import Genres from '../../components/Genres';
 // import Albums from '../../components/Albums';
 import MusicPlayer from '../../components/MusicPlayer';
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 import { connect, useDispatch } from "react-redux";
 import { getAllTracks, getTracksByUser, getFavTracksByUser } from "../../redux/track/actions";
@@ -19,16 +19,22 @@ const Dashboard = ({ myPlaylists, myTracks, allPlaylists, allTracks }) => {
     const dispatch = useDispatch();
     const { user } = useAuth();
     const [mongoUser, setMongoUser] = useState({});
-    const loggedToken = localStorage.getItem("token");
-    const userId = localStorage.getItem("userId");
+    const loggedToken = sessionStorage.getItem("token");
 
     useEffect(() => {
+        const loggedToken = sessionStorage.getItem("token");
+    }, []);
+
+
+    useEffect(() => {
+
+        const userId = sessionStorage.getItem("userId");
         if (!loggedToken) {
             navigate("/login")
         }
         if (loggedToken) {
             setTimeout(async () => {
-                APIcall();
+                APIcall(loggedToken, userId);
                 dispatch(getAllTracks());
                 dispatch(getAllPlaylists());
                 dispatch(getTracksByUser(userId));
@@ -36,9 +42,9 @@ const Dashboard = ({ myPlaylists, myTracks, allPlaylists, allTracks }) => {
                 dispatch(getFavTracksByUser(userId));
             }, 3000)
         }
-    }, [dispatch, loggedToken]);
+    }, [dispatch]);
 
-    const APIcall = async () => {
+    const APIcall = async (loggedToken, userId) => {
         const userReq = await axios.get(`/api/user/${userId}`, {
             headers: {
                 Authorization: 'Bearer ' + loggedToken,
@@ -63,7 +69,7 @@ const Dashboard = ({ myPlaylists, myTracks, allPlaylists, allTracks }) => {
         setPlaylistsDashboard(allPlaylists)
     };
 
-    const handleMine = () => {
+    const handleMine = async () => {
         setTracksDashboard(myTracks)
         setPlaylistsDashboard(myPlaylists)
     };
@@ -75,7 +81,7 @@ const Dashboard = ({ myPlaylists, myTracks, allPlaylists, allTracks }) => {
     return (
         <>
             <div className='dashboard__background'>
-                <Navbar page="Popular Now" handleMine={handleMine} handlePopular={handlePopular} mongoUser={mongoUser} setSearchWord={setSearchWord}/>
+                <Navbar page="Popular Now" handleMine={handleMine} handlePopular={handlePopular} mongoUser={mongoUser} setSearchWord={setSearchWord} />
                 {/*<h1>Welcome {mongoUser.firstName}!</h1>*/}
                 <div className='dashboard__absolute'>
                     <div className='dashboard__display'>

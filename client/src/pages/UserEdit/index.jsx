@@ -16,8 +16,8 @@ const UserEdit = () => {
     profilePicture: "",
     email: ""
   });
-  const loggedToken = localStorage.getItem("token");
-  const userId = localStorage.getItem("userId");
+  const loggedToken = sessionStorage.getItem("token");
+  const userId = sessionStorage.getItem("userId");
 
   // take a token
   const { user } = useAuth();
@@ -27,7 +27,7 @@ const UserEdit = () => {
 
   useEffect(() => {
     if (!loggedToken) {
-        navigate("/login")
+      navigate("/login")
     }
   })
 

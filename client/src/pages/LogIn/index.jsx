@@ -5,6 +5,7 @@ import { useAuth } from "../../context/authContext";
 import logo from "../../assets/images/logo.svg";
 
 import ConnectWithGoogle from "../../components/ConnectWithGoogle/index.jsx";
+import axios from "axios";
 
 const Login = () => {
     const { logInWithEmailAndPassword } = useAuth();
@@ -17,10 +18,25 @@ const Login = () => {
     const login = async (e) => {
         e.preventDefault();
         try {
-            const user = await logInWithEmailAndPassword(loginEmail, loginPassword)
-            localStorage.setItem("token", user.user.accessToken)
-            localStorage.setItem("userId", user.user.uid)
-            navigate(`/`)
+            const user = await logInWithEmailAndPassword(loginEmail, loginPassword).then(userCredentials => {
+                console.log(userCredentials.user)
+                const token = userCredentials.user.accessToken
+                const userFBid = userCredentials.user.uid
+                sessionStorage.setItem("token", token)
+                sessionStorage.setItem("userId", userFBid)
+            })
+
+            const authToken = sessionStorage.getItem("token")
+            const config = {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    Authorization: "Bearer " + authToken
+                },
+            };
+
+            user ? await axios.put("http://localhost:4000/api/user/loggedIn", config) : console.log("Authentication problem")
+            navigate("/")
+
         } catch (error) {
             // console.log(error.message);
         }

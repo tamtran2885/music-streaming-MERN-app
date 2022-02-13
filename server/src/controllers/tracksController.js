@@ -5,7 +5,6 @@ import Playlist from "../models/Playlist.js";
 
 //? GET ALL TRACKS
 export const getTracks = async (req, res) => {
-  console.log(process.env);
   try {
     const tracks = await Tracks.find().populate("user").populate("likes");
     res.json(tracks);

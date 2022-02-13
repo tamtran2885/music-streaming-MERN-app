@@ -16,7 +16,7 @@ const User = () => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   // console.log(user.accessToken)
-  const loggedToken = localStorage.getItem("token");
+  const loggedToken = sessionStorage.getItem("token");
 
   useEffect(() => {
     if (!loggedToken) {

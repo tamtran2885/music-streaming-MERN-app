@@ -17,7 +17,7 @@ import {
 } from "../../redux/audioPlay/actions";
 
 const PlaylistTrackRow = ({ track }) => {
-  const userId = localStorage.getItem("userId");
+  const userId = sessionStorage.getItem("userId");
   const dispatch = useDispatch();
   const { user } = useAuth();
   const uid = userId;

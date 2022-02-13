@@ -8,7 +8,7 @@ import {
   SET_TRACKS_BY_USER,
   SET_FAV_TRACKS_BY_USER,
 } from "./types";
-const token = localStorage.getItem("token");
+const token = sessionStorage.getItem("token");
 
 const config = {
   headers: {

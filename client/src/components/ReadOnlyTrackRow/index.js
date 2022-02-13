@@ -19,8 +19,8 @@ import {
 const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
   const dispatch = useDispatch();
   const { user } = useAuth();
-  const loggedToken = localStorage.getItem("token");
-  const userId = localStorage.getItem("userId");
+  const loggedToken = sessionStorage.getItem("token");
+  const userId = sessionStorage.getItem("userId");
   const uid = userId;
 
   const {

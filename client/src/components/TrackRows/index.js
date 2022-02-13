@@ -9,7 +9,7 @@ import { useAuth } from "../../context/authContext";
 const TrackRows = ({ totalTracks }) => {
   // get token
   const { user } = useAuth();
-  const loggedToken = localStorage.getItem("token");
+  const loggedToken = sessionStorage.getItem("token");
 
   // Set state
   const [tracksInfo, setTracksInfo] = useState([]);

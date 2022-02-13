@@ -12,6 +12,8 @@ import {
   unfollowPlaylist,
   getPlaylistByIdAndDetails,
 } from "../controllers/playlistsController.js";
+import middleware from "../middlewares/index.js";
+
 
 export const playlistsRoutes = Router();
 

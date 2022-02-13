@@ -19,7 +19,7 @@ import { useAuth } from "../../context/authContext";
 import { addLike, removeLike } from "../../redux/track/actions";
 
 const MusicPlayer = () => {
-  const userId = localStorage.getItem("userId");
+  const userId = sessionStorage.getItem("userId");
   const dispatch = useDispatch();
   const { user } = useAuth();
 
