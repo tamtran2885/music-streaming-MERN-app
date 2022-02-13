@@ -9,7 +9,7 @@ const Songs = ({ tracksDashboard }) => {
   const [tracks, setTracks] = useState([]);
 
   useEffect(() => {
-      setTracks(tracksDashboard)
+    setTracks(tracksDashboard)
   }, [tracksDashboard, setTracks])
 
   return (
@@ -21,7 +21,7 @@ const Songs = ({ tracksDashboard }) => {
         </div>
         <div className='songs__container'>
           {tracks && tracks.map((track) => (
-            <div><Song key={track._id} track={track} /></div>
+            <div key={track._id}><Song key={track._id} track={track} /></div>
           ))}
           {!tracks && <div className='skeleton__track'>
             <div className='skeleton__track__single'></div>
@@ -30,7 +30,7 @@ const Songs = ({ tracksDashboard }) => {
             <div className='skeleton__track__single'></div>
             <div className='skeleton__track__single'></div>
             <div className='skeleton__track__single'></div>
-            </div>}
+          </div>}
         </div>
       </div>
     </>
