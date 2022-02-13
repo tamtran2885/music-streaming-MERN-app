@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import star from "../../assets/images/star.svg";
 import staractive from "../../assets/images/staractive.svg";
 import menu from "../../assets/images/menu.svg";
-import { useAuth } from "../../context/authContext";
 import {
   addLike,
   removeLike,
@@ -15,17 +14,32 @@ import {
   setCurrentTrack,
   getSingleTrack,
 } from "../../redux/audioPlay/actions";
+import {
+  getPlaylistDetails,
+  getCurrentPlaylistInfo,
+} from "../../redux/playlist/actions";
+import axios from "axios";
 
-const PlaylistTrackRow = ({ track }) => {
+const PlaylistTrackRow = ({ track, playlistInfo }) => {
   const userId = localStorage.getItem("userId");
   const dispatch = useDispatch();
-  const { user } = useAuth();
   const uid = userId;
 
   const { title, album, duration, genre, artist, likes, _id } = track;
 
-  const handleDelete = () => {
-    console.log("delete track");
+  const handleDelete = async (_id, playlistId) => {
+    // console.log("delete" + _id);
+    console.log(playlistId);
+    try {
+      await axios.delete(
+        `http://localhost:4000/api/tracks/deleteFromPlaylist/${_id}?playlistId=${playlistId}`
+      );
+      dispatch(getPlaylistDetails(playlistId));
+      dispatch(getCurrentPlaylistInfo(playlistId));
+      console.log(_id);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const checkLike = (uid) => {
@@ -35,8 +49,6 @@ const PlaylistTrackRow = ({ track }) => {
       return true;
     }
   };
-
-  // console.log(checkLike(uid));
 
   const [like, setLike] = useState(checkLike(uid));
 
@@ -104,10 +116,7 @@ const PlaylistTrackRow = ({ track }) => {
         <button className="song__edit__button" type="button">
           <img className="song__edit__icon" src={menu} alt="Menu" />
           <div className="float__menu">
-            <button
-              onClick={(event) => handleDelete(track._id)}
-              className="nav__link"
-            >
+            <button onClick={handleDelete} className="nav__link">
               Delete
             </button>
           </div>
