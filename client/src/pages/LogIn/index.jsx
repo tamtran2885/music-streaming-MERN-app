@@ -26,15 +26,8 @@ const Login = () => {
                 sessionStorage.setItem("userId", userFBid)
             })
 
-            const authToken = sessionStorage.getItem("token")
-            const config = {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    Authorization: "Bearer " + authToken
-                },
-            };
+            sessionStorage.getItem("token")
 
-            user ? await axios.put("http://localhost:4000/api/user/loggedIn", config) : console.log("Authentication problem")
             navigate("/")
 
         } catch (error) {

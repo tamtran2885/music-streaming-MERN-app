@@ -36,12 +36,7 @@ const AddTrack = () => {
         e.preventDefault();
         setErrors(trackValidation(values))
 
-        const config = {
-            header: {
-                "Content-Type": "multipart/form-data",
-                Authorization: "Bearer " + loggedToken
-            },
-        };
+
 
         const formData = new FormData();
         formData.append("title", values.title);
@@ -56,7 +51,11 @@ const AddTrack = () => {
         // console.log(Object.fromEntries(formData.entries()));
 
         try {
-            await axios.post("http://localhost:4000/api/tracks", formData, config)
+            await axios.post("http://localhost:4000/api/tracks", formData, {
+                headers: {
+                    Authorization: "Bearer " + sessionStorage.getItem("token"),
+                },
+            })
             navigate("/")
         } catch (e) {
             console.log(e.message);
