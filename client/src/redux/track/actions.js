@@ -56,7 +56,11 @@ export const addLike = (trackId, firebaseUser) => {
     try {
       const response = await axios.put(
         `http://localhost:4000/api/tracks/like/${trackId}?firebaseUser=${firebaseUser}`,
-        config
+        {
+          headers: {
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
+          },
+        }
       );
       dispatch(updateLikes(response));
       dispatch(getAllTracks());
@@ -72,7 +76,11 @@ export const removeLike = (trackId, firebaseUser) => {
     try {
       const response = await axios.put(
         `http://localhost:4000/api/tracks/unlike/${trackId}?firebaseUser=${firebaseUser}`,
-        config
+        {
+          headers: {
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
+          },
+        }
       );
       dispatch(updateLikes(response));
       dispatch(getAllTracks());
@@ -92,7 +100,11 @@ export const updateLikes = (response) => ({
 export const deleteSingleTrack = (trackId) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`http://localhost:4000/api/tracks/${trackId}`, config);
+      await axios.delete(`http://localhost:4000/api/tracks/${trackId}`, {
+        headers: {
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
+      });
       dispatch(deleteTrack(trackId));
       console.log(trackId);
     } catch (err) {
@@ -112,7 +124,11 @@ export const getFavTracksByUser = (userId) => {
     try {
       const response = await axios.get(
         `http://localhost:4000/api/tracks/likedByUser/${userId}`,
-        config
+        {
+          headers: {
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
+          },
+        }
       );
       // console.log(response);
       dispatch(setFavTracksByUser(response.data.tracksInfo));
