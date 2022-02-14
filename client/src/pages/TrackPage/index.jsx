@@ -6,13 +6,13 @@ import Albums from '../../components/Albums';
 import MusicPlayer from '../../components/MusicPlayer';
 import TrackRows from "../../components/TrackRows";
 import upload from "../../assets/images/upload.svg";
-import { getFavTracksByUser } from "../../redux/track/actions";
+import { getFavTracksByUser, getAllTracks, getTracksByUser } from "../../redux/track/actions";
 
 import { useAuth } from "../../context/authContext";
 import { useSelector } from "react-redux";
 import { connect, useDispatch } from "react-redux";
 
-const TrackPage = () => {
+const TrackPage = ({allTracks, myTracks }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { user } = useAuth();
@@ -25,20 +25,18 @@ const TrackPage = () => {
         }
         if (loggedToken) {
             setTimeout(async () => {
+                dispatch(getAllTracks());
+                dispatch(getTracksByUser(userId));
                 dispatch(getFavTracksByUser(userId));
             }, 3000)
         }
     })
 
-    const allTracks = useSelector((state) => state.track.allTracks.data);
-    const myTracks = useSelector((state) => state.track.myTracks.data);
-    // const favTracksByUser = useSelector((state) => state.track.favTracksByUser);
-
     const [totalTracks, setTotalTracks] = useState([]);
 
     useEffect(() => {
-        setTotalTracks(myTracks);
-    }, [myTracks])
+        setTotalTracks(allTracks);
+    }, [allTracks])
 
     const handlePopular = () => {
         // console.log("allTracks")
@@ -81,6 +79,14 @@ const TrackPage = () => {
     )
 }
 
+const mapStateToProps = state => {
+    return {
+        allTracks: state.track.allTracks.data,
+        myTracks: state.track.myTracks.data,
+        // favTracksByUser: state.track.favTracksByUser.data,
+    }
+}
 
+const reduxHoc = connect(mapStateToProps)
 
-export default TrackPage;
+export default reduxHoc(TrackPage);

@@ -5,14 +5,12 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { Draggable } from 'react-beautiful-dnd';
 import MusicPlayer from '../../components/MusicPlayer';
 
-const CreatedPlaylists = ({myPlaylists}) => {
+const CreatedPlaylists = ({totalPlaylists}) => {
 
   const [myCreatedPlaylists, setMyCreatedPlaylists] = useState([])
   useEffect(() => {
-    setMyCreatedPlaylists(myPlaylists)
-  }, [setMyCreatedPlaylists, myPlaylists])
-
-  // console.log(myCreatedPlaylists)
+    setMyCreatedPlaylists(totalPlaylists)
+  }, [setMyCreatedPlaylists, totalPlaylists])
 
   return (
   <><div className='created__playlists__absolute'>

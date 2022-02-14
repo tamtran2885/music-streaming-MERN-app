@@ -83,8 +83,8 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
     } catch (err) {
       console.error(err);
     }
-    dispatch(getAllPlaylists());
-    dispatch(getPlaylistsByUser(firebaseUser));
+    // dispatch(getAllPlaylists());
+    // dispatch(getPlaylistsByUser(firebaseUser));
   };
 
   return (

@@ -3,6 +3,7 @@ const initialState = {
   myPlaylists: [],
   currentPlaylist: [],
   currentPlaylistInfo: {},
+  myFollowingPlaylists: [],
   loading: true,
   error: {},
 };

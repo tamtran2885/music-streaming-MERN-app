@@ -20,15 +20,9 @@ const Dashboard = ({ myPlaylists, myTracks, allPlaylists, allTracks }) => {
     const { user } = useAuth();
     const [mongoUser, setMongoUser] = useState({});
     const loggedToken = sessionStorage.getItem("token");
+    const userId = sessionStorage.getItem("userId");
 
     useEffect(() => {
-        const loggedToken = sessionStorage.getItem("token");
-    }, []);
-
-
-    useEffect(() => {
-
-        const userId = sessionStorage.getItem("userId");
         if (!loggedToken) {
             navigate("/login")
         }
