@@ -18,8 +18,11 @@ const AlbumSchema = new Schema({
     type: Number,
   },
   tracks: {
-    type: Schema.Types.ObjectId,
-    ref: "tracks",
+    type: [
+      {
+          trackId: String,
+      },
+    ],
   },
   firebaseUser: {
     type: String
