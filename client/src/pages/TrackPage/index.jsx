@@ -8,15 +8,12 @@ import TrackRows from "../../components/TrackRows";
 import upload from "../../assets/images/upload.svg";
 import { getFavTracksByUser } from "../../redux/track/actions";
 import close from "../../assets/images/close.svg";
-
-import { useAuth } from "../../context/authContext";
 import { useSelector } from "react-redux";
-import { connect, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const TrackPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { user } = useAuth();
     const loggedToken = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
 
@@ -149,7 +146,7 @@ const TrackPage = () => {
               </div>
             </div>
           </div>
-          <MusicPlayer />
+          {/* <MusicPlayer /> */}
       </div>
     </>
     )

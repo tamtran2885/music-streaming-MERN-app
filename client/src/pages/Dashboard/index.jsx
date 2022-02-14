@@ -82,7 +82,7 @@ const Dashboard = ({ myPlaylists, myTracks, allPlaylists, allTracks }) => {
                         {/* <Albums /> */}
                     </div>
                 </div>
-                <MusicPlayer />
+                {/* <MusicPlayer /> */}
             </div>
         </>
     )

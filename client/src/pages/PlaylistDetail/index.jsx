@@ -112,7 +112,7 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
                         <PlaylistTrackRows playlistTrack={playlistTrack} playlistInfo={playlistInfo}/>
                     </div>
                 </div>
-                <MusicPlayer />
+                {/* <MusicPlayer /> */}
             </div>
         </>
     )
