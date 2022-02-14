@@ -54,6 +54,8 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
         }
     };
 
+    console.log(currentPlaylistInfo)
+
     const [follow, setFollow] = useState(checkFollow(uid));
 
     const handleToggle = () => {

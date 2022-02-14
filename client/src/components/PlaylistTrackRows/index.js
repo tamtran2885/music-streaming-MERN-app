@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PlaylistTrackRow from "../PlaylistTrackRow";
 import OrderNumber from "../OrderNumber";
-import axios from "axios";
 
 const PlaylistTrackRows = ({ playlistTrack, playlistInfo }) => {
   const [tracks, setTracks] = useState([]);
@@ -23,8 +22,7 @@ const PlaylistTrackRows = ({ playlistTrack, playlistInfo }) => {
     }
     return;
   };
-
-  // console.log(trackNumber());
+  // console.log(playlistInfo);
 
   return (
     <>

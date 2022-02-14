@@ -11,6 +11,7 @@ import {
   SET_CURRENT_PLAYLIST_INFO,
 } from "./types";
 import axios from "axios";
+const token = sessionStorage.getItem("token");
 
 // Get all playlists
 export const getAllPlaylists = () => {
@@ -68,7 +69,12 @@ export const getCurrentPlaylistInfo = (playlistId) => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/playlists/${playlistId}`
+        `http://localhost:4000/api/playlists/${playlistId}`,
+        {
+          headers: {
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
+          },
+        }
       );
       dispatch(setCurrentPlaylistInfo(response));
     } catch (err) {
@@ -87,7 +93,12 @@ export const followPlaylist = (playlistId, firebaseUser) => {
   return async (dispatch) => {
     try {
       await axios.put(
-        `http://localhost:4000/api/playlists/follow/${playlistId}?firebaseUser=${firebaseUser}`
+        `http://localhost:4000/api/playlists/follow/${playlistId}?firebaseUser=${firebaseUser}`,
+        {
+          headers: {
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
+          },
+        }
       );
       // dispatch(updateLikes(response));
       dispatch(getAllPlaylists());
@@ -102,7 +113,12 @@ export const unfollowPlaylist = (playlistId, firebaseUser) => {
   return async (dispatch) => {
     try {
       await axios.put(
-        `http://localhost:4000/api/playlists/unfollow/${playlistId}?firebaseUser=${firebaseUser}`
+        `http://localhost:4000/api/playlists/unfollow/${playlistId}?firebaseUser=${firebaseUser}`,
+        {
+          headers: {
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
+          },
+        }
       );
       // dispatch(updateLikes(response));
       dispatch(getAllPlaylists());

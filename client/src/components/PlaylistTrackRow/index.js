@@ -20,22 +20,28 @@ import {
 } from "../../redux/playlist/actions";
 import axios from "axios";
 
-const PlaylistTrackRow = ({ track }) => {
+const PlaylistTrackRow = ({ track, playlistInfo }) => {
   const userId = sessionStorage.getItem("userId");
   const dispatch = useDispatch();
   const uid = userId;
 
   const { title, album, duration, genre, artist, likes, _id } = track;
 
-  const handleDelete = async (_id, playlistId) => {
-    // console.log("delete" + _id);
-    console.log(playlistId);
+  // console.log(playlistInfo);
+
+  const handleDelete = async () => {
+    console.log("delete");
     try {
-      await axios.delete(
-        `http://localhost:4000/api/tracks/deleteFromPlaylist/${_id}?playlistId=${playlistId}`
+      await axios.put(
+        `http://localhost:4000/api/tracks/deleteFromPlaylist/${_id}?playlistId=${playlistInfo._id}`,
+        {
+          headers: {
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
+          },
+        }
       );
-      dispatch(getPlaylistDetails(playlistId));
-      dispatch(getCurrentPlaylistInfo(playlistId));
+      dispatch(getPlaylistDetails(playlistInfo._id));
+      dispatch(getCurrentPlaylistInfo(playlistInfo._id));
       console.log(_id);
     } catch (err) {
       console.log(err);

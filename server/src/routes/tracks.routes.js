@@ -16,8 +16,7 @@ import {
 } from "../controllers/tracksController.js";
 import uploadTrack from "../utils/multerTracks.js";
 import upload from "../utils/multer.js";
-import middleware from "../middlewares/index.js"
-
+import middleware from "../middlewares/index.js";
 
 export const tracksRoutes = Router();
 

@@ -6,18 +6,18 @@ import Albums from '../../components/Albums';
 import MusicPlayer from '../../components/MusicPlayer';
 import TrackRows from "../../components/TrackRows";
 import upload from "../../assets/images/upload.svg";
-import { getFavTracksByUser, getAllTracks, getTracksByUser } from "../../redux/track/actions";
+import { getFavTracksByUser } from "../../redux/track/actions";
 
 import { useAuth } from "../../context/authContext";
 import { useSelector } from "react-redux";
 import { connect, useDispatch } from "react-redux";
 
-const TrackPage = ({allTracks, myTracks }) => {
+const TrackPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { user } = useAuth();
-    const loggedToken = sessionStorage.getItem("token");
-    const userId = sessionStorage.getItem("userId");
+    const loggedToken = localStorage.getItem("token");
+    const userId = localStorage.getItem("userId");
 
     useEffect(() => {
         if (!loggedToken) {
@@ -25,18 +25,20 @@ const TrackPage = ({allTracks, myTracks }) => {
         }
         if (loggedToken) {
             setTimeout(async () => {
-                dispatch(getAllTracks());
-                dispatch(getTracksByUser(userId));
                 dispatch(getFavTracksByUser(userId));
             }, 3000)
         }
     })
 
+    const allTracks = useSelector((state) => state.track.allTracks.data);
+    const myTracks = useSelector((state) => state.track.myTracks.data);
+    // const favTracksByUser = useSelector((state) => state.track.favTracksByUser);
+
     const [totalTracks, setTotalTracks] = useState([]);
 
     useEffect(() => {
-        setTotalTracks(allTracks);
-    }, [allTracks])
+        setTotalTracks(myTracks);
+    }, [myTracks])
 
     const handlePopular = () => {
         // console.log("allTracks")
@@ -56,7 +58,7 @@ const TrackPage = ({allTracks, myTracks }) => {
     return (
         <>
             <div className='dashboard__background'>
-                <Navbar page="Songs" handleMine={handleMine} handlePopular={handlePopular} />
+                <Navbar page="Songs" handleMine={handleMine} handlePopular={handlePopular}/>
                 <div className='tracks__absolute'>
                     <div className='tracks__display'>
                         <div className="tracks__title">
@@ -79,14 +81,6 @@ const TrackPage = ({allTracks, myTracks }) => {
     )
 }
 
-const mapStateToProps = state => {
-    return {
-        allTracks: state.track.allTracks.data,
-        myTracks: state.track.myTracks.data,
-        // favTracksByUser: state.track.favTracksByUser.data,
-    }
-}
 
-const reduxHoc = connect(mapStateToProps)
 
-export default reduxHoc(TrackPage);
+export default TrackPage;

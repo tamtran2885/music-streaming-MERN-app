@@ -3,7 +3,6 @@ import star from "../../assets/images/star.svg";
 import staractive from "../../assets/images/staractive.svg";
 import menu from "../../assets/images/menu.svg";
 import { useSelector, useDispatch } from "react-redux";
-import { useAuth } from "../../context/authContext";
 import {
   getAllPlaylists,
   getPlaylistsByUser,
@@ -18,7 +17,6 @@ import {
 
 const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
   const dispatch = useDispatch();
-  const { user } = useAuth();
   const loggedToken = sessionStorage.getItem("token");
   const userId = sessionStorage.getItem("userId");
   const uid = userId;
@@ -83,8 +81,8 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
     } catch (err) {
       console.error(err);
     }
-    // dispatch(getAllPlaylists());
-    // dispatch(getPlaylistsByUser(firebaseUser));
+    dispatch(getAllPlaylists());
+    dispatch(getPlaylistsByUser(firebaseUser));
   };
 
   return (
@@ -100,7 +98,6 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
         </button>
       </div>
       <div className="song__like">
-        {/* <img className="song__like__icon" src={star} alt="" /> */}
         {like === false ? (
           <img
             className="song__like__icon"

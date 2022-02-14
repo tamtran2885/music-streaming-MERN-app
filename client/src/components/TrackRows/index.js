@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import ReadOnlyTrackRow from "../ReadOnlyTrackRow";
 import EditTrackRow from "../EditTrackRow";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import OrderNumber from "../OrderNumber";
 
 import axios from "axios";
-import { useAuth } from "../../context/authContext";
+import { getAllTracks, getTracksByUser } from "../../redux/track/actions";
 
 const TrackRows = ({ totalTracks }) => {
+  const dispatch = useDispatch();
   // get token
-  const { user } = useAuth();
   const loggedToken = sessionStorage.getItem("token");
+  const userId = sessionStorage.getItem("userId");
 
   // Set state
   const [tracksInfo, setTracksInfo] = useState([]);
@@ -92,6 +93,8 @@ const TrackRows = ({ totalTracks }) => {
     // console.log("delete" + _id);
     try {
       await axios.delete(`http://localhost:4000/api/tracks/${_id}`, config);
+      dispatch(getAllTracks());
+      dispatch(getTracksByUser(userId));
       console.log(_id);
     } catch (err) {
       console.log(err);
