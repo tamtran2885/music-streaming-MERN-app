@@ -14,8 +14,6 @@ export const getTracks = async (req, res) => {
   }
 };
 
-
-
 //? ADDING NEW TRACK IN USERS COLLECTION
 export const addTracksToUser = async (req, res, track) => {
   try {
@@ -95,20 +93,64 @@ export const getTrackById = async (req, res) => {
 //? DELETE TRACK
 export const deleteTrack = async (req, res) => {
   try {
+    const trackId = req.params.trackId;
+
     //? FIND A TRACK BY ID
-    const track = await Tracks.findById(req.params.trackId);
+    const track = await Tracks.findById(trackId);
 
     //? DELETE IMAGE FROM CLOUDINARY
-    // console.log(track.cloudinaryId);
     await cloudinary.v2.uploader.destroy(track.cloudinaryId, {
       resource_type: "video",
     });
 
-    //? DELETE USER FROM DB
-    await track.remove();
-    // await getTracks();
+    // ? DELETE TRACK TO ALBUMS
+    const album = track.album
+    const trackInAlbum = await Album.findById(album);
 
-    res.json({ message: "Track deleted", track });
+    const removeIndex = trackInAlbum.tracks
+      .map((track) => track.trackId)
+      .indexOf(trackId);
+    trackInAlbum.tracks.splice(removeIndex, 1);
+
+    await trackInAlbum.save();
+
+    // ? DELETE TRACK TO PLAYLIST
+    const trackInPlaylist = await Playlist.find()
+    console.log(trackInPlaylist)
+
+    const array = [];
+    trackInPlaylist.map((x) => array.push(x._id));
+
+    const tracksInfo = [];
+
+    for (let i = 0; i < array.length; i++) {
+      const tracks = await Playlist.findById(array[i]);
+      const removeIndex = tracks.tracks
+        .map((track) => track.trackId)
+        .indexOf(trackId);
+      tracks.tracks.splice(removeIndex, 1);
+      await tracks.save();
+    }
+
+    //? DELETE TRACK TO USER
+    const userId = track.user
+    const user = await User.findById(userId)
+
+    const removeUpload = user.uploadedTracks
+        .map((track) => track)
+        .indexOf(trackId);
+    user.uploadedTracks.splice(removeUpload, 1);
+
+    const removeFav = user.favTrackList
+        .map((track) => track.trackId)
+        .indexOf(trackId);
+      user.favTrackList.splice(removeFav, 1);
+
+    await user.save();
+
+    //? DELETE TRACK FROM DB
+    await track.remove();
+    res.json({ message: "Track deleted", array });
   } catch (error) {
     console.log(error);
   }
@@ -116,19 +158,17 @@ export const deleteTrack = async (req, res) => {
 
 // TODO UPDATE TRACK
 export const updateTrack = async (req, res) => {
-  // console.log(req.body);
-  // console.log(req.params.trackId);
   try {
     const url = req.params.trackId;
     const track = await Tracks.findById(url);
 
-    // //? DELETE IMAGE FROM CLOUDINARY IF THE USER CHANGES IT AT PROFILE
-    // await cloudinary.v2.uploader.destroy(track.cloudinaryId, {
-    //   resource_type: "video",
-    // });
-    // const result = await cloudinary.v2.uploader.upload(req.file.path, {
-    //   resource_type: "auto",
-    // });
+    // ? DELETE IMAGE FROM CLOUDINARY IF THE USER CHANGES IT AT PROFILE
+    await cloudinary.v2.uploader.destroy(track.cloudinaryId, {
+      resource_type: "video",
+    });
+    const result = await cloudinary.v2.uploader.upload(req.file.path, {
+      resource_type: "auto",
+    });
 
     const dataTrack = {
       title: req.body.title || track.title,
@@ -158,7 +198,6 @@ export const updateTrack = async (req, res) => {
 
 // GET TRACKS BY USER
 export const getTracksByUser = async (req, res) => {
-  // console.log(req.query);
   try {
     const param = req.query.firebaseUser;
     const tracks = await Tracks.find({
@@ -266,7 +305,6 @@ export const addTrackToPlaylist = async (req, res, next) => {
 };
 
 // ?DELETE TRACK IN PLAYLIST
-
 export const deleteTrackFromPlaylist = async (req, res, next) => {
   const query = req.query.playlistId;
   const param = req.params.trackId;
@@ -284,7 +322,7 @@ export const deleteTrackFromPlaylist = async (req, res, next) => {
   }
 };
 
-//TODO GET TRACK DETAILS IN MY FAVORITES
+//? GET TRACK DETAILS IN MY FAVORITES
 export const getTrackDetailsInFav = async (req, res, next) => {
   const firebaseId = req.params.userId;
   try {
@@ -307,9 +345,7 @@ export const getTrackDetailsInFav = async (req, res, next) => {
   }
 };
 
-
 //? ADDING ONE TO REPRODUCTION COUNTER
-
 export const reproductionsCounter = async (req, res, next) => {
 
   try {
@@ -327,7 +363,6 @@ export const reproductionsCounter = async (req, res, next) => {
 }
 
 //? ADD TRACK TO ALBUM
-
 export const trackToAlbum = async (req, res, next) => {
   try {
     const trackId = req.params.trackId
@@ -341,11 +376,9 @@ export const trackToAlbum = async (req, res, next) => {
     }
     album.tracks.unshift({ trackId: trackId });
 
-    res.status(200).json({ msg: "Track added" });
     await album.save();
 
     // ALBUM TO TRACK
-
     const track = await Tracks.findById(trackId);
     const albumTrack = track.album;
 
