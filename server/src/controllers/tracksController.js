@@ -2,6 +2,7 @@ import Tracks from "../models/Tracks.js";
 import cloudinary from "../utils/cloudinary.js";
 import User from "../models/User.js";
 import Playlist from "../models/Playlist.js";
+import Album from "../models/Album.js";
 
 //? GET ALL TRACKS
 export const getTracks = async (req, res) => {
@@ -317,13 +318,49 @@ export const reproductionsCounter = async (req, res, next) => {
     const updateReproductions = await Tracks.findByIdAndUpdate(trackId, data, {
       new: true,
     });
-    res
-      .status(200)
-      .json({
-        message: "This song has been reproduced one more time",
-        updateReproductions,
-      });
+    res.status(200).json({
+      message: "This song has been reproduced one more time",
+      updateReproductions,
+    });
   } catch (error) {
     console.log(error);
   }
+};
+
+//? ADD TRACK TO ALBUM
+
+export const trackToAlbum = async (req, res, next) => {
+  try {
+    const trackId = req.params.trackId;
+    const albumId = req.query.albumId;
+    // TRACK TO ALBUM
+    const album = await Album.findById(albumId);
+    console.log(album);
+
+    if (album.tracks.filter((track) => track.trackId === trackId).length > 0) {
+      return res.status(400).json({ msg: "Track has been added" });
+    }
+    album.tracks.unshift({ trackId: trackId });
+
+    res.status(200).json({ msg: "Track added" });
+    await album.save();
+
+    // ALBUM TO TRACK
+
+    const track = await Tracks.findById(trackId);
+    const albumTrack = track.album;
+
+    const trackWithAlbum = {
+      album: albumId,
+    };
+
+    const updateTrack = await Tracks.findOneAndUpdate(track, trackWithAlbum, {
+      new: true,
+    });
+
+    res.status(200).json({ msg: "Album added", updateTrack });
+  } catch (error) {
+    console.log(error);
+  }
+  next();
 };

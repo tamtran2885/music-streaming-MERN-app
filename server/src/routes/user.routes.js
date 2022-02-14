@@ -17,15 +17,15 @@ export const userRoutes = Router();
 
 
 // ? GET USERS
-userRoutes.get("/", middleware.decodeToken, getUsers);
+userRoutes.get("/", getUsers);
 
-userRoutes.post("/loggedIn", middleware.decodeToken, LogIn);
+userRoutes.post("/loggedIn", LogIn);
 
 // ? CREATE USER
-userRoutes.post("/", middleware.decodeToken, upload.single("profile"), createUser);
+userRoutes.post("/", upload.single("profile"), createUser);
 
 //? GET USER BY ID
-userRoutes.get("/:userId", middleware.decodeToken, getUserById);
+userRoutes.get("/:userId", getUserById);
 
 //? UPDATE USER BY ID
 userRoutes.put("/:userId", upload.single("profile"), updateUser);
