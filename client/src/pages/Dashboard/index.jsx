@@ -4,7 +4,6 @@ import Playlists from '../../components/Playlists';
 import Songs from '../../components/Songs';
 import Genres from '../../components/Genres';
 // import Albums from '../../components/Albums';
-import MusicPlayer from '../../components/MusicPlayer';
 import { useNavigate } from "react-router-dom"
 
 import { connect, useDispatch } from "react-redux";
@@ -20,15 +19,9 @@ const Dashboard = ({ myPlaylists, myTracks, allPlaylists, allTracks }) => {
     const { user } = useAuth();
     const [mongoUser, setMongoUser] = useState({});
     const loggedToken = sessionStorage.getItem("token");
+    const userId = sessionStorage.getItem("userId");
 
     useEffect(() => {
-        const loggedToken = sessionStorage.getItem("token");
-    }, []);
-
-
-    useEffect(() => {
-
-        const userId = sessionStorage.getItem("userId");
         if (!loggedToken) {
             navigate("/login")
         }
@@ -57,7 +50,6 @@ const Dashboard = ({ myPlaylists, myTracks, allPlaylists, allTracks }) => {
 
     const [tracksDashboard, setTracksDashboard] = useState([]);
     const [playlistsDashboard, setPlaylistsDashboard] = useState([]);
-    const [searchWord, setSearchWord] = useState("");
 
     useEffect(() => {
         setTracksDashboard(allTracks);
@@ -74,14 +66,10 @@ const Dashboard = ({ myPlaylists, myTracks, allPlaylists, allTracks }) => {
         setPlaylistsDashboard(myPlaylists)
     };
 
-    // const filterdTracks = playlistsDashboard.filter((track) => {
-    //     return track.name.toLowerCase().includes(searchWord.toLowerCase())
-    // })
-
     return (
         <>
             <div className='dashboard__background'>
-                <Navbar page="Popular Now" handleMine={handleMine} handlePopular={handlePopular} mongoUser={mongoUser} setSearchWord={setSearchWord} />
+                <Navbar page="Popular Now" handleMine={handleMine} handlePopular={handlePopular} mongoUser={mongoUser} />
                 {/*<h1>Welcome {mongoUser.firstName}!</h1>*/}
                 <div className='dashboard__absolute'>
                     <div className='dashboard__display'>
@@ -93,7 +81,6 @@ const Dashboard = ({ myPlaylists, myTracks, allPlaylists, allTracks }) => {
                         {/* <Albums /> */}
                     </div>
                 </div>
-                <MusicPlayer />
             </div>
         </>
     )

@@ -1,8 +1,7 @@
 import axios from "axios";
-const token = sessionStorage.getItem("token");
+// const token = sessionStorage.getItem("token");
 
-
-console.log(token)
+// console.log(token);
 
 export const fetchTracks = () =>
   new Promise((resolve) => {

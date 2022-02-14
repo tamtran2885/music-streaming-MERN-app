@@ -1,30 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-// import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Navbar from "../../components/Navbar";
-
-// import MusicPlayer from "../../components/MusicPlayer";
-
 import CreatedPlaylists from "../../components/CreatedPlaylists";
+import { connect, useDispatch } from "react-redux";
+import {
+  getAllPlaylists,
+  getPlaylistsByUser,
+} from "../../redux/playlist/actions";
 
-import { useAuth } from "../../context/authContext";
+const PlaylistPage = ({ myPlaylists }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const loggedToken = sessionStorage.getItem("token");
+  const userId = sessionStorage.getItem("userId");
 
-import { useSelector } from "react-redux";
+  useEffect(() => {
+    if (!loggedToken) {
+      navigate("/login");
+    }
+    if (loggedToken) {
+      setTimeout(async () => {
+        dispatch(getAllPlaylists());
+        dispatch(getPlaylistsByUser(userId));
+      }, 3000);
+    }
+  }, [dispatch]);
 
-const PlaylistPage = () => {
-  const { user } = useAuth();
+  const [totalPlaylists, setAllPlaylists] = useState([]);
 
-  const myPlaylists = useSelector((state) => state.playlist.myPlaylists.data);
+  useEffect(() => {
+    setAllPlaylists(myPlaylists);
+  }, [myPlaylists]);
 
   return (
     <>
       <div className="dashboard__background">
         <Navbar page="Playlists" />
-        <CreatedPlaylists myPlaylists={myPlaylists} />
+        <CreatedPlaylists totalPlaylists={totalPlaylists} />
       </div>
     </>
   );
 };
 
-export default PlaylistPage;
+const mapStateToProps = (state) => {
+  return {
+    allPlaylists: state.playlist.allPlaylists.data,
+    myPlaylists: state.playlist.myPlaylists.data,
+    // myFollowingPlaylists: state.playlist.myFollowingPlaylists.data
+  };
+};
+
+const reduxHoc = connect(mapStateToProps);
+
+export default reduxHoc(PlaylistPage);

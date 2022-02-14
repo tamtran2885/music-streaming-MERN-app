@@ -3,12 +3,15 @@ import star from "../../assets/images/star.svg";
 import staractive from "../../assets/images/staractive.svg";
 import menu from "../../assets/images/menu.svg";
 import { useSelector, useDispatch } from "react-redux";
-import { useAuth } from "../../context/authContext";
 import {
   getAllPlaylists,
   getPlaylistsByUser,
 } from "../../redux/playlist/actions";
-import { addLike, removeLike } from "../../redux/track/actions";
+import {
+  addLike,
+  removeLike,
+  addReproductionsCounter,
+} from "../../redux/track/actions";
 import axios from "axios";
 import {
   setTracks,
@@ -18,7 +21,6 @@ import {
 
 const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
   const dispatch = useDispatch();
-  const { user } = useAuth();
   const loggedToken = sessionStorage.getItem("token");
   const userId = sessionStorage.getItem("userId");
   const uid = userId;
@@ -63,6 +65,7 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
     dispatch(setCurrentTrack(track));
     dispatch(getSingleTrack(_id));
     dispatch(setTracks(track));
+    dispatch(addReproductionsCounter(_id, uid));
   };
 
   const config = {
@@ -74,6 +77,7 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
 
   const handleChange = async (e) => {
     const playlistId = e.target.value;
+    // console.log(playlistId);
     try {
       await axios.put(
         `http://localhost:4000/api/tracks/addToPlaylist/${_id}?playlistId=${playlistId}`,
@@ -84,7 +88,7 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
       console.error(err);
     }
     dispatch(getAllPlaylists());
-    dispatch(getPlaylistsByUser(firebaseUser));
+    dispatch(getPlaylistsByUser(userId));
   };
 
   return (
@@ -100,7 +104,6 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
         </button>
       </div>
       <div className="song__like">
-        {/* <img className="song__like__icon" src={star} alt="" /> */}
         {like === false ? (
           <img
             className="song__like__icon"

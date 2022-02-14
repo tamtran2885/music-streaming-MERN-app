@@ -14,6 +14,7 @@ import TrackPage from "./pages/TrackPage";
 import PlaylistPage from "./pages/PlaylistPage";
 import ResetPassword from "./pages/ResetPassword";
 import PlaylistDetail from "./pages/PlaylistDetail";
+import MusicPlayer from "./components/MusicPlayer";
 
 import { AuthProvider } from "./context/authContext";
 
@@ -57,6 +58,7 @@ function App() {
             element={<ResetPassword />}
           />
         </Routes>
+        <MusicPlayer />
       </AuthProvider>
     </div>
   );

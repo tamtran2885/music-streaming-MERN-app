@@ -3,29 +3,52 @@ import { useDispatch } from "react-redux";
 import star from "../../assets/images/star.svg";
 import staractive from "../../assets/images/staractive.svg";
 import menu from "../../assets/images/menu.svg";
-import { useAuth } from "../../context/authContext";
 import {
   addLike,
   removeLike,
   getAllTracks,
   getTracksByUser,
+  addReproductionsCounter,
 } from "../../redux/track/actions";
 import {
   setTracks,
   setCurrentTrack,
   getSingleTrack,
 } from "../../redux/audioPlay/actions";
+import {
+  getPlaylistDetails,
+  getCurrentPlaylistInfo,
+} from "../../redux/playlist/actions";
+import axios from "axios";
 
-const PlaylistTrackRow = ({ track }) => {
+const PlaylistTrackRow = ({ track, playlistInfo }) => {
   const userId = sessionStorage.getItem("userId");
   const dispatch = useDispatch();
-  const { user } = useAuth();
   const uid = userId;
 
-  const { title, album, duration, genre, artist, likes, _id } = track;
+  const { title, album, duration, genre, artist, likes, _id, reproductions } =
+    track;
 
-  const handleDelete = () => {
-    console.log("delete track");
+  // console.log(playlistInfo);
+  console.log(track);
+
+  const handleDelete = async () => {
+    console.log("delete");
+    try {
+      await axios.put(
+        `http://localhost:4000/api/tracks/deleteFromPlaylist/${_id}?playlistId=${playlistInfo._id}`,
+        {
+          headers: {
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
+          },
+        }
+      );
+      dispatch(getPlaylistDetails(playlistInfo._id));
+      dispatch(getCurrentPlaylistInfo(playlistInfo._id));
+      console.log(_id);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const checkLike = (uid) => {
@@ -35,8 +58,6 @@ const PlaylistTrackRow = ({ track }) => {
       return true;
     }
   };
-
-  // console.log(checkLike(uid));
 
   const [like, setLike] = useState(checkLike(uid));
 
@@ -59,6 +80,7 @@ const PlaylistTrackRow = ({ track }) => {
     dispatch(setCurrentTrack(track));
     dispatch(getSingleTrack(_id));
     dispatch(setTracks(track));
+    dispatch(addReproductionsCounter(_id, uid));
   };
 
   return (
@@ -99,15 +121,14 @@ const PlaylistTrackRow = ({ track }) => {
       </div>
       <div className="song__album">{album ? album : "N/A"}</div>
       <div className="song__popularity">{likes ? likes.length : "N/A"}</div>
-      <div className="song__duration">{duration ? duration : "N/A"}</div>
+      <div className="song__duration">
+        {reproductions ? reproductions : "N/A"}
+      </div>
       <div className="song__edit__container">
         <button className="song__edit__button" type="button">
           <img className="song__edit__icon" src={menu} alt="Menu" />
           <div className="float__menu">
-            <button
-              onClick={(event) => handleDelete(track._id)}
-              className="nav__link"
-            >
+            <button onClick={handleDelete} className="nav__link">
               Delete
             </button>
           </div>

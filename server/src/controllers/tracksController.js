@@ -347,29 +347,33 @@ export const getTrackDetailsInFav = async (req, res, next) => {
 
 //? ADDING ONE TO REPRODUCTION COUNTER
 export const reproductionsCounter = async (req, res, next) => {
-
   try {
-    const trackId = req.params.trackId
-    console.log(trackId)
+    const trackId = req.params.trackId;
+    console.log(trackId);
     const data = {
-      $inc: { reproductions: 1 }
-    }
+      $inc: { reproductions: 1 },
+    };
 
-    const updateReproductions = await Tracks.findByIdAndUpdate(trackId, data, { new: true })
-    res.status(200).json({ message: "This song has been reproduced one more time", updateReproductions })
+    const updateReproductions = await Tracks.findByIdAndUpdate(trackId, data, {
+      new: true,
+    });
+    res.status(200).json({
+      message: "This song has been reproduced one more time",
+      updateReproductions,
+    });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 //? ADD TRACK TO ALBUM
 export const trackToAlbum = async (req, res, next) => {
   try {
-    const trackId = req.params.trackId
-    const albumId = req.query.albumId
+    const trackId = req.params.trackId;
+    const albumId = req.query.albumId;
     // TRACK TO ALBUM
     const album = await Album.findById(albumId);
-    console.log(album)
+    console.log(album);
 
     if (album.tracks.filter((track) => track.trackId === trackId).length > 0) {
       return res.status(400).json({ msg: "Track has been added" });
@@ -383,15 +387,16 @@ export const trackToAlbum = async (req, res, next) => {
     const albumTrack = track.album;
 
     const trackWithAlbum = {
-      album: albumId
-    }
+      album: albumId,
+    };
 
-    const updateTrack = await Tracks.findOneAndUpdate(
-      track, trackWithAlbum, { new: true })
+    const updateTrack = await Tracks.findOneAndUpdate(track, trackWithAlbum, {
+      new: true,
+    });
 
     res.status(200).json({ msg: "Album added", updateTrack });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
   next();
-}
+};

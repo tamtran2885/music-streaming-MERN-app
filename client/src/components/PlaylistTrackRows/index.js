@@ -1,39 +1,46 @@
 import React, { useState, useEffect } from "react";
 import PlaylistTrackRow from "../PlaylistTrackRow";
-import axios from "axios";
+import OrderNumber from "../OrderNumber";
 
-const PlaylistTrackRows = ({ playlistTrack }) => {
+const PlaylistTrackRows = ({ playlistTrack, playlistInfo }) => {
   const [tracks, setTracks] = useState([]);
 
   useEffect(() => {
     setTracks(playlistTrack);
   }, [playlistTrack, setTracks]);
 
-  // const handleDelete = async (_id, playlistId) => {
-  //   // console.log("delete" + _id);
-  //   try {
-  //     await axios.delete(`http://localhost:4000/api/tracks/${_id}?playlistId=${playlistId}`);
-  //     console.log(_id);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  const trackNumber = () => {
+    if (tracks) {
+      return tracks.length;
+    }
+    return;
+  };
+
+  // console.log(tracks);
+  // console.log(playlistInfo);
+
+  const sortTracks = () => {
+    if (tracks) {
+      return [...tracks].sort((a, b) => b.reproductions - a.reproductions);
+    }
+    return;
+  };
 
   return (
     <>
       <div className="trackrow__absolute">
-        {/* <form>
-          <div style={{ marginTop: "20px" }}>
-            <PlaylistTrackRow />
+        {[...Array(trackNumber())].map((e, i) => (
+          <div key={i}>
+            <OrderNumber i={i} />
           </div>
-        </form> */}
-        {tracks &&
-          tracks.map((track) => (
+        ))}
+        {sortTracks() &&
+          sortTracks().map((track) => (
             <div style={{ marginTop: "20px" }}>
               <PlaylistTrackRow
                 key={track._id}
                 track={track}
-                // handleDelete={handleDelete}
+                playlistInfo={playlistInfo}
               />
             </div>
           ))}

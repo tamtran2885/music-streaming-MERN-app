@@ -50,7 +50,7 @@ const Navbar = (props) => {
                     </div>
                     <div className='nav__filters'>
                         <div className='searchbar__container'>
-                            <SearchBar setSearchWord={setSearchWord} />
+                            <SearchBar  />
                         </div>
                         <div className='nav__filters__button'>
                             <button className='button'>I'm feeling lucky!</button>

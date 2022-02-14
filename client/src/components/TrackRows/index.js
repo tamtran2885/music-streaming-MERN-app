@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import ReadOnlyTrackRow from "../ReadOnlyTrackRow";
 import EditTrackRow from "../EditTrackRow";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import OrderNumber from "../OrderNumber";
 
 import axios from "axios";
-import { useAuth } from "../../context/authContext";
+import { getAllTracks, getTracksByUser } from "../../redux/track/actions";
 
 const TrackRows = ({ totalTracks }) => {
+  const dispatch = useDispatch();
   // get token
-  const { user } = useAuth();
   const loggedToken = sessionStorage.getItem("token");
+  const userId = sessionStorage.getItem("userId");
 
   // Set state
   const [tracksInfo, setTracksInfo] = useState([]);
@@ -76,6 +78,8 @@ const TrackRows = ({ totalTracks }) => {
     try {
       await axios.put(`/api/tracks/edit/${editRowId}`, formData, config);
       setEditRowId(null);
+      dispatch(getAllTracks());
+      dispatch(getTracksByUser(userId));
     } catch (e) {
       console.log(e);
     }
@@ -91,17 +95,40 @@ const TrackRows = ({ totalTracks }) => {
     // console.log("delete" + _id);
     try {
       await axios.delete(`http://localhost:4000/api/tracks/${_id}`, config);
+      dispatch(getAllTracks());
+      dispatch(getTracksByUser(userId));
       console.log(_id);
     } catch (err) {
       console.log(err);
     }
   };
 
+  const trackNumber = () => {
+    if (tracksInfo) {
+      return tracksInfo.length;
+    }
+    return;
+  };
+
+  const sortTracks = () => {
+    if (tracksInfo) {
+      return [...tracksInfo].sort((a, b) => b.reproductions - a.reproductions);
+    }
+    return;
+  };
+
+  // console.log(trackNumber());
+
   return (
     <>
       <div className="trackrow__absolute">
-        {tracksInfo &&
-          tracksInfo.map((track) => (
+        {[...Array(trackNumber())].map((e, i) => (
+          <div key={i}>
+            <OrderNumber i={i} />
+          </div>
+        ))}
+        {sortTracks() &&
+          sortTracks().map((track) => (
             <form onSubmit={handleEditFormSubmit}>
               <div style={{ marginTop: "20px" }}>
                 {editRowId === track._id ? (
