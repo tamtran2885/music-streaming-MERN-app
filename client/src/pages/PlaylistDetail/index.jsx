@@ -53,7 +53,7 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
         }
     };
 
-    // console.log(currentPlaylistInfo)
+    console.log(checkFollow(uid))
 
     const [follow, setFollow] = useState(checkFollow(uid));
 

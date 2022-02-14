@@ -11,6 +11,9 @@ import {
   addLike,
   removeLike,
   addReproductionsCounter,
+  getAllTracks,
+  getTracksByUser,
+  getFavTracksByUser,
 } from "../../redux/track/actions";
 import axios from "axios";
 import {
@@ -53,9 +56,15 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
   const handleToggle = () => {
     if (like) {
       dispatch(removeLike(_id, uid));
+      dispatch(getAllTracks());
+      dispatch(getTracksByUser(uid));
+      dispatch(getFavTracksByUser(uid));
       setLike(!like);
     } else {
       dispatch(addLike(_id, uid));
+      dispatch(getAllTracks());
+      dispatch(getTracksByUser(uid));
+      dispatch(getFavTracksByUser(uid));
       setLike(!like);
     }
   };

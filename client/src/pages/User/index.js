@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../../components/Navbar";
 import Playlists from "../../components/Playlists";
@@ -8,21 +8,29 @@ import Genres from "../../components/Genres";
 import Albums from "../../components/Albums";
 import MusicPlayer from "../../components/MusicPlayer";
 
-import { useAuth } from "../../context/authContext";
+import { connect, useDispatch } from "react-redux";
+import { getTracksByUser, getFavTracksByUser } from "../../redux/track/actions";
+import { getPlaylistsByUser } from "../../redux/playlist/actions";
 
-import withLayout from "../../hoc/withLayout";
-
-const User = () => {
+const User = ({ myTracks, myPlaylists, favTracksByUser }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user, logout } = useAuth();
-  // console.log(user.accessToken)
-  const loggedToken = sessionStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
+  const userId = sessionStorage.getItem("userId");
 
   useEffect(() => {
-    if (!loggedToken) {
+    if (!token) {
       navigate("/login");
     }
-  });
+    if (token) {
+      setTimeout(async () => {
+        APIcall();
+        dispatch(getTracksByUser(userId));
+        dispatch(getPlaylistsByUser(userId));
+        dispatch(getFavTracksByUser(userId));
+      }, 3000);
+    }
+  }, [dispatch]);
 
   const [userProfile, setUserProfile] = useState({
     firstName: "",
@@ -32,14 +40,6 @@ const User = () => {
     profilePicture: "",
     email: "",
   });
-
-  const token = loggedToken;
-
-  useEffect(() => {
-    if (token) {
-      APIcall();
-    }
-  }, []);
 
   const { pathname } = useLocation();
 
@@ -58,6 +58,18 @@ const User = () => {
     });
     setUserProfile(userReq.data);
   };
+
+  const [myUploadTracks, setMyUploadTracks] = useState([]);
+  const [myCreatedPlaylists, setMyCreatedPlaylists] = useState([]);
+  const [myFavTracks, setMyFavTracks] = useState([]);
+
+  useEffect(() => {
+    setMyUploadTracks(myTracks);
+    setMyCreatedPlaylists(myPlaylists);
+    setMyFavTracks(favTracksByUser);
+  }, [myTracks, myPlaylists, favTracksByUser]);
+
+  console.log(myUploadTracks);
 
   return (
     <>
@@ -93,4 +105,14 @@ const User = () => {
   );
 };
 
-export default withLayout(User);
+const mapStateToProps = (state) => {
+  return {
+    myTracks: state.track.myTracks.data,
+    myPlaylists: state.playlist.myPlaylists.data,
+    favTracksByUser: state.track.favTracksByUser,
+  };
+};
+
+const reduxHoc = connect(mapStateToProps);
+
+export default reduxHoc(User);
