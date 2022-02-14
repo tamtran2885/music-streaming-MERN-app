@@ -872,6 +872,136 @@ body {
       }
     }
   }
+  .songs__modal__absolute {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    .songs__modal__background {
+      background-color: #0000007c;
+      width: 100%;
+      height: 100%;
+      .sogs__modal__container{
+        .header {
+          margin-left: 5%;
+          margin-top: 3%;
+          margin-bottom: 3%;
+        }
+        .close {
+          width: 18px;
+          position: absolute;
+          top: 5%;
+          right: 2.5%;
+        }
+        width: 80%;
+        height: 60%;
+        position: absolute;
+        top: 20%;
+        left: 10%;
+        background: linear-gradient(#2f2f2f, black);
+        border: solid #323232 1px;
+        border-radius: 50px;
+        .form__container {
+          width: 90%;
+          margin: 0 auto;
+          .form {
+            .form__items {
+              display: flex;
+              .drag__area {
+                margin-left: 5%;
+                border: 7px dashed #323232;
+                border-radius: 15px;
+                width: 50%;
+                h3 {
+                  text-align: center;
+                  margin-top: 15%;
+                }
+                p {
+                  text-align: center;
+                }
+                input[type="file"] {
+                  display: none;
+                }
+                .file {
+                  width: 80%;
+                  margin-left: 10%;
+                  display: block;
+                  height: 2.3rem;
+                  border-radius: 25px;
+                  padding: 0.3rem;
+                  text-align: center;
+                  line-height: 2.5rem;
+                  font-size: 1.3rem;
+                  cursor: pointer;
+                  background-color: #323232;
+                  color: white;
+                }
+              }
+              .drag__area:active {
+                background-color: #727272;
+              }
+              .form__inputs{
+                width: 60%;
+                margin-left: 10%;
+                .form__input {
+                  display: block;
+                  width: 80%;
+                  height: 2.3rem;
+                  margin-bottom: 2%;
+                  border-radius: 25px;
+                  padding: 0.3rem;
+                  text-align: center;
+                  transition: 1s;
+                }
+                .form__input:focus {
+                  outline: none;
+                }
+                input[type="date"]::-webkit-calendar-picker-indicator,
+                input[type="time"]::-webkit-calendar-picker-indicator {
+                  cursor: pointer;
+                  margin-right: 5%;
+                  margin-left: -10%;
+                  filter: invert(0.9);
+                }
+                input[type="file"] {
+                  display: none;
+                }
+                .file {
+                  width: 80%;
+                  margin-right: 2%;
+                  margin-left: 0.5%;
+                  display: block;
+                  height: 2.3rem;
+                  border-radius: 25px;
+                  padding: 0.3rem;
+                  text-align: center;
+                  line-height: 2.5rem;
+                  font-size: 1.3rem;
+                  cursor: pointer;
+                  background-color: #323232;
+                  color: white;
+                }
+                button {
+                  width: 200px;
+                  margin-left: 38%;
+                  height: 2rem;
+                  border-radius: 25px;
+                  text-align: center;
+                  cursor: pointer;
+                  background: #383838;
+                  border: solid 1px #383838;
+                  color: #FFFFFF;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
   .dashboard__side {
     width: 20%;
     margin-left: 3%;
