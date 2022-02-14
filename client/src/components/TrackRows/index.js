@@ -78,6 +78,8 @@ const TrackRows = ({ totalTracks }) => {
     try {
       await axios.put(`/api/tracks/edit/${editRowId}`, formData, config);
       setEditRowId(null);
+      dispatch(getAllTracks());
+      dispatch(getTracksByUser(userId));
     } catch (e) {
       console.log(e);
     }

@@ -72,6 +72,7 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
 
   const handleChange = async (e) => {
     const playlistId = e.target.value;
+    // console.log(playlistId);
     try {
       await axios.put(
         `http://localhost:4000/api/tracks/addToPlaylist/${_id}?playlistId=${playlistId}`,
@@ -82,7 +83,7 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
       console.error(err);
     }
     dispatch(getAllPlaylists());
-    dispatch(getPlaylistsByUser(firebaseUser));
+    dispatch(getPlaylistsByUser(userId));
   };
 
   return (

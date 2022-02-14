@@ -4,7 +4,6 @@ import Playlists from '../../components/Playlists';
 import Songs from '../../components/Songs';
 import Genres from '../../components/Genres';
 // import Albums from '../../components/Albums';
-import MusicPlayer from '../../components/MusicPlayer';
 import { useNavigate } from "react-router-dom"
 
 import { connect, useDispatch } from "react-redux";
@@ -82,7 +81,6 @@ const Dashboard = ({ myPlaylists, myTracks, allPlaylists, allTracks }) => {
                         {/* <Albums /> */}
                     </div>
                 </div>
-                {/* <MusicPlayer /> */}
             </div>
         </>
     )

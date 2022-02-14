@@ -13,8 +13,6 @@ export const getTracks = async (req, res) => {
   }
 };
 
-
-
 //? ADDING NEW TRACK IN USERS COLLECTION
 export const addTracksToUser = async (req, res, track) => {
   try {
@@ -306,23 +304,26 @@ export const getTrackDetailsInFav = async (req, res, next) => {
   }
 };
 
-
 //? ADDING ONE TO REPRODUCTION COUNTER
 
 export const reproductionsCounter = async (req, res, next) => {
-
   try {
-    const trackId = req.params.trackId
-    console.log(trackId)
+    const trackId = req.params.trackId;
+    console.log(trackId);
     const data = {
-      $inc: { reproductions: 1 }
-    }
+      $inc: { reproductions: 1 },
+    };
 
-    const updateReproductions = await Tracks.findByIdAndUpdate(trackId, data, { new: true })
-    res.status(200).json({ message: "This song has been reproduced one more time", updateReproductions })
+    const updateReproductions = await Tracks.findByIdAndUpdate(trackId, data, {
+      new: true,
+    });
+    res
+      .status(200)
+      .json({
+        message: "This song has been reproduced one more time",
+        updateReproductions,
+      });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-
-
-}
+};

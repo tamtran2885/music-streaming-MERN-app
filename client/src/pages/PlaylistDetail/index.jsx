@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
-import MusicPlayer from '../../components/MusicPlayer';
 import PlaylistTrackRows from '../../components/PlaylistTrackRows';
 import upload from "../../assets/images/upload.svg";
 import { getPlaylistDetails, getCurrentPlaylistInfo, unfollowPlaylist, followPlaylist, getAllPlaylists, getPlaylistsByUser } from "../../redux/playlist/actions";
@@ -54,7 +53,7 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
         }
     };
 
-    console.log(currentPlaylistInfo)
+    // console.log(currentPlaylistInfo)
 
     const [follow, setFollow] = useState(checkFollow(uid));
 
@@ -112,7 +111,6 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
                         <PlaylistTrackRows playlistTrack={playlistTrack} playlistInfo={playlistInfo}/>
                     </div>
                 </div>
-                {/* <MusicPlayer /> */}
             </div>
         </>
     )
