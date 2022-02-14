@@ -15,13 +15,13 @@ export const albumRoutes = Router();
 albumRoutes.get("/", getAlbums);
 
 // ? CREATE ALBUM
-albumRoutes.post("/", createAlbum);
+albumRoutes.post("/", upload.single("thumbnail"), createAlbum);
 
 //? GET ALBUM BY ID
 albumRoutes.get("/:albumId", getAlbumById);
 
 // //? UPDATE ALBUM BY ID
-albumRoutes.put("/:albumId", updateAlbum);
+albumRoutes.put("/:albumId", upload.single("thumbnail"), updateAlbum);
 
 // //? DELETE ALBUM BY ID
 albumRoutes.delete("/:albumId", deleteAlbum);
