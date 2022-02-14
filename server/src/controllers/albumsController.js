@@ -1,7 +1,7 @@
 import Album from "../models/Album.js";
 import cloudinary from "../utils/cloudinary.js";
 
-export const getAlbums = async (req, res) => { 
+export const getAlbums = async (req, res, next) => { 
     try {
         const album = await Album.find();
         res.json(album);
@@ -9,9 +9,10 @@ export const getAlbums = async (req, res) => {
     } catch (error) {
         console.log(error)
     }
+    next();
 }
 
-export const createAlbum = async (req, res) => {
+export const createAlbum = async (req, res, next) => {
     try {
         const user = req.query.fireabaseUser
 
@@ -31,9 +32,10 @@ export const createAlbum = async (req, res) => {
     } catch (error) {
         console.log(error)
     }
+    next()
 }
 
-export const getAlbumById = async (req, res) => {
+export const getAlbumById = async (req, res, next) => {
     try {
         const albumId = req.params.albumId;
         const album = await Album.findById(albumId);
@@ -42,9 +44,10 @@ export const getAlbumById = async (req, res) => {
     } catch (error) {
         console.log(error)
     }
+    next()
 }
 
-export const updateAlbum = async (req, res) => {
+export const updateAlbum = async (req, res, next) => {
     try {
         const albumId = req.params.albumId;
         const album = await Album.findById(albumId);
@@ -69,9 +72,10 @@ export const updateAlbum = async (req, res) => {
     } catch (error) {
         console.log(error)
     }
+    next()
 }
 
-export const deleteAlbum = async (req, res) => {
+export const deleteAlbum = async (req, res, next) => {
     try {
         const albumId = req.params.albumId;
         const album = await Album.findById(albumId);
@@ -84,4 +88,5 @@ export const deleteAlbum = async (req, res) => {
     } catch (error) {
         console.log(error)
     }
+    next()
 }

@@ -2,13 +2,14 @@ import Tracks from "../models/Tracks.js";
 import User from "../models/User.js";
 import cloudinary from "../utils/cloudinary.js";
 
-export const getUsers = async (req, res) => {
+export const getUsers = async (req, res, next) => {
   try {
     const users = await User.find();
     res.json(users);
   } catch (error) {
     console.log(error);
   }
+  next()
 };
 
 import * as bcrypt from "bcrypt";
@@ -33,9 +34,10 @@ export const LogIn = async (req, res, next) => {
   } catch (error) {
     console.log(error)
   }
+  next()
 }
 
-export const createUser = async (req, res) => {
+export const createUser = async (req, res, next) => {
   console.log(req.body);
   const hash = await bcrypt.hash(req.body.password, saltRounds);
 
@@ -62,9 +64,10 @@ export const createUser = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+  next()
 };
 
-export const getUserById = async (req, res) => {
+export const getUserById = async (req, res, next) => {
   try {
     const url = req.params.userId;
     const user = await User.findOne({
@@ -74,9 +77,10 @@ export const getUserById = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+  next()
 };
 
-export const deleteUser = async (req, res) => {
+export const deleteUser = async (req, res, next) => {
   try {
     // Find user by id
     const user = await User.findById(req.params.userId);
@@ -90,9 +94,10 @@ export const deleteUser = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+  next()
 };
 
-export const updateUser = async (req, res) => {
+export const updateUser = async (req, res, next) => {
   try {
     const url = req.params.userId;
     const user = await User.findOne({
@@ -132,11 +137,12 @@ export const updateUser = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+  next()
 };
 
 // TODO
 
-export const changePass = async (req, res) => { };
+export const changePass = async (req, res, next) => { };
 /*
 export const changePass = async (req, res) => {
   try {
@@ -172,6 +178,7 @@ export const changePass = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+  next()
 };
 
 //const hash = await bcrypt.hash(req.body.password, saltRounds);

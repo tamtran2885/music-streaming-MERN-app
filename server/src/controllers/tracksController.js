@@ -5,17 +5,18 @@ import Playlist from "../models/Playlist.js";
 import Album from "../models/Album.js";
 
 //? GET ALL TRACKS
-export const getTracks = async (req, res) => {
+export const getTracks = async (req, res, next) => {
   try {
     const tracks = await Tracks.find().populate("user").populate("likes");
     res.json(tracks);
   } catch (error) {
     console.log(error);
   }
+  next();
 };
 
 //? ADDING NEW TRACK IN USERS COLLECTION
-export const addTracksToUser = async (req, res, track) => {
+export const addTracksToUser = async (req, res, track, next) => {
   try {
     const data = {
       $push: { uploadedTracks: track },
@@ -28,9 +29,10 @@ export const addTracksToUser = async (req, res, track) => {
   } catch (error) {
     console.log(error);
   }
+  next();
 };
 
-export const addPhotoToTrack = async (req, res) => {
+export const addPhotoToTrack = async (req, res, next) => {
   const trackId = req.params.trackId;
   try {
     const thumbnail = await cloudinary.v2.uploader.upload(req.file.path, {
@@ -53,9 +55,10 @@ export const addPhotoToTrack = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+  next();
 };
 
-export const createTrack = async (req, res) => {
+export const createTrack = async (req, res, next) => {
   try {
     //? UPLOAD AUDIO
     const result = await cloudinary.v2.uploader.upload(req.file.path, {
@@ -77,10 +80,11 @@ export const createTrack = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+  next();
 };
 
 //? GET TRACK BY ID
-export const getTrackById = async (req, res) => {
+export const getTrackById = async (req, res, next) => {
   try {
     const url = req.params.trackId;
     const track = await Tracks.findById(url);
@@ -88,10 +92,11 @@ export const getTrackById = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+  next();
 };
 
 //? DELETE TRACK
-export const deleteTrack = async (req, res) => {
+export const deleteTrack = async (req, res, next) => {
   try {
     const trackId = req.params.trackId;
 
@@ -154,10 +159,11 @@ export const deleteTrack = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+  next();
 };
 
 // TODO UPDATE TRACK
-export const updateTrack = async (req, res) => {
+export const updateTrack = async (req, res, next) => {
   try {
     const url = req.params.trackId;
     const track = await Tracks.findById(url);
@@ -194,10 +200,11 @@ export const updateTrack = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+  next();
 };
 
 // GET TRACKS BY USER
-export const getTracksByUser = async (req, res) => {
+export const getTracksByUser = async (req, res, next) => {
   try {
     const param = req.query.firebaseUser;
     const tracks = await Tracks.find({
@@ -207,11 +214,12 @@ export const getTracksByUser = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+  next();
 };
 
 // Add Fav to a track
 // @route PUT api/tracks/like/:trackId
-export const addFavToTrack = async (req, res) => {
+export const addFavToTrack = async (req, res, next) => {
   const param = req.query.firebaseUser;
   try {
     const trackId = req.params.trackId;
@@ -236,11 +244,12 @@ export const addFavToTrack = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+  next();
 };
 
 // Remove Fav from a track
 // @route PUT api/tracks/unlike/:trackId
-export const removeFavFromTrack = async (req, res) => {
+export const removeFavFromTrack = async (req, res, next) => {
   const param = req.query.firebaseUser;
   try {
     const trackId = req.params.trackId;
@@ -276,6 +285,7 @@ export const removeFavFromTrack = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+  next();
 };
 
 // Need to check
@@ -302,6 +312,7 @@ export const addTrackToPlaylist = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
+  next();
 };
 
 // ?DELETE TRACK IN PLAYLIST
@@ -320,6 +331,7 @@ export const deleteTrackFromPlaylist = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
+  next();
 };
 
 //? GET TRACK DETAILS IN MY FAVORITES
@@ -343,6 +355,7 @@ export const getTrackDetailsInFav = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
+  next();
 };
 
 //? ADDING ONE TO REPRODUCTION COUNTER
@@ -364,6 +377,7 @@ export const reproductionsCounter = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
+  next();
 };
 
 //? ADD TRACK TO ALBUM

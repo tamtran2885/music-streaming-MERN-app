@@ -11,10 +11,11 @@ export const getPlaylists = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
+  next()
 };
 
 //? GET PLAYLISTS BY USER
-export const getPlaylistsByUser = async (req, res) => {
+export const getPlaylistsByUser = async (req, res, next) => {
   // console.log(req.query);
   try {
     const param = req.query.firebaseUser;
@@ -25,6 +26,7 @@ export const getPlaylistsByUser = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+  next()
 };
 
 //? CREATE PLAYLIST
@@ -48,6 +50,7 @@ export const createPlaylist = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
+  next()
 };
 
 //? GET PLAYLIST BY ID
@@ -59,6 +62,7 @@ export const getPlaylistById = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
+  next()
 };
 
 // TODO UPDATE PLAYLIST BY ID
@@ -119,6 +123,7 @@ export const deletePlaylistById = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
+  next()
 };
 
 //? FOLLOW PLAYLIST
@@ -144,6 +149,7 @@ export const followPlaylist = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
+  next()
 };
 
 //? UNFOLLOW PLAYLIST
@@ -174,6 +180,7 @@ export const unfollowPlaylist = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
+  next()
 };
 
 //? GET PLAYLIST BY ID AND TRACKS DETAILS
@@ -201,6 +208,7 @@ export const getPlaylistByIdAndDetails = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
+  next()
 };
 
 //? GET PLAYLIST BY ID AND INFO
@@ -217,11 +225,12 @@ export const getPlaylistByIdAndInfo = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
+  next()
 };
 
 //? CHANGE ORDER IN ARRAY AFTER DRAG AND DROP
 
-export const changeListOrder = async (req, res) => {
+export const changeListOrder = async (req, res, next) => {
   const { id, listID, oldIndex, newIndex } = req.body;
   const thisPlaylist = await Playlist.find();
 }
