@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
 import { setTracks, setCurrentTrack, getSingleTrack } from "../../redux/audioPlay/actions";
-import { addLike, removeLike, getAllTracks, getTracksByUser } from "../../redux/track/actions";
+import { addLike, removeLike, getAllTracks, getTracksByUser, addReproductionsCounter } from "../../redux/track/actions";
 import star from '../../assets/images/star.svg'
 import staractive from '../../assets/images/staractive.svg';
 
@@ -28,6 +28,7 @@ const Song = (track) => {
     dispatch(setCurrentTrack(track.track))
     dispatch(getSingleTrack(_id))
     dispatch(setTracks(track.track))
+    dispatch(addReproductionsCounter(_id, uid))
   }
 
   const handleToggle = () => {

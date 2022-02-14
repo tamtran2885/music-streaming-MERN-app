@@ -8,6 +8,7 @@ import {
   removeLike,
   getAllTracks,
   getTracksByUser,
+  addReproductionsCounter,
 } from "../../redux/track/actions";
 import {
   setTracks,
@@ -25,9 +26,11 @@ const PlaylistTrackRow = ({ track, playlistInfo }) => {
   const dispatch = useDispatch();
   const uid = userId;
 
-  const { title, album, duration, genre, artist, likes, _id } = track;
+  const { title, album, duration, genre, artist, likes, _id, reproductions } =
+    track;
 
   // console.log(playlistInfo);
+  console.log(track);
 
   const handleDelete = async () => {
     console.log("delete");
@@ -77,6 +80,7 @@ const PlaylistTrackRow = ({ track, playlistInfo }) => {
     dispatch(setCurrentTrack(track));
     dispatch(getSingleTrack(_id));
     dispatch(setTracks(track));
+    dispatch(addReproductionsCounter(_id, uid));
   };
 
   return (
@@ -117,7 +121,9 @@ const PlaylistTrackRow = ({ track, playlistInfo }) => {
       </div>
       <div className="song__album">{album ? album : "N/A"}</div>
       <div className="song__popularity">{likes ? likes.length : "N/A"}</div>
-      <div className="song__duration">{duration ? duration : "N/A"}</div>
+      <div className="song__duration">
+        {reproductions ? reproductions : "N/A"}
+      </div>
       <div className="song__edit__container">
         <button className="song__edit__button" type="button">
           <img className="song__edit__icon" src={menu} alt="Menu" />

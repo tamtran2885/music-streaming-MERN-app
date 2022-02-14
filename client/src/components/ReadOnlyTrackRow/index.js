@@ -7,7 +7,11 @@ import {
   getAllPlaylists,
   getPlaylistsByUser,
 } from "../../redux/playlist/actions";
-import { addLike, removeLike } from "../../redux/track/actions";
+import {
+  addLike,
+  removeLike,
+  addReproductionsCounter,
+} from "../../redux/track/actions";
 import axios from "axios";
 import {
   setTracks,
@@ -61,6 +65,7 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
     dispatch(setCurrentTrack(track));
     dispatch(getSingleTrack(_id));
     dispatch(setTracks(track));
+    dispatch(addReproductionsCounter(_id, uid));
   };
 
   const config = {

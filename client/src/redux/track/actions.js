@@ -142,3 +142,23 @@ export const setFavTracksByUser = (response) => ({
   type: SET_FAV_TRACKS_BY_USER,
   payload: response,
 });
+
+// Add reproduction counter to track
+export const addReproductionsCounter = (trackId, userId) => {
+  return async (dispatch) => {
+    try {
+      await axios.put(
+        `http://localhost:4000/api/tracks/reproducing/${trackId}`,
+        {
+          headers: {
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
+          },
+        }
+      );
+      dispatch(getAllTracks());
+      dispatch(getTracksByUser(userId));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};

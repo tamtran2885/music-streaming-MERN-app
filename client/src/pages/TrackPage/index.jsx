@@ -3,11 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import Genres from '../../components/Genres';
 import Albums from '../../components/Albums';
-import MusicPlayer from '../../components/MusicPlayer';
 import TrackRows from "../../components/TrackRows";
 import upload from "../../assets/images/upload.svg";
 import { getFavTracksByUser } from "../../redux/track/actions";
-import close from "../../assets/images/close.svg";
+import close from '../../assets/images/close.svg';
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
@@ -146,7 +145,6 @@ const TrackPage = () => {
               </div>
             </div>
           </div>
-          {/* <MusicPlayer /> */}
       </div>
     </>
     )
