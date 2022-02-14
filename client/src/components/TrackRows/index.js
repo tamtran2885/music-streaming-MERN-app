@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReadOnlyTrackRow from "../ReadOnlyTrackRow";
 import EditTrackRow from "../EditTrackRow";
 import { useSelector } from "react-redux";
+import OrderNumber from "../OrderNumber";
 
 import axios from "axios";
 import { useAuth } from "../../context/authContext";
@@ -97,11 +98,32 @@ const TrackRows = ({ totalTracks }) => {
     }
   };
 
+  const trackNumber = () => {
+    if (tracksInfo) {
+      return tracksInfo.length;
+    }
+    return;
+  };
+
+  const sortTracks = () => {
+    if (tracksInfo) {
+      return [...tracksInfo].sort((a, b) => b.reproductions - a.reproductions);
+    }
+    return;
+  };
+
+  // console.log(trackNumber());
+
   return (
     <>
       <div className="trackrow__absolute">
-        {tracksInfo &&
-          tracksInfo.map((track) => (
+        {[...Array(trackNumber())].map((e, i) => (
+          <div key={i}>
+            <OrderNumber i={i} />
+          </div>
+        ))}
+        {sortTracks() &&
+          sortTracks().map((track) => (
             <form onSubmit={handleEditFormSubmit}>
               <div style={{ marginTop: "20px" }}>
                 {editRowId === track._id ? (

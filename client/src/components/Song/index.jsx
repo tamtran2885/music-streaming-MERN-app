@@ -4,16 +4,13 @@ import { setTracks, setCurrentTrack, getSingleTrack } from "../../redux/audioPla
 import { addLike, removeLike, getAllTracks, getTracksByUser } from "../../redux/track/actions";
 import star from '../../assets/images/star.svg'
 import staractive from '../../assets/images/staractive.svg';
-import { useAuth } from "../../context/authContext";
 
 const Song = (track) => {
   const dispatch = useDispatch();
   const userId = sessionStorage.getItem("userId");
   const uid = userId;
 
-  const { user } = useAuth();
-
-  const { title, album, duration, genre, artist, _id, likes, photoTrack } = track.track
+  const { title, album, reproductions, genre, artist, _id, likes, photoTrack } = track.track
 
   const checkLike = (uid) => {
     if (likes.filter(like => like.firebaseUser === uid).length === 0) {
@@ -51,9 +48,9 @@ const Song = (track) => {
   return (
     <>
       <div className='song__absolute'>
-        <div className='song__number'>
+        {/* <div className='song__number'>
           1
-        </div>
+        </div> */}
         <div className='song__image__container'>
           <button className='song__button' onClick={handleClick}><img className='song__image' src={photoTrack ? photoTrack : trackPhotoDefault} alt="song-thumb" /></button>
         </div>
@@ -69,7 +66,7 @@ const Song = (track) => {
           <p className='song__tittle'>{title && title} · {album && album}</p>
           <p className='song__artist'>{artist && artist} · {genre && genre}</p>
         </div>
-        <div className='song__duration'>{duration && duration}</div>
+        <div className='song__duration'>{reproductions && reproductions}</div>
       </div>
     </>
   )

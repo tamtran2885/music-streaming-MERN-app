@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Song from '../Song'
+import Song from '../Song';
+import OrderNumber from '../OrderNumber';
 // import SkeletonElements from "../../skeletons/SkeletonElements";
 
 const Songs = ({ tracksDashboard }) => {
@@ -12,6 +13,21 @@ const Songs = ({ tracksDashboard }) => {
     setTracks(tracksDashboard)
   }, [tracksDashboard, setTracks])
 
+  const trackNumber = () => {
+    if (tracks) {
+      return tracks.length
+    }
+    return;
+  }
+
+  const sortTracks = () => {
+    if (tracks) {
+      return [...tracks].sort((a,b) => b.reproductions - a.reproductions)
+    }
+    return;
+  }
+  // console.log(sortTracks())
+
   return (
     <>
       <div className='songs__absolute'>
@@ -20,10 +36,13 @@ const Songs = ({ tracksDashboard }) => {
           <Link className='link' to={`/user/songs`}>See All</Link>
         </div>
         <div className='songs__container'>
-          {tracks && tracks.map((track) => (
+          {[...Array(trackNumber())].map((e,i) => (
+            <div key={i}><OrderNumber i={i} /></div>
+          ))}
+          {sortTracks() && sortTracks().map((track) => (
             <div key={track._id}><Song key={track._id} track={track} /></div>
           ))}
-          {!tracks && <div className='skeleton__track'>
+            {!tracks && <div className='skeleton__track'>
             <div className='skeleton__track__single'></div>
             <div className='skeleton__track__single'></div>
             <div className='skeleton__track__single'></div>

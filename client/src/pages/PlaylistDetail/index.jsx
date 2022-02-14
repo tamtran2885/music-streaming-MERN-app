@@ -6,17 +6,13 @@ import PlaylistTrackRows from '../../components/PlaylistTrackRows';
 import upload from "../../assets/images/upload.svg";
 import { getPlaylistDetails, getCurrentPlaylistInfo, unfollowPlaylist, followPlaylist, getAllPlaylists, getPlaylistsByUser } from "../../redux/playlist/actions";
 import { connect, useDispatch } from "react-redux";
-// import TrackRows from "../../components/TrackRows";
 import play from "../../assets/images/playbutton.svg";
 
-import { useAuth } from "../../context/authContext";
 import Genre from "../../components/Genre";
 import star from "../../assets/images/star.svg";
 import staractive from "../../assets/images/staractive.svg";
-import axios from "axios";
 
-const PlaylistDetail = ({ currentPlaylist, currentPlaylistInfo }) => {
-    const { user } = useAuth();
+const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
     const dispatch = useDispatch();
     const { pathname } = useLocation();
     const navigate = useNavigate();
@@ -57,9 +53,6 @@ const PlaylistDetail = ({ currentPlaylist, currentPlaylistInfo }) => {
             return true;
         }
     };
-
-    // console.log(checkFollow(uid))
-    // console.log(playlistInfo)
 
     const [follow, setFollow] = useState(checkFollow(uid));
 
@@ -114,7 +107,7 @@ const PlaylistDetail = ({ currentPlaylist, currentPlaylistInfo }) => {
                                 <img className="upload" src={upload} alt="Upload" />
                             </Link>
                         </div>
-                        <PlaylistTrackRows playlistTrack={playlistTrack} />
+                        <PlaylistTrackRows playlistTrack={playlistTrack} playlistInfo={playlistInfo}/>
                     </div>
                 </div>
                 <MusicPlayer />

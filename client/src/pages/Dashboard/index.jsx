@@ -57,7 +57,6 @@ const Dashboard = ({ myPlaylists, myTracks, allPlaylists, allTracks }) => {
 
     const [tracksDashboard, setTracksDashboard] = useState([]);
     const [playlistsDashboard, setPlaylistsDashboard] = useState([]);
-    const [searchWord, setSearchWord] = useState("");
 
     useEffect(() => {
         setTracksDashboard(allTracks);
@@ -74,14 +73,10 @@ const Dashboard = ({ myPlaylists, myTracks, allPlaylists, allTracks }) => {
         setPlaylistsDashboard(myPlaylists)
     };
 
-    // const filterdTracks = playlistsDashboard.filter((track) => {
-    //     return track.name.toLowerCase().includes(searchWord.toLowerCase())
-    // })
-
     return (
         <>
             <div className='dashboard__background'>
-                <Navbar page="Popular Now" handleMine={handleMine} handlePopular={handlePopular} mongoUser={mongoUser} setSearchWord={setSearchWord} />
+                <Navbar page="Popular Now" handleMine={handleMine} handlePopular={handlePopular} mongoUser={mongoUser} />
                 {/*<h1>Welcome {mongoUser.firstName}!</h1>*/}
                 <div className='dashboard__absolute'>
                     <div className='dashboard__display'>
