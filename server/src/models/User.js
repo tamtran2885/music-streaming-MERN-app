@@ -23,7 +23,6 @@ const UserSchema = new Schema(
     },
     profile: {
       type: String,
-      // unique: true,
     },
     email: {
       type: String,
@@ -32,18 +31,12 @@ const UserSchema = new Schema(
       trim: true,
       lowercase: true,
     },
-    password: {
-      type: String,
-      required: true,
-      trim: true,
-    },
     firebaseUser: {
       type: String,
     },
     cloudinaryId: {
       type: String,
     },
-    // TODO ¿?¿?¿?¿?
     uploadedTracks: [
       {
         type: Schema.Types.ObjectId,

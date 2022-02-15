@@ -3,6 +3,8 @@ import User from "../models/User.js";
 import cloudinary from "../utils/cloudinary.js";
 import admin from "firebase-admin";
 
+//? GET ALL USERS
+//* @route GET api/user
 export const getUsers = async (req, res, next) => {
   try {
     const users = await User.find();
@@ -10,40 +12,26 @@ export const getUsers = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
-  next()
+  next();
 };
 
+//? ENCRYPT THE PASSWORD
+/*
 import * as bcrypt from "bcrypt";
 const saltRounds = 12;
+*/
 
-
-
-export const LogIn = async (req, res, next) => {
-
+//? CREATE USER WITH GOOGLE ACCOUNT
+//* @route POST api/user/google
+export const createUserGoogle = async (req, res, next) => {
   try {
-    const loggedIn = req.headers.authorization
-    // console.log(loggedIn)
-  } catch (error) {
-    console.log(error)
-  }
-  next()
-}
-
-
-export const createUserGoogle = async (req, res) => {
-  console.log(req.body.body)
-  console.log(req.headers)
-
-  try {
-
-    // Create instance of User Google
+    //? Create instance of User Google
     const userGoogle = new User({
       firstName: req.body.body.firstName,
       lastName: req.body.body.lastName,
       birthday: req.body.body.birthday,
       country: req.body.body.country,
       email: req.body.body.email,
-      password: req.body.body.firebaseUser,
       firebaseUser: req.body.body.firebaseUser,
     });
 
@@ -53,20 +41,19 @@ export const createUserGoogle = async (req, res) => {
     }
     res.status(200).json({ data: "User created", userGoogle });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-
+  next();
 }
 
+//? CREATE USER
+//* @route POST api/user
 export const createUser = async (req, res, next) => {
-  const hash = await bcrypt.hash(req.body.password, saltRounds);
-
   try {
-
+    //? Upload image to cloudinary
     const result = await cloudinary.v2.uploader.upload(req.file.path);
-    // Upload image to cloudinary
-    // console.log(req.file.path)
-    // Create instance of User
+
+    //? Create instance of User
     const user = new User({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -77,8 +64,6 @@ export const createUser = async (req, res, next) => {
       password: hash,
       cloudinaryId: result.public_id,
       firebaseUser: req.body.firebaseUser,
-      // uploadedTracks: [],
-      // playlists: []
     });
 
     await user.save();
@@ -86,62 +71,66 @@ export const createUser = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
-  next()
+  next();
 };
 
+//? GET USER BY ID
+//* @route GET api/user/:userId
 export const getUserById = async (req, res, next) => {
   try {
-    const url = req.params.userId;
+    const firebaseUser = req.params.userId;
     const user = await User.findOne({
-      firebaseUser: url,
+      firebaseUser: firebaseUser,
     });
     user ? res.json(user) : res.json({ message: "User not found" });
   } catch (error) {
     console.log(error);
   }
-  next()
+  next();
 };
 
+//? DELETE USER BY ID
+//* @route DELETE api/user/:userId
 export const deleteTheUser = async (req, res, next) => {
   try {
-    const firebaseUser = req.params.userId
-    // Find user by id
+    const firebaseUser = req.params.userId;
+
+    //? Find user by id
     const user = await User.findOne({
       firebaseUser: firebaseUser
     });
 
-    // Delete in Firebase
-
-
+    //? Delete in Firebase
     admin.auth().deleteUser(firebaseUser).then(() => {
-      console.log(firebaseUser, 'deleted')
     }).catch((error) => {
-      console.log(error)
+      console.log(error);
     });
 
-    // Delete image from cloudinary
+    //? Delete image from cloudinary
     await cloudinary.uploader.destroy(user.cloudinaryId);
 
-    // Delete user from db
+    //? Delete user from db
     await user.remove();
     res.json({ message: "User deleted", user });
   } catch (error) {
     console.log(error);
   }
+  next();
 };
 
+//? UPDATE USER BY ID
+//* @route PUT api/user/:userId
 export const updateUser = async (req, res, next) => {
   try {
     const url = req.params.userId;
     const user = await User.findOne({
       firebaseUser: url,
     });
-    console.log(user);
 
-    //Delete image from cloudinary if change image of profile
-    // await cloudinary.uploader.destroy(user.cloudinaryId);
+    //? DELETE IMAGE FROM CLOUDINARY
+    await cloudinary.uploader.destroy(user.cloudinaryId);
 
-    // Upload image to cloudinary
+    //? UPLOAD IMAGE TO CLOUDINARY
     const result = await cloudinary.uploader.upload(req.file.path);
 
     const dataUser = {
@@ -154,7 +143,6 @@ export const updateUser = async (req, res, next) => {
       cloudinaryId: result.cloudinaryId,
       firebaseUser: req.body.firebaseUser,
     };
-    // console.log(firebaseUser);
 
     const userToEdit = await User.findOneAndUpdate(
       {
@@ -170,76 +158,27 @@ export const updateUser = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
-  next()
+  next();
 };
 
-// TODO
-
-export const changePass = async (req, res, next) => { };
-/*
-export const changePass = async (req, res) => {
-  try {
-    const url = req.headers;
-    console.log(url)
-    const user = await User.findOne({
-      firebaseUser: url,
-    });
- 
-    const dataUser = {
-      firstName: req.body.firstName || user.firstName,
-      lastName: req.body.lastName || user.lastName,
-      birthday: req.body.birthday || user.birthday,
-      country: req.body.country || user.country,
-      profile: user.profile,
-      email: req.body.email || user.email,
-      cloudinaryId: user.cloudinaryId,
-      firebaseUser: req.body.firebaseUser,
-    };
-    // console.log(firebaseUser);
- 
-    const userToEdit = await User.findOneAndUpdate(
-      {
-        firebaseUser: url,
-      },
-      dataUser,
-      {
-        new: true,
-      }
-    );
- 
-    res.status(200).json({ data: "User updated", userToEdit });
-  } catch (error) {
-    console.log(error);
-  }
-  next()
-};
- 
-//const hash = await bcrypt.hash(req.body.password, saltRounds);
- 
-changePass();*/
-
-// TODO FOLLOW USER
-
+//? FOLLOW USER BY FIREBASE USER
+//* @route PUT api/user/follow/:userId
 export const followUser = async (req, res, next) => {
   try {
     const UserWhoFollow = req.params.userId;
-
     const UserFbId = req.query.fbUserToFollow;
-
-    //console.log(UserFbWhoFollow, 'usuario que va a seguir')
-    //console.log(UserFbId, 'usuario que va a ser seguido')
 
     const userToFollow = await User.findOne({ firebaseUser: UserFbId });
 
-    // search if exist one with the same UserFbId
+    //? SEARCH IF EXIST ONE WITH THE SAME FIREBASE USER
     if (
       userToFollow.followedBy.find(
-        (user) => user.firebaseUser === UserFbWhoFollow
+        (user) => user.firebaseUser === UserWhoFollow
       )
     ) {
       return res
         .status(400)
-        .json({ data: "User has been followed", UserFbWhoFollow });
+        .json({ data: "User has been followed", UserWhoFollow });
     }
 
     userToFollow.followedBy.unshift({ firebaseUser: UserWhoFollow });
@@ -252,16 +191,12 @@ export const followUser = async (req, res, next) => {
   next();
 };
 
-// TODO UNFOLLOW USER
-
+//? unFOLLOW USER BY FIREBASE USER
+//* @route PUT api/user/unfollow/:userId
 export const unfollowUser = async (req, res, next) => {
   try {
     const UserWhoUnfollow = req.params.userId;
-
     const UserFbId = req.query.fbUserUnfollow;
-
-    //console.log(UserWhoUnfollow, 'usuario que va a deseguir')
-    //console.log(UserFbId, 'usuario que va a dejar de ser seguido')
 
     const userToUnfollow = await User.findOne({ firebaseUser: UserFbId });
 

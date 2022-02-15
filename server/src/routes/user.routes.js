@@ -1,12 +1,10 @@
 import { Router } from "express";
 import {
-  LogIn,
   getUsers,
   createUser,
   getUserById,
   deleteTheUser,
   updateUser,
-  changePass,
   followUser,
   unfollowUser,
   createUserGoogle
@@ -15,35 +13,34 @@ import upload from "../utils/multer.js";
 
 export const userRoutes = Router();
 
-
-// ? GET USERS
+//? GET ALL USERS
+//* @route GET api/user
 userRoutes.get("/", getUsers);
 
-userRoutes.post("/loggedIn", LogIn);
-
-// ? CREATE USER
+//? CREATE USER
+//* @route POST api/user
 userRoutes.post("/", upload.single("profile"), createUser);
 
-// ? CREATE USER GOOGLE
+//? CREATE USER WITH GOOGLE ACCOUNT
+//* @route POST api/user/google
 userRoutes.post("/google", createUserGoogle);
 
 //? GET USER BY ID
+//* @route GET api/user/:userId
 userRoutes.get("/:userId", getUserById);
 
 //? UPDATE USER BY ID
+//* @route PUT api/user/:userId
 userRoutes.put("/:userId", upload.single("profile"), updateUser);
 
-//? UPDATE USER PASSWORD BY ID
-
-userRoutes.put("/change-password/:userId", changePass);
-
 //? DELETE USER BY ID
+//* @route DELETE api/user/:userId
 userRoutes.delete("/:userId", deleteTheUser);
 
-//? FOLLOW USER
-
+//? FOLLOW USER BY FIREBASE USER
+//* @route PUT api/user/follow/:userId
 userRoutes.put("/follow/:userId", followUser);
 
-//? UNFOLLOW USER
-
+//? unFOLLOW USER BY FIREBASE USER
+//* @route PUT api/user/unfollow/:userId
 userRoutes.put("/unfollow/:userId", unfollowUser);
