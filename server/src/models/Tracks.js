@@ -5,7 +5,6 @@ const TracksSchema = new Schema(
   {
     title: {
       type: String,
-      //required: true,
       trim: true,
     },
     reproductions: {
