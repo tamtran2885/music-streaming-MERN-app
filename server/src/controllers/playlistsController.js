@@ -230,3 +230,29 @@ export const changeListOrder = async (req, res) => {
 // thisBoard[newIndex] = oldValue;
 
 // let saveOperation = await Board.save(thisBoard);
+
+//? GET FOLLOWING PLAYLIST BY USERS
+export const getFollowingPlaylistsByUser = async (req, res, next) => {
+  try {
+    const user = req.params.userId;
+    const playlists = await Playlist.find();
+
+    const array = [];
+    playlists.map((x) => {
+      const playlist = x.followedBy;
+
+      playlist.map((f) => {
+        if (f.firebaseUser === user) {
+          array.push(x);
+        }
+      });
+    });
+
+    const result = array;
+
+    res.status(200).json({ result });
+  } catch (err) {
+    console.error(err);
+  }
+  next();
+};

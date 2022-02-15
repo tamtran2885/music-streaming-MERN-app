@@ -5,12 +5,16 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { Draggable } from 'react-beautiful-dnd';
 import MusicPlayer from '../../components/MusicPlayer';
 
-const CreatedPlaylists = ({totalPlaylists}) => {
+const CreatedPlaylists = ({totalMyPlaylists, followingPlaylists}) => {
 
   const [myCreatedPlaylists, setMyCreatedPlaylists] = useState([])
+  const [myFollowingPlaylists, setMyFollowingPlaylists] = useState([])
   useEffect(() => {
-    setMyCreatedPlaylists(totalPlaylists)
-  }, [setMyCreatedPlaylists, totalPlaylists])
+    setMyCreatedPlaylists(totalMyPlaylists)
+    setMyFollowingPlaylists(followingPlaylists.result)
+  }, [setMyCreatedPlaylists, totalMyPlaylists, followingPlaylists])
+
+  console.log(myFollowingPlaylists)
 
   return (
   <><div className='created__playlists__absolute'>
@@ -24,7 +28,7 @@ const CreatedPlaylists = ({totalPlaylists}) => {
     >
       <div className='playlists__absolute'>
         <div className='playlist__tittle'>
-        <h2>Uploaded</h2>
+        <h2>My Playlist</h2>
           <Link to="/playlist/add">
           <button>Create a playlist</button>
           </Link>
@@ -62,18 +66,18 @@ const CreatedPlaylists = ({totalPlaylists}) => {
       onDragEnd={(param) => {
         const srcI = param.source.index;
         const desI = param.destination?.index;
-        myCreatedPlaylists.splice(desI, 0, myCreatedPlaylists.splice(srcI, 1)[0]);
+        myFollowingPlaylists.splice(desI, 0, myFollowingPlaylists.splice(srcI, 1)[0]);
         console.log(param)
       }}
     >
       <div className='playlists__absolute'>
         <div className='playlists__tittle'>
-        <h2>Followed</h2>
+        <h2>My Following Playlists</h2>
         </div>
         <Droppable className='droppable__absolute' droppableId="droppable-1">
           {(provided, _) => (
             <div className='droppable__container' ref={provided.innerRef} {...provided.droppableProps}>
-              {myCreatedPlaylists && myCreatedPlaylists.map((playlist, index) => (
+              {myFollowingPlaylists && myFollowingPlaylists.map((playlist, index) => (
                 <div key={playlist._id} className='droppable__single'>
                   <Draggable className='draggable__absolute' key={playlist._id} draggableId={'draggable-'+playlist.rating} index={index}>
                     {(provided, snapshot) => (

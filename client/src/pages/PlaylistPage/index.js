@@ -30,19 +30,24 @@ const PlaylistPage = ({ myPlaylists, myFollowingPlaylists }) => {
     }
   }, [dispatch]);
 
-  const [totalPlaylists, setAllPlaylists] = useState([]);
+  const [totalMyPlaylists, setAllMyPlaylists] = useState([]);
+  const [followingPlaylists, setFollowingPlaylists] = useState([]);
 
   useEffect(() => {
-    setAllPlaylists(myPlaylists);
-  }, [myPlaylists]);
+    setAllMyPlaylists(myPlaylists);
+    setFollowingPlaylists(myFollowingPlaylists);
+  }, [myPlaylists, myFollowingPlaylists]);
 
-  // console.log(myFollowingPlaylists);
+  console.log(myFollowingPlaylists.result);
 
   return (
     <>
       <div className="dashboard__background">
         <Navbar page="Playlists" />
-        <CreatedPlaylists totalPlaylists={totalPlaylists} />
+        <CreatedPlaylists
+          totalMyPlaylists={totalMyPlaylists}
+          followingPlaylists={followingPlaylists}
+        />
       </div>
     </>
   );
@@ -53,7 +58,6 @@ const mapStateToProps = (state) => {
     allPlaylists: state.playlist.allPlaylists.data,
     myPlaylists: state.playlist.myPlaylists.data,
     myFollowingPlaylists: state.playlist.myFollowingPlaylists.data,
-    // myFollowingPlaylists: state.playlist.myFollowingPlaylists.data
   };
 };
 
