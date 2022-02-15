@@ -4,7 +4,7 @@ import {
   getUsers,
   createUser,
   getUserById,
-  deleteUser,
+  deleteTheUser,
   updateUser,
   changePass,
   followUser,
@@ -39,7 +39,7 @@ userRoutes.put("/:userId", upload.single("profile"), updateUser);
 userRoutes.put("/change-password/:userId", changePass);
 
 //? DELETE USER BY ID
-userRoutes.delete("/:userId", deleteUser);
+userRoutes.delete("/:userId", deleteTheUser);
 
 //? FOLLOW USER
 

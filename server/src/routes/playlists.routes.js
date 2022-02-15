@@ -11,7 +11,8 @@ import {
   followPlaylist,
   unfollowPlaylist,
   getPlaylistByIdAndDetails,
-  getPlaylistByIdAndInfo
+  getPlaylistByIdAndInfo,
+  getFollowedPlaylist
 } from "../controllers/playlistsController.js";
 import middleware from "../middlewares/index.js";
 
@@ -50,5 +51,7 @@ playlistsRoutes.put("/unfollow/:playlistId", unfollowPlaylist);
 playlistsRoutes.get("/details/:playlistId", getPlaylistByIdAndDetails);
 
 //? GET PLAYLIST BY ID AND SHOW USERS DETAILS
-
 playlistsRoutes.get("/detailsUser/:playlistId", getPlaylistByIdAndInfo);
+
+//? GET FOLLOWED PLAYLIST BY USERS
+playlistsRoutes.get("/detailsUser/:userId", getFollowedPlaylist);
