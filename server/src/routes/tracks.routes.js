@@ -22,41 +22,48 @@ import upload from "../utils/multer.js";
 
 export const tracksRoutes = Router();
 
-// get Tracks By Search
+//? GET TRACKS BY SEARCH
+//* @route PUT api/tracks/search
 tracksRoutes.get("/search", getTracksBySearch);
 
-// GET Tracks By User - firebaseUser
+//? GET TRACKS BY USER - FIREBASE USER
+//* @route PUT api/tracks/mine
 tracksRoutes.get("/mine", getTracksByUser);
 
-// Add Fav to a track
-// @route PUT api/tracks/like/:trackId
+//? ADD FAV TO TRACK
+//* @route PUT api/tracks/like/:trackId
 tracksRoutes.put("/like/:trackId", addFavToTrack);
 
-// Remove Fav from a track
-// @route PUT api/tracks/unlike/:trackId
+//? REMOVE FAV FROM A TRACK
+//* @route PUT api/tracks/unlike/:trackId
 tracksRoutes.put("/unlike/:trackId", removeFavFromTrack);
 
-// Add track to playlist
-// @route PUT api/tracks/addToPlaylist/:trackId
+//? ADD TRACK TO TPLAYLIST 
+//* @route PUT api/tracks/addToPlaylist/:trackId
 tracksRoutes.put("/addToPlaylist/:trackId", addTrackToPlaylist);
 
-// Remove track from playlist
-// @route PUT api/tracks/deleteFromPlaylist/:trackId
+//? REMOVE A TRACK FROM PLAYLIST
+//* @route PUT api/tracks/deleteFromPlaylist/:trackId
 tracksRoutes.put("/deleteFromPlaylist/:trackId", deleteTrackFromPlaylist);
 
 //? UPDATE REPRODUCTION COUNTER
+//* @route PUT api/tracks/reproducing/:trackId
 tracksRoutes.put("/reproducing/:trackId", reproductionsCounter);
 
-// ? GET Tracks By User - firebaseUser
+//? GET TRACKS BY USER - FIREBASE USER 
+//* @route PUT api/tracks/likedByUser/:userId
 tracksRoutes.get("/likedByUser/:userId", getTrackDetailsInFav);
 
-// ? GET TRACKS
+//? GET TRACKS
+//* @route PUT api/tracks
 tracksRoutes.get("/", getTracks);
 
-// ? CREATE tracks
+//? CREATE tracks
+//* @route PUT api/tracks
 tracksRoutes.post("/", uploadTrack.single("urlTrack"), createTrack);
 
-// ? UPLOAD THUMBNAIL TO TRACK
+//? UPLOAD THUMBNAIL TO TRACK
+//* @route PUT api/tracks/uploadThumbnail/:trackId
 tracksRoutes.put(
   "/uploadThumbnail/:trackId",
 
@@ -64,10 +71,12 @@ tracksRoutes.put(
   addPhotoToTrack
 );
 
-// ? GET tracks BY ID
+//? GET TRACKS BY ID
+//* @route PUT api/tracks/:trackId
 tracksRoutes.get("/:trackId", getTrackById);
 
-// ? UPDATE tracks BY ID
+//? UPDATE trackTRACKS BY ID
+//* @route PUT api/tracks/edit/:trackId
 tracksRoutes.put(
   "/edit/:trackId",
 
@@ -75,8 +84,10 @@ tracksRoutes.put(
   updateTrack
 );
 
-// ? DELETE tracks BY ID
+//? DELETE trackTRACKS BY ID
+//* @route PUT api/tracks/:trackId
 tracksRoutes.delete("/:trackId", deleteTrack);
 
-// ? ADD TRACK TO ALBUM
+//? ADD TRACK TO ALBUM
+//* @route PUT api/tracks/addToAlbum/:trackId
 tracksRoutes.put("/addToAlbum/:trackId", trackToAlbum);

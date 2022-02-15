@@ -25,7 +25,7 @@ export const addTracksToUser = async (req, res, track, next) => {
     const newTrack = await User.findByIdAndUpdate(track.user._id, data, {
       new: true,
     });
-    // res.status(200).json({ data: "Added track to user!", newTrack })
+    res.status(200).json({ data: "Added track to user!", newTrack })
   } catch (error) {
     console.log(error);
   }
@@ -146,14 +146,14 @@ export const deleteTrack = async (req, res, next) => {
     const user = await User.findById(userId)
 
     const removeUpload = user.uploadedTracks
-        .map((track) => track)
-        .indexOf(trackId);
+      .map((track) => track)
+      .indexOf(trackId);
     user.uploadedTracks.splice(removeUpload, 1);
 
     const removeFav = user.favTrackList
-        .map((track) => track.trackId)
-        .indexOf(trackId);
-      user.favTrackList.splice(removeFav, 1);
+      .map((track) => track.trackId)
+      .indexOf(trackId);
+    user.favTrackList.splice(removeFav, 1);
 
     await user.save();
 
@@ -166,13 +166,13 @@ export const deleteTrack = async (req, res, next) => {
   next();
 };
 
-// TODO UPDATE TRACK
+//? UPDATE TRACK
 export const updateTrack = async (req, res, next) => {
   try {
     const url = req.params.trackId;
     const track = await Tracks.findById(url);
 
-    // ? DELETE IMAGE FROM CLOUDINARY IF THE USER CHANGES IT AT PROFILE
+    //? DELETE IMAGE FROM CLOUDINARY IF THE USER CHANGES IT AT PROFILE
     await cloudinary.v2.uploader.destroy(track.cloudinaryId, {
       resource_type: "video",
     });
@@ -187,7 +187,6 @@ export const updateTrack = async (req, res, next) => {
       duration: req.body.duration || track.duration,
       artist: req.body.artist || track.artist,
       genre: req.body.genre || track.genre,
-      //TODO---------------------------- FIX THE UPLOAD AND DELETE -----------------------
       cloudinaryId: track.cloudinaryId,
       urlTrack: track.urlTrack,
     };
@@ -207,7 +206,8 @@ export const updateTrack = async (req, res, next) => {
   next();
 };
 
-// GET TRACKS BY USER
+
+//? GET TRACKS BY USER
 export const getTracksByUser = async (req, res, next) => {
   try {
     const param = req.query.firebaseUser;
@@ -221,8 +221,9 @@ export const getTracksByUser = async (req, res, next) => {
   next();
 };
 
-// Add Fav to a track
-// @route PUT api/tracks/like/:trackId
+
+//? ADD FAV TO TRACK
+//* @route PUT api/tracks/like/:trackId
 export const addFavToTrack = async (req, res, next) => {
   const param = req.query.firebaseUser;
   try {
