@@ -14,11 +14,15 @@ import {
   addPhotoToTrack,
   reproductionsCounter,
   trackToAlbum,
+  getTracksBySearch,
 } from "../controllers/tracksController.js";
 import uploadTrack from "../utils/multerTracks.js";
 import upload from "../utils/multer.js";
 
 export const tracksRoutes = Router();
+
+// get Tracks By Search
+tracksRoutes.get("/search", getTracksBySearch);
 
 // GET Tracks By User - firebaseUser
 tracksRoutes.get("/mine", getTracksByUser);

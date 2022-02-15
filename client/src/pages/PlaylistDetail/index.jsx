@@ -59,11 +59,13 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
 
     const handleToggle = () => {
         if (follow) {
+            console.log("unfollow")
             dispatch(unfollowPlaylist(playlistInfo._id, uid));
             dispatch(getAllPlaylists());
             dispatch(getPlaylistsByUser(uid));
             setFollow(!follow);
         } else {
+            console.log("follow")
             dispatch(followPlaylist(playlistInfo._id, uid));
             dispatch(getAllPlaylists());
             dispatch(getPlaylistsByUser(uid))
