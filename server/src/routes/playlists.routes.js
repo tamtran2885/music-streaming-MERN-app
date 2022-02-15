@@ -19,6 +19,7 @@ import middleware from "../middlewares/index.js";
 export const playlistsRoutes = Router();
 
 //? GET FOLLOWING PLAYLISTS BY USER
+//* @route GET api/playlists/getFollowing/:userId
 playlistsRoutes.get("/getFollowing/:userId", getFollowingPlaylistsByUser);
 
 //? GET PLAYLISTS By User - firebaseUser
@@ -26,7 +27,7 @@ playlistsRoutes.get("/getFollowing/:userId", getFollowingPlaylistsByUser);
 playlistsRoutes.get("/mine", getPlaylistsByUser);
 
 //? GET PLAYLIST BY ID AND SHOW USERS DETAILS
-//* @route GET api/detailsUser/:playlistId
+//* @route GET api/playlists/detailsUser/:playlistId
 playlistsRoutes.get("/detailsUser/:playlistId", getPlaylistByIdAndInfo);
 
 //? GET PLAYLISTS
@@ -42,6 +43,7 @@ playlistsRoutes.post("/", upload.single("thumbnail"), createPlaylist);
 playlistsRoutes.get("/:playlistId", getPlaylistById);
 
 //? UPDATE PLAYLIST BY ID
+//* @route PUT api/playlists/edit/:playlistId
 playlistsRoutes.put(
   "/edit/:playlistId",
 
@@ -49,17 +51,22 @@ playlistsRoutes.put(
   updatePlaylistById
 );
 
-//? DELETE PLAYLIST BY ID
+//? DELETE PLAYLIST
+//* @route DELETE api/playlists/:playlistId
 playlistsRoutes.delete("/:playlistId", deletePlaylistById);
 
 //? FOLLOW PLAYLIST
+//* @route DELETE api/playlists/follow/:playlistId
 playlistsRoutes.put("/follow/:playlistId", followPlaylist);
 
 //? UNFOLLOW PLAYLIST
+//* @route DELETE api/playlists/unfollow/:playlistId
 playlistsRoutes.put("/unfollow/:playlistId", unfollowPlaylist);
 
 //? GET PLAYLIST BY ID AND SHOW TRACKS DETAILS
+//* @route GET api/playlists/details/:playlistId
 playlistsRoutes.get("/details/:playlistId", getPlaylistByIdAndDetails);
 
 //? GET PLAYLIST BY ID AND SHOW USERS DETAILS
+//* @route GET api/playlists/detailsUser/:playlistId
 playlistsRoutes.get("/detailsUser/:playlistId", getPlaylistByIdAndInfo);
