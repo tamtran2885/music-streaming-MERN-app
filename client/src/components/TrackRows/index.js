@@ -94,7 +94,7 @@ const TrackRows = ({ totalTracks }) => {
   const handleDelete = async (_id) => {
     // console.log("delete" + _id);
     try {
-      await axios.delete(`http://localhost:4000/api/tracks/${_id}`, config);
+      await axios.delete(`/api/tracks/${_id}`, config);
       dispatch(getAllTracks());
       dispatch(getTracksByUser(userId));
       console.log(_id);

@@ -64,7 +64,7 @@ const Register = () => {
                 },
             };
 
-            firebaseUser ? await axios.post("http://localhost:4000/api/user", formData, config) : console.log("ho");
+            firebaseUser ? await axios.post("/api/user", formData, config) : console.log("ho");
 
             navigate("/login")
         } catch (error) {

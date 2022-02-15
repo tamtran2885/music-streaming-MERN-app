@@ -5,7 +5,7 @@ import axios from "axios";
 
 export const fetchTracks = () =>
   new Promise((resolve) => {
-    const tracks = axios.get("http://localhost:4000/api/tracks", {
+    const tracks = axios.get("/api/tracks", {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
@@ -17,7 +17,7 @@ export const fetchTracks = () =>
 
 export const fetchPlaylists = () =>
   new Promise((resolve) => {
-    const playlists = axios.get("http://localhost:4000/api/playlists", {
+    const playlists = axios.get("/api/playlists", {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
@@ -29,7 +29,7 @@ export const fetchPlaylists = () =>
 
 export const fetchAlbums = () =>
   new Promise((resolve) => {
-    const albums = axios.get("http://localhost:4000/api/albums", {
+    const albums = axios.get("/api/albums", {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
@@ -41,7 +41,7 @@ export const fetchAlbums = () =>
 
 export const fetchSingleTrack = (_id) =>
   new Promise((resolve) => {
-    const track = axios.get(`http://localhost:4000/api/tracks/${_id}`, {
+    const track = axios.get(`/api/tracks/${_id}`, {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
@@ -53,7 +53,7 @@ export const fetchSingleTrack = (_id) =>
 
 export const fetchTracksByUser = async (userUid) => {
   const userTracks = await axios.get(
-    `http://localhost:4000/api/tracks/mine?firebaseUser=${userUid}`,
+    `/api/tracks/mine?firebaseUser=${userUid}`,
     {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -65,7 +65,7 @@ export const fetchTracksByUser = async (userUid) => {
 
 export const fetchPlayListsByUser = (userUid, token) => {
   const userPlaylists = axios.get(
-    `http://localhost:4000/api/playlists/mine?firebaseUser=${userUid}`,
+    `/api/playlists/mine?firebaseUser=${userUid}`,
     {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -77,7 +77,7 @@ export const fetchPlayListsByUser = (userUid, token) => {
 
 export const fetchAlbumsByUser = (userUid) => {
   const userAlbums = axios.get(
-    `http://localhost:4000/api/albums/mine?firebaseUser=${userUid}`,
+    `/api/albums/mine?firebaseUser=${userUid}`,
     {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -89,7 +89,7 @@ export const fetchAlbumsByUser = (userUid) => {
 
 export const fetchPlaylistTracks = (playlistId) => {
   const playlistTracks = axios.get(
-    `http://localhost:4000/api/playlists/details/${playlistId}`,
+    `/api/playlists/details/${playlistId}`,
     {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -101,7 +101,7 @@ export const fetchPlaylistTracks = (playlistId) => {
 
 export const fetchTracksBySearch = (searchQuery) => {
   const searchTracks = axios.get(
-    `http://localhost:4000/api/tracks/search?searchQuery=${searchQuery || "none"
+    `/api/tracks/search?searchQuery=${searchQuery || "none"
     }`,
     {
       headers: {
@@ -114,7 +114,7 @@ export const fetchTracksBySearch = (searchQuery) => {
 
 export const fetchFollowingPlaylistsByUser = (userId) => {
   const followingPlaylists = axios.get(
-    `http://localhost:4000/api/playlists/getFollowing/${userId}`,
+    `/api/playlists/getFollowing/${userId}`,
     {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,

@@ -35,7 +35,7 @@ const PlaylistDetail = ({ currentPlaylist, currentPlaylistInfo }) => {
 
     // Get playlist creator
     const getPlaylistCreator = async () => {
-        const response = await axios.get(`http://localhost:4000/api/playlists/detailsUser/${getIdFromURL()}`,
+        const response = await axios.get(`/api/playlists/detailsUser/${getIdFromURL()}`,
             {
                 headers: {
                     Authorization: `Bearer ${sessionStorage.getItem("token")}`,

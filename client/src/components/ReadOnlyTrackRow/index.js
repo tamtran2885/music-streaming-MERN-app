@@ -89,7 +89,7 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
     // console.log(playlistId);
     try {
       await axios.put(
-        `http://localhost:4000/api/tracks/addToPlaylist/${_id}?playlistId=${playlistId}`,
+        `/api/tracks/addToPlaylist/${_id}?playlistId=${playlistId}`,
         config
       );
       // console.log(response);

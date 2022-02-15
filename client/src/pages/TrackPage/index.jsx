@@ -60,7 +60,7 @@ const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
       // dispatch fetch search tracks
       // dispatch(getTracksBySearch(searchWord));
       const searchTracks = await axios.get(
-        `http://localhost:4000/api/tracks/search?searchQuery=${searchWord || "none"
+        `/api/tracks/search?searchQuery=${searchWord || "none"
         }`,
         {
           headers: {

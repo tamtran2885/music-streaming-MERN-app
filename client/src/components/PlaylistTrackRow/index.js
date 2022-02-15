@@ -36,7 +36,7 @@ const PlaylistTrackRow = ({ track, playlistInfo }) => {
     console.log("delete");
     try {
       await axios.put(
-        `http://localhost:4000/api/tracks/deleteFromPlaylist/${_id}?playlistId=${playlistInfo._id}`,
+        `/api/tracks/deleteFromPlaylist/${_id}?playlistId=${playlistInfo._id}`,
         {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("token")}`,

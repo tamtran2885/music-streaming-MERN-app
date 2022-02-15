@@ -23,7 +23,7 @@ const ConnectWithGoogle = () => {
                   sessionStorage.setItem("token", user.user.accessToken)
                   sessionStorage.setItem("userId", user.user.uid)
 
-                  user ? await axios.post("http://localhost:4000/api/user/google",
+                  user ? await axios.post("/api/user/google",
                         {
                               headers: {
                                     Authorization: `Bearer ${user.user.accessToken}`
