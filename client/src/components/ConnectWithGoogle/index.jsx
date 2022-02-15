@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAuth } from "../../context/authContext";
@@ -7,50 +7,58 @@ import axios from 'axios';
 
 
 const ConnectWithGoogle = () => {
+      const profileDefaultURL = "https://res.cloudinary.com/dj30eyyuy/image/upload/v1644870925/bjtptfaj8eh5fg44v2rr.jpg"
 
       const { loginWithGoogle } = useAuth();
 
-      const navigate = useNavigate()
-      const [credentials, setCredentials] = useState({});
 
-      const [values, setValues] = useState({
-            firstName: "",
-            lastName: "",
-            birthday: "",
-            country: "",
-            profile: "",
-            email: "",
-            firebaseUser: ""
-      });
+      const navigate = useNavigate()
+
 
 
       const registerWithGoogle = async () => {
             try {
-                  await loginWithGoogle()
-                        .then((userCredentials) => {
-                              console.log(userCredentials.user.accessToken)
-                              console.log(userCredentials.user.displayName)
-                              console.log(userCredentials.user.uid)
-                              console.log(userCredentials.user.email)
-                              setCredentials(userCredentials)
-                        })
-                  const config = {
-                        headers: {
-                              "Content-Type": "multipart/form-data",
-                              Authorization: "Bearer " + credentials.user.accessToken
-                        },
-                  };
+                  const user = await loginWithGoogle()
+                  console.log(user)
+                  sessionStorage.setItem("token", user.user.accessToken)
+                  sessionStorage.setItem("userId", user.user.uid)
+
+
+
+
+
+                  // const formData = new FormData();
+                  // formData.append("firstName", user.user.displayName);
+                  // formData.append("lastName", "");
+                  // formData.append("birthday", "");
+                  // formData.append("country", "");
+                  // formData.append("email", user.user.email);
+                  // formData.append("password", user.user.password);
+                  // formData.append("firebaseUser", user.user.uid)
+
                   const data = {
-                        firstName: credentials.user.displayName,
-                        lastName: "",
-                        birthday: "",
-                        country: "",
-                        profile: "",
-                        email: credentials.user.email,
-                        firebaseUser: credentials.user.uid
+
                   }
+
+
                   // set user to mongo
-                  await axios.post("http://localhost:4000/api/user", config, data)
+                  const userGoogle = await axios.post("http://localhost:4000/api/user/google",
+                        {
+                              headers: {
+                                    Authorization: "Bearer " + sessionStorage.getItem("token")
+                              },
+                              body: {
+                                    firstName: user.user.displayName,
+                                    lastName: "Enter your last name",
+                                    birthday: "03/06/1991",
+                                    country: "Introduce Your Country",
+                                    email: user.user.email,
+                                    password: "userPassword",
+                                    firebaseUser: user.user.uid
+                              }
+                        },
+                  )
+                  console.log(userGoogle)
                   navigate("/")
 
             } catch (error) {
