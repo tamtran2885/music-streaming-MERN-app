@@ -7,7 +7,6 @@ class Auth {
         const tokenArray = request.split(" ")
         const token = tokenArray[1]
 
-
         try {
             const decodeValue = await admin.auth().verifyIdToken(token);
             if (decodeValue) {
@@ -24,6 +23,5 @@ class Auth {
         }
     }
 }
-
 
 export default new Auth();
