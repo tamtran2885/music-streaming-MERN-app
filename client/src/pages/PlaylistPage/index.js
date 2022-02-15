@@ -8,9 +8,10 @@ import { connect, useDispatch } from "react-redux";
 import {
   getAllPlaylists,
   getPlaylistsByUser,
+  getFollowingPlaylistsByUser,
 } from "../../redux/playlist/actions";
 
-const PlaylistPage = ({ myPlaylists }) => {
+const PlaylistPage = ({ myPlaylists, myFollowingPlaylists }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loggedToken = sessionStorage.getItem("token");
@@ -24,6 +25,7 @@ const PlaylistPage = ({ myPlaylists }) => {
       setTimeout(async () => {
         dispatch(getAllPlaylists());
         dispatch(getPlaylistsByUser(userId));
+        dispatch(getFollowingPlaylistsByUser(userId));
       }, 3000);
     }
   }, [dispatch]);
@@ -33,6 +35,8 @@ const PlaylistPage = ({ myPlaylists }) => {
   useEffect(() => {
     setAllPlaylists(myPlaylists);
   }, [myPlaylists]);
+
+  // console.log(myFollowingPlaylists);
 
   return (
     <>
@@ -48,6 +52,7 @@ const mapStateToProps = (state) => {
   return {
     allPlaylists: state.playlist.allPlaylists.data,
     myPlaylists: state.playlist.myPlaylists.data,
+    myFollowingPlaylists: state.playlist.myFollowingPlaylists.data,
     // myFollowingPlaylists: state.playlist.myFollowingPlaylists.data
   };
 };

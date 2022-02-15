@@ -13,8 +13,12 @@ import axios from "axios";
 const TrackPage = ({favTracksByUser, myTracks, allTracks }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    
     const loggedToken = sessionStorage.getItem("token");
     const userId = sessionStorage.getItem("userId");
+
+    const [totalTracks, setTotalTracks] = useState([]);
+    const [searchWord, setSearchWord] = useState("");
 
     useEffect(() => {
         if (!loggedToken) {
@@ -28,8 +32,6 @@ const TrackPage = ({favTracksByUser, myTracks, allTracks }) => {
             }, 3000)
         }
     }, [dispatch])
-
-    const [totalTracks, setTotalTracks] = useState([]);
 
     useEffect(() => {
         setTotalTracks(allTracks);
@@ -52,31 +54,24 @@ const TrackPage = ({favTracksByUser, myTracks, allTracks }) => {
         navigate("/track")
     }
 
-    const [searchWord, setSearchWord] = useState("");
-
-    const searchTracks = async () => {
+    const searchTracks = () => {
+      // console.log("search")
       if (searchWord.trim()) {
-        // dispatch fetch search tracks
-        // dispatch(getTracksBySearch(searchWord));
-        const searchTracks = await axios.get(
-          `http://localhost:4000/api/tracks/search?searchQuery=${
-            searchWord || "none"
-          }`,
+        axios.get(`http://localhost:4000/api/tracks/search?searchQuery=${searchWord || "none"}`,
           {
             headers: {
               Authorization: "Bearer " + sessionStorage.getItem("token"),
             },
           }
-        );
-        // console.log(searchTracks.data)
-        // setTotalTracks(searchTracks.data);
-        navigate(`/track?searchQuery=${searchWord || "none"}`);
+        ).then((response) => {
+            // console.log(response)
+            setTotalTracks(response.data.data);
+            navigate(`/track?searchQuery=${searchWord || "none"}`);
+        })
       } else {
         navigate("/track")
       }
     }
-
-    // console.log(totalTracks);
 
     return (
       <>
