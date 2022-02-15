@@ -35,13 +35,40 @@ export const LogIn = async (req, res, next) => {
   }
 }
 
+
+export const createUserGoogle = async (req, res) => {
+  console.log(req.body.body)
+
+  try {
+
+    // Create instance of User Google
+    const userGoogle = new User({
+      firstName: req.body.body.firstName,
+      lastName: req.body.body.lastName,
+      birthday: req.body.body.birthday,
+      country: req.body.body.country,
+      email: req.body.body.email,
+      password: req.body.body.firebaseUser,
+      firebaseUser: req.body.body.firebaseUser,
+
+    });
+    await userGoogle.save();
+    res.status(200).json({ data: "User created", userGoogle });
+  } catch (error) {
+    console.log(error)
+  }
+
+}
+
 export const createUser = async (req, res) => {
   console.log(req.body);
   const hash = await bcrypt.hash(req.body.password, saltRounds);
 
   try {
-    // Upload image to cloudinary
+
     const result = await cloudinary.v2.uploader.upload(req.file.path);
+    // Upload image to cloudinary
+    console.log(req.file.path)
     // Create instance of User
     const user = new User({
       firstName: req.body.firstName,
@@ -145,7 +172,7 @@ export const changePass = async (req, res) => {
     const user = await User.findOne({
       firebaseUser: url,
     });
-
+ 
     const dataUser = {
       firstName: req.body.firstName || user.firstName,
       lastName: req.body.lastName || user.lastName,
@@ -157,7 +184,7 @@ export const changePass = async (req, res) => {
       firebaseUser: req.body.firebaseUser,
     };
     // console.log(firebaseUser);
-
+ 
     const userToEdit = await User.findOneAndUpdate(
       {
         firebaseUser: url,
@@ -167,15 +194,15 @@ export const changePass = async (req, res) => {
         new: true,
       }
     );
-
+ 
     res.status(200).json({ data: "User updated", userToEdit });
   } catch (error) {
     console.log(error);
   }
 };
-
+ 
 //const hash = await bcrypt.hash(req.body.password, saltRounds);
-
+ 
 changePass();*/
 
 // TODO FOLLOW USER
