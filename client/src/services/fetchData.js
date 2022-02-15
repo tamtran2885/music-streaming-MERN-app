@@ -12,7 +12,7 @@ export const fetchTracks = () =>
     });
     setTimeout(() => {
       resolve(tracks);
-    }, 3000);
+    }, 1000);
   });
 
 export const fetchPlaylists = () =>

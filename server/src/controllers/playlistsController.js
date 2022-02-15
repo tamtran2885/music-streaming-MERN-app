@@ -61,7 +61,7 @@ export const getPlaylistById = async (req, res, next) => {
   }
 };
 
-// TODO UPDATE PLAYLIST BY ID
+// ? UPDATE PLAYLIST BY ID
 export const updatePlaylistById = async (req, res, next) => {
   try {
     const url = req.params.playlistId;
@@ -203,7 +203,7 @@ export const getPlaylistByIdAndDetails = async (req, res, next) => {
   }
 };
 
-//? GET PLAYLIST BY ID AND INFO
+//? GET PLAYLIST BY ID AND USER DETAILS
 export const getPlaylistByIdAndInfo = async (req, res, next) => {
   try {
     const playlistId = req.params.playlistId;
@@ -211,9 +211,9 @@ export const getPlaylistByIdAndInfo = async (req, res, next) => {
     const playlist = await Playlist.findById(playlistId);
     const firebaseUser = playlist.firebaseUser
 
-    const user = await User.findOne({firebaseUser: firebaseUser})
+    const user = await User.findOne({ firebaseUser: firebaseUser })
 
-    res.status(200).json({user});
+    res.status(200).json({ user });
   } catch (error) {
     console.log(error);
   }

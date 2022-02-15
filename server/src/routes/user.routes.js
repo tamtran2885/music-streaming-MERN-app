@@ -9,6 +9,7 @@ import {
   changePass,
   followUser,
   unfollowUser,
+  createUserGoogle
 } from "../controllers/userController.js";
 import upload from "../utils/multer.js";
 import middleware from "../middlewares/index.js"
@@ -23,6 +24,9 @@ userRoutes.post("/loggedIn", LogIn);
 
 // ? CREATE USER
 userRoutes.post("/", upload.single("profile"), createUser);
+
+// ? CREATE USER GOOGLE
+userRoutes.post("/google", createUserGoogle);
 
 //? GET USER BY ID
 userRoutes.get("/:userId", getUserById);
