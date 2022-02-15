@@ -1,8 +1,4 @@
-import {
-  fetchTracks,
-  fetchTracksByUser,
-  fetchTracksBySearch,
-} from "../../services/fetchData.js";
+import { fetchTracks, fetchTracksByUser } from "../../services/fetchData.js";
 import axios from "axios";
 
 import {
@@ -11,7 +7,6 @@ import {
   DELETE_TRACK,
   SET_TRACKS_BY_USER,
   SET_FAV_TRACKS_BY_USER,
-  SET_SEARCH_TRACKS,
 } from "./types";
 const token = sessionStorage.getItem("token");
 
@@ -36,24 +31,6 @@ export const getAllTracks = () => {
 export const setAllTracks = (response) => ({
   type: SET_ALL_TRACKS,
   payload: response,
-});
-
-// get tracks by search
-export const getTracksBySearch = (searchQuery) => {
-  return async (dispatch) => {
-    try {
-      const { data } = await fetchTracksBySearch(searchQuery);
-      dispatch(setSearchTracks(data));
-      console.log(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-};
-
-export const setSearchTracks = (data) => ({
-  type: SET_SEARCH_TRACKS,
-  payload: data,
 });
 
 // Get tracks by user
