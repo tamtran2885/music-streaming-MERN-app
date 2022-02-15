@@ -11,16 +11,21 @@ const AlbumSchema = new Schema({
   thumbnail: {
     type: String,
   },
+  cloudinaryId: {
+    type: String
+  },
   totalTracks: {
     type: Number,
   },
   tracks: {
-    type: Schema.Types.ObjectId,
-    ref: "tracks",
+    type: [
+      {
+          trackId: String,
+      },
+    ],
   },
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: "user",
+  firebaseUser: {
+    type: String
   },
   likedBy: {
     type: Schema.Types.ObjectId,

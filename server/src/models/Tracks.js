@@ -17,8 +17,8 @@ const TracksSchema = new Schema(
       trim: true,
     },
     album: {
-      type: String,
-      trim: true,
+      type: Schema.Types.ObjectId,
+      ref: "album",
     },
     genre: {
       type: String,

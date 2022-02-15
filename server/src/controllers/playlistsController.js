@@ -1,5 +1,6 @@
 import Playlist from "../models/Playlist.js";
 import Tracks from "../models/Tracks.js";
+import User from "../models/User.js";
 import cloudinary from "../utils/cloudinary.js";
 
 //? GET PLAYLISTS
@@ -202,14 +203,29 @@ export const getPlaylistByIdAndDetails = async (req, res, next) => {
   }
 };
 
+//? GET PLAYLIST BY ID AND INFO
+export const getPlaylistByIdAndInfo = async (req, res, next) => {
+  try {
+    const playlistId = req.params.playlistId;
+
+    const playlist = await Playlist.findById(playlistId);
+    const firebaseUser = playlist.firebaseUser
+
+    const user = await User.findOne({firebaseUser: firebaseUser})
+
+    res.status(200).json({user});
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 //? CHANGE ORDER IN ARRAY AFTER DRAG AND DROP
 
 export const changeListOrder = async (req, res) => {
   const { id, listID, oldIndex, newIndex } = req.body;
   const thisPlaylist = await Playlist.find();
-
 }
+
 
   // // this code won't run until thisBoard has returned a value
   // let [oldValue, newValue] = [thisPlaylist.lists[oldIndex], thisPlaylist.lists[newIndex];

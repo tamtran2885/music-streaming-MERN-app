@@ -7,7 +7,11 @@ import {
   getAllPlaylists,
   getPlaylistsByUser,
 } from "../../redux/playlist/actions";
-import { addLike, removeLike } from "../../redux/track/actions";
+import {
+  addLike,
+  removeLike,
+  addReproductionsCounter,
+} from "../../redux/track/actions";
 import axios from "axios";
 import {
   setTracks,
@@ -61,6 +65,7 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
     dispatch(setCurrentTrack(track));
     dispatch(getSingleTrack(_id));
     dispatch(setTracks(track));
+    dispatch(addReproductionsCounter(_id, uid));
   };
 
   const config = {
@@ -72,6 +77,7 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
 
   const handleChange = async (e) => {
     const playlistId = e.target.value;
+    // console.log(playlistId);
     try {
       await axios.put(
         `http://localhost:4000/api/tracks/addToPlaylist/${_id}?playlistId=${playlistId}`,
@@ -82,7 +88,7 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
       console.error(err);
     }
     dispatch(getAllPlaylists());
-    dispatch(getPlaylistsByUser(firebaseUser));
+    dispatch(getPlaylistsByUser(userId));
   };
 
   return (

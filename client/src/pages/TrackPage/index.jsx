@@ -3,19 +3,18 @@ import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import Genres from '../../components/Genres';
 import Albums from '../../components/Albums';
-import MusicPlayer from '../../components/MusicPlayer';
 import TrackRows from "../../components/TrackRows";
 import upload from "../../assets/images/upload.svg";
 import { getFavTracksByUser } from "../../redux/track/actions";
-import close from "../../assets/images/close.svg";
+import close from '../../assets/images/close.svg';
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
 const TrackPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const loggedToken = localStorage.getItem("token");
-    const userId = localStorage.getItem("userId");
+    const loggedToken = sessionStorage.getItem("token");
+    const userId = sessionStorage.getItem("userId");
 
     useEffect(() => {
         if (!loggedToken) {
@@ -56,7 +55,7 @@ const TrackPage = () => {
     return (
       <>
         <div className='dashboard__background'>
-          <Navbar page="Songs" />
+          <Navbar page="Songs" handleMine={handleMine} handlePopular={handlePopular}/>
           <div className='tracks__absolute'>
             <div className='tracks__display'>
               <div className="tracks__title">
@@ -168,7 +167,6 @@ const TrackPage = () => {
               </div>
             </div>
           </div>
-          {/* <MusicPlayer /> */}
       </div>
     </>
     )

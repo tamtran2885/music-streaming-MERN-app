@@ -13,10 +13,10 @@ import {
   getTrackDetailsInFav,
   addPhotoToTrack,
   reproductionsCounter,
+  trackToAlbum,
 } from "../controllers/tracksController.js";
 import uploadTrack from "../utils/multerTracks.js";
 import upload from "../utils/multer.js";
-import middleware from "../middlewares/index.js";
 
 export const tracksRoutes = Router();
 
@@ -70,3 +70,6 @@ tracksRoutes.put(
 
 // ? DELETE tracks BY ID
 tracksRoutes.delete("/:trackId", deleteTrack);
+
+// ? ADD TRACK TO ALBUM
+tracksRoutes.put("/addToAlbum/:trackId", trackToAlbum);
