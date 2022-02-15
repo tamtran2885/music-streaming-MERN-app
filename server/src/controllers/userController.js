@@ -64,14 +64,13 @@ export const createUserGoogle = async (req, res) => {
 }
 
 export const createUser = async (req, res, next) => {
-  console.log(req.body);
   const hash = await bcrypt.hash(req.body.password, saltRounds);
 
   try {
 
     const result = await cloudinary.v2.uploader.upload(req.file.path);
     // Upload image to cloudinary
-    console.log(req.file.path)
+    // console.log(req.file.path)
     // Create instance of User
     const user = new User({
       firstName: req.body.firstName,
@@ -144,20 +143,20 @@ export const updateUser = async (req, res, next) => {
     });
     console.log(user);
 
-    // Delete image from cloudinary if change image of profile
+    //Delete image from cloudinary if change image of profile
     // await cloudinary.uploader.destroy(user.cloudinaryId);
 
     // Upload image to cloudinary
-    // const result = await cloudinary.uploader.upload(req.file.path);
+    const result = await cloudinary.uploader.upload(req.file.path);
 
     const dataUser = {
       firstName: req.body.firstName || user.firstName,
       lastName: req.body.lastName || user.lastName,
       birthday: req.body.birthday || user.birthday,
       country: req.body.country || user.country,
-      profile: user.profile,
+      profile: result.secure_url || user.profile,
       email: req.body.email || user.email,
-      cloudinaryId: user.cloudinaryId,
+      cloudinaryId: result.cloudinaryId,
       firebaseUser: req.body.firebaseUser,
     };
     // console.log(firebaseUser);

@@ -23,24 +23,6 @@ const ConnectWithGoogle = () => {
                   sessionStorage.setItem("token", user.user.accessToken)
                   sessionStorage.setItem("userId", user.user.uid)
 
-
-
-
-
-                  // const formData = new FormData();
-                  // formData.append("firstName", user.user.displayName);
-                  // formData.append("lastName", "");
-                  // formData.append("birthday", "");
-                  // formData.append("country", "");
-                  // formData.append("email", user.user.email);
-                  // formData.append("password", user.user.password);
-                  // formData.append("firebaseUser", user.user.uid)
-
-                  const data = {
-
-                  }
-
-
                   // set user to mongo
                   const userGoogle = await axios.post("http://localhost:4000/api/user/google",
                         {

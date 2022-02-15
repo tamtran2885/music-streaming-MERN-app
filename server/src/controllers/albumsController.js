@@ -2,6 +2,7 @@ import Album from "../models/Album.js";
 import cloudinary from "../utils/cloudinary.js";
 
 export const getAlbums = async (req, res, next) => {
+    console.log(req.headers)
     try {
         const album = await Album.find();
         res.json(album);
