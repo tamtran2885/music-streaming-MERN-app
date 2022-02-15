@@ -5,11 +5,12 @@ import Genres from '../../components/Genres';
 import Albums from '../../components/Albums';
 import TrackRows from "../../components/TrackRows";
 import upload from "../../assets/images/upload.svg";
-import { getFavTracksByUser, getAllTracks, getTracksByUser, getTracksBySearch } from "../../redux/track/actions";
+import { getFavTracksByUser, getAllTracks, getTracksByUser } from "../../redux/track/actions";
 import close from '../../assets/images/close.svg';
 import { connect, useDispatch } from "react-redux";
+import axios from "axios";
 
-const TrackPage = ({favTracksByUser, myTracks, allTracks, searchTracksByUser}) => {
+const TrackPage = ({favTracksByUser, myTracks, allTracks }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const loggedToken = sessionStorage.getItem("token");
@@ -31,35 +32,51 @@ const TrackPage = ({favTracksByUser, myTracks, allTracks, searchTracksByUser}) =
     const [totalTracks, setTotalTracks] = useState([]);
 
     useEffect(() => {
-        setTotalTracks(myTracks);
-    }, [myTracks])
+        setTotalTracks(allTracks);
+    }, [allTracks])
 
     const handlePopular = () => {
         // console.log("allTracks")
         setTotalTracks(allTracks)
+        navigate("/track")
     };
 
     const handleMine = () => {
         // console.log("myTracks")
         setTotalTracks(myTracks)
+        navigate("/track")
     };
 
     const handleFav = () => {
         setTotalTracks(favTracksByUser)
+        navigate("/track")
     }
 
     const [searchWord, setSearchWord] = useState("");
 
-    const searchTracks = () => {
+    const searchTracks = async () => {
       if (searchWord.trim()) {
         // dispatch fetch search tracks
-        dispatch(getTracksBySearch(searchWord));
-        setTotalTracks(searchTracksByUser);
+        // dispatch(getTracksBySearch(searchWord));
+        const searchTracks = await axios.get(
+          `http://localhost:4000/api/tracks/search?searchQuery=${
+            searchWord || "none"
+          }`,
+          {
+            headers: {
+              Authorization: "Bearer " + sessionStorage.getItem("token"),
+            },
+          }
+        );
+        // console.log(searchTracks.data)
+        // setTotalTracks(searchTracks.data);
         navigate(`/track?searchQuery=${searchWord || "none"}`);
       } else {
         navigate("/track")
       }
     }
+
+    // console.log(totalTracks);
 
     return (
       <>
@@ -164,7 +181,6 @@ const mapStateToProps = state => {
       allTracks: state.track.allTracks.data,
       myTracks: state.track.myTracks.data,
       favTracksByUser: state.track.favTracksByUser,
-      searchTracksByUser: state.track.searchTracksByUser.data
   }
 }
 

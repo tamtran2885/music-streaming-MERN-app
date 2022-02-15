@@ -4,6 +4,7 @@ import {
   SET_PLAYLISTS_BY_USER,
   SET_CURRENT_PLAYLIST,
   SET_CURRENT_PLAYLIST_INFO,
+  SET_FOLLOWING_PLAYLISTS_BY_USER,
 } from "./types";
 
 const playlistReducer = (state = initialState, action) => {
@@ -30,6 +31,12 @@ const playlistReducer = (state = initialState, action) => {
       return {
         ...state,
         currentPlaylistInfo: action.payload,
+        loading: false,
+      };
+    case SET_FOLLOWING_PLAYLISTS_BY_USER:
+      return {
+        ...state,
+        myFollowingPlaylists: action.payload,
         loading: false,
       };
     default:

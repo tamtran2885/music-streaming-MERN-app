@@ -112,3 +112,15 @@ export const fetchTracksBySearch = (searchQuery) => {
   );
   return searchTracks;
 };
+
+export const fetchFollowingPlaylistsByUser = (userId) => {
+  const followingPlaylists = axios.get(
+    `http://localhost:4000/api/playlists/folowwingPlaylists/${userId}}`,
+    {
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    }
+  );
+  return followingPlaylists;
+};
