@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import CreatedPlaylist from '../CreatedPlaylist';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { Draggable } from 'react-beautiful-dnd';
-import MusicPlayer from '../../components/MusicPlayer';
+import close from '../../assets/images/close.svg';
 
 const CreatedPlaylists = ({totalPlaylists}) => {
 
@@ -24,7 +24,7 @@ const CreatedPlaylists = ({totalPlaylists}) => {
     >
       <div className='playlists__absolute'>
         <div className='playlist__tittle'>
-        <h2>Uploaded</h2>
+        <h2>Created</h2>
           <Link to="/playlist/add">
           <button>Create a playlist</button>
           </Link>
@@ -99,9 +99,46 @@ const CreatedPlaylists = ({totalPlaylists}) => {
         </Droppable>
       </div>
     </DragDropContext>
+      <div className="songs__modal__absolute modal__hide">
+        <div className="songs__modal__background">
+          <div className="sogs__modal__container">
+            <h1 className="header">Create a new Playlist</h1>
+            <div className="close"><img src={close} alt="Close the modal" /></div>
+            <div className="form__container ">
+              <form className="form" onSubmit={""} encType="multipart/form-data">
+                <div className="form__items">
+                  <div className="drag__area">
+                    <h3>Drag the playlist's cover here</h3>
+                    <p>or</p>
+                    <label for="cover"><p className='file'>Select a file</p></label>
+                    <input
+                      type="file"
+                      className="form__input"
+                      placeholder="Url"
+                      name="urlCover"
+                      id="cover"
+                      onChange={""}
+                    />
+                  </div>
+                  <div className="form__inputs">
+                    <input
+                      type="text"
+                      className="form__input"
+                      placeholder="Title"
+                      name="title"
+                      value={""}
+                      onChange={""}
+                    />
+                    {/*errors.title && <p>{errors.title}</p>*/}
+                    <button className="button playlist__button" type="button">Create</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    
-    <MusicPlayer />
   </>
   )
 }

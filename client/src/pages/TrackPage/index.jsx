@@ -120,15 +120,6 @@ const TrackPage = ({favTracksByUser, myTracks, allTracks }) => {
                         />
                       </div>
                       <div className="form__inputs">
-                        <label for="file"><p className='file'>Track's cover</p></label>
-                        <input
-                          type="file"
-                          className="form__input"
-                          placeholder="Thumbnail"
-                          name="photoTrack"
-                          id="file"
-                          onChange={""}
-                        />
                         <input
                           type="text"
                           className="form__input"

@@ -54,7 +54,7 @@ const Navbar = (props) => {
                             <div className='nav__filters__owner'>
                                 <button className='button__owner left active' onClick={handlePopular}>Popular</button>
                                 <button className='button__owner right' onClick={handleMine}>Mine</button>
-                                {page && page === "Songs" ? (<button className='button__owner right' onClick={handleFav}>Fav</button>) : (<div></div>)}
+                                {page && page === "Songs" ? (<button className='button__owner right fav' onClick={handleFav}>Fav</button>) : (<div></div>)}
                             </div>
                         </div>
                     </div>

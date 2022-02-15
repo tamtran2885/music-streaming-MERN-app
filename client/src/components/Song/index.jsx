@@ -4,6 +4,7 @@ import { setTracks, setCurrentTrack, getSingleTrack } from "../../redux/audioPla
 import { addLike, removeLike, getAllTracks, getTracksByUser, addReproductionsCounter } from "../../redux/track/actions";
 import star from '../../assets/images/star.svg'
 import staractive from '../../assets/images/staractive.svg';
+import playbuttonwhite from '../../assets/images/playbuttonwhite.svg';
 
 const Song = (track) => {
   const dispatch = useDispatch();
@@ -51,11 +52,11 @@ const Song = (track) => {
   return (
     <>
       <div className='song__absolute'>
-        {/* <div className='song__number'>
-          1
-        </div> */}
-        <div className='song__image__container'>
-          <button className='song__button' onClick={handleClick}><img className='song__image' src={photoTrack ? photoTrack : trackPhotoDefault} alt="song-thumb" /></button>
+        <div className='song__image__container' onClick={handleClick} >
+          <button className='song__button'>
+            <img className='song__image' src={photoTrack ? photoTrack : trackPhotoDefault} alt="song-thumb" />
+            <img className='song__play__icon' src={playbuttonwhite} alt="" />
+          </button>
         </div>
         <div className='song__like'>
           {like === false ? (

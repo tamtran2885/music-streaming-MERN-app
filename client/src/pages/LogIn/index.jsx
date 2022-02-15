@@ -79,8 +79,8 @@ const Login = () => {
                 </div>
             </div>
             <div className="credits">
-                <p>TamTamGo App © 2022 | <a className="link" href="https://assemblerinstitute.com/" target="_blank" rel="noreferrer">Assembler Institute of Technology</a> Jun21 Final Project</p>
-                <p>Developed with love by Tam Team</p>
+                <p className="credits__right">TamTamGo App © 2022 | <a className="link" href="https://assemblerinstitute.com/" target="_blank" rel="noreferrer">Assembler Institute of Technology</a> Jun21 Final Project</p>
+                <p className="credits__left">Developed with love by Tam Team</p>
             </div>
         </>
     )

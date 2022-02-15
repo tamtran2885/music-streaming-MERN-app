@@ -45,20 +45,17 @@ const Playlist = (playlist) => {
       <div>
         <Link className='playlist__absolute' to={`/playlist/${_id}`} style={{ background: `url(${thumbnail && thumbnail}) no-repeat center center` }}>
           <div className='playlist__follow'>
-            {/* <img src={star} alt="" /> */}
             {follow ? (
               <img
                 className="song__like__icon"
                 src={staractive}
                 alt=""
-                onClick={handleToggle}
               />
             ) : (
               <img
                 className="song__like__icon"
                 src={star}
                 alt=""
-                onClick={handleToggle}
               />
             )}
           </div>
@@ -66,7 +63,6 @@ const Playlist = (playlist) => {
             {playlist.playlist && (
               <>
                 <h3 className='playlist__tittle'>{title && title}</h3>
-                {/*<img className='playlist__background' src={thumbnail && thumbnail} alt="playlist"/>*/}
               </>
             )}
           </div>

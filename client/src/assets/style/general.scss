@@ -297,6 +297,11 @@ body {
               }
               .right {
                 border-radius:0  25px 25px 0;
+                z-index: 1;
+              }
+              .fav {
+                margin-left: -5%;
+                z-index: 0;
               }
             }
           }
@@ -350,6 +355,7 @@ body {
                   ". . ."
                   ". . ."
                   ". . .";
+                transition: 0.6s;
                 height: 150px;
                 .playlist__tittle {
                   width: 100%;
@@ -364,6 +370,9 @@ body {
                   margin-left: 65%;
                   color: white;
                 }
+              }
+              .playlist__absolute:hover {
+                box-shadow: inset 0 -50px 2px 1px rgba(0, 0, 0, 0.652);
               }
             }
           }
@@ -411,24 +420,29 @@ body {
             }
             .position {
               .song__number{
-                height: 64px;
-                margin-top: 1.1rem;
-                margin-bottom: -0.2rem;
+                margin-top: -1rem;
+                margin-bottom: 1.8rem;
                 font-size: 1.3rem;
+                height: 64px;
+                line-height: 5;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
               }
             }
             .track {
-              width: 90%;
+              width: 100%;
               .song__absolute {
+                width: 100%;
                 display: grid;
-                grid-template-columns: 5% 10% 10% 50% 5% 5%;
+                grid-template-columns: 5% 10% 10% 65% 5% 5%;
                 grid-template-rows: 1%;
-                gap: 1% 1%;
+                gap: 0 1%;
                 grid-template-areas:
                   ". . . . . .";
-                margin: 0 auto;
-                padding: 0;
+                transition: 0.6s;
+                padding-top: 1%;
+                margin-bottom: -1%;
                 .song__image__container {
+                  margin-left: -30%;
                   width: 100%;
                   padding: 0;
                   .song__button {
@@ -439,6 +453,16 @@ body {
                       width: 64px;
                       height: 64px;
                     }
+                    .song__play__icon {
+                      display: none;
+                    }
+                  }
+                  .song__button:hover > .song__play__icon {
+                    width: 24px;
+                    display: block;
+                    margin-top: -79%;
+                    margin-left: 35%;
+                    cursor: pointer;
                   }
                 }
                 .song__like {
@@ -463,8 +487,11 @@ body {
                   text-align: end;
                   width: 100%;
                   margin-top: 8%;
-                  margin-left: 50%;
+                  margin-left: 5%;
                 }
+              }
+              .song__absolute:hover {
+                background: #00000046;
               }
             }
             .empty {
@@ -530,10 +557,11 @@ body {
                     ". . ."
                     ". . .";
                   height: 200px;
+                  transition: 0.6s;
                   .playlist__tittle {
                     width: 100%;
                     color: white;
-                    margin-top: 65%;
+                    margin-top: 70%;
                     margin-left: 10%;
                   }
                   .playlist__follow {
@@ -543,6 +571,9 @@ body {
                     margin-left: 65%;
                     color: white;
                   }
+                }
+                .playlist__absolute:hover {
+                  box-shadow: inset 0 -50px 2px 1px rgba(0, 0, 0, 0.652);
                 }
               }
             }
@@ -555,7 +586,7 @@ body {
     content: "";
     position: absolute;
     bottom: 0%;
-    height: 200px;
+    height: 180px;
     width: 100%;
     background: url('../images/difusebackground.png');
     z-index: 1;
@@ -584,7 +615,6 @@ body {
       .song__like__icon {
         margin-top: 40%;
         width: 24px;
-        cursor: pointer;
       }
     }
     .musicplayer__info {
@@ -755,19 +785,22 @@ body {
             ". .";
           overflow: scroll;
           .position {
-            margin-top: 45%;
+            margin-top: 30%;
             .song__number{
-              height: 64px;
-              margin-top: 1.3rem;
+              margin-top: -1rem;
+              margin-bottom: 2.3rem;
               font-size: 1.3rem;
+              height: 64px;
+              line-height: 5;
+              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             }
           }
           .track {
-            width: 90%;
+            width: 100%;
             .trackrow {
               width: 100%;
               display: grid;
-              grid-template-columns: 7% 3% 33% 33% 5% 7% 5%;
+              grid-template-columns: 7% 3% 38% 38% 5% 7% 5%;
               grid-template-rows: 1fr;
               gap: 1% 1%;
               grid-template-areas:
@@ -787,11 +820,6 @@ body {
                 border-bottom: solid 1px white;
                 outline: none;
               }
-              .song__number {
-                width: 100%;
-                font-size: 1.5rem;
-                margin-top: 55%;
-              }
               .song__image__container {
                 width: 100%;
                 padding: 0;
@@ -805,6 +833,16 @@ body {
                     width: 64px;
                     height: 64px;
                   }
+                  .song__play__icon {
+                    display: none;
+                  }
+                }
+                .song__button:hover > .song__play__icon {
+                  width: 24px;
+                  display: block;
+                  margin-top: -79%;
+                  margin-left: 35%;
+                  cursor: pointer;
                 }
               }
               .song__like {
@@ -847,15 +885,17 @@ body {
               }
               .song__popularity {
                 margin-top: 50%;
+                margin-left: -150px;
               }
               .song__duration {
                 text-align: end;
                 margin-top: 38%;
+                margin-left: -150px;
                 width: 100%;
               }
               .song__edit__container {
                 margin-top: 50%;
-                margin-left:50%;
+                margin-left: -100px;
                 .song__edit__button {
                   border: none;
                   background: none;
@@ -913,6 +953,9 @@ body {
               .check {
                 margin-top: 30%;
               }
+            }
+            .trackrow:hover {
+              background: #00000046;
             }
           }
         }
@@ -1019,6 +1062,7 @@ body {
                 .file {
                   width: 80%;
                   margin-left: 10%;
+                  margin-bottom: 15%;
                   display: block;
                   height: 2.3rem;
                   border-radius: 25px;
@@ -1085,6 +1129,9 @@ body {
                   background: #383838;
                   border: solid 1px #383838;
                   color: #FFFFFF;
+                }
+                .playlist__button {
+                  margin-left: 50%;
                 }
               }
             }
@@ -1272,11 +1319,16 @@ body {
     transition: 2s;
   }
   .credits {
+    position: absolute;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
     margin: 5%;
-    margin-top: 20%;
     bottom: 0%;
+    z-index: 10;
+    .credits__left {
+      position: absolute;
+      right: 10%;
+    }
   }
   .link {
     text-decoration: none;
