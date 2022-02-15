@@ -12,7 +12,7 @@ import star from "../../assets/images/star.svg";
 import staractive from "../../assets/images/staractive.svg";
 import axios from "axios";
 
-const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
+const PlaylistDetail = ({ currentPlaylist, currentPlaylistInfo }) => {
     const dispatch = useDispatch();
     const { pathname } = useLocation();
     const navigate = useNavigate();
@@ -38,7 +38,7 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
         const response = await axios.get(`http://localhost:4000/api/playlists/detailsUser/${getIdFromURL()}`,
             {
                 headers: {
-                    Authorization: "Bearer " + sessionStorage.getItem("token"),
+                    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
                 },
             });
         setCreator(response.data.user)
@@ -124,7 +124,7 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
                                 <img className="upload" src={upload} alt="Upload" />
                             </Link>
                         </div>
-                        <PlaylistTrackRows playlistTrack={playlistTrack} playlistInfo={playlistInfo}/>
+                        <PlaylistTrackRows playlistTrack={playlistTrack} playlistInfo={playlistInfo} />
                     </div>
                 </div>
             </div>

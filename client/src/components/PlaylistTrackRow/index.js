@@ -39,7 +39,7 @@ const PlaylistTrackRow = ({ track, playlistInfo }) => {
         `http://localhost:4000/api/tracks/deleteFromPlaylist/${_id}?playlistId=${playlistInfo._id}`,
         {
           headers: {
-            Authorization: "Bearer " + sessionStorage.getItem("token"),
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
           },
         }
       );

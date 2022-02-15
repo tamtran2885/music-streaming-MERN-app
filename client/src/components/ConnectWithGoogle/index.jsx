@@ -23,11 +23,10 @@ const ConnectWithGoogle = () => {
                   sessionStorage.setItem("token", user.user.accessToken)
                   sessionStorage.setItem("userId", user.user.uid)
 
-                  // set user to mongo
-                  const userGoogle = await axios.post("http://localhost:4000/api/user/google",
+                  user ? await axios.post("http://localhost:4000/api/user/google",
                         {
                               headers: {
-                                    Authorization: "Bearer " + sessionStorage.getItem("token")
+                                    Authorization: `Bearer ${user.user.accessToken}`
                               },
                               body: {
                                     firstName: user.user.displayName,
@@ -39,8 +38,11 @@ const ConnectWithGoogle = () => {
                                     firebaseUser: user.user.uid
                               }
                         },
-                  )
-                  console.log(userGoogle)
+                  ) : console.log("ho")
+
+
+                  // set user to mongo
+
                   navigate("/")
 
             } catch (error) {

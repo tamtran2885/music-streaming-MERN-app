@@ -23,7 +23,7 @@ app.use(
   })
 );
 
-app.use(middleware.decodeToken);
+// app.use(middleware.decodeToken);
 
 //?routes
 

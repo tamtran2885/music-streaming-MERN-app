@@ -53,7 +53,7 @@ const AddTrack = () => {
         try {
             await axios.post("http://localhost:4000/api/tracks", formData, {
                 headers: {
-                    Authorization: "Bearer " + sessionStorage.getItem("token"),
+                    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
                 },
             })
             navigate("/")

@@ -74,7 +74,7 @@ export const getCurrentPlaylistInfo = (playlistId) => {
         `http://localhost:4000/api/playlists/${playlistId}`,
         {
           headers: {
-            Authorization: "Bearer " + sessionStorage.getItem("token"),
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
           },
         }
       );
@@ -98,7 +98,7 @@ export const followPlaylist = (playlistId, firebaseUser) => {
         `http://localhost:4000/api/playlists/follow/${playlistId}?firebaseUser=${firebaseUser}`,
         {
           headers: {
-            Authorization: "Bearer " + sessionStorage.getItem("token"),
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
           },
         }
       );
@@ -118,7 +118,7 @@ export const unfollowPlaylist = (playlistId, firebaseUser) => {
         `http://localhost:4000/api/playlists/unfollow/${playlistId}?firebaseUser=${firebaseUser}`,
         {
           headers: {
-            Authorization: "Bearer " + sessionStorage.getItem("token"),
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
           },
         }
       );

@@ -7,7 +7,7 @@ export const fetchTracks = () =>
   new Promise((resolve) => {
     const tracks = axios.get("http://localhost:4000/api/tracks", {
       headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("token"),
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
     });
     setTimeout(() => {
@@ -19,7 +19,7 @@ export const fetchPlaylists = () =>
   new Promise((resolve) => {
     const playlists = axios.get("http://localhost:4000/api/playlists", {
       headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("token"),
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
     });
     setTimeout(() => {
@@ -31,7 +31,7 @@ export const fetchAlbums = () =>
   new Promise((resolve) => {
     const albums = axios.get("http://localhost:4000/api/albums", {
       headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("token"),
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
     });
     setTimeout(() => {
@@ -43,7 +43,7 @@ export const fetchSingleTrack = (_id) =>
   new Promise((resolve) => {
     const track = axios.get(`http://localhost:4000/api/tracks/${_id}`, {
       headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("token"),
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
     });
     setTimeout(() => {
@@ -56,7 +56,7 @@ export const fetchTracksByUser = async (userUid) => {
     `http://localhost:4000/api/tracks/mine?firebaseUser=${userUid}`,
     {
       headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("token"),
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
     }
   );
@@ -68,7 +68,7 @@ export const fetchPlayListsByUser = (userUid, token) => {
     `http://localhost:4000/api/playlists/mine?firebaseUser=${userUid}`,
     {
       headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("token"),
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
     }
   );
@@ -80,7 +80,7 @@ export const fetchAlbumsByUser = (userUid) => {
     `http://localhost:4000/api/albums/mine?firebaseUser=${userUid}`,
     {
       headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("token"),
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
     }
   );
@@ -92,7 +92,7 @@ export const fetchPlaylistTracks = (playlistId) => {
     `http://localhost:4000/api/playlists/details/${playlistId}`,
     {
       headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("token"),
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
     }
   );
@@ -101,12 +101,11 @@ export const fetchPlaylistTracks = (playlistId) => {
 
 export const fetchTracksBySearch = (searchQuery) => {
   const searchTracks = axios.get(
-    `http://localhost:4000/api/tracks/search?searchQuery=${
-      searchQuery || "none"
+    `http://localhost:4000/api/tracks/search?searchQuery=${searchQuery || "none"
     }`,
     {
       headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("token"),
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
     }
   );
@@ -118,7 +117,7 @@ export const fetchFollowingPlaylistsByUser = (userId) => {
     `http://localhost:4000/api/playlists/folowwingPlaylists/${userId}}`,
     {
       headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("token"),
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
     }
   );

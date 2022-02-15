@@ -18,33 +18,33 @@ export const userRoutes = Router();
 
 
 // ? GET USERS
-userRoutes.get("/", getUsers);
+userRoutes.get("/", middleware.decodeToken, getUsers);
 
-userRoutes.post("/loggedIn", LogIn);
+userRoutes.post("/loggedIn", middleware.decodeToken, LogIn);
 
 // ? CREATE USER
-userRoutes.post("/", upload.single("profile"), createUser);
+userRoutes.post("/", upload.single("profile"), middleware.decodeToken, createUser);
 
 // ? CREATE USER GOOGLE
 userRoutes.post("/google", createUserGoogle);
 
 //? GET USER BY ID
-userRoutes.get("/:userId", getUserById);
+userRoutes.get("/:userId", middleware.decodeToken, getUserById);
 
 //? UPDATE USER BY ID
-userRoutes.put("/:userId", upload.single("profile"), updateUser);
+userRoutes.put("/:userId", upload.single("profile"), middleware.decodeToken, updateUser);
 
 //? UPDATE USER PASSWORD BY ID
 
-userRoutes.put("/change-password/:userId", changePass);
+userRoutes.put("/change-password/:userId", middleware.decodeToken, changePass);
 
 //? DELETE USER BY ID
-userRoutes.delete("/:userId", deleteTheUser);
+userRoutes.delete("/:userId", middleware.decodeToken, deleteTheUser);
 
 //? FOLLOW USER
 
-userRoutes.put("/follow/:userId", followUser);
+userRoutes.put("/follow/:userId", middleware.decodeToken, followUser);
 
 //? UNFOLLOW USER
 
-userRoutes.put("/unfollow/:userId", unfollowUser);
+userRoutes.put("/unfollow/:userId", middleware.decodeToken, unfollowUser);

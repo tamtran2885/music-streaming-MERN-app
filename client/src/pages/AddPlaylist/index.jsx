@@ -57,9 +57,9 @@ const AddPlaylist = () => {
         try {
             await axios.post("http://localhost:4000/api/playlists", formData, {
                 headers: {
-                  Authorization: "Bearer " + sessionStorage.getItem("token"),
+                    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
                 },
-              })
+            })
             navigate("/")
         } catch (error) {
             console.error(error.message);

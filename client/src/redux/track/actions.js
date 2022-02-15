@@ -81,7 +81,7 @@ export const addLike = (trackId, firebaseUser) => {
         `http://localhost:4000/api/tracks/like/${trackId}?firebaseUser=${firebaseUser}`,
         {
           headers: {
-            Authorization: "Bearer " + sessionStorage.getItem("token"),
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
           },
         }
       );
@@ -101,7 +101,7 @@ export const removeLike = (trackId, firebaseUser) => {
         `http://localhost:4000/api/tracks/unlike/${trackId}?firebaseUser=${firebaseUser}`,
         {
           headers: {
-            Authorization: "Bearer " + sessionStorage.getItem("token"),
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
           },
         }
       );
@@ -125,7 +125,7 @@ export const deleteSingleTrack = (trackId) => {
     try {
       await axios.delete(`http://localhost:4000/api/tracks/${trackId}`, {
         headers: {
-          Authorization: "Bearer " + sessionStorage.getItem("token"),
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
       });
       dispatch(deleteTrack(trackId));
@@ -149,7 +149,7 @@ export const getFavTracksByUser = (userId) => {
         `http://localhost:4000/api/tracks/likedByUser/${userId}`,
         {
           headers: {
-            Authorization: "Bearer " + sessionStorage.getItem("token"),
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
           },
         }
       );
@@ -174,7 +174,7 @@ export const addReproductionsCounter = (trackId, userId) => {
         `http://localhost:4000/api/tracks/reproducing/${trackId}`,
         {
           headers: {
-            Authorization: "Bearer " + sessionStorage.getItem("token"),
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
           },
         }
       );

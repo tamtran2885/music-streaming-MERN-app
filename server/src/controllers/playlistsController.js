@@ -16,10 +16,10 @@ export const getPlaylists = async (req, res, next) => {
 
 //? GET PLAYLISTS BY USER
 export const getPlaylistsByUser = async (req, res, next) => {
-  // console.log(req.query);
+  console.log(req.query);
   try {
     const param = req.query.firebaseUser;
-    const playlists = await Playlist.find({
+    const playlists = await Playlist.findOne({
       firebaseUser: param,
     }).populate("user");
     res.json(playlists);

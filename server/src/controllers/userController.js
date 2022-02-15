@@ -16,16 +16,7 @@ export const getUsers = async (req, res, next) => {
 import * as bcrypt from "bcrypt";
 const saltRounds = 12;
 
-// (async () => {
-//   // Technique 1 (generate a salt and hash on separate function calls):
-//   const salt = await bcrypt.genSalt(saltRounds);
-//   const hash = await bcrypt.hash(myPlaintextPassword, salt);
-//   // Store hash in your password DB.
 
-//   // Technique 2 (auto-gen a salt and hash):
-//   const hash2 = await bcrypt.hash(myPlaintextPassword, saltRounds);
-//   // Store hash in your password DB.
-// })();
 
 export const LogIn = async (req, res, next) => {
 
@@ -41,6 +32,7 @@ export const LogIn = async (req, res, next) => {
 
 export const createUserGoogle = async (req, res) => {
   console.log(req.body.body)
+  console.log(req.headers)
 
   try {
 
@@ -53,9 +45,12 @@ export const createUserGoogle = async (req, res) => {
       email: req.body.body.email,
       password: req.body.body.firebaseUser,
       firebaseUser: req.body.body.firebaseUser,
-
     });
-    await userGoogle.save();
+
+    if (User.find({ firebaseUser: userGoogle.firebaseUser }).count() > 0) {
+
+      await userGoogle.save();
+    }
     res.status(200).json({ data: "User created", userGoogle });
   } catch (error) {
     console.log(error)
