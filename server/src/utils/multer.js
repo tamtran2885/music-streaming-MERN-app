@@ -11,12 +11,9 @@ const multerConfig = {
     }
     cb(null, true);
   },
-
 };
 
-
 const upload = multer(multerConfig);
-
 
 export const cpUpload = upload.fields([{ name: 'url', maxCount: 1 }, { name: 'thumbnail', maxCount: 1 }])
 
