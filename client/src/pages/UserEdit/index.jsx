@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import axios from "axios"
+import Navbar from '../../components/Navbar';
+import avatar from '../../assets/images/cover.jpg';
+import camera from '../../assets/images/camera.svg';
 
 // import th token
 import { useAuth } from "../../context/authContext";
@@ -93,30 +96,29 @@ const UserEdit = () => {
 
   return (
     <>
-      <h1>Users</h1>
-      <div>
-        <form onSubmit={updateUser}>
-          <label>Name</label>
-          <input type="text" onChange={onChange} name="firstName" defaultValue={editUser.firstName} />
+      <div className='dashboard__background'>
+      <Navbar page="Username" />
+        <div className='user__edit__absolute'>
+          <form onSubmit={updateUser}>
+            <div className='user__edit__avatar__container'>
+              <label className='label' for="avatar">
+                <img className="avatar" src={avatar} alt="User Avatar" />
+                <img className='camera' src={camera} alt="" />
+              </label>
+              <input type="file" id="avatar" onChange={onChange} name="profilePicture" defaultValue={editUser.profile} hidden/>
+            </div>
+            <div className='user__edit__inputs'>
+              <input className='input' type="text" placeholder='Name' onChange={onChange} name="firstName" defaultValue={editUser.firstName} />
+              <input className='input' type="text" placeholder='Last Name' onChange={onChange} name="lastName" defaultValue={editUser.lastName} />
+              <input className='input' type="date" placeholder='Birthday' onChange={onChange} name="birthday" defaultValue={editUser.birthday} />
+              <input className='input' type="text" placeholder='Country' onChange={onChange} name="country" defaultValue={editUser.country} />
+              <input className='input' type="text" placeholder='Email' onChange={onChange} name="email" defaultValue={editUser.email} />
 
-          <label>Last Name</label>
-          <input type="text" onChange={onChange} name="lastName" defaultValue={editUser.lastName} />
-          <label>Birthday</label>
-          <input type="text" onChange={onChange} name="birthday" defaultValue={editUser.birthday} />
-          <label>Country</label>
-          <input type="text" onChange={onChange} name="country" defaultValue={editUser.country} />
-          <label>Profile Picture</label>
-          <input type="file" onChange={onChange} name="profilePicture" defaultValue={editUser.profile} />
-          <label>Email</label>
-          <input onChange={onChange} name="email" defaultValue={editUser.email} />
-
-          <Link to={`/user/edit/change-password/${editUser.firebaseUser}`}>Edit password</Link>
-          <button type="submit">Save Changes</button>
-        </form>
-
-        <h1>My Playlists</h1>
-        <h1>My Songs</h1>
-        <h1>My Friends</h1>
+              <Link className='link' to={`/user/edit/change-password/${editUser.firebaseUser}`}>Edit password</Link>
+              <button type="submit">Save Changes</button>
+            </div>
+          </form>
+        </div>
       </div>
     </>
   );

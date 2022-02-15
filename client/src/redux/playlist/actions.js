@@ -2,6 +2,7 @@ import {
   fetchPlaylists,
   fetchPlayListsByUser,
   fetchPlaylistTracks,
+  fetchFollowingPlaylistsByUser,
 } from "../../services/fetchData.js";
 
 import {
@@ -9,6 +10,7 @@ import {
   SET_PLAYLISTS_BY_USER,
   SET_CURRENT_PLAYLIST,
   SET_CURRENT_PLAYLIST_INFO,
+  SET_FOLLOWING_PLAYLISTS_BY_USER,
 } from "./types";
 import axios from "axios";
 const token = sessionStorage.getItem("token");
@@ -128,3 +130,20 @@ export const unfollowPlaylist = (playlistId, firebaseUser) => {
     }
   };
 };
+
+// Get all playlists a user is following
+export const getFollowingPlaylistsByUser = (userId) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetchFollowingPlaylistsByUser(userId);
+      dispatch(setFollowingPlaylistsByUser(response));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const setFollowingPlaylistsByUser = (response) => ({
+  type: SET_FOLLOWING_PLAYLISTS_BY_USER,
+  payload: response,
+});

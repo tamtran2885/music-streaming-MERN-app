@@ -8,8 +8,9 @@ import upload from "../../assets/images/upload.svg";
 import { getFavTracksByUser, getAllTracks, getTracksByUser } from "../../redux/track/actions";
 import close from '../../assets/images/close.svg';
 import { connect, useDispatch } from "react-redux";
+import axios from "axios";
 
-const TrackPage = ({favTracksByUser, myTracks, allTracks}) => {
+const TrackPage = ({favTracksByUser, myTracks, allTracks }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const loggedToken = sessionStorage.getItem("token");
@@ -31,29 +32,56 @@ const TrackPage = ({favTracksByUser, myTracks, allTracks}) => {
     const [totalTracks, setTotalTracks] = useState([]);
 
     useEffect(() => {
-        setTotalTracks(myTracks);
-    }, [myTracks])
+        setTotalTracks(allTracks);
+    }, [allTracks])
 
     const handlePopular = () => {
         // console.log("allTracks")
         setTotalTracks(allTracks)
+        navigate("/track")
     };
 
     const handleMine = () => {
         // console.log("myTracks")
         setTotalTracks(myTracks)
+        navigate("/track")
     };
 
     const handleFav = () => {
         setTotalTracks(favTracksByUser)
+        navigate("/track")
     }
 
-    // console.log(favTracksByUser)
+    const [searchWord, setSearchWord] = useState("");
+
+    const searchTracks = async () => {
+      if (searchWord.trim()) {
+        // dispatch fetch search tracks
+        // dispatch(getTracksBySearch(searchWord));
+        const searchTracks = await axios.get(
+          `http://localhost:4000/api/tracks/search?searchQuery=${
+            searchWord || "none"
+          }`,
+          {
+            headers: {
+              Authorization: "Bearer " + sessionStorage.getItem("token"),
+            },
+          }
+        );
+        // console.log(searchTracks.data)
+        // setTotalTracks(searchTracks.data);
+        navigate(`/track?searchQuery=${searchWord || "none"}`);
+      } else {
+        navigate("/track")
+      }
+    }
+
+    // console.log(totalTracks);
 
     return (
       <>
         <div className='dashboard__background'>
-          <Navbar page="Songs" handleMine={handleMine} handlePopular={handlePopular} handleFav={handleFav} />
+          <Navbar page="Songs" handleMine={handleMine} handlePopular={handlePopular} handleFav={handleFav} searchWord={searchWord} setSearchWord={setSearchWord} searchTracks={searchTracks}/>
           <div className='tracks__absolute'>
             <div className='tracks__display'>
               <div className="tracks__title">
@@ -70,12 +98,12 @@ const TrackPage = ({favTracksByUser, myTracks, allTracks}) => {
               <Albums />
             </div>
           </div>
-          <div className="songs__modal__absolute">
+          <div className="songs__modal__absolute modal__hide">
             <div className="songs__modal__background">
               <div className="sogs__modal__container">
                 <h1 className="header">Add New Track</h1>
                 <div className="close"><img src={close} alt="Close the modal" /></div>
-                <div className="form__container">
+                <div className="form__container ">
                   <form className="form" onSubmit={""} encType="multipart/form-data">
                     <div className="form__items">
                       <div className="drag__area">
@@ -135,7 +163,29 @@ const TrackPage = ({favTracksByUser, myTracks, allTracks}) => {
                           ))*/}
                         </select>
                         {/*errors.genre && <p>{errors.genre}</p>*/}
-                        <button className="button" type="submit">Submit</button>
+                        <button className="button" type="button">Next</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div className="form__container modal__hide">
+                  <form className="form" onSubmit={""} encType="multipart/form-data">
+                    <div className="form__items__cover">
+                      <div className="drag__area">
+                        <h3>Drag the track's cover here</h3>
+                        <p>or</p>
+                        <label for="track"><p className='file'>Select a file</p></label>
+                        <input
+                          type="file"
+                          className="form__input"
+                          placeholder="Url"
+                          name="urlTrack"
+                          id="track"
+                          onChange={""}
+                        />
+                      </div>
+                      <div className="form__inputs">
+                        <button className="button" type="button">Submit</button>
                       </div>
                     </div>
                   </form>
@@ -152,7 +202,7 @@ const mapStateToProps = state => {
   return {
       allTracks: state.track.allTracks.data,
       myTracks: state.track.myTracks.data,
-      favTracksByUser: state.track.favTracksByUser
+      favTracksByUser: state.track.favTracksByUser,
   }
 }
 

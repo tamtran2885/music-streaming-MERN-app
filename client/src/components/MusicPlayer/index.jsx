@@ -149,6 +149,10 @@ const MusicPlayer = () => {
         </div>
         <div className='musicplayer__options'>
           <img className='song__options__icon' src={menu} alt="" />
+          <div className="float__menu">
+            <button className="nav__link">Add to playlist</button>
+            <button className="nav__link">View the album</button>
+          </div>
         </div>
 
 

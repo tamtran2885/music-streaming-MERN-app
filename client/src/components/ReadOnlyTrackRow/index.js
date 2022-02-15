@@ -102,7 +102,6 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
 
   return (
     <div className="trackrow">
-      <div className="song__number">1</div>
       <div className="song__image__container">
         <button className="song__button" onClick={handleClick}>
           <img
@@ -146,8 +145,7 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
           <div className="float__menu">
             <button className="nav__link">Add to playlist</button>
             <div>
-              <select onChange={handleChange}>
-                <option>Please choose your playlist</option>
+              <select onChange={handleChange} placeholder="Playlist">
                 {myPlaylists &&
                   myPlaylists.map((item) => (
                     <option key={item._id && item._id} value={item._id}>

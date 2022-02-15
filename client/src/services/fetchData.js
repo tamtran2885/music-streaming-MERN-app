@@ -98,3 +98,29 @@ export const fetchPlaylistTracks = (playlistId) => {
   );
   return playlistTracks;
 };
+
+export const fetchTracksBySearch = (searchQuery) => {
+  const searchTracks = axios.get(
+    `http://localhost:4000/api/tracks/search?searchQuery=${
+      searchQuery || "none"
+    }`,
+    {
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    }
+  );
+  return searchTracks;
+};
+
+export const fetchFollowingPlaylistsByUser = (userId) => {
+  const followingPlaylists = axios.get(
+    `http://localhost:4000/api/playlists/folowwingPlaylists/${userId}}`,
+    {
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    }
+  );
+  return followingPlaylists;
+};

@@ -74,13 +74,11 @@ export const updatePlaylistById = async (req, res, next) => {
 
     // DELETE image from cloudinary
     const deletePhoto = async () => {
-      await cloudinary.uploader.destroy(
-        playlist.cloudinaryId
-      )
-    }
+      await cloudinary.uploader.destroy(playlist.cloudinaryId);
+    };
     // Upload image to cloudinary
     const result = await cloudinary.uploader.upload(req.file.path);
-    console.log(result)
+    console.log(result);
     const dataPlaylist = {
       title: req.body.title || playlist.title,
       collaborative: req.body.collaborative || playlist.collaborative,
@@ -217,9 +215,9 @@ export const getPlaylistByIdAndInfo = async (req, res, next) => {
     const playlistId = req.params.playlistId;
 
     const playlist = await Playlist.findById(playlistId);
-    const firebaseUser = playlist.firebaseUser
+    const firebaseUser = playlist.firebaseUser;
 
-    const user = await User.findOne({ firebaseUser: firebaseUser })
+    const user = await User.findOne({ firebaseUser: firebaseUser });
 
     res.status(200).json({ user });
   } catch (error) {
@@ -238,12 +236,12 @@ export const getFollowedPlaylist = async (req, res, next) => {
 
     const array = [];
 
-    playlists.map((x)=> {
+    playlists.map((x) => {
       const playlist = x.followedBy
       //console.log(playlist)
       playlist.map((f) => {
         console.log(f.firebaseUser === user)
-        if(f.firebaseUser === user){
+        if (f.firebaseUser === user) {
           array.push(x._id)
         }
       })
@@ -263,13 +261,7 @@ export const getFollowedPlaylist = async (req, res, next) => {
 export const changeListOrder = async (req, res, next) => {
   const { id, listID, oldIndex, newIndex } = req.body;
   const thisPlaylist = await Playlist.find();
-}
+};
 
 
-  // // this code won't run until thisBoard has returned a value
-  // let [oldValue, newValue] = [thisPlaylist.lists[oldIndex], thisPlaylist.lists[newIndex];
-  // thisBoard[oldIndex] = newValue;
-  // thisBoard[newIndex] = oldValue;
-
-  // let saveOperation = await Board.save(thisBoard);
 

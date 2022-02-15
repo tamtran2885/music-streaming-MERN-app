@@ -10,6 +10,7 @@ import play from "../../assets/images/playbutton.svg";
 import Genre from "../../components/Genre";
 import star from "../../assets/images/star.svg";
 import staractive from "../../assets/images/staractive.svg";
+import axios from "axios";
 
 const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
     const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
     const loggedToken = sessionStorage.getItem("token");
     const userId = sessionStorage.getItem("userId");
     const uid = userId;
+    const [creator, setCreator] = useState({});
 
     useEffect(() => {
         if (!loggedToken) {
@@ -25,13 +27,26 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
         }
     })
 
+    // GET ID FROM URL
+    const getIdFromURL = () => {
+        const pathSplit = pathname.split("/");
+        return pathSplit[pathSplit.length - 1];
+    };
+
+    // Get playlist creator
+    const getPlaylistCreator = async () => {
+        const response = await axios.get(`http://localhost:4000/api/playlists/detailsUser/${getIdFromURL()}`,
+            {
+                headers: {
+                    Authorization: "Bearer " + sessionStorage.getItem("token"),
+                },
+            });
+        setCreator(response.data.user)
+    }
+
     useEffect(() => {
-        // GET ID FROM URL
-        const getIdFromURL = () => {
-            const pathSplit = pathname.split("/");
-            return pathSplit[pathSplit.length - 1];
-        };
         setTimeout(async () => {
+            getPlaylistCreator();
             dispatch(getPlaylistDetails(getIdFromURL()));
             dispatch(getCurrentPlaylistInfo(getIdFromURL()))
         }, 3000)
@@ -59,11 +74,13 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
 
     const handleToggle = () => {
         if (follow) {
+            console.log("unfollow")
             dispatch(unfollowPlaylist(playlistInfo._id, uid));
             dispatch(getAllPlaylists());
             dispatch(getPlaylistsByUser(uid));
             setFollow(!follow);
         } else {
+            console.log("follow")
             dispatch(followPlaylist(playlistInfo._id, uid));
             dispatch(getAllPlaylists());
             dispatch(getPlaylistsByUser(uid))
@@ -78,26 +95,25 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
                 <div className='tracks__absolute'>
                     <div className='dashboard__side'>
                         <p>Created by User</p>
+                        <p>{creator && creator.firstName} {creator && creator.lastName}</p>
                         <p>1 followers</p>
                         <div className="genre">
                             <Genre />
                         </div>
                         <button className="button play"><img src={play} alt="Play" /></button>
                         {/* <button className="button follow"><img src={star} alt="Follow" /></button> */}
-                        {follow ? (
+                        {follow ? (<button className="button follow">
                             <img
-                                className="button follow"
                                 src={staractive}
                                 alt="Follow"
                                 onClick={handleToggle}
-                            />
-                        ) : (
+                            /></button>
+                        ) : (<button className="button follow">
                             <img
-                                className="button follow"
                                 src={star}
                                 alt="Follow"
                                 onClick={handleToggle}
-                            />
+                            /></button>
                         )}
                     </div>
                     <div className='tracks__display'>

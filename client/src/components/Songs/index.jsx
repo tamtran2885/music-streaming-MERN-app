@@ -36,20 +36,25 @@ const Songs = ({ tracksDashboard }) => {
           <Link className='link' to={`/user/songs`}>See All</Link>
         </div>
         <div className='songs__container'>
-          {[...Array(trackNumber())].map((e,i) => (
-            <div key={i}><OrderNumber i={i} /></div>
-          ))}
-          {sortTracks() && sortTracks().map((track) => (
-            <div key={track._id}><Song key={track._id} track={track} /></div>
-          ))}
-            {!tracks && <div className='skeleton__track'>
-            <div className='skeleton__track__single'></div>
-            <div className='skeleton__track__single'></div>
-            <div className='skeleton__track__single'></div>
-            <div className='skeleton__track__single'></div>
-            <div className='skeleton__track__single'></div>
-            <div className='skeleton__track__single'></div>
-          </div>}
+          <div className='position'>
+            {[...Array(trackNumber())].map((e,i) => (
+              <div key={i}><OrderNumber i={i} /></div>
+            ))}
+          </div>
+          <div className='track'>
+            {sortTracks() && sortTracks().map((track) => (
+              <div key={track._id}><Song key={track._id} track={track} /></div>
+            ))}
+          </div>
+            {!tracks && trackNumber &&
+            <div className='skeleton__track'>
+              <div className='skeleton__track__single'></div>
+              <div className='skeleton__track__single'></div>
+              <div className='skeleton__track__single'></div>
+              <div className='skeleton__track__single'></div>
+              <div className='skeleton__track__single'></div>
+              <div className='skeleton__track__single'></div>
+            </div>}
         </div>
       </div>
     </>

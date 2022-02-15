@@ -20,7 +20,7 @@ const Song = (track) => {
     }
   }
 
-  console.log(checkLike(uid))
+  // console.log(checkLike(uid))
   // console.log(track.track)
 
   const [like, setLike] = useState(checkLike(uid))

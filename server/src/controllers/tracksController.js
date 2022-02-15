@@ -418,3 +418,15 @@ export const trackToAlbum = async (req, res, next) => {
   }
   next();
 };
+
+// Get tracks by search
+export const getTracksBySearch = async (req, res) => {
+  const query = req.query.searchQuery;
+  try {
+    const title = new RegExp(query, "i");
+    const tracks = await Tracks.find({ title });
+    res.json({ data: tracks });
+  } catch (error) {
+    console.log(error);
+  }
+};
