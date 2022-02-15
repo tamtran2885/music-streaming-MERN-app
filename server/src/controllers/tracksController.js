@@ -119,6 +119,8 @@ export const deleteTrack = async (req, res, next) => {
 
     await trackInAlbum.save();
 
+
+
     // ? DELETE TRACK TO PLAYLIST
     const trackInPlaylist = await Playlist.find()
     console.log(trackInPlaylist)
@@ -136,6 +138,8 @@ export const deleteTrack = async (req, res, next) => {
       tracks.tracks.splice(removeIndex, 1);
       await tracks.save();
     }
+
+
 
     //? DELETE TRACK TO USER
     const userId = track.user

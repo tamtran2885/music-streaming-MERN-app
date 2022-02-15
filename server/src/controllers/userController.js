@@ -1,6 +1,7 @@
 import Tracks from "../models/Tracks.js";
 import User from "../models/User.js";
 import cloudinary from "../utils/cloudinary.js";
+import admin from "firebase-admin";
 
 export const getUsers = async (req, res, next) => {
   try {
@@ -80,10 +81,22 @@ export const getUserById = async (req, res, next) => {
   next()
 };
 
-export const deleteUser = async (req, res, next) => {
+export const deleteTheUser = async (req, res, next) => {
   try {
+    const firebaseUser = req.params.userId
     // Find user by id
-    const user = await User.findById(req.params.userId);
+    const user = await User.findOne({
+      firebaseUser: firebaseUser
+    });
+
+    // Delete in Firebase
+    
+
+    admin.auth().deleteUser(firebaseUser).then(() => {
+      console.log(firebaseUser, 'deleted')
+    }).catch((error) => {
+      console.log(error)
+    });
 
     // Delete image from cloudinary
     await cloudinary.uploader.destroy(user.cloudinaryId);
@@ -94,7 +107,6 @@ export const deleteUser = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
-  next()
 };
 
 export const updateUser = async (req, res, next) => {

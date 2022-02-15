@@ -228,6 +228,36 @@ export const getPlaylistByIdAndInfo = async (req, res, next) => {
   next()
 };
 
+//? GET FOLLOWED PLAYLIST BY USERS
+export const getFollowedPlaylist = async (req, res, next) => {
+  try {
+    const user = req.params.userId;
+    console.log(user)
+    const playlists = await Playlist.find()
+    //console.log(playlists)
+
+    const array = [];
+
+    playlists.map((x)=> {
+      const playlist = x.followedBy
+      //console.log(playlist)
+      playlist.map((f) => {
+        console.log(f.firebaseUser === user)
+        if(f.firebaseUser === user){
+          array.push(x._id)
+        }
+      })
+    })
+
+    const result = array;
+
+    res.status(200).json({ data: "Playlist matched", result });
+  } catch (error) {
+    console.log(error)
+  }
+  next();
+}
+
 //? CHANGE ORDER IN ARRAY AFTER DRAG AND DROP
 
 export const changeListOrder = async (req, res, next) => {
@@ -242,3 +272,4 @@ export const changeListOrder = async (req, res, next) => {
   // thisBoard[newIndex] = oldValue;
 
   // let saveOperation = await Board.save(thisBoard);
+
