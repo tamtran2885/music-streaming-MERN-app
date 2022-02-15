@@ -5,13 +5,10 @@ import logo from "../../assets/images/logo.svg";
 import SearchBar from "../SearchBar";
 
 const Navbar = (props) => {
-    const { page, handleMine, handlePopular, setSearchWord } = props;
+    const { page, handleMine, handlePopular, handleFav, searchWord, setSearchWord, searchTracks } = props;
     const navigate = useNavigate();
     const { user, logout } = useAuth()
     const userId = sessionStorage.getItem("userId");
-
-    // console.log(JSON.stringify(user));
-    // console.log(user)
 
     const handleLogout = async () => {
         try {
@@ -50,14 +47,14 @@ const Navbar = (props) => {
                     </div>
                     <div className='nav__filters'>
                         <div className='searchbar__container'>
-                            <SearchBar  />
+                            <SearchBar searchWord={searchWord} setSearchWord={setSearchWord} searchTracks={searchTracks} />
                         </div>
                         <div className='nav__filters__button'>
                             <button className='button'>I'm feeling lucky!</button>
                             <div className='nav__filters__owner'>
                                 <button className='button__owner left active' onClick={handlePopular}>Popular</button>
                                 <button className='button__owner right' onClick={handleMine}>Mine</button>
-                                {/* {page && page === "Songs" ? (<button className='button__owner right' onClick={handleFav}>Mine</button>) : (<di></di>)} */}
+                                {page && page === "Songs" ? (<button className='button__owner right' onClick={handleFav}>Fav</button>) : (<di></di>)}
                             </div>
                         </div>
                     </div>

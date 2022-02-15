@@ -9,14 +9,11 @@ import { useNavigate } from "react-router-dom"
 import { connect, useDispatch } from "react-redux";
 import { getAllTracks, getTracksByUser, getFavTracksByUser } from "../../redux/track/actions";
 import { getAllPlaylists, getPlaylistsByUser } from "../../redux/playlist/actions";
-
-import { useAuth } from "../../context/authContext";
 import axios from 'axios';
 
 const Dashboard = ({ myPlaylists, myTracks, allPlaylists, allTracks }) => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
-    const { user } = useAuth();
     const [mongoUser, setMongoUser] = useState({});
     const loggedToken = sessionStorage.getItem("token");
     const userId = sessionStorage.getItem("userId");

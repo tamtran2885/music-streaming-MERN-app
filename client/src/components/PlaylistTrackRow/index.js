@@ -30,7 +30,7 @@ const PlaylistTrackRow = ({ track, playlistInfo }) => {
     track;
 
   // console.log(playlistInfo);
-  console.log(track);
+  // console.log(track);
 
   const handleDelete = async () => {
     console.log("delete");
@@ -45,7 +45,7 @@ const PlaylistTrackRow = ({ track, playlistInfo }) => {
       );
       dispatch(getPlaylistDetails(playlistInfo._id));
       dispatch(getCurrentPlaylistInfo(playlistInfo._id));
-      console.log(_id);
+      // console.log(_id);
     } catch (err) {
       console.log(err);
     }

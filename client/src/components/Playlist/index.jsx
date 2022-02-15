@@ -29,14 +29,14 @@ const Playlist = (playlist) => {
   const handleToggle = () => {
     if (follow) {
       dispatch(unfollowPlaylist(_id, uid));
+      setFollow(!follow);
       dispatch(getAllPlaylists());
       dispatch(getPlaylistsByUser(uid));
-      setFollow(!follow);
     } else {
       dispatch(followPlaylist(_id, uid));
+      setFollow(!follow);
       dispatch(getAllPlaylists());
       dispatch(getPlaylistsByUser(uid));
-      setFollow(!follow);
     }
   };
 

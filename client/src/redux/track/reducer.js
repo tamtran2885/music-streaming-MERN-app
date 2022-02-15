@@ -6,6 +6,7 @@ import {
   DELETE_TRACK,
   SET_TRACKS_BY_USER,
   SET_FAV_TRACKS_BY_USER,
+  SET_SEARCH_TRACKS,
 } from "./types";
 
 const trackReducer = (state = initialState, action) => {
@@ -14,6 +15,12 @@ const trackReducer = (state = initialState, action) => {
       return {
         ...state,
         allTracks: action.payload,
+        loading: false,
+      };
+    case SET_SEARCH_TRACKS:
+      return {
+        ...state,
+        searchTracksByUser: action.payload,
         loading: false,
       };
     case SET_TRACKS_BY_USER:
@@ -44,6 +51,7 @@ const trackReducer = (state = initialState, action) => {
       return {
         ...state,
         favTracksByUser: action.payload,
+        loading: false,
       };
     default:
       return state;

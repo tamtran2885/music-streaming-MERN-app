@@ -1,7 +1,7 @@
 import Album from "../models/Album.js";
 import cloudinary from "../utils/cloudinary.js";
 
-export const getAlbums = async (req, res) => { 
+export const getAlbums = async (req, res) => {
     try {
         const album = await Album.find();
         res.json(album);
@@ -13,7 +13,7 @@ export const getAlbums = async (req, res) => {
 
 export const createAlbum = async (req, res) => {
     try {
-        const user = req.query.fireabaseUser
+        const user = req.query.firebaseUser
 
         const photo = await cloudinary.v2.uploader.upload(req.file.path);
 
