@@ -11,10 +11,10 @@ const CreatedPlaylists = ({totalMyPlaylists, followingPlaylists}) => {
   const [myFollowingPlaylists, setMyFollowingPlaylists] = useState([])
   useEffect(() => {
     setMyCreatedPlaylists(totalMyPlaylists)
-    setMyFollowingPlaylists(followingPlaylists.result)
+    setMyFollowingPlaylists(followingPlaylists)
   }, [setMyCreatedPlaylists, totalMyPlaylists, followingPlaylists])
 
-  console.log(myFollowingPlaylists)
+  // console.log(myFollowingPlaylists)
 
   return (
   <><div className='created__playlists__absolute'>

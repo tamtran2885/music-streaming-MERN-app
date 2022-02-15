@@ -5,7 +5,7 @@ import logo from "../../assets/images/logo.svg";
 import SearchBar from "../SearchBar";
 
 const Navbar = (props) => {
-    const { page, handleMine, handlePopular, handleFav, searchWord, setSearchWord, searchTracks } = props;
+    const { page, handleMine, handlePopular, handleFav, searchWord, setSearchWord, searchTracks, userProfile } = props;
     const navigate = useNavigate();
     const { user, logout } = useAuth()
     const userId = sessionStorage.getItem("userId");
@@ -31,7 +31,7 @@ const Navbar = (props) => {
                     <div className='nav__options'>
                         <Link className='nav__link' to="/track">Songs</Link>
                         <Link className='nav__link' to={`/playlist`}>Playlists</Link>
-                        <Link className='nav__link' to={`/albums`}>Albums</Link>
+                        {/* <Link className='nav__link' to={`/albums`}>Albums</Link> */}
                         <Link className='nav__link' to={userId ? `/user/${userId}` : "/"}>{user && user.email}</Link>
                         <Link className='avatar' to={""}><img className='avatar' src={logo} alt="" />
                             <div className='float__menu'>
@@ -43,7 +43,8 @@ const Navbar = (props) => {
                 </div>
                 <div className='nav__buttons'>
                     <div className='nav__tittle'>
-                        {page && page}
+                        {/* {page && page} */}
+                        {userProfile ? userProfile.firstName && userProfile.lastName : page && page}
                     </div>
                     <div className='nav__filters'>
                         <div className='searchbar__container'>

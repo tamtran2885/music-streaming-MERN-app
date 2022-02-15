@@ -215,6 +215,7 @@ export const getPlaylistByIdAndInfo = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
+  next();
 };
 
 //? CHANGE ORDER IN ARRAY AFTER DRAG AND DROP
@@ -250,7 +251,7 @@ export const getFollowingPlaylistsByUser = async (req, res, next) => {
 
     const result = array;
 
-    res.status(200).json({ result });
+    res.status(200).json(result);
   } catch (err) {
     console.error(err);
   }
