@@ -36,7 +36,7 @@ const PlaylistPage = ({ myPlaylists, myFollowingPlaylists }) => {
     setAllPlaylists(myPlaylists);
   }, [myPlaylists]);
 
-  console.log(myFollowingPlaylists);
+  // console.log(myFollowingPlaylists);
 
   return (
     <>
