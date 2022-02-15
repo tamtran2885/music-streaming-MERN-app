@@ -5,11 +5,11 @@ import Genres from '../../components/Genres';
 import Albums from '../../components/Albums';
 import TrackRows from "../../components/TrackRows";
 import upload from "../../assets/images/upload.svg";
-import { getFavTracksByUser, getAllTracks, getTracksByUser } from "../../redux/track/actions";
+import { getFavTracksByUser, getAllTracks, getTracksByUser, getTracksBySearch } from "../../redux/track/actions";
 import close from '../../assets/images/close.svg';
 import { connect, useDispatch } from "react-redux";
 
-const TrackPage = ({favTracksByUser, myTracks, allTracks}) => {
+const TrackPage = ({favTracksByUser, myTracks, allTracks, searchTracksByUser}) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const loggedToken = sessionStorage.getItem("token");
@@ -48,12 +48,23 @@ const TrackPage = ({favTracksByUser, myTracks, allTracks}) => {
         setTotalTracks(favTracksByUser)
     }
 
-    // console.log(favTracksByUser)
+    const [searchWord, setSearchWord] = useState("");
+
+    const searchTracks = () => {
+      if (searchWord.trim()) {
+        // dispatch fetch search tracks
+        dispatch(getTracksBySearch(searchWord));
+        setTotalTracks(searchTracksByUser);
+        navigate(`/track?searchQuery=${searchWord || "none"}`);
+      } else {
+        navigate("/track")
+      }
+    }
 
     return (
       <>
         <div className='dashboard__background'>
-          <Navbar page="Songs" handleMine={handleMine} handlePopular={handlePopular} handleFav={handleFav} />
+          <Navbar page="Songs" handleMine={handleMine} handlePopular={handlePopular} handleFav={handleFav} searchWord={searchWord} setSearchWord={setSearchWord} searchTracks={searchTracks}/>
           <div className='tracks__absolute'>
             <div className='tracks__display'>
               <div className="tracks__title">
@@ -152,7 +163,8 @@ const mapStateToProps = state => {
   return {
       allTracks: state.track.allTracks.data,
       myTracks: state.track.myTracks.data,
-      favTracksByUser: state.track.favTracksByUser
+      favTracksByUser: state.track.favTracksByUser,
+      searchTracksByUser: state.track.searchTracksByUser.data
   }
 }
 
