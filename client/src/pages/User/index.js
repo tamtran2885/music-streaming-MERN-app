@@ -37,7 +37,7 @@ const User = ({
         dispatch(getPlaylistsByUser(userId));
         dispatch(getFavTracksByUser(userId));
         dispatch(getFollowingPlaylistsByUser(userId));
-      }, 3000);
+      }, 1000);
     }
   }, [dispatch]);
 

@@ -13,7 +13,7 @@ import axios from "axios";
 const TrackPage = ({favTracksByUser, myTracks, allTracks }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    
+
     const loggedToken = sessionStorage.getItem("token");
     const userId = sessionStorage.getItem("userId");
 
@@ -29,7 +29,7 @@ const TrackPage = ({favTracksByUser, myTracks, allTracks }) => {
                 dispatch(getAllTracks());
                 dispatch(getTracksByUser(userId));
                 dispatch(getFavTracksByUser(userId));
-            }, 3000)
+            }, 1000)
         }
     }, [dispatch])
 

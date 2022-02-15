@@ -26,7 +26,7 @@ const PlaylistPage = ({ myPlaylists, myFollowingPlaylists }) => {
         dispatch(getAllPlaylists());
         dispatch(getPlaylistsByUser(userId));
         dispatch(getFollowingPlaylistsByUser(userId));
-      }, 3000);
+      }, 1000);
     }
   }, [dispatch]);
 

@@ -87,7 +87,6 @@ const UserEdit = () => {
     try {
       await axios.put(`/api/user/${getIdFromURL()}`, formData, config);
       // console.log(formData)
-
     } catch (e) {
       console.log(e)
     }

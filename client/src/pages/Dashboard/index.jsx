@@ -30,7 +30,7 @@ const Dashboard = ({ myPlaylists, myTracks, allPlaylists, allTracks }) => {
                 dispatch(getTracksByUser(userId));
                 dispatch(getPlaylistsByUser(userId));
                 dispatch(getFavTracksByUser(userId));
-            }, 3000)
+            }, 1000)
         }
     }, [dispatch]);
 
