@@ -23,11 +23,11 @@ import upload from "../utils/multer.js";
 export const tracksRoutes = Router();
 
 //? GET TRACKS BY SEARCH
-//* @route PUT api/tracks/search
+//* @route GET api/tracks/search
 tracksRoutes.get("/search", getTracksBySearch);
 
 //? GET TRACKS BY USER - FIREBASE USER
-//* @route PUT api/tracks/mine
+//* @route GET api/tracks/mine
 tracksRoutes.get("/mine", getTracksByUser);
 
 //? ADD FAV TO TRACK
@@ -38,7 +38,7 @@ tracksRoutes.put("/like/:trackId", addFavToTrack);
 //* @route PUT api/tracks/unlike/:trackId
 tracksRoutes.put("/unlike/:trackId", removeFavFromTrack);
 
-//? ADD TRACK TO TPLAYLIST 
+//? ADD TRACK TO PLAYLIST 
 //* @route PUT api/tracks/addToPlaylist/:trackId
 tracksRoutes.put("/addToPlaylist/:trackId", addTrackToPlaylist);
 
@@ -50,16 +50,16 @@ tracksRoutes.put("/deleteFromPlaylist/:trackId", deleteTrackFromPlaylist);
 //* @route PUT api/tracks/reproducing/:trackId
 tracksRoutes.put("/reproducing/:trackId", reproductionsCounter);
 
-//? GET TRACKS BY USER - FIREBASE USER 
-//* @route PUT api/tracks/likedByUser/:userId
+//? GET TRACKS LIKED BY USER - FIREBASE USER 
+//* @route GET api/tracks/likedByUser/:userId
 tracksRoutes.get("/likedByUser/:userId", getTrackDetailsInFav);
 
 //? GET TRACKS
-//* @route PUT api/tracks
+//* @route GET api/tracks
 tracksRoutes.get("/", getTracks);
 
 //? CREATE tracks
-//* @route PUT api/tracks
+//* @route POST api/tracks
 tracksRoutes.post("/", uploadTrack.single("urlTrack"), createTrack);
 
 //? UPLOAD THUMBNAIL TO TRACK
@@ -72,10 +72,10 @@ tracksRoutes.put(
 );
 
 //? GET TRACKS BY ID
-//* @route PUT api/tracks/:trackId
+//* @route GET api/tracks/:trackId
 tracksRoutes.get("/:trackId", getTrackById);
 
-//? UPDATE trackTRACKS BY ID
+//? UPDATE TRACKS BY ID
 //* @route PUT api/tracks/edit/:trackId
 tracksRoutes.put(
   "/edit/:trackId",
@@ -84,10 +84,14 @@ tracksRoutes.put(
   updateTrack
 );
 
-//? DELETE trackTRACKS BY ID
-//* @route PUT api/tracks/:trackId
+//? DELETE TRACK BY ID
+//* @route DELETE api/tracks/:trackId
 tracksRoutes.delete("/:trackId", deleteTrack);
 
 //? ADD TRACK TO ALBUM
 //* @route PUT api/tracks/addToAlbum/:trackId
 tracksRoutes.put("/addToAlbum/:trackId", trackToAlbum);
+
+//? ADD PHOTO TO TRACK
+//* @route PUT api/tracks/addPhotoToTrack/:trackId
+tracksRoutes.put("/addPhotoToTrack/:trackId", addPhotoToTrack);

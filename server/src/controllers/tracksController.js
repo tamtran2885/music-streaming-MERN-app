@@ -5,6 +5,7 @@ import Playlist from "../models/Playlist.js";
 import Album from "../models/Album.js";
 
 //? GET ALL TRACKS
+//* @route GET api/tracks
 export const getTracks = async (req, res, next) => {
   try {
     const tracks = await Tracks.find().populate("user").populate("likes");
@@ -15,23 +16,9 @@ export const getTracks = async (req, res, next) => {
   next();
 };
 
-//? ADDING NEW TRACK IN USERS COLLECTION
-export const addTracksToUser = async (req, res, track, next) => {
-  try {
-    const data = {
-      $push: { uploadedTracks: track },
-    };
-
-    const newTrack = await User.findByIdAndUpdate(track.user._id, data, {
-      new: true,
-    });
-    res.status(200).json({ data: "Added track to user!", newTrack })
-  } catch (error) {
-    console.log(error);
-  }
-  next();
-};
-
+//? ADDING PHOTO TO TRACK
+//TODO --------------- CONNECT WITH MODAL!! ------------------------------
+//* @route PUT api/tracks/addPhotoToTrack/:trackId
 export const addPhotoToTrack = async (req, res, next) => {
   const trackId = req.params.trackId;
   try {
@@ -58,6 +45,8 @@ export const addPhotoToTrack = async (req, res, next) => {
   next();
 };
 
+//? CREATE tracks
+//* @route POST api/tracks
 export const createTrack = async (req, res, next) => {
   try {
     //? UPLOAD AUDIO
@@ -83,7 +72,8 @@ export const createTrack = async (req, res, next) => {
   next();
 };
 
-//? GET TRACK BY ID
+//? GET TRACKS BY ID
+//* @route GET api/tracks/:trackId
 export const getTrackById = async (req, res, next) => {
   try {
     const url = req.params.trackId;
@@ -95,7 +85,8 @@ export const getTrackById = async (req, res, next) => {
   next();
 };
 
-//? DELETE TRACK
+//? DELETE TRACK BY ID
+//* @route DELETE api/tracks/:trackId
 export const deleteTrack = async (req, res, next) => {
   try {
     const trackId = req.params.trackId;
@@ -119,8 +110,6 @@ export const deleteTrack = async (req, res, next) => {
 
     await trackInAlbum.save();
 
-
-
     // ? DELETE TRACK TO PLAYLIST
     const trackInPlaylist = await Playlist.find()
     console.log(trackInPlaylist)
@@ -138,8 +127,6 @@ export const deleteTrack = async (req, res, next) => {
       tracks.tracks.splice(removeIndex, 1);
       await tracks.save();
     }
-
-
 
     //? DELETE TRACK TO USER
     const userId = track.user
@@ -166,7 +153,8 @@ export const deleteTrack = async (req, res, next) => {
   next();
 };
 
-//? UPDATE TRACK
+//? UPDATE TRACKS BY ID
+//* @route PUT api/tracks/edit/:trackId
 export const updateTrack = async (req, res, next) => {
   try {
     const url = req.params.trackId;
@@ -208,6 +196,7 @@ export const updateTrack = async (req, res, next) => {
 
 
 //? GET TRACKS BY USER
+//* @route GET api/tracks/:userId
 export const getTracksByUser = async (req, res, next) => {
   try {
     const param = req.query.firebaseUser;
@@ -252,23 +241,22 @@ export const addFavToTrack = async (req, res, next) => {
   next();
 };
 
-// Remove Fav from a track
-// @route PUT api/tracks/unlike/:trackId
+//? REMOVE FAV FROM A TRACK
+//* @route PUT api/tracks/unlike/:trackId
 export const removeFavFromTrack = async (req, res, next) => {
   const param = req.query.firebaseUser;
   try {
     const trackId = req.params.trackId;
     const track = await Tracks.findById(trackId);
 
-    // console.log(track.likes)
-    // Check if the track has already been liked
+    //? CHECK IF THE TRACK HAST ALREADY BEEN LIKED 
     if (
       track.likes.filter((like) => like.firebaseUser === param).length === 0
     ) {
       return res.status(400).json({ msg: "Track has not been liked" });
     }
 
-    // Get remove index
+    //? GET REMOVE INDEX
     const removeIndex = track.likes
       .map((like) => like.firebaseUser)
       .indexOf(param);
@@ -293,11 +281,11 @@ export const removeFavFromTrack = async (req, res, next) => {
   next();
 };
 
-// Need to check
+
 //? ADD TRACK TO PLAYLIST
+//* @route PUT api/tracks/unlike/:trackId
 export const addTrackToPlaylist = async (req, res, next) => {
   const query = req.query.playlistId;
-  // console.log(playlistId)
   try {
     //console.log(req.query.playlistId);
     const param = req.params.trackId;
@@ -320,7 +308,8 @@ export const addTrackToPlaylist = async (req, res, next) => {
   next();
 };
 
-// ?DELETE TRACK IN PLAYLIST
+//? REMOVE A TRACK FROM PLAYLIST
+//* @route PUT api/tracks/deleteFromPlaylist/:trackId
 export const deleteTrackFromPlaylist = async (req, res, next) => {
   const query = req.query.playlistId;
   const param = req.params.trackId;
@@ -339,7 +328,8 @@ export const deleteTrackFromPlaylist = async (req, res, next) => {
   next();
 };
 
-//? GET TRACK DETAILS IN MY FAVORITES
+//? GET TRACKS LIKED BY USER - FIREBASE USER 
+//* @route GET api/tracks/likedByUser/:userId
 export const getTrackDetailsInFav = async (req, res, next) => {
   const firebaseId = req.params.userId;
   try {
@@ -363,7 +353,8 @@ export const getTrackDetailsInFav = async (req, res, next) => {
   next();
 };
 
-//? ADDING ONE TO REPRODUCTION COUNTER
+//? UPDATE REPRODUCTION COUNTER
+//* @route PUT api/tracks/reproducing/:trackId
 export const reproductionsCounter = async (req, res, next) => {
   try {
     const trackId = req.params.trackId;
@@ -386,6 +377,7 @@ export const reproductionsCounter = async (req, res, next) => {
 };
 
 //? ADD TRACK TO ALBUM
+//* @route PUT api/tracks/addToAlbum/:trackId
 export const trackToAlbum = async (req, res, next) => {
   try {
     const trackId = req.params.trackId;
@@ -401,7 +393,7 @@ export const trackToAlbum = async (req, res, next) => {
 
     await album.save();
 
-    // ALBUM TO TRACK
+    //? ALBUM TO TRACK
     const track = await Tracks.findById(trackId);
     const albumTrack = track.album;
 
@@ -420,7 +412,8 @@ export const trackToAlbum = async (req, res, next) => {
   next();
 };
 
-// Get tracks by search
+//? GET TRACKS BY SEARCH
+//* @route GET api/tracks/search
 export const getTracksBySearch = async (req, res) => {
   const query = req.query.searchQuery;
   try {

@@ -22,18 +22,23 @@ export const playlistsRoutes = Router();
 playlistsRoutes.get("/getFollowing/:userId", getFollowingPlaylistsByUser);
 
 //? GET PLAYLISTS By User - firebaseUser
+//* @route GET api/playlists/mine
 playlistsRoutes.get("/mine", getPlaylistsByUser);
 
 //? GET PLAYLIST BY ID AND SHOW USERS DETAILS
+//* @route GET api/detailsUser/:playlistId
 playlistsRoutes.get("/detailsUser/:playlistId", getPlaylistByIdAndInfo);
 
-// ? GET PLAYLIST
+//? GET PLAYLISTS
+//* @route GET api/playlists
 playlistsRoutes.get("/", getPlaylists);
 
-// ? CREATE PLAYLIST
+//? CREATE PLAYLIST
+//* @route POST api/playlists
 playlistsRoutes.post("/", upload.single("thumbnail"), createPlaylist);
 
 //? GET PLAYLIST BY ID
+//* @route GET api/playlists/:playlistId
 playlistsRoutes.get("/:playlistId", getPlaylistById);
 
 //? UPDATE PLAYLIST BY ID
