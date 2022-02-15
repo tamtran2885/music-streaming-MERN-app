@@ -19,6 +19,7 @@ const TrackPage = ({favTracksByUser, myTracks, allTracks }) => {
 
     const [totalTracks, setTotalTracks] = useState([]);
     const [searchWord, setSearchWord] = useState("");
+    const [state, setState] = useState("");
 
     useEffect(() => {
         if (!loggedToken) {
@@ -39,18 +40,21 @@ const TrackPage = ({favTracksByUser, myTracks, allTracks }) => {
 
     const handlePopular = () => {
         // console.log("allTracks")
-        setTotalTracks(allTracks)
+        setTotalTracks(allTracks);
+        setState("popular")
         navigate("/track")
     };
 
     const handleMine = () => {
         // console.log("myTracks")
         setTotalTracks(myTracks)
+        setState("mine")
         navigate("/track")
     };
 
     const handleFav = () => {
         setTotalTracks(favTracksByUser)
+        setState("fav")
         navigate("/track")
     }
 
@@ -73,6 +77,8 @@ const TrackPage = ({favTracksByUser, myTracks, allTracks }) => {
       }
     }
 
+    // console.log(state)
+
     return (
       <>
         <div className='dashboard__background'>
@@ -86,7 +92,7 @@ const TrackPage = ({favTracksByUser, myTracks, allTracks }) => {
                   <img className="upload" src={upload} alt="Upload" />
                 </Link>
               </div>
-              <TrackRows totalTracks={totalTracks}/>
+              <TrackRows totalTracks={totalTracks} state={state} />
             </div>
             <div className='dashboard__side'>
               <Genres />

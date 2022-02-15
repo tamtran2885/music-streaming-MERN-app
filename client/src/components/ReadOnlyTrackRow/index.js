@@ -22,11 +22,13 @@ import {
   getSingleTrack,
 } from "../../redux/audioPlay/actions";
 
-const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
+const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete, state }) => {
   const dispatch = useDispatch();
   const loggedToken = sessionStorage.getItem("token");
   const userId = sessionStorage.getItem("userId");
   const uid = userId;
+
+  console.log(state);
 
   const {
     title,
@@ -41,7 +43,7 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
   } = track;
 
   const myPlaylists = useSelector((state) => state.playlist.myPlaylists.data);
-  // console.log(myPlaylists)
+  console.log(myPlaylists);
 
   const checkLike = (uid) => {
     if (likes.filter((like) => like.firebaseUser === uid).length === 0) {
@@ -155,18 +157,24 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
               </select>
             </div>
             <hr />
-            <button
-              onClick={(event) => handleEditClick(event, track)}
-              className="nav__link"
-            >
-              Edit
-            </button>
-            <button
-              onClick={(event) => handleDelete(track._id)}
-              className="nav__link"
-            >
-              Delete
-            </button>
+            {firebaseUser && firebaseUser === userId && state !== "fav" ? (
+              <>
+                <button
+                  onClick={(event) => handleEditClick(event, track)}
+                  className="nav__link"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={(event) => handleDelete(track._id)}
+                  className="nav__link"
+                >
+                  Delete
+                </button>
+              </>
+            ) : (
+              <div></div>
+            )}
           </div>
         </button>
       </div>
