@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Album from '../Album';
 
-import {connect, useDispatch} from "react-redux";
-import {getAlbums} from "../../redux/dashboard/actions";
+import { connect, useDispatch } from "react-redux";
+import { getAlbums } from "../../redux/dashboard/actions";
 
 
-const Albums = ({albums}) => {
-  const dispatch = useDispatch(); 
+const Albums = ({ albums }) => {
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAlbums());
@@ -18,17 +18,17 @@ const Albums = ({albums}) => {
 
   return (
     <>
-    <div className='albums__absolute'>
-      <div className='albums__tittle'>
-        <h2>Albums</h2>
-        <Link className='link' to={`/user/albums`}>See All</Link>
+      <div className='albums__absolute'>
+        <div className='albums__tittle'>
+          <h2>Albums</h2>
+          <Link className='link' to={`/user/albums`}>See All</Link>
+        </div>
+        <div className='albums__container'>
+          {albumsInfo && albumsInfo.map((album) => (
+            <div key={album._id}><Album key={album._id} album={album} /></div>
+          ))}
+        </div>
       </div>
-      <div className='albums__container'>
-        {albumsInfo && albumsInfo.map((album) => (
-            <div key={album.id}><Album key={album.id} album={album}/></div>
-        ))}
-      </div>
-    </div>
     </>
   )
 }

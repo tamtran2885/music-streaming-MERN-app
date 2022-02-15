@@ -22,42 +22,39 @@ export const playlistsRoutes = Router();
 playlistsRoutes.get("/getFollowing/:userId", getFollowingPlaylistsByUser);
 
 //? GET PLAYLISTS By User - firebaseUser
-playlistsRoutes.get("/mine", middleware.decodeToken, getPlaylistsByUser);
+playlistsRoutes.get("/mine", getPlaylistsByUser);
 
 //? GET PLAYLIST BY ID AND SHOW USERS DETAILS
-playlistsRoutes.get("/detailsUser/:playlistId", middleware.decodeToken, getPlaylistByIdAndInfo);
+playlistsRoutes.get("/detailsUser/:playlistId", getPlaylistByIdAndInfo);
 
 // ? GET PLAYLIST
-playlistsRoutes.get("/", middleware.decodeToken, getPlaylists);
+playlistsRoutes.get("/", getPlaylists);
 
 // ? CREATE PLAYLIST
-playlistsRoutes.post("/", middleware.decodeToken, upload.single("thumbnail"), createPlaylist);
+playlistsRoutes.post("/", upload.single("thumbnail"), createPlaylist);
 
 //? GET PLAYLIST BY ID
-playlistsRoutes.get("/:playlistId", middleware.decodeToken, getPlaylistById);
+playlistsRoutes.get("/:playlistId", getPlaylistById);
 
 //? UPDATE PLAYLIST BY ID
 playlistsRoutes.put(
   "/edit/:playlistId",
-  middleware.decodeToken,
+
   upload.single("thumbnail"),
   updatePlaylistById
 );
 
 //? DELETE PLAYLIST BY ID
-playlistsRoutes.delete("/:playlistId", middleware.decodeToken, deletePlaylistById);
+playlistsRoutes.delete("/:playlistId", deletePlaylistById);
 
 //? FOLLOW PLAYLIST
-playlistsRoutes.put("/follow/:playlistId", middleware.decodeToken, followPlaylist);
+playlistsRoutes.put("/follow/:playlistId", followPlaylist);
 
 //? UNFOLLOW PLAYLIST
-playlistsRoutes.put("/unfollow/:playlistId", middleware.decodeToken, unfollowPlaylist);
+playlistsRoutes.put("/unfollow/:playlistId", unfollowPlaylist);
 
 //? GET PLAYLIST BY ID AND SHOW TRACKS DETAILS
-playlistsRoutes.get("/details/:playlistId", middleware.decodeToken, getPlaylistByIdAndDetails);
+playlistsRoutes.get("/details/:playlistId", getPlaylistByIdAndDetails);
 
 //? GET PLAYLIST BY ID AND SHOW USERS DETAILS
-playlistsRoutes.get("/detailsUser/:playlistId", middleware.decodeToken, getPlaylistByIdAndInfo);
-
-//? GET FOLLOWED PLAYLIST BY USERS
-playlistsRoutes.get("/detailsUser/:userId", middleware.decodeToken, getFollowingPlaylistsByUser);
+playlistsRoutes.get("/detailsUser/:playlistId", getPlaylistByIdAndInfo);

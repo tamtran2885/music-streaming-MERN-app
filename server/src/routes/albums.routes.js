@@ -8,23 +8,22 @@ import {
       updateAlbum,
       deleteAlbum
 } from "../controllers/albumsController.js"
-import middleware from "../middlewares/index.js";
 
 
 export const albumRoutes = Router();
 
 // ? GET ALBUM
-albumRoutes.get("/", middleware.decodeToken, getAlbums);
+albumRoutes.get("/", getAlbums);
 
 // ? CREATE ALBUM
-albumRoutes.post("/", middleware.decodeToken, upload.single("thumbnail"), createAlbum);
+albumRoutes.post("/", upload.single("thumbnail"), createAlbum);
 
 //? GET ALBUM BY ID
-albumRoutes.get("/:albumId", middleware.decodeToken, getAlbumById);
+albumRoutes.get("/:albumId", getAlbumById);
 
 // //? UPDATE ALBUM BY ID
-albumRoutes.put("/:albumId", middleware.decodeToken, upload.single("thumbnail"), updateAlbum);
+albumRoutes.put("/:albumId", upload.single("thumbnail"), updateAlbum);
 
 // //? DELETE ALBUM BY ID
-albumRoutes.delete("/:albumId", middleware.decodeToken, deleteAlbum);
+albumRoutes.delete("/:albumId", deleteAlbum);
 

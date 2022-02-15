@@ -242,7 +242,7 @@ export const getFollowedPlaylist = async (req, res, next) => {
       playlist.map((f) => {
         console.log(f.firebaseUser === user)
         if (f.firebaseUser === user) {
-          array.push(x._id)
+          array.push(x.id)
         }
       })
     })
