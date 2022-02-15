@@ -38,7 +38,7 @@ const Navbar = (props) => {
                         <Link className='nav__link' to={userId ? `/user/${userId}` : "/"}>{user && user.email}</Link>
                         <Link className='avatar' to={""}><img className='avatar' src={logo} alt="" />
                             <div className='float__menu'>
-                                <Link className='nav__link link' to={userId ? `/user/${userId}` : "/"}>Account details</Link>
+                                <Link className='nav__link link' to={userId ? `/user/edit/${userId}` : "/"}>Account details</Link>
                                 <button onClick={handleLogout} className='nav__link logout'>Log Out</button>
                             </div>
                         </Link>

@@ -73,12 +73,12 @@ const TrackPage = () => {
               <Albums />
             </div>
           </div>
-          <div className="songs__modal__absolute">
+          <div className="songs__modal__absolute modal__hide">
             <div className="songs__modal__background">
               <div className="sogs__modal__container">
                 <h1 className="header">Add New Track</h1>
                 <div className="close"><img src={close} alt="Close the modal" /></div>
-                <div className="form__container">
+                <div className="form__container ">
                   <form className="form" onSubmit={""} encType="multipart/form-data">
                     <div className="form__items">
                       <div className="drag__area">
@@ -138,7 +138,29 @@ const TrackPage = () => {
                           ))*/}
                         </select>
                         {/*errors.genre && <p>{errors.genre}</p>*/}
-                        <button className="button" type="submit">Submit</button>
+                        <button className="button" type="button">Next</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div className="form__container modal__hide">
+                  <form className="form" onSubmit={""} encType="multipart/form-data">
+                    <div className="form__items__cover">
+                      <div className="drag__area">
+                        <h3>Drag the track's cover here</h3>
+                        <p>or</p>
+                        <label for="track"><p className='file'>Select a file</p></label>
+                        <input
+                          type="file"
+                          className="form__input"
+                          placeholder="Url"
+                          name="urlTrack"
+                          id="track"
+                          onChange={""}
+                        />
+                      </div>
+                      <div className="form__inputs">
+                        <button className="button" type="button">Submit</button>
                       </div>
                     </div>
                   </form>

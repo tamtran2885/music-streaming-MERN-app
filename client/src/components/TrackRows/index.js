@@ -120,32 +120,38 @@ const TrackRows = ({ totalTracks }) => {
   return (
     <>
       <div className="trackrow__absolute">
-        {[...Array(trackNumber())].map((e, i) => (
-          <div key={i}>
-            <OrderNumber i={i} />
-          </div>
-        ))}
-        {sortTracks() &&
-          sortTracks().map((track) => (
-            <form onSubmit={handleEditFormSubmit}>
-              <div style={{ marginTop: "20px" }}>
-                {editRowId === track._id ? (
-                  <EditTrackRow
-                    editFormData={editFormData}
-                    handleEditFormChange={handleEditFormChange}
-                    handleCancelClick={handleCancelClick}
-                  />
-                ) : (
-                  <ReadOnlyTrackRow
-                    key={track._id}
-                    track={track}
-                    handleEditClick={handleEditClick}
-                    handleDelete={handleDelete}
-                  />
-                )}
+        <div className="songs__container">
+          <div className="position">
+            {[...Array(trackNumber())].map((e, i) => (
+              <div key={i}>
+                <OrderNumber i={i} />
               </div>
-            </form>
-          ))}
+            ))}
+          </div>
+          <div className="track">
+            {sortTracks() &&
+              sortTracks().map((track) => (
+                <form onSubmit={handleEditFormSubmit}>
+                  <div style={{ marginTop: "20px" }}>
+                    {editRowId === track._id ? (
+                      <EditTrackRow
+                        editFormData={editFormData}
+                        handleEditFormChange={handleEditFormChange}
+                        handleCancelClick={handleCancelClick}
+                      />
+                    ) : (
+                      <ReadOnlyTrackRow
+                        key={track._id}
+                        track={track}
+                        handleEditClick={handleEditClick}
+                        handleDelete={handleDelete}
+                      />
+                    )}
+                  </div>
+                </form>
+              ))}
+          </div>
+        </div>
       </div>
     </>
   );
