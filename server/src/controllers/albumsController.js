@@ -4,7 +4,6 @@ import cloudinary from "../utils/cloudinary.js";
 //? GET ALL ALBUMS
 //* @route GET api/albums
 export const getAlbums = async (req, res, next) => {
-    console.log(req.headers)
     try {
         const album = await Album.find();
         res.json(album);
