@@ -114,7 +114,7 @@ export const fetchTracksBySearch = (searchQuery) => {
 
 export const fetchFollowingPlaylistsByUser = (userId) => {
   const followingPlaylists = axios.get(
-    `http://localhost:4000/api/playlists/folowwingPlaylists/${userId}}`,
+    `http://localhost:4000/api/playlists/getFollowing/${userId}`,
     {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,

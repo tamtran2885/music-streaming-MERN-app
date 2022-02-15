@@ -12,11 +12,14 @@ import {
   unfollowPlaylist,
   getPlaylistByIdAndDetails,
   getPlaylistByIdAndInfo,
-  getFollowedPlaylist
+  getFollowingPlaylistsByUser,
 } from "../controllers/playlistsController.js";
 import middleware from "../middlewares/index.js";
 
 export const playlistsRoutes = Router();
+
+//? GET FOLLOWING PLAYLISTS BY USER
+playlistsRoutes.get("/getFollowing/:userId", getFollowingPlaylistsByUser);
 
 //? GET PLAYLISTS By User - firebaseUser
 playlistsRoutes.get("/mine", middleware.decodeToken, getPlaylistsByUser);
@@ -57,4 +60,4 @@ playlistsRoutes.get("/details/:playlistId", middleware.decodeToken, getPlaylistB
 playlistsRoutes.get("/detailsUser/:playlistId", middleware.decodeToken, getPlaylistByIdAndInfo);
 
 //? GET FOLLOWED PLAYLIST BY USERS
-playlistsRoutes.get("/detailsUser/:userId", middleware.decodeToken, getFollowedPlaylist);
+playlistsRoutes.get("/detailsUser/:userId", middleware.decodeToken, getFollowingPlaylistsByUser);
