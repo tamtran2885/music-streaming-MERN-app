@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import PlaylistTrackRows from '../../components/PlaylistTrackRows';
-import upload from "../../assets/images/upload.svg";
-import { getPlaylistDetails, getCurrentPlaylistInfo, unfollowPlaylist, followPlaylist, getAllPlaylists, getPlaylistsByUser } from "../../redux/playlist/actions";
+import { getPlaylistDetails, getCurrentPlaylistInfo } from "../../redux/playlist/actions";
 import { connect, useDispatch } from "react-redux";
-import play from "../../assets/images/playbutton.svg";
-
-import Genre from "../../components/Genre";
-import star from "../../assets/images/star.svg";
-import staractive from "../../assets/images/staractive.svg";
+import PlaylistSidebar from "../../components/PlaylistSidebar";
 import axios from "axios";
 
 const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
@@ -17,10 +12,7 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
     const { pathname } = useLocation();
     const navigate = useNavigate();
     const loggedToken = sessionStorage.getItem("token");
-    const userId = sessionStorage.getItem("userId");
-    const uid = userId;
     const [creator, setCreator] = useState({});
-    const [follow, setFollow] = useState(false);
 
     useEffect(() => {
         if (!loggedToken) {
@@ -45,20 +37,11 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
         setCreator(response.data.user)
     }
 
-    const checkFollow = (uid) => {
-        if (playlistInfo && playlistInfo.followedBy.filter((item) => item.firebaseUser === uid).length > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    };
-
     useEffect(() => {
         setTimeout(async () => {
             getPlaylistCreator();
             dispatch(getPlaylistDetails(getIdFromURL()));
             dispatch(getCurrentPlaylistInfo(getIdFromURL()));
-            setFollow(checkFollow(uid))
         }, 1000)
     }, [dispatch]);
 
@@ -67,52 +50,15 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
 
     useEffect(() => {
         setPlaylistTrack(currentPlaylist);
-        setPlaylistInfo(currentPlaylistInfo)
+        setPlaylistInfo(currentPlaylistInfo);
     }, [currentPlaylist, currentPlaylistInfo])
-
-    const handleToggle = () => {
-        if (follow) {
-            console.log("unfollow")
-            // dispatch(unfollowPlaylist(playlistInfo._id, uid));
-            // dispatch(getAllPlaylists());
-            // dispatch(getPlaylistsByUser(uid));
-            setFollow(!follow);
-        } else {
-            console.log("follow")
-            // dispatch(followPlaylist(playlistInfo._id, uid));
-            // dispatch(getAllPlaylists());
-            // dispatch(getPlaylistsByUser(uid))
-            setFollow(!follow);
-        }
-    };
-
-    console.log(follow)
 
     return (
         <>
             <div className='dashboard__background'>
                 <Navbar page="PlaylistName" playlistInfo={playlistInfo}/>
                 <div className='tracks__absolute'>
-                    <div className='dashboard__side'>
-                        <p>Created by <span className="creator">{creator && creator.firstName} {creator && creator.lastName}</span></p>
-                        <p>1 followers</p>
-                        <div className="genre">
-                            <Genre />
-                        </div>
-                        <button className="button play"><img src={play} alt="Play" /></button>
-                        {/* <button className="button follow"><img src={star} alt="Follow" /></button> */}
-                        {checkFollow(uid) ? (<button className="button follow" onClick={handleToggle}>
-                            <img
-                                src={staractive}
-                                alt="Follow"
-                            /></button>
-                        ) : (<button className="button follow" onClick={handleToggle}>
-                            <img
-                                src={star}
-                                alt="Follow"
-                            /></button>
-                        )}
-                    </div>
+                    <PlaylistSidebar creator={creator}/>
                     <PlaylistTrackRows playlistTrack={playlistTrack} playlistInfo={playlistInfo}/>
                 </div>
             </div>
