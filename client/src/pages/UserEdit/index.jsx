@@ -85,7 +85,7 @@ const UserEdit = () => {
     formData.append("firebaseUser", editUser.firebaseUser)
 
     try {
-      await axios.put(`process/api/user/${getIdFromURL()}`, formData, config);
+      await axios.put(`${process.env.REACT_APP_API_URL}/api/user/${getIdFromURL()}`, formData, config);
       // console.log(formData)
 
     } catch (e) {
