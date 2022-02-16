@@ -18,6 +18,7 @@ const PlaylistSchema = new Schema({
   thumbnail: {
     type: String,
   },
+
   cloudinaryId: {
     type: String,
   },
@@ -37,6 +38,7 @@ const PlaylistSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "user",
   },
+
   tracks: {
     type: [
       {
@@ -44,6 +46,7 @@ const PlaylistSchema = new Schema({
       },
     ],
   },
+
   followedBy: {
     type: [
       {
@@ -51,6 +54,7 @@ const PlaylistSchema = new Schema({
       },
     ],
   },
+
   firebaseUser: {
     type: String,
   },

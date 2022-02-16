@@ -3,6 +3,7 @@ import config from "./config/config.js";
 import connect from "./db/connect.js";
 import "dotenv/config";
 
+
 connect().then(async function onServer() {
   console.log(`DB connected`);
 

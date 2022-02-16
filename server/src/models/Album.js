@@ -20,7 +20,7 @@ const AlbumSchema = new Schema({
   tracks: {
     type: [
       {
-        trackId: String,
+          trackId: String,
       },
     ],
   },

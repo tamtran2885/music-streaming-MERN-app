@@ -19,79 +19,61 @@ import {
 import uploadTrack from "../utils/multerTracks.js";
 import upload from "../utils/multer.js";
 
-
 export const tracksRoutes = Router();
 
-//? GET TRACKS BY SEARCH
-//* @route GET api/tracks/search
+// get Tracks By Search
 tracksRoutes.get("/search", getTracksBySearch);
 
-//? GET TRACKS BY USER - FIREBASE USER
-//* @route GET api/tracks/mine
+// GET Tracks By User - firebaseUser
 tracksRoutes.get("/mine", getTracksByUser);
 
-//? ADD FAV TO TRACK
-//* @route PUT api/tracks/like/:trackId
+// Add Fav to a track
+// @route PUT api/tracks/like/:trackId
 tracksRoutes.put("/like/:trackId", addFavToTrack);
 
-//? REMOVE FAV FROM A TRACK
-//* @route PUT api/tracks/unlike/:trackId
+// Remove Fav from a track
+// @route PUT api/tracks/unlike/:trackId
 tracksRoutes.put("/unlike/:trackId", removeFavFromTrack);
 
-//? ADD TRACK TO PLAYLIST 
-//* @route PUT api/tracks/addToPlaylist/:trackId
+// Add track to playlist
+// @route PUT api/tracks/addToPlaylist/:trackId
 tracksRoutes.put("/addToPlaylist/:trackId", addTrackToPlaylist);
 
-//? REMOVE A TRACK FROM PLAYLIST
-//* @route PUT api/tracks/deleteFromPlaylist/:trackId
+// Remove track from playlist
+// @route PUT api/tracks/deleteFromPlaylist/:trackId
 tracksRoutes.put("/deleteFromPlaylist/:trackId", deleteTrackFromPlaylist);
 
 //? UPDATE REPRODUCTION COUNTER
-//* @route PUT api/tracks/reproducing/:trackId
 tracksRoutes.put("/reproducing/:trackId", reproductionsCounter);
 
-//? GET TRACKS LIKED BY USER - FIREBASE USER 
-//* @route GET api/tracks/likedByUser/:userId
+// ? GET Tracks By User - firebaseUser
 tracksRoutes.get("/likedByUser/:userId", getTrackDetailsInFav);
 
-//? GET TRACKS
-//* @route GET api/tracks
+// ? GET TRACKS
 tracksRoutes.get("/", getTracks);
 
-//? CREATE tracks
-//* @route POST api/tracks
+// ? CREATE tracks
 tracksRoutes.post("/", uploadTrack.single("urlTrack"), createTrack);
 
-//? UPLOAD THUMBNAIL TO TRACK
-//* @route PUT api/tracks/uploadThumbnail/:trackId
+// ? UPLOAD THUMBNAIL TO TRACK
 tracksRoutes.put(
   "/uploadThumbnail/:trackId",
-
   upload.single("photoTrack"),
   addPhotoToTrack
 );
 
-//? GET TRACKS BY ID
-//* @route GET api/tracks/:trackId
+// ? GET tracks BY ID
 tracksRoutes.get("/:trackId", getTrackById);
 
-//? UPDATE TRACKS BY ID
-//* @route PUT api/tracks/edit/:trackId
+// ? UPDATE tracks BY ID
 tracksRoutes.put(
   "/edit/:trackId",
-
   uploadTrack.single("fileTrackUpdate"),
   updateTrack
 );
 
-//? DELETE TRACK BY ID
-//* @route DELETE api/tracks/:trackId
+// ? DELETE tracks BY ID
 tracksRoutes.delete("/:trackId", deleteTrack);
 
-//? ADD TRACK TO ALBUM
-//* @route PUT api/tracks/addToAlbum/:trackId
+// ? ADD TRACK TO ALBUM
 tracksRoutes.put("/addToAlbum/:trackId", trackToAlbum);
-
-//? ADD PHOTO TO TRACK
-//* @route PUT api/tracks/addPhotoToTrack/:trackId
-tracksRoutes.put("/addPhotoToTrack/:trackId", addPhotoToTrack);

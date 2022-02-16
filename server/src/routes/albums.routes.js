@@ -10,7 +10,6 @@ import {
   getAlbumsByUser,
 } from "../controllers/albumsController.js";
 
-
 export const albumRoutes = Router();
 
 //? GET ALBUMS By User - firebaseUser
@@ -21,18 +20,14 @@ albumRoutes.get("/mine", getAlbumsByUser);
 //* @route GET api/albums
 albumRoutes.get("/", getAlbums);
 
-//? CREATE ALBUM
-//* @route POST api/albums/
+// ? CREATE ALBUM
 albumRoutes.post("/", upload.single("thumbnail"), createAlbum);
 
 //? GET ALBUM BY ID
-//* @route GET api/albums/:albumId
 albumRoutes.get("/:albumId", getAlbumById);
 
-//? UPDATE ALBUM BY ID
-//* @route PUT api/albums/:albumId
+// //? UPDATE ALBUM BY ID
 albumRoutes.put("/:albumId", upload.single("thumbnail"), updateAlbum);
 
-//? DELETE ALBUM BY ID
-//* @route DELETE api/albums/:albumId
+// //? DELETE ALBUM BY ID
 albumRoutes.delete("/:albumId", deleteAlbum);

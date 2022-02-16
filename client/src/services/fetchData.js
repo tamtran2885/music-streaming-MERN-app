@@ -7,7 +7,7 @@ export const fetchTracks = () =>
   new Promise((resolve) => {
     const tracks = axios.get(`${process.env.REACT_APP_API_URL}/api/tracks`, {
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
     });
     setTimeout(() => {
@@ -19,7 +19,7 @@ export const fetchPlaylists = () =>
   new Promise((resolve) => {
     const playlists = axios.get(`${process.env.REACT_APP_API_URL}/api/playlists`, {
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
     });
     setTimeout(() => {
@@ -31,7 +31,7 @@ export const fetchAlbums = () =>
   new Promise((resolve) => {
     const albums = axios.get(`${process.env.REACT_APP_API_URL}/api/albums`, {
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
     });
     setTimeout(() => {
@@ -43,7 +43,7 @@ export const fetchSingleTrack = (_id) =>
   new Promise((resolve) => {
     const track = axios.get(`${process.env.REACT_APP_API_URL}/api/tracks/${_id}`, {
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
     });
     setTimeout(() => {
@@ -56,7 +56,7 @@ export const fetchTracksByUser = async (userUid) => {
     `${process.env.REACT_APP_API_URL}/api/tracks/mine?firebaseUser=${userUid}`,
     {
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
     }
   );
@@ -68,7 +68,7 @@ export const fetchPlayListsByUser = (userUid, token) => {
     `${process.env.REACT_APP_API_URL}/api/playlists/mine?firebaseUser=${userUid}`,
     {
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
     }
   );
@@ -80,7 +80,7 @@ export const fetchAlbumsByUser = (userUid) => {
     `${process.env.REACT_APP_API_URL}/api/albums/mine?firebaseUser=${userUid}`,
     {
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
     }
   );
@@ -92,7 +92,7 @@ export const fetchPlaylistTracks = (playlistId) => {
     `${process.env.REACT_APP_API_URL}/api/playlists/details/${playlistId}`,
     {
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
     }
   );
@@ -105,7 +105,7 @@ export const fetchTracksBySearch = (searchQuery) => {
     }`,
     {
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
     }
   );
@@ -117,7 +117,7 @@ export const fetchFollowingPlaylistsByUser = (userId) => {
     `${process.env.REACT_APP_API_URL}/api/playlists/getFollowing/${userId}`,
     {
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
     }
   );

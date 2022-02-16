@@ -3,7 +3,7 @@ import Navbar from '../../components/Navbar';
 import Playlists from '../../components/Playlists';
 import Songs from '../../components/Songs';
 import Genres from '../../components/Genres';
-import Albums from '../../components/Albums';
+// import Albums from '../../components/Albums';
 import { useNavigate } from "react-router-dom"
 
 import { connect, useDispatch } from "react-redux";
@@ -32,7 +32,7 @@ const Dashboard = ({ myPlaylists, myTracks, allPlaylists, allTracks }) => {
                 dispatch(getFavTracksByUser(userId));
             }, 1000)
         }
-    }, [dispatch]);
+    }, [dispatch, loggedToken, navigate, userId]);
 
     const APIcall = async (loggedToken, userId) => {
         const userReq = await axios.get(`${process.env.REACT_APP_API_URL}/api/user/${userId}`, {
@@ -75,7 +75,7 @@ const Dashboard = ({ myPlaylists, myTracks, allPlaylists, allTracks }) => {
                     </div>
                     <div className='dashboard__side'>
                         <Genres />
-                        <Albums />
+                        {/* <Albums /> */}
                     </div>
                 </div>
             </div>

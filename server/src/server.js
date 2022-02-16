@@ -7,11 +7,13 @@ import { userRoutes } from "./routes/user.routes.js";
 import { tracksRoutes } from "./routes/tracks.routes.js";
 import { playlistsRoutes } from "./routes/playlists.routes.js";
 import { albumRoutes } from "./routes/albums.routes.js";
-// import middleware from "./middlewares/index.js";
+import middleware from "./middlewares/index.js";
 
 const app = express();
 
-//? MIDDLEWARES
+//?settings
+
+//?middlewares
 
 app.use(morgan("dev"));
 app.use(express.json());
@@ -21,11 +23,20 @@ app.use(
   })
 );
 
-// !  MIDDLEWARE WORKING WHEN HE WANTS
+// app.use(function (req, res, next) {
+
+//   if (req.originalUrl === '/api/login') {
+//   return next();
+//   } else {
+//        //DO SOMETHING
+//   }
+
 // app.use(middleware.decodeToken);
 
-//? ROUTES
+//?routes
+
 app.use("/api/user", userRoutes);
+
 app.use("/api/tracks", tracksRoutes);
 app.use("/api/playlists", playlistsRoutes);
 app.use("/api/albums", albumRoutes);

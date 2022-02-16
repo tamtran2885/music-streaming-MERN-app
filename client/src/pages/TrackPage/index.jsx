@@ -32,7 +32,7 @@ const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
         dispatch(getFavTracksByUser(userId));
       }, 1000)
     }
-  }, [dispatch])
+  }, [dispatch, loggedToken, navigate, userId])
 
   useEffect(() => {
     setTotalTracks(allTracks);
@@ -103,23 +103,22 @@ const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
         </div>
         <div className="songs__modal__absolute modal__hide">
           <div className="songs__modal__background">
-            <div className="sogs__modal__container">
+            <div className="songs__modal__container">
               <h1 className="header">Add New Track</h1>
               <div className="close"><img src={close} alt="Close the modal" /></div>
               <div className="form__container ">
-                <form className="form" onSubmit={""} encType="multipart/form-data">
+                <form className="form" encType="multipart/form-data">
                   <div className="form__items">
                     <div className="drag__area">
                       <h3>Drag your track here</h3>
                       <p>or</p>
-                      <label for="track"><p className='file'>Select a file</p></label>
+                      <label htmlFor="track"><p className='file'>Select a file</p></label>
                       <input
                         type="file"
                         className="form__input"
                         placeholder="Url"
                         name="urlTrack"
                         id="track"
-                        onChange={""}
                       />
                     </div>
                     <div className="form__inputs">
@@ -128,8 +127,6 @@ const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
                         className="form__input"
                         placeholder="Title"
                         name="title"
-                        value={""}
-                        onChange={""}
                       />
                       {/*errors.title && <p>{errors.title}</p>*/}
                       <input
@@ -137,21 +134,16 @@ const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
                         className="form__input"
                         placeholder="Album"
                         name="album"
-                        value={""}
-                        onChange={""}
                       />
                       <input
                         type="text"
                         className="form__input"
                         placeholder="Artist"
                         name="artist"
-                        value={""}
-                        onChange={""}
                       />
                       <label htmlFor="genre">Genre: </label>
                       <select name="genre"
-                        value={""}
-                        onChange={""}>
+                      >
                         {/*genreOptions.map((option) => (
                             <option key={option.value} value={option.value}>{option.label}</option>
                           ))*/}
@@ -163,19 +155,18 @@ const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
                 </form>
               </div>
               <div className="form__container modal__hide">
-                <form className="form" onSubmit={""} encType="multipart/form-data">
+                <form className="form" encType="multipart/form-data">
                   <div className="form__items__cover">
                     <div className="drag__area">
                       <h3>Drag the track's cover here</h3>
                       <p>or</p>
-                      <label for="track"><p className='file'>Select a file</p></label>
+                      <label htmlFor="track"><p className='file'>Select a file</p></label>
                       <input
                         type="file"
                         className="form__input"
                         placeholder="Url"
                         name="urlTrack"
                         id="track"
-                        onChange={""}
                       />
                     </div>
                     <div className="form__inputs">
@@ -188,7 +179,6 @@ const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
           </div>
         </div>
       </div>
-
     </>
   )
 }

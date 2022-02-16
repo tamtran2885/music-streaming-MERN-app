@@ -42,7 +42,7 @@ const EditTrackRow = ({
             placeholder="Artist"
             value={editFormData.artist}
             onChange={handleEditFormChange}
-          />{" "}
+          />
           ·
           <input
             className="genre"

@@ -4,7 +4,6 @@ import User from "../models/User.js";
 import cloudinary from "../utils/cloudinary.js";
 
 //? GET PLAYLISTS
-//* @route GET api/playlists
 export const getPlaylists = async (req, res, next) => {
   try {
     const playlist = await Playlist.find().populate("followedBy");
@@ -12,13 +11,11 @@ export const getPlaylists = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
-  next()
 };
 
-//? GET PLAYLIST BY USER ID
-//* @route GET api/playlists/mine
-export const getPlaylistsByUser = async (req, res, next) => {
-  console.log(req.query);
+//? GET PLAYLISTS BY USER
+export const getPlaylistsByUser = async (req, res) => {
+  // console.log(req.query);
   try {
     const param = req.query.firebaseUser;
     const playlists = await Playlist.find({
@@ -28,12 +25,11 @@ export const getPlaylistsByUser = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
-  next()
 };
 
 //? CREATE PLAYLIST
-//* @route POST api/playlists
 export const createPlaylist = async (req, res, next) => {
+  console.log(req.query.firebaseUser)
   try {
     // Upload image to cloudinary
     const result = await cloudinary.v2.uploader.upload(req.file.path);
@@ -45,7 +41,7 @@ export const createPlaylist = async (req, res, next) => {
 
       thumbnail: result.secure_url,
       cloudinaryId: result.public_id,
-      firebaseUser: req.query.firebaseUser,
+      firebaseUser: req.body.firebaseUser,
     });
 
     await playlist.save();
@@ -53,11 +49,9 @@ export const createPlaylist = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
-  next()
 };
 
 //? GET PLAYLIST BY ID
-//* @route GET api/playlists/:playlistId
 export const getPlaylistById = async (req, res, next) => {
   try {
     const url = req.params.playlistId;
@@ -66,11 +60,9 @@ export const getPlaylistById = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
-  next()
 };
 
-//? UPDATE PLAYLIST BY ID
-//* @route PUT api/playlists/edit/:playlistId
+// ? UPDATE PLAYLIST BY ID
 export const updatePlaylistById = async (req, res, next) => {
   try {
     const url = req.params.playlistId;
@@ -111,7 +103,6 @@ export const updatePlaylistById = async (req, res, next) => {
 };
 
 //? DELETE PLAYLIST
-//* @route DELETE api/playlists/:playlistId
 export const deletePlaylistById = async (req, res, next) => {
   try {
     // Find playlist by id
@@ -127,11 +118,9 @@ export const deletePlaylistById = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
-  next()
 };
 
 //? FOLLOW PLAYLIST
-//* @route PUT api/playlists/follow/:playlistId
 export const followPlaylist = async (req, res, next) => {
   const param = req.query.firebaseUser;
   console.log(param);
@@ -154,11 +143,9 @@ export const followPlaylist = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
-  next()
 };
 
 //? UNFOLLOW PLAYLIST
-//* @route PUT api/playlists/unfollow/:playlistId
 export const unfollowPlaylist = async (req, res, next) => {
   const param = req.query.firebaseUser;
   try {
@@ -186,11 +173,10 @@ export const unfollowPlaylist = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
-  next()
 };
 
 //? GET PLAYLIST BY ID AND TRACKS DETAILS
-//* @route GET api/playlists/unfollow/:playlistId
+
 export const getPlaylistByIdAndDetails = async (req, res, next) => {
   try {
     const url = req.params.playlistId;
@@ -214,11 +200,9 @@ export const getPlaylistByIdAndDetails = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
-  next()
 };
 
-//? GET PLAYLIST BY ID AND SHOW TRACKS DETAILS
-//* @route GET api/playlists/details/:playlistId
+//? GET PLAYLIST BY ID AND USER DETAILS
 export const getPlaylistByIdAndInfo = async (req, res, next) => {
   try {
     const playlistId = req.params.playlistId;
@@ -235,40 +219,21 @@ export const getPlaylistByIdAndInfo = async (req, res, next) => {
   next()
 };
 
-//? GET PLAYLIST BY ID AND SHOW USERS DETAILS
-//* @route GET api/playlists/detailsUser/:playlistId
-export const getFollowedPlaylist = async (req, res, next) => {
-  try {
-    const user = req.params.userId;
-    console.log(user)
-    const playlists = await Playlist.find()
-    //console.log(playlists)
+//? CHANGE ORDER IN ARRAY AFTER DRAG AND DROP
 
-    const array = [];
+export const changeListOrder = async (req, res) => {
+  const { id, listID, oldIndex, newIndex } = req.body;
+  const thisPlaylist = await Playlist.find();
+};
 
-    playlists.map((x) => {
-      const playlist = x.followedBy
-      //console.log(playlist)
-      playlist.map((f) => {
-        console.log(f.firebaseUser === user)
-        if (f.firebaseUser === user) {
-          array.push(x.id)
-        }
-      })
-    })
+// // this code won't run until thisBoard has returned a value
+// let [oldValue, newValue] = [thisPlaylist.lists[oldIndex], thisPlaylist.lists[newIndex];
+// thisBoard[oldIndex] = newValue;
+// thisBoard[newIndex] = oldValue;
 
-    const result = array;
+// let saveOperation = await Board.save(thisBoard);
 
-    res.status(200).json({ data: "Playlist matched", result });
-  } catch (error) {
-    console.log(error)
-  }
-  next();
-}
-
-
-//? GET FOLLOWING PLAYLISTS BY USER
-//* @route GET api/playlists/getFollowing/:userId
+//? GET FOLLOWING PLAYLIST BY USERS
 export const getFollowingPlaylistsByUser = async (req, res, next) => {
   try {
     const user = req.params.userId;

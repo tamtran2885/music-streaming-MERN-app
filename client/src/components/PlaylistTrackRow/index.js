@@ -27,8 +27,7 @@ const PlaylistTrackRow = ({ track, playlistInfo }) => {
   const dispatch = useDispatch();
   const uid = userId;
 
-  const { title, album, duration, genre, artist, likes, _id, reproductions } =
-    track;
+  const { title, album, duration, genre, artist, likes, _id, reproductions } = track;
 
   // console.log(playlistInfo);
   // console.log(track);
@@ -40,7 +39,7 @@ const PlaylistTrackRow = ({ track, playlistInfo }) => {
         `${process.env.REACT_APP_API_URL}/api/tracks/deleteFromPlaylist/${_id}?playlistId=${playlistInfo._id}`,
         {
           headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
           },
         }
       );

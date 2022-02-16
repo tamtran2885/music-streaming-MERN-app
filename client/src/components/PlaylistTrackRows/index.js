@@ -38,7 +38,7 @@ const PlaylistTrackRows = ({ playlistTrack, playlistInfo }) => {
                 sortTracks().map((track) => (
                   <div style={{ marginTop: "20px" }}>
                     <PlaylistTrackRow
-                      key={track._id}
+                      // key={track._id}
                       track={track}
                       playlistInfo={playlistInfo}
                     />

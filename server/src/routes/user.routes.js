@@ -1,46 +1,50 @@
 import { Router } from "express";
 import {
+  LogIn,
   getUsers,
   createUser,
   getUserById,
-  deleteTheUser,
+  deleteUser,
   updateUser,
+  changePass,
   followUser,
   unfollowUser,
   createUserGoogle
 } from "../controllers/userController.js";
 import upload from "../utils/multer.js";
+import middleware from "../middlewares/index.js"
 
 export const userRoutes = Router();
 
-//? GET ALL USERS
-//* @route GET api/user
+
+// ? GET USERS
 userRoutes.get("/", getUsers);
 
-//? CREATE USER
-//* @route POST api/user
+userRoutes.post("/loggedIn", LogIn);
+
+// ? CREATE USER
 userRoutes.post("/", upload.single("profile"), createUser);
 
-//? CREATE USER WITH GOOGLE ACCOUNT
-//* @route POST api/user/google
+// ? CREATE USER GOOGLE
 userRoutes.post("/google", createUserGoogle);
 
 //? GET USER BY ID
-//* @route GET api/user/:userId
 userRoutes.get("/:userId", getUserById);
 
 //? UPDATE USER BY ID
-//* @route PUT api/user/:userId
 userRoutes.put("/:userId", upload.single("profile"), updateUser);
 
-//? DELETE USER BY ID
-//* @route DELETE api/user/:userId
-userRoutes.delete("/:userId", deleteTheUser);
+//? UPDATE USER PASSWORD BY ID
 
-//? FOLLOW USER BY FIREBASE USER
-//* @route PUT api/user/follow/:userId
+userRoutes.put("/change-password/:userId", changePass);
+
+//? DELETE USER BY ID
+userRoutes.delete("/:userId", deleteUser);
+
+//? FOLLOW USER
+
 userRoutes.put("/follow/:userId", followUser);
 
-//? unFOLLOW USER BY FIREBASE USER
-//* @route PUT api/user/unfollow/:userId
+//? UNFOLLOW USER
+
 userRoutes.put("/unfollow/:userId", unfollowUser);

@@ -18,16 +18,8 @@ const Albums = ({albums}) => {
 
   return (
     <>
-    <div className='albums__absolute'>
-      <div className='albums__tittle'>
-        <h2>Albums</h2>
-        <Link className='link' to={`/user/albums`}>See All</Link>
-      </div>
-      <div className='albums__container'>
-        {albumsInfo && albumsInfo.map((album) => (
-            <div key={album.id}><Album key={album.id} album={album}/></div>
-        ))}
-      </div>
+    <div className='albums__group'>
+      Here show albums
     </div>
     </>
   )

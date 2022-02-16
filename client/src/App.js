@@ -7,6 +7,7 @@ import User from "./pages/User";
 import ForgotPassword from "./components/ForgotPassword";
 import UserEdit from "./pages/UserEdit";
 import AddTrack from "./pages/AddTrack";
+import Albums from "./pages/Albums";
 import AddAlbum from "./pages/AddAlbum";
 import AddPlaylist from "./pages/AddPlaylist";
 import TrackPage from "./pages/TrackPage";
@@ -28,6 +29,7 @@ function App() {
           <Route path="/user/:id" element={<User />} />
           <Route path="/user/edit/:userId" element={<UserEdit />} />
           <Route path="/forgot" element={<ForgotPassword />} />
+          <Route path="/albums" element={<Albums />} />
 
           <Route path="/album/add" element={<AddAlbum />} />
 

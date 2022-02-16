@@ -18,7 +18,7 @@ const PlaylistDetail = ({ currentPlaylist, currentPlaylistInfo }) => {
         if (!loggedToken) {
             navigate("/login")
         }
-    })
+    }, [loggedToken, navigate])
 
     // GET ID FROM URL
     const getIdFromURL = () => {
@@ -31,7 +31,7 @@ const PlaylistDetail = ({ currentPlaylist, currentPlaylistInfo }) => {
         const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/playlists/detailsUser/${getIdFromURL()}`,
             {
                 headers: {
-                    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+                    Authorization: "Bearer " + sessionStorage.getItem("token"),
                 },
             });
         setCreator(response.data.user)

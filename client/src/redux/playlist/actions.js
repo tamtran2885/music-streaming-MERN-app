@@ -77,7 +77,7 @@ export const getCurrentPlaylistInfo = (playlistId) => {
         `${process.env.REACT_APP_API_URL}/api/playlists/${playlistId}`,
         {
           headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
           },
         }
       );
@@ -101,7 +101,7 @@ export const followPlaylist = (playlistId, firebaseUser) => {
         `${process.env.REACT_APP_API_URL}/api/playlists/follow/${playlistId}?firebaseUser=${firebaseUser}`,
         {
           headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
           },
         }
       );
@@ -121,7 +121,7 @@ export const unfollowPlaylist = (playlistId, firebaseUser) => {
         `${process.env.REACT_APP_API_URL}/api/playlists/unfollow/${playlistId}?firebaseUser=${firebaseUser}`,
         {
           headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
           },
         }
       );

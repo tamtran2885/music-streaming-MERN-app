@@ -96,7 +96,7 @@ const UserEdit = () => {
   return (
     <>
       <div className='dashboard__background'>
-        <Navbar page="Username" />
+      <Navbar page="Username" />
         <div className='user__edit__absolute'>
           <form onSubmit={updateUser}>
             <div className='user__edit__avatar__container'>
@@ -104,7 +104,7 @@ const UserEdit = () => {
                 <img className="avatar" src={avatar} alt="User Avatar" />
                 <img className='camera' src={camera} alt="" />
               </label>
-              <input type="file" id="avatar" onChange={onChange} name="profilePicture" defaultValue={editUser.profile} hidden />
+              <input type="file" id="avatar" onChange={onChange} name="profilePicture" defaultValue={editUser.profile} hidden/>
             </div>
             <div className='user__edit__inputs'>
               <input className='input' type="text" placeholder='Name' onChange={onChange} name="firstName" defaultValue={editUser.firstName} />

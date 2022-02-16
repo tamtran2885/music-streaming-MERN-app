@@ -60,7 +60,7 @@ export const addLike = (trackId, firebaseUser) => {
         `${process.env.REACT_APP_API_URL}/api/tracks/like/${trackId}?firebaseUser=${firebaseUser}`,
         {
           headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
           },
         }
       );
@@ -80,7 +80,7 @@ export const removeLike = (trackId, firebaseUser) => {
         `${process.env.REACT_APP_API_URL}/api/tracks/unlike/${trackId}?firebaseUser=${firebaseUser}`,
         {
           headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
           },
         }
       );
@@ -105,7 +105,7 @@ export const deleteSingleTrack = (trackId) => {
     try {
       await axios.delete(`${process.env.REACT_APP_API_URL}/api/tracks/${trackId}`, {
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
       });
       dispatch(deleteTrack(trackId));
@@ -129,7 +129,7 @@ export const getFavTracksByUser = (userId) => {
         `${process.env.REACT_APP_API_URL}/api/tracks/likedByUser/${userId}`,
         {
           headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
           },
         }
       );
@@ -154,7 +154,7 @@ export const addReproductionsCounter = (trackId, userId) => {
         `${process.env.REACT_APP_API_URL}/api/tracks/reproducing/${trackId}`,
         {
           headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
           },
         }
       );
