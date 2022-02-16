@@ -94,37 +94,25 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
                 <Navbar page="PlaylistName" playlistInfo={playlistInfo}/>
                 <div className='tracks__absolute'>
                     <div className='dashboard__side'>
-                        <p>Created by User</p>
-                        <p>{creator && creator.firstName} {creator && creator.lastName}</p>
+                        <p>Created by <span className="creator">{creator && creator.firstName} {creator && creator.lastName}</span></p>
                         <p>1 followers</p>
                         <div className="genre">
                             <Genre />
                         </div>
                         <button className="button play"><img src={play} alt="Play" /></button>
-                        {follow === false ? (<button className="button follow">
-                            <img
-                                src={star}
-                                alt="UnFollow"
-                                onClick={handleToggle}
-                            /></button>
-                        ) : (<button className="button follow">
+                        {follow ? (<button className="button follow" onClick={handleToggle}>
                             <img
                                 src={staractive}
                                 alt="Follow"
-                                onClick={handleToggle}
+                            /></button>
+                        ) : (<button className="button follow" onClick={handleToggle}>
+                            <img
+                                src={staractive}
+                                alt="Follow"
                             /></button>
                         )}
                     </div>
-                    <div className='tracks__display'>
-                        <div className="tracks__title">
-                            <h2 className="tittle">Uploaded</h2>
-                            <Link className='link' to="/track/add">
-                                <button className="button">Upload Song</button>
-                                <img className="upload" src={upload} alt="Upload" />
-                            </Link>
-                        </div>
-                        <PlaylistTrackRows playlistTrack={playlistTrack} playlistInfo={playlistInfo}/>
-                    </div>
+                    <PlaylistTrackRows playlistTrack={playlistTrack} playlistInfo={playlistInfo}/>
                 </div>
             </div>
         </>

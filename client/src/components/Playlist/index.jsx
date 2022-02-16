@@ -40,7 +40,6 @@ const Playlist = (playlist) => {
             {playlist.playlist && (
               <>
                 <h3 className='playlist__tittle'>{title && title}</h3>
-                {/*<img className='playlist__background' src={thumbnail && thumbnail} alt="playlist"/>*/}
               </>
             )}
           </div>
