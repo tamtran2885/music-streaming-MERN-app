@@ -19,6 +19,7 @@ const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
 
   const [totalTracks, setTotalTracks] = useState([]);
   const [searchWord, setSearchWord] = useState("");
+  const [state, setState] = useState("");
 
   useEffect(() => {
     if (!loggedToken) {
@@ -29,7 +30,7 @@ const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
         dispatch(getAllTracks());
         dispatch(getTracksByUser(userId));
         dispatch(getFavTracksByUser(userId));
-      }, 3000)
+      }, 1000)
     }
   }, [dispatch])
 
@@ -39,21 +40,23 @@ const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
 
   const handlePopular = () => {
     // console.log("allTracks")
-    setTotalTracks(allTracks)
+    setTotalTracks(allTracks);
+    setState("popular")
     navigate("/track")
   };
 
   const handleMine = () => {
     // console.log("myTracks")
     setTotalTracks(myTracks)
+    setState("mine")
     navigate("/track")
   };
 
   const handleFav = () => {
     setTotalTracks(favTracksByUser)
+    setState("fav")
     navigate("/track")
   }
-
 
   const searchTracks = async () => {
     if (searchWord.trim()) {
@@ -76,6 +79,8 @@ const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
     }
   }
 
+  // console.log(state)
+
   return (
     <>
       <div className='dashboard__background'>
@@ -89,110 +94,96 @@ const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
                 <img className="upload" src={upload} alt="Upload" />
               </Link>
             </div>
-            <TrackRows totalTracks={totalTracks} />
+            <TrackRows totalTracks={totalTracks} state={state} />
           </div>
           <div className='dashboard__side'>
             <Genres />
             <Albums />
           </div>
-          <TrackRows totalTracks={totalTracks} />
         </div>
-        <div className='dashboard__side'>
-          <Genres />
-          <Albums />
-        </div>
-      </div>
-      <div className="songs__modal__absolute modal__hide">
-        <div className="songs__modal__background">
-          <div className="sogs__modal__container">
-            <h1 className="header">Add New Track</h1>
-            <div className="close"><img src={close} alt="Close the modal" /></div>
-            <div className="form__container ">
-              <form className="form" onSubmit={""} encType="multipart/form-data">
-                <div className="form__items">
-                  <div className="drag__area">
-                    <h3>Drag your track here</h3>
-                    <p>or</p>
-                    <label for="track"><p className='file'>Select a file</p></label>
-                    <input
-                      type="file"
-                      className="form__input"
-                      placeholder="Url"
-                      name="urlTrack"
-                      id="track"
-                      onChange={""}
-                    />
-                  </div>
-                  <div className="form__inputs">
-                    <label for="file"><p className='file'>Track's cover</p></label>
-                    <input
-                      type="file"
-                      className="form__input"
-                      placeholder="Thumbnail"
-                      name="photoTrack"
-                      id="file"
-                      onChange={""}
-                    />
-                    <input
-                      type="text"
-                      className="form__input"
-                      placeholder="Title"
-                      name="title"
-                      value={""}
-                      onChange={""}
-                    />
-                    {/*errors.title && <p>{errors.title}</p>*/}
-                    <input
-                      type="text"
-                      className="form__input"
-                      placeholder="Album"
-                      name="album"
-                      value={""}
-                      onChange={""}
-                    />
-                    <input
-                      type="text"
-                      className="form__input"
-                      placeholder="Artist"
-                      name="artist"
-                      value={""}
-                      onChange={""}
-                    />
-                    <label htmlFor="genre">Genre: </label>
-                    <select name="genre"
-                      value={""}
-                      onChange={""}>
-                      {/*genreOptions.map((option) => (
+        <div className="songs__modal__absolute modal__hide">
+          <div className="songs__modal__background">
+            <div className="sogs__modal__container">
+              <h1 className="header">Add New Track</h1>
+              <div className="close"><img src={close} alt="Close the modal" /></div>
+              <div className="form__container ">
+                <form className="form" onSubmit={""} encType="multipart/form-data">
+                  <div className="form__items">
+                    <div className="drag__area">
+                      <h3>Drag your track here</h3>
+                      <p>or</p>
+                      <label for="track"><p className='file'>Select a file</p></label>
+                      <input
+                        type="file"
+                        className="form__input"
+                        placeholder="Url"
+                        name="urlTrack"
+                        id="track"
+                        onChange={""}
+                      />
+                    </div>
+                    <div className="form__inputs">
+                      <input
+                        type="text"
+                        className="form__input"
+                        placeholder="Title"
+                        name="title"
+                        value={""}
+                        onChange={""}
+                      />
+                      {/*errors.title && <p>{errors.title}</p>*/}
+                      <input
+                        type="text"
+                        className="form__input"
+                        placeholder="Album"
+                        name="album"
+                        value={""}
+                        onChange={""}
+                      />
+                      <input
+                        type="text"
+                        className="form__input"
+                        placeholder="Artist"
+                        name="artist"
+                        value={""}
+                        onChange={""}
+                      />
+                      <label htmlFor="genre">Genre: </label>
+                      <select name="genre"
+                        value={""}
+                        onChange={""}>
+                        {/*genreOptions.map((option) => (
                             <option key={option.value} value={option.value}>{option.label}</option>
                           ))*/}
-                    </select>
-                    {/*errors.genre && <p>{errors.genre}</p>*/}
-                    <button className="button" type="button">Next</button>
+                      </select>
+                      {/*errors.genre && <p>{errors.genre}</p>*/}
+                      <button className="button" type="button">Next</button>
+                    </div>
                   </div>
-                </div>
-              </form>
-            </div>
-            <div className="form__container modal__hide">
-              <form className="form" onSubmit={""} encType="multipart/form-data">
-                <div className="form__items__cover">
-                  <div className="drag__area">
-                    <h3>Drag the track's cover here</h3>
-                    <p>or</p>
-                    <label for="track"><p className='file'>Select a file</p></label>
-                    <input
-                      type="file"
-                      className="form__input"
-                      placeholder="Url"
-                      name="urlTrack"
-                      id="track"
-                      onChange={""}
-                    />
+                </form>
+              </div>
+              <div className="form__container modal__hide">
+                <form className="form" onSubmit={""} encType="multipart/form-data">
+                  <div className="form__items__cover">
+                    <div className="drag__area">
+                      <h3>Drag the track's cover here</h3>
+                      <p>or</p>
+                      <label for="track"><p className='file'>Select a file</p></label>
+                      <input
+                        type="file"
+                        className="form__input"
+                        placeholder="Url"
+                        name="urlTrack"
+                        id="track"
+                        onChange={""}
+                      />
+                    </div>
+                    <div className="form__inputs">
+                      <button className="button" type="button">Submit</button>
+                    </div>
                   </div>
-                  <div className="form__inputs">
-                    <button className="button" type="button">Submit</button>
-                  </div>
-                </div>
-              </form>
+                </form>
+              </div>
             </div>
           </div>
         </div>
@@ -204,8 +195,8 @@ const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
 
 const mapStateToProps = state => {
   return {
-    allTracks: state.track.allTracks.data,
-    myTracks: state.track.myTracks.data,
+    allTracks: state.track.allTracks,
+    myTracks: state.track.myTracks,
     favTracksByUser: state.track.favTracksByUser,
   }
 }

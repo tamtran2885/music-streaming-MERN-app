@@ -5,7 +5,7 @@ import logo from "../../assets/images/logo.svg";
 import SearchBar from "../SearchBar";
 
 const Navbar = (props) => {
-    const { page, handleMine, handlePopular, handleFav, searchWord, setSearchWord, searchTracks } = props;
+    const { page, handleMine, handlePopular, handleFav, searchWord, setSearchWord, searchTracks, userProfile, playlistInfo } = props;
     const navigate = useNavigate();
     const { user, logout } = useAuth()
     const userId = sessionStorage.getItem("userId");
@@ -43,7 +43,8 @@ const Navbar = (props) => {
                 </div>
                 <div className='nav__buttons'>
                     <div className='nav__tittle'>
-                        {page && page}
+                        {/* {page && page} */}
+                        {userProfile ? userProfile.firstName && userProfile.lastName : playlistInfo ? playlistInfo.title : page && page}
                     </div>
                     <div className='nav__filters'>
                         <div className='searchbar__container'>
@@ -54,7 +55,7 @@ const Navbar = (props) => {
                             <div className='nav__filters__owner'>
                                 <button className='button__owner left active' onClick={handlePopular}>Popular</button>
                                 <button className='button__owner right' onClick={handleMine}>Mine</button>
-                                {page && page === "Songs" ? (<button className='button__owner right' onClick={handleFav}>Fav</button>) : (<div></div>)}
+                                {page && page === "Songs" ? (<button className='button__owner right fav' onClick={handleFav}>Fav</button>) : (<div></div>)}
                             </div>
                         </div>
                     </div>

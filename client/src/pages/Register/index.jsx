@@ -105,13 +105,6 @@ const Register = () => {
                             {errors.password && <p>{errors.password}</p>}
                             <RegisterInput value={values.confirmPassword} className="form__input" name="confirmPassword" type="password" placeholder="Confirm Password" onChange={onChange("confirmPassword")} />
                             {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-                            <div className='form__options'>
-                                <label className="b-contain">
-                                    I accept the terms of the agreement.
-                                    <input type="checkbox" />
-                                    <div className="b-input"></div>
-                                </label>
-                            </div>
                             <div className='form__questions'>
                                 <p>Already have an account?<br /> Please, <Link className="link" to="/login">log in.</Link></p>
                                 <div className='form__buttons'>
@@ -122,10 +115,6 @@ const Register = () => {
                         </form>
                     </div>
                 </div>
-            </div>
-            <div className="credits">
-                <p>TamTamGo App © 2022 | <a className="link" href="https://assemblerschool.com/" target="_blank" rel="noreferrer">Assembler School</a> Jun21 Final Project</p>
-                <p>Developed with love by Tam Team</p>
             </div>
         </>
     )

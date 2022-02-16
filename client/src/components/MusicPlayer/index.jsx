@@ -16,7 +16,7 @@ import playerdisc from '../../assets/images/playerdisc.svg'
 import volume from '../../assets/images/volume.svg';
 
 import { useAuth } from "../../context/authContext";
-import { addLike, removeLike } from "../../redux/track/actions";
+import { addLike, removeLike, getAllTracks, getTracksByUser } from "../../redux/track/actions";
 
 const MusicPlayer = () => {
   const userId = sessionStorage.getItem("userId");
@@ -51,16 +51,6 @@ const MusicPlayer = () => {
       return false
     } else {
       return true
-    }
-  }
-
-  // set state of like
-  const like = checkLike(uid);
-  const handleToggle = () => {
-    if (like) {
-      dispatch(removeLike(trackId, uid));
-    } else {
-      dispatch(addLike(trackId, uid));
     }
   }
 
@@ -129,15 +119,15 @@ const MusicPlayer = () => {
   return (
     <>
       <div className='difuse__background'></div>
-      <div className='musicplayer__absolute'>
+      <div className='musicplayer__absolute modal__hide'>
         <div className='musicplayer__icon'>
           <img className='icon' src={cover} alt="Icon" />
         </div>
         <div className='like'>
-          {like === false ? (
-            <img className='song__like__icon' src={star} alt="" onClick={handleToggle} />
+          {checkLike(uid) === false ? (
+            <img className='song__like__icon' src={star} alt=""  />
           ) : (
-            <img className='song__like__icon' src={staractive} alt="" onClick={handleToggle} />
+            <img className='song__like__icon' src={staractive} alt=""  />
           )
           }
         </div>

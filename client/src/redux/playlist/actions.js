@@ -21,6 +21,7 @@ export const getAllPlaylists = () => {
     try {
       const response = await fetchPlaylists();
       dispatch(setAllPlaylists(response));
+      // console.log(response);
     } catch (error) {
       console.error(error);
     }
@@ -29,7 +30,7 @@ export const getAllPlaylists = () => {
 
 export const setAllPlaylists = (response) => ({
   type: SET_ALL_PLAYLISTS,
-  payload: response,
+  payload: response.data,
 });
 
 // Get playlists by user
@@ -38,6 +39,7 @@ export const getPlaylistsByUser = (useFbId) => {
     try {
       const response = await fetchPlayListsByUser(useFbId);
       dispatch(setPlaylistsByUser(response));
+      // console.log(response);
     } catch (error) {
       console.error(error);
     }
@@ -46,7 +48,7 @@ export const getPlaylistsByUser = (useFbId) => {
 
 export const setPlaylistsByUser = (response) => ({
   type: SET_PLAYLISTS_BY_USER,
-  payload: response,
+  payload: response.data,
 });
 
 // Get Playlist Details (Tracks of Playlist)
@@ -55,6 +57,7 @@ export const getPlaylistDetails = (playlistId) => {
     try {
       const response = await fetchPlaylistTracks(playlistId);
       dispatch(setCurrentPlaylist(response));
+      console.log(response);
     } catch (error) {
       console.error(error);
     }
@@ -63,7 +66,7 @@ export const getPlaylistDetails = (playlistId) => {
 
 export const setCurrentPlaylist = (response) => ({
   type: SET_CURRENT_PLAYLIST,
-  payload: response,
+  payload: response.data,
 });
 
 // Get Current Playlist Info
@@ -87,7 +90,7 @@ export const getCurrentPlaylistInfo = (playlistId) => {
 
 export const setCurrentPlaylistInfo = (response) => ({
   type: SET_CURRENT_PLAYLIST_INFO,
-  payload: response,
+  payload: response.data,
 });
 
 // Add follow or remove follow from a playlist
@@ -146,5 +149,5 @@ export const getFollowingPlaylistsByUser = (userId) => {
 
 export const setFollowingPlaylistsByUser = (response) => ({
   type: SET_FOLLOWING_PLAYLISTS_BY_USER,
-  payload: response,
+  payload: response.data,
 });

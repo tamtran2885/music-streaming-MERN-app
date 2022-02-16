@@ -3,18 +3,18 @@ import { Link } from 'react-router-dom';
 import CreatedPlaylist from '../CreatedPlaylist';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { Draggable } from 'react-beautiful-dnd';
-import MusicPlayer from '../../components/MusicPlayer';
+import close from '../../assets/images/close.svg';
+import upload from "../../assets/images/upload.svg";
 
 const CreatedPlaylists = ({totalMyPlaylists, followingPlaylists}) => {
-
   const [myCreatedPlaylists, setMyCreatedPlaylists] = useState([])
   const [myFollowingPlaylists, setMyFollowingPlaylists] = useState([])
   useEffect(() => {
     setMyCreatedPlaylists(totalMyPlaylists)
-    setMyFollowingPlaylists(followingPlaylists.result)
+    setMyFollowingPlaylists(followingPlaylists)
   }, [setMyCreatedPlaylists, totalMyPlaylists, followingPlaylists])
 
-  console.log(myFollowingPlaylists)
+  // console.log(myFollowingPlaylists)
 
   return (
   <><div className='created__playlists__absolute'>
@@ -31,6 +31,7 @@ const CreatedPlaylists = ({totalMyPlaylists, followingPlaylists}) => {
         <h2>My Playlist</h2>
           <Link to="/playlist/add">
           <button>Create a playlist</button>
+          <img className="upload" src={upload} alt="Upload" />
           </Link>
         </div>
         <Droppable className='droppable__absolute' droppableId="droppable-1">
@@ -103,9 +104,46 @@ const CreatedPlaylists = ({totalMyPlaylists, followingPlaylists}) => {
         </Droppable>
       </div>
     </DragDropContext>
+      <div className="songs__modal__absolute modal__hide">
+        <div className="songs__modal__background">
+          <div className="sogs__modal__container">
+            <h1 className="header">Create a new Playlist</h1>
+            <div className="close"><img src={close} alt="Close the modal" /></div>
+            <div className="form__container ">
+              <form className="form" onSubmit={""} encType="multipart/form-data">
+                <div className="form__items">
+                  <div className="drag__area">
+                    <h3>Drag the playlist's cover here</h3>
+                    <p>or</p>
+                    <label for="cover"><p className='file'>Select a file</p></label>
+                    <input
+                      type="file"
+                      className="form__input"
+                      placeholder="Url"
+                      name="urlCover"
+                      id="cover"
+                      onChange={""}
+                    />
+                  </div>
+                  <div className="form__inputs">
+                    <input
+                      type="text"
+                      className="form__input"
+                      placeholder="Title"
+                      name="title"
+                      value={""}
+                      onChange={""}
+                    />
+                    {/*errors.title && <p>{errors.title}</p>*/}
+                    <button className="button playlist__button" type="button">Create</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    
-    <MusicPlayer />
   </>
   )
 }

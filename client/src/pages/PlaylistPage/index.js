@@ -26,7 +26,7 @@ const PlaylistPage = ({ myPlaylists, myFollowingPlaylists }) => {
         dispatch(getAllPlaylists());
         dispatch(getPlaylistsByUser(userId));
         dispatch(getFollowingPlaylistsByUser(userId));
-      }, 3000);
+      }, 1000);
     }
   }, [dispatch]);
 
@@ -38,7 +38,7 @@ const PlaylistPage = ({ myPlaylists, myFollowingPlaylists }) => {
     setFollowingPlaylists(myFollowingPlaylists);
   }, [myPlaylists, myFollowingPlaylists]);
 
-  console.log(myFollowingPlaylists.result);
+  // console.log(myFollowingPlaylists.result);
 
   return (
     <>
@@ -55,9 +55,9 @@ const PlaylistPage = ({ myPlaylists, myFollowingPlaylists }) => {
 
 const mapStateToProps = (state) => {
   return {
-    allPlaylists: state.playlist.allPlaylists.data,
-    myPlaylists: state.playlist.myPlaylists.data,
-    myFollowingPlaylists: state.playlist.myFollowingPlaylists.data,
+    allPlaylists: state.playlist.allPlaylists,
+    myPlaylists: state.playlist.myPlaylists,
+    myFollowingPlaylists: state.playlist.myFollowingPlaylists,
   };
 };
 

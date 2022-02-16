@@ -22,6 +22,7 @@ export const getAllTracks = () => {
     try {
       const response = await fetchTracks();
       dispatch(setAllTracks(response));
+      // console.log(response);
     } catch (error) {
       console.error(error);
     }
@@ -30,7 +31,7 @@ export const getAllTracks = () => {
 
 export const setAllTracks = (response) => ({
   type: SET_ALL_TRACKS,
-  payload: response,
+  payload: response.data,
 });
 
 // Get tracks by user
@@ -39,6 +40,7 @@ export const getTracksByUser = (useFbId) => {
     try {
       const response = await fetchTracksByUser(useFbId);
       dispatch(setTracksByUser(response));
+      // console.log(response);
     } catch (error) {
       console.error(error);
     }
@@ -47,7 +49,7 @@ export const getTracksByUser = (useFbId) => {
 
 export const setTracksByUser = (response) => ({
   type: SET_TRACKS_BY_USER,
-  payload: response,
+  payload: response.data,
 });
 
 // Add like or remove like from a song
@@ -85,6 +87,7 @@ export const removeLike = (trackId, firebaseUser) => {
       dispatch(updateLikes(response));
       dispatch(getAllTracks());
       dispatch(getTracksByUser(firebaseUser));
+      dispatch(getFavTracksByUser(firebaseUser));
     } catch (err) {
       console.error(err);
     }

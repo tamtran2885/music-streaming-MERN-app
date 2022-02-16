@@ -287,7 +287,7 @@ export const getFollowingPlaylistsByUser = async (req, res, next) => {
 
     const result = array;
 
-    res.status(200).json({ result });
+    res.status(200).json(result);
   } catch (err) {
     console.error(err);
   }

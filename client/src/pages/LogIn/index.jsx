@@ -5,7 +5,6 @@ import { useAuth } from "../../context/authContext";
 import logo from "../../assets/images/logo.svg";
 
 import ConnectWithGoogle from "../../components/ConnectWithGoogle/index.jsx";
-import axios from "axios";
 
 const Login = () => {
     const { logInWithEmailAndPassword } = useAuth();
@@ -18,21 +17,17 @@ const Login = () => {
     const login = async (e) => {
         e.preventDefault();
         try {
-            const user = await logInWithEmailAndPassword(loginEmail, loginPassword).then(userCredentials => {
-                console.log(userCredentials.user)
+            await logInWithEmailAndPassword(loginEmail, loginPassword).then(userCredentials => {
+                // console.log(userCredentials.user)
                 const token = userCredentials.user.accessToken
                 const userFBid = userCredentials.user.uid
                 sessionStorage.setItem("token", token)
                 sessionStorage.setItem("userId", userFBid)
             })
-
             sessionStorage.getItem("token")
-
-
             navigate("/")
-
         } catch (error) {
-            // console.log(error.message);
+            console.log(error.message);
         }
     }
 
@@ -80,8 +75,8 @@ const Login = () => {
                 </div>
             </div>
             <div className="credits">
-                <p>TamTamGo App © 2022 | <a className="link" href="https://assemblerinstitute.com/" target="_blank" rel="noreferrer">Assembler Institute of Technology</a> Jun21 Final Project</p>
-                <p>Developed with love by Tam Team</p>
+                <p className="credits__right">TamTamGo App © 2022 | <a className="link" href="https://assemblerinstitute.com/" target="_blank" rel="noreferrer">Assembler Institute of Technology</a> Jun21 Final Project</p>
+                <p className="credits__left">Developed with love by Tam Team</p>
             </div>
         </>
     )

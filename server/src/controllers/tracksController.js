@@ -222,16 +222,17 @@ export const addFavToTrack = async (req, res, next) => {
     // Check if the track has already been liked
     if (track.likes.filter((like) => like.firebaseUser === param).length > 0) {
       return res.status(400).json({ msg: "Track has been liked" });
-    }
-    track.likes.unshift({ firebaseUser: param });
-    await track.save();
+    } else {
+      track.likes.unshift({ firebaseUser: param });
+      await track.save();
 
-    // Ad fav track to fav list of user
-    const user = await User.findOne({
-      firebaseUser: param,
-    });
-    user.favTrackList.unshift({ trackId: track._id });
-    await user.save();
+      // Ad fav track to fav list of user
+      const user = await User.findOne({
+        firebaseUser: param,
+      });
+      user.favTrackList.unshift({ trackId: track._id });
+      await user.save();
+    }
 
     // return respond
     res.json(track.likes);

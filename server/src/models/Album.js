@@ -12,7 +12,7 @@ const AlbumSchema = new Schema({
     type: String,
   },
   cloudinaryId: {
-    type: String
+    type: String,
   },
   totalTracks: {
     type: Number,
@@ -25,7 +25,7 @@ const AlbumSchema = new Schema({
     ],
   },
   firebaseUser: {
-    type: String
+    type: String,
   },
   likedBy: {
     type: Schema.Types.ObjectId,

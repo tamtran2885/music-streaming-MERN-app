@@ -30,7 +30,7 @@ const Dashboard = ({ myPlaylists, myTracks, allPlaylists, allTracks }) => {
                 dispatch(getTracksByUser(userId));
                 dispatch(getPlaylistsByUser(userId));
                 dispatch(getFavTracksByUser(userId));
-            }, 3000)
+            }, 1000)
         }
     }, [dispatch]);
 
@@ -85,10 +85,10 @@ const Dashboard = ({ myPlaylists, myTracks, allPlaylists, allTracks }) => {
 
 const mapStateToProps = state => {
     return {
-        allTracks: state.track.allTracks.data,
-        myTracks: state.track.myTracks.data,
-        allPlaylists: state.playlist.allPlaylists.data,
-        myPlaylists: state.playlist.myPlaylists.data,
+        allTracks: state.track.allTracks,
+        myTracks: state.track.myTracks,
+        allPlaylists: state.playlist.allPlaylists,
+        myPlaylists: state.playlist.myPlaylists,
     }
 }
 
