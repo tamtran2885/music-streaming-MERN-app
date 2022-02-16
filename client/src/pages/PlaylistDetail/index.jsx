@@ -35,7 +35,7 @@ const PlaylistDetail = ({ currentPlaylist, currentPlaylistInfo }) => {
 
     // Get playlist creator
     const getPlaylistCreator = async () => {
-        const response = await axios.get(`https://tamtamgo.herokuapp.com/api/playlists/detailsUser/${getIdFromURL()}`,
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/playlists/detailsUser/${getIdFromURL()}`,
             {
                 headers: {
                     Authorization: `Bearer ${sessionStorage.getItem("token")}`,

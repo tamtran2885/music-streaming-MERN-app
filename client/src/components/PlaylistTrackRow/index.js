@@ -36,7 +36,7 @@ const PlaylistTrackRow = ({ track, playlistInfo }) => {
     console.log("delete");
     try {
       await axios.put(
-        `https://tamtamgo.herokuapp.com/api/tracks/deleteFromPlaylist/${_id}?playlistId=${playlistInfo._id}`,
+        `${process.env.REACT_APP_API_URL}/api/tracks/deleteFromPlaylist/${_id}?playlistId=${playlistInfo._id}`,
         {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("token")}`,

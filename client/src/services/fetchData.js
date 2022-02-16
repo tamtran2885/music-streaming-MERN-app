@@ -5,7 +5,7 @@ import axios from "axios";
 
 export const fetchTracks = () =>
   new Promise((resolve) => {
-    const tracks = axios.get("https://tamtamgo.herokuapp.com/api/tracks", {
+    const tracks = axios.get(`${process.env.REACT_APP_API_URL}/api/tracks`, {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
@@ -17,7 +17,7 @@ export const fetchTracks = () =>
 
 export const fetchPlaylists = () =>
   new Promise((resolve) => {
-    const playlists = axios.get("https://tamtamgo.herokuapp.com/api/playlists", {
+    const playlists = axios.get(`${process.env.REACT_APP_API_URL}/api/playlists`, {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
@@ -29,7 +29,7 @@ export const fetchPlaylists = () =>
 
 export const fetchAlbums = () =>
   new Promise((resolve) => {
-    const albums = axios.get("https://tamtamgo.herokuapp.com/api/albums", {
+    const albums = axios.get(`${process.env.REACT_APP_API_URL}/api/albums`, {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
@@ -41,7 +41,7 @@ export const fetchAlbums = () =>
 
 export const fetchSingleTrack = (_id) =>
   new Promise((resolve) => {
-    const track = axios.get(`https://tamtamgo.herokuapp.com/api/tracks/${_id}`, {
+    const track = axios.get(`${process.env.REACT_APP_API_URL}/api/tracks/${_id}`, {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
@@ -53,7 +53,7 @@ export const fetchSingleTrack = (_id) =>
 
 export const fetchTracksByUser = async (userUid) => {
   const userTracks = await axios.get(
-    `https://tamtamgo.herokuapp.com/api/tracks/mine?firebaseUser=${userUid}`,
+    `${process.env.REACT_APP_API_URL}/api/tracks/mine?firebaseUser=${userUid}`,
     {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -65,7 +65,7 @@ export const fetchTracksByUser = async (userUid) => {
 
 export const fetchPlayListsByUser = (userUid, token) => {
   const userPlaylists = axios.get(
-    `https://tamtamgo.herokuapp.com/api/playlists/mine?firebaseUser=${userUid}`,
+    `${process.env.REACT_APP_API_URL}/api/playlists/mine?firebaseUser=${userUid}`,
     {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -77,7 +77,7 @@ export const fetchPlayListsByUser = (userUid, token) => {
 
 export const fetchAlbumsByUser = (userUid) => {
   const userAlbums = axios.get(
-    `https://tamtamgo.herokuapp.com/api/albums/mine?firebaseUser=${userUid}`,
+    `${process.env.REACT_APP_API_URL}/api/albums/mine?firebaseUser=${userUid}`,
     {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -89,7 +89,7 @@ export const fetchAlbumsByUser = (userUid) => {
 
 export const fetchPlaylistTracks = (playlistId) => {
   const playlistTracks = axios.get(
-    `https://tamtamgo.herokuapp.com/api/playlists/details/${playlistId}`,
+    `${process.env.REACT_APP_API_URL}/api/playlists/details/${playlistId}`,
     {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -101,7 +101,7 @@ export const fetchPlaylistTracks = (playlistId) => {
 
 export const fetchTracksBySearch = (searchQuery) => {
   const searchTracks = axios.get(
-    `https://tamtamgo.herokuapp.com/api/tracks/search?searchQuery=${searchQuery || "none"
+    `${process.env.REACT_APP_API_URL}/api/tracks/search?searchQuery=${searchQuery || "none"
     }`,
     {
       headers: {
@@ -114,7 +114,7 @@ export const fetchTracksBySearch = (searchQuery) => {
 
 export const fetchFollowingPlaylistsByUser = (userId) => {
   const followingPlaylists = axios.get(
-    `https://tamtamgo.herokuapp.com/api/playlists/getFollowing/${userId}`,
+    `${process.env.REACT_APP_API_URL}/api/playlists/getFollowing/${userId}`,
     {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,

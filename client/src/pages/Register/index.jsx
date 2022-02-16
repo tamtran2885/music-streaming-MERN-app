@@ -64,7 +64,7 @@ const Register = () => {
                 },
             };
 
-            firebaseUser ? await axios.post("https://tamtamgo.herokuapp.com/api/user", formData, config) : console.log("ho");
+            firebaseUser ? await axios.post(`${process.env.REACT_APP_API_URL}/api/user`, formData, config) : console.log("ho");
 
             navigate("/login")
         } catch (error) {
