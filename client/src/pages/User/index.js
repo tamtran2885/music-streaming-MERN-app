@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../../components/Navbar";
 import Playlists from "../../components/Playlists";
@@ -13,12 +13,21 @@ import staractive from "../../assets/images/staractive.svg";
 import playbuttonwhite from "../../assets/images/playbuttonwhite.svg";
 
 import { connect, useDispatch } from "react-redux";
-import { getTracksByUser, getFavTracksByUser } from "../../redux/track/actions";
+import {
+  getTracksByUser,
+  getFavTracksByUser,
+  addReproductionsCounter,
+} from "../../redux/track/actions";
 import {
   getPlaylistsByUser,
   getFollowingPlaylistsByUser,
 } from "../../redux/playlist/actions";
 import { getAlbumsByUser } from "../../redux/album/actions";
+import {
+  setTracks,
+  setCurrentTrack,
+  getSingleTrack,
+} from "../../redux/audioPlay/actions";
 
 const User = ({
   myTracks,
@@ -60,11 +69,14 @@ const User = ({
 
   // axios get + get the token in headers
   const APIcall = async () => {
-    const userReq = await axios.get(`${process.env.REACT_APP_API_URL}/api/user/${getIdFromURL()}`, {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    });
+    const userReq = await axios.get(
+      `${process.env.REACT_APP_API_URL}/api/user/${getIdFromURL()}`,
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
     setUserProfile(userReq.data);
   };
 
@@ -105,14 +117,15 @@ const User = ({
               <div className="created__content__playlists">
                 {createdPlaylists &&
                   createdPlaylists.map((playlist) => (
-                    <div
+                    <Link
+                      to={`/playlist/${playlist._id}`}
                       className="created__content__playlist"
                       style={{
                         background: `url(${playlist.thumbnail}) no-repeat center center`,
                       }}
                     >
                       <p className="playlist__tittle">{playlist.title}</p>
-                    </div>
+                    </Link>
                   ))}
               </div>
 
@@ -125,7 +138,17 @@ const User = ({
                   uploadTracks.map((track) => (
                     <div className="song__absolute">
                       <div className="song__image__container">
-                        <button className="song__button">
+                        <button
+                          className="song__button"
+                          onClick={() => {
+                            dispatch(setCurrentTrack(track));
+                            dispatch(getSingleTrack(track._id));
+                            dispatch(setTracks(track));
+                            dispatch(
+                              addReproductionsCounter(track._id, userId)
+                            );
+                          }}
+                        >
                           <img
                             className="song__image"
                             src={trackPhotoDefault}
@@ -183,14 +206,15 @@ const User = ({
               <div className="created__content__playlists">
                 {followingPlaylists &&
                   followingPlaylists.map((playlist) => (
-                    <div
+                    <Link
+                      to={`/playlist/${playlist._id}`}
                       className="created__content__playlist"
                       style={{
                         background: `url(${playlist.thumbnail}) no-repeat center center`,
                       }}
                     >
                       <p className="playlist__tittle">{playlist.title}</p>
-                    </div>
+                    </Link>
                   ))}
               </div>
               <div className="created__content__container">
@@ -201,7 +225,17 @@ const User = ({
                   favTracks.map((track) => (
                     <div className="song__absolute">
                       <div className="song__image__container">
-                        <button className="song__button">
+                        <button
+                          className="song__button"
+                          onClick={() => {
+                            dispatch(setCurrentTrack(track));
+                            dispatch(getSingleTrack(track._id));
+                            dispatch(setTracks(track));
+                            dispatch(
+                              addReproductionsCounter(track._id, userId)
+                            );
+                          }}
+                        >
                           <img
                             className="song__image"
                             src={trackPhotoDefault}

@@ -148,6 +148,7 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete, state }) => {
             <button className="nav__link">Add to playlist</button>
             <div>
               <select onChange={handleChange} placeholder="Playlist">
+                <option>Select a playlist</option>
                 {myPlaylists &&
                   myPlaylists.map((item) => (
                     <option key={item._id && item._id} value={item._id}>

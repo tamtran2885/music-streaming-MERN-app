@@ -17,11 +17,14 @@ export const fetchTracks = () =>
 
 export const fetchPlaylists = () =>
   new Promise((resolve) => {
-    const playlists = axios.get(`${process.env.REACT_APP_API_URL}/api/playlists`, {
-      headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("token"),
-      },
-    });
+    const playlists = axios.get(
+      `${process.env.REACT_APP_API_URL}/api/playlists`,
+      {
+        headers: {
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
+      }
+    );
     setTimeout(() => {
       resolve(playlists);
     }, 1000);
@@ -41,11 +44,14 @@ export const fetchAlbums = () =>
 
 export const fetchSingleTrack = (_id) =>
   new Promise((resolve) => {
-    const track = axios.get(`${process.env.REACT_APP_API_URL}/api/tracks/${_id}`, {
-      headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("token"),
-      },
-    });
+    const track = axios.get(
+      `${process.env.REACT_APP_API_URL}/api/tracks/${_id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
+      }
+    );
     setTimeout(() => {
       resolve(track);
     }, 1000);
@@ -101,7 +107,8 @@ export const fetchPlaylistTracks = (playlistId) => {
 
 export const fetchTracksBySearch = (searchQuery) => {
   const searchTracks = axios.get(
-    `${process.env.REACT_APP_API_URL}/api/tracks/search?searchQuery=${searchQuery || "none"
+    `${process.env.REACT_APP_API_URL}/api/tracks/search?searchQuery=${
+      searchQuery || "none"
     }`,
     {
       headers: {
