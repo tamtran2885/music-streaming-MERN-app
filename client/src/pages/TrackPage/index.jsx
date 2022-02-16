@@ -192,8 +192,8 @@ const TrackPage = ({favTracksByUser, myTracks, allTracks }) => {
 
 const mapStateToProps = state => {
   return {
-      allTracks: state.track.allTracks.data,
-      myTracks: state.track.myTracks.data,
+      allTracks: state.track.allTracks,
+      myTracks: state.track.myTracks,
       favTracksByUser: state.track.favTracksByUser,
   }
 }

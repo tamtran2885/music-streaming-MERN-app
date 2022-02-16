@@ -102,7 +102,7 @@ const TrackRows = ({ totalTracks, state }) => {
       dispatch(getAllTracks());
       dispatch(getTracksByUser(userId));
       dispatch(getFavTracksByUser(userId));
-      console.log(_id);
+      // console.log(_id);
     } catch (err) {
       console.log(err);
     }

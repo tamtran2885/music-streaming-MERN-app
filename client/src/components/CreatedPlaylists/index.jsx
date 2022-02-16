@@ -7,7 +7,6 @@ import close from '../../assets/images/close.svg';
 import upload from "../../assets/images/upload.svg";
 
 const CreatedPlaylists = ({totalMyPlaylists, followingPlaylists}) => {
-
   const [myCreatedPlaylists, setMyCreatedPlaylists] = useState([])
   const [myFollowingPlaylists, setMyFollowingPlaylists] = useState([])
   useEffect(() => {

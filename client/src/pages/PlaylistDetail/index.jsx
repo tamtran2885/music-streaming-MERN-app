@@ -20,6 +20,7 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
     const userId = sessionStorage.getItem("userId");
     const uid = userId;
     const [creator, setCreator] = useState({});
+    const [follow, setFollow] = useState("");
 
     useEffect(() => {
         if (!loggedToken) {
@@ -44,13 +45,22 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
         setCreator(response.data.user)
     }
 
+    const checkFollow = (uid) => {
+        if (playlistInfo && playlistInfo.followedBy.filter((item) => item.firebaseUser === uid).length > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
     useEffect(() => {
         setTimeout(async () => {
             getPlaylistCreator();
             dispatch(getPlaylistDetails(getIdFromURL()));
-            dispatch(getCurrentPlaylistInfo(getIdFromURL()))
+            dispatch(getCurrentPlaylistInfo(getIdFromURL()));
+            setFollow(() =>checkFollow(uid))
         }, 1000)
-    }, [dispatch, pathname]);
+    }, [dispatch]);
 
     const [playlistTrack, setPlaylistTrack] = useState([]);
     const [playlistInfo, setPlaylistInfo] = useState("");
@@ -60,27 +70,15 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
         setPlaylistInfo(currentPlaylistInfo)
     }, [currentPlaylist, currentPlaylistInfo])
 
-    const checkFollow = (uid) => {
-        if (playlistInfo && playlistInfo.followedBy.filter((item) => item.firebaseUser === uid).length === 0) {
-            return false;
-        } else {
-            return true;
-        }
-    };
-
-    console.log(checkFollow(uid))
-
-    const [follow, setFollow] = useState(checkFollow(uid));
-
     const handleToggle = () => {
         if (follow) {
-            console.log("unfollow")
+            // console.log("unfollow")
             dispatch(unfollowPlaylist(playlistInfo._id, uid));
             dispatch(getAllPlaylists());
             dispatch(getPlaylistsByUser(uid));
             setFollow(!follow);
         } else {
-            console.log("follow")
+            // console.log("follow")
             dispatch(followPlaylist(playlistInfo._id, uid));
             dispatch(getAllPlaylists());
             dispatch(getPlaylistsByUser(uid))
@@ -88,10 +86,12 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
         }
     };
 
+    console.log(follow)
+
     return (
         <>
             <div className='dashboard__background'>
-                <Navbar page="PlaylistName" />
+                <Navbar page="PlaylistName" playlistInfo={playlistInfo}/>
                 <div className='tracks__absolute'>
                     <div className='dashboard__side'>
                         <p>Created by <span className="creator">{creator && creator.firstName} {creator && creator.lastName}</span></p>
@@ -108,7 +108,7 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
                             /></button>
                         ) : (<button className="button follow" onClick={handleToggle}>
                             <img
-                                src={star}
+                                src={staractive}
                                 alt="Follow"
                             /></button>
                         )}
@@ -122,8 +122,8 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
 
 const mapStateToProps = state => {
     return {
-        currentPlaylist: state.playlist.currentPlaylist.data,
-        currentPlaylistInfo: state.playlist.currentPlaylistInfo.data
+        currentPlaylist: state.playlist.currentPlaylist,
+        currentPlaylistInfo: state.playlist.currentPlaylistInfo
     }
 }
 

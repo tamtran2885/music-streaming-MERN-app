@@ -22,7 +22,8 @@ export const getSingleTrack = (_id) => {
   return async (dispatch) => {
     try {
       const response = await fetchSingleTrack(_id);
-      dispatch(setTracks(response));
+      // dispatch(setTracks(response));
+      // console.log(response);
     } catch (error) {
       console.error(error);
     }
