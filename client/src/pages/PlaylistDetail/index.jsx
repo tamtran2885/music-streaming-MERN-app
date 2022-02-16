@@ -20,7 +20,7 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
     const userId = sessionStorage.getItem("userId");
     const uid = userId;
     const [creator, setCreator] = useState({});
-    const [follow, setFollow] = useState("");
+    const [follow, setFollow] = useState(false);
 
     useEffect(() => {
         if (!loggedToken) {
@@ -58,7 +58,7 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
             getPlaylistCreator();
             dispatch(getPlaylistDetails(getIdFromURL()));
             dispatch(getCurrentPlaylistInfo(getIdFromURL()));
-            setFollow(() =>checkFollow(uid))
+            setFollow(checkFollow(uid))
         }, 1000)
     }, [dispatch]);
 
@@ -72,16 +72,16 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
 
     const handleToggle = () => {
         if (follow) {
-            // console.log("unfollow")
-            dispatch(unfollowPlaylist(playlistInfo._id, uid));
-            dispatch(getAllPlaylists());
-            dispatch(getPlaylistsByUser(uid));
+            console.log("unfollow")
+            // dispatch(unfollowPlaylist(playlistInfo._id, uid));
+            // dispatch(getAllPlaylists());
+            // dispatch(getPlaylistsByUser(uid));
             setFollow(!follow);
         } else {
-            // console.log("follow")
-            dispatch(followPlaylist(playlistInfo._id, uid));
-            dispatch(getAllPlaylists());
-            dispatch(getPlaylistsByUser(uid))
+            console.log("follow")
+            // dispatch(followPlaylist(playlistInfo._id, uid));
+            // dispatch(getAllPlaylists());
+            // dispatch(getPlaylistsByUser(uid))
             setFollow(!follow);
         }
     };
@@ -108,7 +108,7 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
                             /></button>
                         ) : (<button className="button follow" onClick={handleToggle}>
                             <img
-                                src={staractive}
+                                src={star}
                                 alt="Follow"
                             /></button>
                         )}
