@@ -31,7 +31,7 @@ const Navbar = (props) => {
                     <div className='nav__options'>
                         <Link className='nav__link' to="/track">Songs</Link>
                         <Link className='nav__link' to={`/playlist`}>Playlists</Link>
-                        {/* <Link className='nav__link' to={`/albums`}>Albums</Link> */}
+                        <Link className='nav__link' to={`/albums`}>Albums</Link>
                         <Link className='nav__link' to={userId ? `/user/${userId}` : "/"}>{user && user.email}</Link>
                         <Link className='avatar' to={""}><img className='avatar' src={logo} alt="" />
                             <div className='float__menu'>
