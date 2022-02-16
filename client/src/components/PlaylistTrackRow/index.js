@@ -30,7 +30,7 @@ const PlaylistTrackRow = ({ track, playlistInfo }) => {
   const { title, album, duration, genre, artist, likes, _id, reproductions } = track;
 
   // console.log(playlistInfo);
-  // console.log(track);
+  console.log(track);
 
   const handleDelete = async () => {
     console.log("delete");
