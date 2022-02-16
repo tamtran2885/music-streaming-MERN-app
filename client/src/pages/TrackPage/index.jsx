@@ -60,26 +60,21 @@ const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
 
   const searchTracks = async () => {
     if (searchWord.trim()) {
-      // dispatch fetch search tracks
-      // dispatch(getTracksBySearch(searchWord));
-      const searchTracks = await axios.get(
-        `${process.env.REACT_APP_API_URL}/api/tracks/search?searchQuery=${searchWord || "none"
-        }`,
+      axios.get(`${process.env.REACT_APP_API_URL}/api/tracks/search?searchQuery=${searchWord || "none"}`,
         {
           headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
           },
         }
-      );
-      // console.log(searchTracks.data)
-      // setTotalTracks(searchTracks.data);
-      navigate(`/ track ? searchQuery = ${searchWord || "none"} `);
+      ).then((response) => {
+          // console.log(response)
+          setTotalTracks(response.data.data);
+          navigate(`/track?searchQuery=${searchWord || "none"}`);
+      })
     } else {
       navigate("/track")
     }
   }
-
-  // console.log(state)
 
   return (
     <>
