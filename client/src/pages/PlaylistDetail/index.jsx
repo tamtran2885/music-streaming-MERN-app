@@ -101,7 +101,7 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
                         </div>
                         <button className="button play"><img src={play} alt="Play" /></button>
                         {/* <button className="button follow"><img src={star} alt="Follow" /></button> */}
-                        {follow ? (<button className="button follow" onClick={handleToggle}>
+                        {checkFollow(uid) ? (<button className="button follow" onClick={handleToggle}>
                             <img
                                 src={staractive}
                                 alt="Follow"

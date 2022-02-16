@@ -2,14 +2,18 @@ import { Router } from "express";
 import upload from "../utils/multer.js";
 
 import {
-      getAlbums,
-      createAlbum,
-      getAlbumById,
-      updateAlbum,
-      deleteAlbum
-} from "../controllers/albumsController.js"
+  getAlbums,
+  createAlbum,
+  getAlbumById,
+  updateAlbum,
+  deleteAlbum,
+  getAlbumsByUser,
+} from "../controllers/albumsController.js";
 
 export const albumRoutes = Router();
+
+//? GET ALBUMS By User - firebaseUser
+albumRoutes.get("/mine", getAlbumsByUser);
 
 // ? GET ALBUM
 albumRoutes.get("/", getAlbums);
@@ -25,4 +29,3 @@ albumRoutes.put("/:albumId", upload.single("thumbnail"), updateAlbum);
 
 // //? DELETE ALBUM BY ID
 albumRoutes.delete("/:albumId", deleteAlbum);
-
