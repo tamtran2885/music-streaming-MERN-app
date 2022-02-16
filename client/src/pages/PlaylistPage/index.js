@@ -55,9 +55,9 @@ const PlaylistPage = ({ myPlaylists, myFollowingPlaylists }) => {
 
 const mapStateToProps = (state) => {
   return {
-    allPlaylists: state.playlist.allPlaylists.data,
-    myPlaylists: state.playlist.myPlaylists.data,
-    myFollowingPlaylists: state.playlist.myFollowingPlaylists.data,
+    allPlaylists: state.playlist.allPlaylists,
+    myPlaylists: state.playlist.myPlaylists,
+    myFollowingPlaylists: state.playlist.myFollowingPlaylists,
   };
 };
 

@@ -148,10 +148,10 @@ const User = ({
 
 const mapStateToProps = (state) => {
   return {
-    myTracks: state.track.myTracks.data,
-    myPlaylists: state.playlist.myPlaylists.data,
+    myTracks: state.track.myTracks,
+    myPlaylists: state.playlist.myPlaylists,
     favTracksByUser: state.track.favTracksByUser,
-    myFollowingPlaylists: state.playlist.myFollowingPlaylists.data,
+    myFollowingPlaylists: state.playlist.myFollowingPlaylists,
   };
 };
 

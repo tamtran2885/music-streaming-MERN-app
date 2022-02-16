@@ -1,14 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import star from '../../assets/images/star.svg';
 import staractive from "../../assets/images/staractive.svg";
-import { useAuth } from "../../context/authContext";
-import { useDispatch } from "react-redux";
-import { unfollowPlaylist, followPlaylist, getAllPlaylists, getPlaylistsByUser } from "../../redux/playlist/actions";
 
 const Playlist = (playlist) => {
-  const dispatch = useDispatch();
-  const { user } = useAuth();
   const userId = sessionStorage.getItem("userId");
   const uid = userId;
 
@@ -22,43 +17,22 @@ const Playlist = (playlist) => {
     }
   };
 
-  // console.log(checkFollow(uid))
-
-  const [follow, setFollow] = useState(checkFollow(uid));
-
-  const handleToggle = () => {
-    if (follow) {
-      dispatch(unfollowPlaylist(_id, uid));
-      setFollow(!follow);
-      dispatch(getAllPlaylists());
-      dispatch(getPlaylistsByUser(uid));
-    } else {
-      dispatch(followPlaylist(_id, uid));
-      setFollow(!follow);
-      dispatch(getAllPlaylists());
-      dispatch(getPlaylistsByUser(uid));
-    }
-  };
-
   return (
     <>
       <div>
         <Link className='playlist__absolute' to={`/playlist/${_id}`} style={{ background: `url(${thumbnail && thumbnail}) no-repeat center center` }}>
           <div className='playlist__follow'>
-            {/* <img src={star} alt="" /> */}
-            {follow ? (
+            {checkFollow(uid) ? (
               <img
                 className="song__like__icon"
                 src={staractive}
                 alt=""
-                onClick={handleToggle}
               />
             ) : (
               <img
                 className="song__like__icon"
                 src={star}
                 alt=""
-                onClick={handleToggle}
               />
             )}
           </div>

@@ -28,7 +28,7 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete, state }) => {
   const userId = sessionStorage.getItem("userId");
   const uid = userId;
 
-  console.log(state);
+  // console.log(state);
 
   const {
     title,
@@ -42,8 +42,8 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete, state }) => {
     likes,
   } = track;
 
-  const myPlaylists = useSelector((state) => state.playlist.myPlaylists.data);
-  console.log(myPlaylists);
+  const myPlaylists = useSelector((state) => state.playlist.myPlaylists);
+  // console.log(myPlaylists);
 
   const checkLike = (uid) => {
     if (likes.filter((like) => like.firebaseUser === uid).length === 0) {
@@ -79,20 +79,18 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete, state }) => {
     dispatch(addReproductionsCounter(_id, uid));
   };
 
-  const config = {
-    headers: {
-      "Content-Type": "multipart/form-data",
-      Authorization: "Bearer " + loggedToken,
-    },
-  };
-
   const handleChange = async (e) => {
     const playlistId = e.target.value;
     // console.log(playlistId);
     try {
       await axios.put(
         `http://localhost:4000/api/tracks/addToPlaylist/${_id}?playlistId=${playlistId}`,
-        config
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
+          },
+        }
       );
       // console.log(response);
     } catch (err) {

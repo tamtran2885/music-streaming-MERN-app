@@ -6,7 +6,6 @@ import { Draggable } from 'react-beautiful-dnd';
 import MusicPlayer from '../../components/MusicPlayer';
 
 const CreatedPlaylists = ({totalMyPlaylists, followingPlaylists}) => {
-
   const [myCreatedPlaylists, setMyCreatedPlaylists] = useState([])
   const [myFollowingPlaylists, setMyFollowingPlaylists] = useState([])
   useEffect(() => {

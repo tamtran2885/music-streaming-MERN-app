@@ -16,9 +16,6 @@ const PlaylistTrackRows = ({ playlistTrack, playlistInfo }) => {
     return;
   };
 
-  // console.log(tracks);
-  // console.log(playlistInfo);
-
   const sortTracks = () => {
     if (tracks) {
       return [...tracks].sort((a, b) => b.reproductions - a.reproductions);
