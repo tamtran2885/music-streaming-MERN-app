@@ -90,26 +90,72 @@ export const getTrackById = async (req, res) => {
   }
 };
 
-//? DELETE TRACK
-export const deleteTrack = async (req, res) => {
+//? DELETE TRACK BY ID
+//* @route DELETE api/tracks/:trackId
+export const deleteTrack = async (req, res, next) => {
   try {
+    const trackId = req.params.trackId;
+
     //? FIND A TRACK BY ID
-    const track = await Tracks.findById(req.params.trackId);
+    const track = await Tracks.findById(trackId);
 
     //? DELETE IMAGE FROM CLOUDINARY
-    // console.log(track.cloudinaryId);
     await cloudinary.v2.uploader.destroy(track.cloudinaryId, {
       resource_type: "video",
     });
 
-    //? DELETE USER FROM DB
-    await track.remove();
-    // await getTracks();
+    // ? DELETE TRACK TO ALBUMS
+    const album = track.album;
+    const trackInAlbum = await Album.findById(album);
 
-    res.json({ message: "Track deleted", track });
+    const removeIndex = trackInAlbum.tracks
+      .map((track) => track.trackId)
+      .indexOf(trackId);
+    trackInAlbum.tracks.splice(removeIndex, 1);
+
+    await trackInAlbum.save();
+
+    // ? DELETE TRACK TO PLAYLIST
+    const trackInPlaylist = await Playlist.find();
+    console.log(trackInPlaylist);
+
+    const array = [];
+    trackInPlaylist.map((x) => array.push(x._id));
+
+    const tracksInfo = [];
+
+    for (let i = 0; i < array.length; i++) {
+      const tracks = await Playlist.findById(array[i]);
+      const removeIndex = tracks.tracks
+        .map((track) => track.trackId)
+        .indexOf(trackId);
+      tracks.tracks.splice(removeIndex, 1);
+      await tracks.save();
+    }
+
+    //? DELETE TRACK TO USER
+    const userId = track.user;
+    const user = await User.findById(userId);
+
+    const removeUpload = user.uploadedTracks
+      .map((track) => track)
+      .indexOf(trackId);
+    user.uploadedTracks.splice(removeUpload, 1);
+
+    const removeFav = user.favTrackList
+      .map((track) => track.trackId)
+      .indexOf(trackId);
+    user.favTrackList.splice(removeFav, 1);
+
+    await user.save();
+
+    //? DELETE TRACK FROM DB
+    await track.remove();
+    res.json({ message: "Track deleted", array });
   } catch (error) {
     console.log(error);
   }
+  next();
 };
 
 // TODO UPDATE TRACK
