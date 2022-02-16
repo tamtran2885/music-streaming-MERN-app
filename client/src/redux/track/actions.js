@@ -85,6 +85,7 @@ export const removeLike = (trackId, firebaseUser) => {
       dispatch(updateLikes(response));
       dispatch(getAllTracks());
       dispatch(getTracksByUser(firebaseUser));
+      dispatch(getFavTracksByUser(firebaseUser));
     } catch (err) {
       console.error(err);
     }

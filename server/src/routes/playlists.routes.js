@@ -12,10 +12,14 @@ import {
   unfollowPlaylist,
   getPlaylistByIdAndDetails,
   getPlaylistByIdAndInfo,
+  getFollowingPlaylistsByUser,
 } from "../controllers/playlistsController.js";
 import middleware from "../middlewares/index.js";
 
 export const playlistsRoutes = Router();
+
+//? GET FOLLOWING PLAYLISTS BY USER
+playlistsRoutes.get("/getFollowing/:userId", getFollowingPlaylistsByUser);
 
 //? GET PLAYLISTS By User - firebaseUser
 playlistsRoutes.get("/mine", getPlaylistsByUser);

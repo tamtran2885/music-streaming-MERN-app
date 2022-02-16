@@ -49,7 +49,7 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
             getPlaylistCreator();
             dispatch(getPlaylistDetails(getIdFromURL()));
             dispatch(getCurrentPlaylistInfo(getIdFromURL()))
-        }, 3000)
+        }, 1000)
     }, [dispatch, pathname]);
 
     const [playlistTrack, setPlaylistTrack] = useState([]);

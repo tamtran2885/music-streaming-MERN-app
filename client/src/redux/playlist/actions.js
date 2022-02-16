@@ -137,7 +137,7 @@ export const getFollowingPlaylistsByUser = (userId) => {
     try {
       const response = await fetchFollowingPlaylistsByUser(userId);
       dispatch(setFollowingPlaylistsByUser(response));
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.error(error);
     }

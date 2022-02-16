@@ -5,9 +5,13 @@ import { useDispatch } from "react-redux";
 import OrderNumber from "../OrderNumber";
 
 import axios from "axios";
-import { getAllTracks, getTracksByUser } from "../../redux/track/actions";
+import {
+  getAllTracks,
+  getTracksByUser,
+  getFavTracksByUser,
+} from "../../redux/track/actions";
 
-const TrackRows = ({ totalTracks }) => {
+const TrackRows = ({ totalTracks, state }) => {
   const dispatch = useDispatch();
   // get token
   const loggedToken = sessionStorage.getItem("token");
@@ -97,6 +101,7 @@ const TrackRows = ({ totalTracks }) => {
       await axios.delete(`http://localhost:4000/api/tracks/${_id}`, config);
       dispatch(getAllTracks());
       dispatch(getTracksByUser(userId));
+      dispatch(getFavTracksByUser(userId));
       console.log(_id);
     } catch (err) {
       console.log(err);
@@ -137,6 +142,7 @@ const TrackRows = ({ totalTracks }) => {
                   <div style={{ marginTop: "20px" }}>
                     {editRowId === track._id ? (
                       <EditTrackRow
+                        state={state}
                         editFormData={editFormData}
                         handleEditFormChange={handleEditFormChange}
                         handleCancelClick={handleCancelClick}
@@ -147,6 +153,7 @@ const TrackRows = ({ totalTracks }) => {
                         track={track}
                         handleEditClick={handleEditClick}
                         handleDelete={handleDelete}
+                        state={state}
                       />
                     )}
                   </div>

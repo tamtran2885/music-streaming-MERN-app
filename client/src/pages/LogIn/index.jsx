@@ -5,7 +5,6 @@ import { useAuth } from "../../context/authContext";
 import logo from "../../assets/images/logo.svg";
 
 import ConnectWithGoogle from "../../components/ConnectWithGoogle/index.jsx";
-import axios from "axios";
 
 const Login = () => {
     const { logInWithEmailAndPassword } = useAuth();
@@ -18,20 +17,17 @@ const Login = () => {
     const login = async (e) => {
         e.preventDefault();
         try {
-            const user = await logInWithEmailAndPassword(loginEmail, loginPassword).then(userCredentials => {
-                console.log(userCredentials.user)
+            await logInWithEmailAndPassword(loginEmail, loginPassword).then(userCredentials => {
+                // console.log(userCredentials.user)
                 const token = userCredentials.user.accessToken
                 const userFBid = userCredentials.user.uid
                 sessionStorage.setItem("token", token)
                 sessionStorage.setItem("userId", userFBid)
             })
-
             sessionStorage.getItem("token")
-
             navigate("/")
-
         } catch (error) {
-            // console.log(error.message);
+            console.log(error.message);
         }
     }
 
