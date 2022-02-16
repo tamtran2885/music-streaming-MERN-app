@@ -40,7 +40,7 @@ export const createPlaylist = async (req, res, next) => {
 
       thumbnail: result.secure_url,
       cloudinaryId: result.public_id,
-      firebaseUser: req.query.firebaseUser,
+      firebaseUser: req.body.firebaseUser,
     });
 
     await playlist.save();

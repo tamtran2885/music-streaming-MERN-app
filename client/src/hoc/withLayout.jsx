@@ -1,6 +1,6 @@
 import React from "react";
 
-import Navbar from "../components/Navbar";
+import MusicPlayer from "../components/MusicPlayer";
 import MainContent from "../components/MainContent"
 
 function getDisplayName(WrappedComponent) {
@@ -20,6 +20,7 @@ function withLayout(WrappedComponent) {
           >
             <WrappedComponent {...props} />
           </MainContent>
+          <MusicPlayer />
         </>
       );
     }
