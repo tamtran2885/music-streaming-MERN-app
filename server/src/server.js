@@ -31,7 +31,7 @@ app.use(
 //        //DO SOMETHING
 //   }
 
-app.use(middleware.decodeToken);
+//app.use(middleware.decodeToken);
 
 //?routes
 

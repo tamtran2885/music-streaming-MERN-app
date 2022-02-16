@@ -4,6 +4,7 @@ import CreatedPlaylist from '../CreatedPlaylist';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { Draggable } from 'react-beautiful-dnd';
 import close from '../../assets/images/close.svg';
+import upload from "../../assets/images/upload.svg";
 
 const CreatedPlaylists = ({totalPlaylists}) => {
 
@@ -27,6 +28,7 @@ const CreatedPlaylists = ({totalPlaylists}) => {
         <h2>Created</h2>
           <Link to="/playlist/add">
           <button>Create a playlist</button>
+          <img className="upload" src={upload} alt="Upload" />
           </Link>
         </div>
         <Droppable className='droppable__absolute' droppableId="droppable-1">
