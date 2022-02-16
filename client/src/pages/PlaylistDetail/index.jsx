@@ -100,6 +100,7 @@ const PlaylistDetail = ({currentPlaylist, currentPlaylistInfo}) => {
                             <Genre />
                         </div>
                         <button className="button play"><img src={play} alt="Play" /></button>
+                        {/* <button className="button follow"><img src={star} alt="Follow" /></button> */}
                         {follow ? (<button className="button follow" onClick={handleToggle}>
                             <img
                                 src={staractive}
