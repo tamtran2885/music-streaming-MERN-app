@@ -55,7 +55,7 @@ export const addLike = (trackId, firebaseUser) => {
   return async (dispatch) => {
     try {
       const response = await axios.put(
-        `/api/tracks/like/${trackId}?firebaseUser=${firebaseUser}`,
+        `https://tamtamgo.herokuapp.com/api/tracks/like/${trackId}?firebaseUser=${firebaseUser}`,
         {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -75,7 +75,7 @@ export const removeLike = (trackId, firebaseUser) => {
   return async (dispatch) => {
     try {
       const response = await axios.put(
-        `/api/tracks/unlike/${trackId}?firebaseUser=${firebaseUser}`,
+        `https://tamtamgo.herokuapp.com/api/tracks/unlike/${trackId}?firebaseUser=${firebaseUser}`,
         {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -100,7 +100,7 @@ export const updateLikes = (response) => ({
 export const deleteSingleTrack = (trackId) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`/api/tracks/${trackId}`, {
+      await axios.delete(`https://tamtamgo.herokuapp.com/api/tracks/${trackId}`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
@@ -123,7 +123,7 @@ export const getFavTracksByUser = (userId) => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `/api/tracks/likedByUser/${userId}`,
+        `https://tamtamgo.herokuapp.com/api/tracks/likedByUser/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -148,7 +148,7 @@ export const addReproductionsCounter = (trackId, userId) => {
   return async (dispatch) => {
     try {
       await axios.put(
-        `/api/tracks/reproducing/${trackId}`,
+        `https://tamtamgo.herokuapp.com/api/tracks/reproducing/${trackId}`,
         {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("token")}`,

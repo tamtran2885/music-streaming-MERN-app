@@ -76,7 +76,7 @@ const TrackRows = ({ totalTracks }) => {
     formData.append("duration", editFormData.duration);
 
     try {
-      await axios.put(`/api/tracks/edit/${editRowId}`, formData, config);
+      await axios.put(`https://tamtamgo.herokuapp.com/api/tracks/edit/${editRowId}`, formData, config);
       setEditRowId(null);
       dispatch(getAllTracks());
       dispatch(getTracksByUser(userId));
@@ -94,7 +94,7 @@ const TrackRows = ({ totalTracks }) => {
   const handleDelete = async (_id) => {
     // console.log("delete" + _id);
     try {
-      await axios.delete(`/api/tracks/${_id}`, config);
+      await axios.delete(`https://tamtamgo.herokuapp.com/api/tracks/${_id}`, config);
       dispatch(getAllTracks());
       dispatch(getTracksByUser(userId));
       console.log(_id);

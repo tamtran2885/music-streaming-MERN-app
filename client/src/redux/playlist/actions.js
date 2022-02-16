@@ -71,7 +71,7 @@ export const getCurrentPlaylistInfo = (playlistId) => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `/api/playlists/${playlistId}`,
+        `https://tamtamgo.herokuapp.com/api/playlists/${playlistId}`,
         {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -95,7 +95,7 @@ export const followPlaylist = (playlistId, firebaseUser) => {
   return async (dispatch) => {
     try {
       await axios.put(
-        `/api/playlists/follow/${playlistId}?firebaseUser=${firebaseUser}`,
+        `https://tamtamgo.herokuapp.com/api/playlists/follow/${playlistId}?firebaseUser=${firebaseUser}`,
         {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -115,7 +115,7 @@ export const unfollowPlaylist = (playlistId, firebaseUser) => {
   return async (dispatch) => {
     try {
       await axios.put(
-        `/api/playlists/unfollow/${playlistId}?firebaseUser=${firebaseUser}`,
+        `https://tamtamgo.herokuapp.com/api/playlists/unfollow/${playlistId}?firebaseUser=${firebaseUser}`,
         {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("token")}`,

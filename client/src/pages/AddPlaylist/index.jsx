@@ -55,7 +55,7 @@ const AddPlaylist = () => {
 
         console.log(Object.fromEntries(formData.entries()));
         try {
-            await axios.post("/api/playlists", formData, {
+            await axios.post("https://tamtamgo.herokuapp.com/api/playlists", formData, {
                 headers: {
                     Authorization: `Bearer ${sessionStorage.getItem("token")}`,
                 },

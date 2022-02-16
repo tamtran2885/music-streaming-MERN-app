@@ -89,7 +89,7 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete }) => {
     // console.log(playlistId);
     try {
       await axios.put(
-        `/api/tracks/addToPlaylist/${_id}?playlistId=${playlistId}`,
+        `https://tamtamgo.herokuapp.com/api/tracks/addToPlaylist/${_id}?playlistId=${playlistId}`,
         config
       );
       // console.log(response);

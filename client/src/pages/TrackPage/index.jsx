@@ -60,7 +60,7 @@ const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
       // dispatch fetch search tracks
       // dispatch(getTracksBySearch(searchWord));
       const searchTracks = await axios.get(
-        `/api/tracks/search?searchQuery=${searchWord || "none"
+        `https://tamtamgo.herokuapp.com/api/tracks/search?searchQuery=${searchWord || "none"
         }`,
         {
           headers: {

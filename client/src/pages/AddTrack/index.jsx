@@ -51,7 +51,7 @@ const AddTrack = () => {
         // console.log(Object.fromEntries(formData.entries()));
 
         try {
-            await axios.post("/api/tracks", formData, {
+            await axios.post("https://tamtamgo.herokuapp.com/api/tracks", formData, {
                 headers: {
                     Authorization: `Bearer ${sessionStorage.getItem("token")}`,
                 },

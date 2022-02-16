@@ -51,7 +51,7 @@ const User = ({ myTracks, myPlaylists, favTracksByUser }) => {
 
   // axios get + get the token in headers
   const APIcall = async () => {
-    const userReq = await axios.get(`/api/user/${getIdFromURL()}`, {
+    const userReq = await axios.get(`https://tamtamgo.herokuapp.com/api/user/${getIdFromURL()}`, {
       headers: {
         Authorization: "Bearer " + token,
       },

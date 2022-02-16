@@ -35,7 +35,7 @@ const Dashboard = ({ myPlaylists, myTracks, allPlaylists, allTracks }) => {
     }, [dispatch]);
 
     const APIcall = async (loggedToken, userId) => {
-        const userReq = await axios.get(`/api/user/${userId}`, {
+        const userReq = await axios.get(`https://tamtamgo.herokuapp.com/api/user/${userId}`, {
             headers: {
                 Authorization: 'Bearer ' + loggedToken,
             },

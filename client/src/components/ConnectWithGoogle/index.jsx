@@ -23,7 +23,7 @@ const ConnectWithGoogle = () => {
                   sessionStorage.setItem("token", user.user.accessToken)
                   sessionStorage.setItem("userId", user.user.uid)
 
-                  user ? await axios.post("/api/user/google",
+                  user ? await axios.post("https://tamtamgo.herokuapp.com/api/user/google",
                         {
                               headers: {
                                     Authorization: `Bearer ${user.user.accessToken}`

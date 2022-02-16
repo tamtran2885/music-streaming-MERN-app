@@ -1,7 +1,7 @@
 import { rest } from "msw";
 
 export const handlers = [
-  rest.post("/api/user", (req, res, ctx) => {
+  rest.post("https://tamtamgo.herokuapp.com/api/user", (req, res, ctx) => {
     // Persist user's authentication in the sessionStorage
     sessionStorage.setItem("is-authenticated", "true");
 
@@ -11,7 +11,7 @@ export const handlers = [
     );
   }),
 
-  rest.get("/api/user/", (req, res, ctx) => {
+  rest.get("https://tamtamgo.herokuapp.com/api/user/", (req, res, ctx) => {
     // Check if the user is authenticated in the sessionStorage
     const isAuthenticated = sessionStorage.getItem("is-authenticated");
     if (!isAuthenticated) {
