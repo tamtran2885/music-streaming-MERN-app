@@ -31,8 +31,10 @@ playlistsRoutes.get("/detailsUser/:playlistId", getPlaylistByIdAndInfo);
 playlistsRoutes.get("/", middleware.decodeToken,
   getPlaylists);
 
+
 // ? CREATE PLAYLIST
-playlistsRoutes.post("/", middleware.decodeToken,
+playlistsRoutes.post("/",
+  // middleware.decodeToken,
   upload.single("thumbnail"), createPlaylist);
 
 //? GET PLAYLIST BY ID
@@ -41,7 +43,7 @@ playlistsRoutes.get("/:playlistId", getPlaylistById);
 //? UPDATE PLAYLIST BY ID
 playlistsRoutes.put(
   "/edit/:playlistId",
-  upload.single("urlCover"),
+  upload.single("thumbnail"),
   updatePlaylistById
 );
 

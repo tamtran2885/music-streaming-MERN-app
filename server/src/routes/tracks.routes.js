@@ -40,12 +40,12 @@ tracksRoutes.put("/unlike/:trackId", removeFavFromTrack);
 
 // Add track to playlist
 // @route PUT api/tracks/addToPlaylist/:trackId
-tracksRoutes.put("/addToPlaylist/:trackId", middleware.decodeToken,
+tracksRoutes.put("/addToPlaylist/:trackId",
   addTrackToPlaylist);
 
 // Remove track from playlist
 // @route PUT api/tracks/deleteFromPlaylist/:trackId
-tracksRoutes.put("/deleteFromPlaylist/:trackId", middleware.decodeToken, deleteTrackFromPlaylist);
+tracksRoutes.put("/deleteFromPlaylist/:trackId", deleteTrackFromPlaylist);
 
 //? UPDATE REPRODUCTION COUNTER
 tracksRoutes.put("/reproducing/:trackId", reproductionsCounter);
