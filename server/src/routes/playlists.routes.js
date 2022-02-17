@@ -39,7 +39,7 @@ playlistsRoutes.get("/:playlistId", getPlaylistById);
 //? UPDATE PLAYLIST BY ID
 playlistsRoutes.put(
   "/edit/:playlistId",
-  upload.single("thumbnail"),
+  upload.single("urlCover"),
   updatePlaylistById
 );
 
