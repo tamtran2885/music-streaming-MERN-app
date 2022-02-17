@@ -11,6 +11,7 @@ const TracksSchema = new Schema(
     reproductions: {
       type: Number,
       trim: true,
+      default: 0
     },
     artist: {
       type: String,
