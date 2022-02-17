@@ -204,77 +204,79 @@ const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
             <Albums />
           </div>
         </div>
-        <Modal isOpen={modalIsOpen} className="songs__modal__absolute">
-          <div className="songs__modal__background">
-            <div className="songs__modal__container">
-              <h1 className="header">Add New Track</h1>
-              <div className="close"><img src={close} onClick={() => setModalIsOpen(false)} alt="Close the modal" /></div>
-              <div className="form__container ">
-                <form className="form" encType="multipart/form-data">
-                  <div className="form__items">
-                    <div className="drag__area">
-                      <h3>Drag your track here</h3>
-                      <p>or</p>
-                      <label htmlFor="track"><p className='file'>Select a file</p></label>
-                      <input
-                        type="file"
-                        className="form__input"
-                        placeholder="Url"
-                        name="urlTrack"
-                        id="track"
-                        onChange={onChange("urlTrack")}
-                      />
+        <Modal isOpen={modalIsOpen} className="songs__modal" overlayClassName >
+          <div className="songs__modal__absolute">
+            <div className="songs__modal__background">
+              <div className="songs__modal__container">
+                <h1 className="header">Add New Track</h1>
+                <div className="close"><img src={close} onClick={() => setModalIsOpen(false)} alt="Close the modal" /></div>
+                <div className="form__container ">
+                  <form className="form" encType="multipart/form-data">
+                    <div className="form__items">
+                      <div className="drag__area">
+                        <h3>Drag your track here</h3>
+                        <p>or</p>
+                        <label htmlFor="track"><p className='file'>Select a file</p></label>
+                        <input
+                          type="file"
+                          className="form__input"
+                          placeholder="Url"
+                          name="urlTrack"
+                          id="track"
+                          onChange={onChange("urlTrack")}
+                        />
+                      </div>
+                      <div className="form__inputs">
+                        <input
+                          type="text"
+                          className="form__input"
+                          placeholder="Title"
+                          name="title"
+                          value={values.title}
+                          onChange={onChange("title")}
+
+                        />
+                        {errors.title && <p>{errors.title}</p>}
+                        <input
+                          type="text"
+                          className="form__input"
+                          placeholder="Album"
+                          name="album"
+                          value={values.album}
+
+                          onChange={onChange("album")}
+                        />
+                        {errors.album && <p>{errors.album}</p>}
+
+                        <input
+                          type="text"
+                          className="form__input"
+                          placeholder="Artist"
+                          name="artist"
+                          value={values.artist}
+                          onChange={onChange("artist")}
+                        />
+                        {errors.artist && <p>{errors.artist}</p>}
+
+                        <label htmlFor="genre">Genre: </label>
+                        <select name="genre"
+                        >
+                          {genreOptions.map((option) => (
+                            <option key={option.value} value={option.value}>{option.label}</option>
+                          ))}
+                        </select>
+                        {errors.genre && <p>{errors.genre}</p>}
+                        <button className="button" type="submit" onClick={modalTwoOpen}>Next</button>
+                      </div>
                     </div>
-                    <div className="form__inputs">
-                      <input
-                        type="text"
-                        className="form__input"
-                        placeholder="Title"
-                        name="title"
-                        value={values.title}
-                        onChange={onChange("title")}
-
-                      />
-                      {errors.title && <p>{errors.title}</p>}
-                      <input
-                        type="text"
-                        className="form__input"
-                        placeholder="Album"
-                        name="album"
-                        value={values.album}
-
-                        onChange={onChange("album")}
-                      />
-                      {errors.album && <p>{errors.album}</p>}
-
-                      <input
-                        type="text"
-                        className="form__input"
-                        placeholder="Artist"
-                        name="artist"
-                        value={values.artist}
-                        onChange={onChange("artist")}
-                      />
-                      {errors.artist && <p>{errors.artist}</p>}
-
-                      <label htmlFor="genre">Genre: </label>
-                      <select name="genre"
-                      >
-                        {genreOptions.map((option) => (
-                          <option key={option.value} value={option.value}>{option.label}</option>
-                        ))}
-                      </select>
-                      {errors.genre && <p>{errors.genre}</p>}
-                      <button className="button" type="submit" onClick={modalTwoOpen}>Next</button>
-                    </div>
-                  </div>
-                </form>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
         </Modal>
 
-        <Modal isOpen={openModalTwo} className="songs__modal__absolute">
+        <Modal isOpen={openModalTwo} className="songs__modal__absolute" overlayClassName>
           <div className="songs__modal__background">
             <div className="songs__modal__container">
               <div className="form__container ">
