@@ -36,16 +36,9 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setErrors(userValidation(values))
-
-
-
         try {
             const firebaseUser = await signUpWithEmailAndPassword(registerEmail, registerPassword)
             console.log(firebaseUser.user.accessToken)
-
-
-
 
             const formData = new FormData();
             formData.append("firstName", values.firstName);
@@ -75,6 +68,7 @@ const Register = () => {
     const onChange = (name) => (e) => {
         const value = name === "profile" && e.target.files ? e.target.files[0] : e.target.value;
         setValues({ ...values, [name]: value })
+        setErrors(userValidation(values))
 
         setRegisterEmail(values.email)
         setRegisterPassword(values.password)
@@ -97,7 +91,7 @@ const Register = () => {
                             <RegisterInput className="form__input" name="birthday" type="text" placeholder="Birthday" onChange={onChange("birthday")} />
                             <RegisterInput className="form__input" name="country" type="text" placeholder="Country" onChange={onChange("country")} />
                             <label for="file"><p className='file'>Profile Picture</p></label>
-                            <RegisterInput id="file" accept="image/*" className="form__input" name="profile" type="file" placeholder="Upload Image" onChange={onChange("profile")} />
+                            <RegisterInput id="file" accept="image/*" className="form__input" name="profile" type="file" placeholder="Upload Image" onChange={onChange("profile")} required />
                             <img className="upload" src={upload} alt="Upload" />
                             <RegisterInput value={values.email} className="form__input" name="email" type="email" placeholder="Email" onChange={onChange("email")} />
                             {errors.email && <p>{errors.email}</p>}

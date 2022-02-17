@@ -52,7 +52,7 @@ const CreatedPlaylists = ({ totalMyPlaylists, followingPlaylists }) => {
         },
       })
       setOpenModal(false)
-      navigate("/playlists")
+      navigate("/playlist")
     } catch (error) {
       console.error(error.message);
     }
