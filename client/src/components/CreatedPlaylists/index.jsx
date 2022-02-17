@@ -39,8 +39,8 @@ const CreatedPlaylists = ({ totalMyPlaylists, followingPlaylists }) => {
   // // const [errors, setErrors] = useState({});
 
 
-  const handleSubmit = async () => {
-
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     const formData = new FormData();
     formData.append("title", values.title);
     formData.append("thumbnail", values.thumbnail);

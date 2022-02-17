@@ -3,6 +3,7 @@ import star from "../../assets/images/star.svg";
 import staractive from "../../assets/images/staractive.svg";
 import menu from "../../assets/images/menu.svg";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom"
 import {
   getAllPlaylists,
   getPlaylistsByUser,
@@ -28,6 +29,8 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete, state }) => {
   const loggedToken = sessionStorage.getItem("token");
   const userId = sessionStorage.getItem("userId");
   const uid = userId;
+
+  const navigate = useNavigate()
 
   // console.log(state);
 
@@ -95,6 +98,7 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete, state }) => {
         }
       );
       // console.log(response);
+      navigate(`/playlist/${playlistId}`)
     } catch (err) {
       console.error(err);
     }
