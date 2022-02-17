@@ -29,17 +29,17 @@ userRoutes.post("/", upload.single("profile"), createUser);
 userRoutes.post("/google", createUserGoogle);
 
 //? GET USER BY ID
-userRoutes.get("/:userId", getUserById);
+userRoutes.get("/:userId", middleware.decodeToken, getUserById);
 
 //? UPDATE USER BY ID
-userRoutes.put("/:userId", upload.single("profile"), updateUser);
+userRoutes.put("/:userId", middleware.decodeToken, upload.single("profile"), updateUser);
 
 //? UPDATE USER PASSWORD BY ID
 
-userRoutes.put("/change-password/:userId", changePass);
+userRoutes.put("/change-password/:userId", middleware.decodeToken, changePass);
 
 //? DELETE USER BY ID
-userRoutes.delete("/:userId", deleteUser);
+userRoutes.delete("/:userId", middleware.decodeToken, deleteUser);
 
 //? FOLLOW USER
 

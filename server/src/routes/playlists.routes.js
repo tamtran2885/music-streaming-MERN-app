@@ -28,10 +28,12 @@ playlistsRoutes.get("/mine", getPlaylistsByUser);
 playlistsRoutes.get("/detailsUser/:playlistId", getPlaylistByIdAndInfo);
 
 // ? GET PLAYLIST
-playlistsRoutes.get("/", getPlaylists);
+playlistsRoutes.get("/", middleware.decodeToken,
+  getPlaylists);
 
 // ? CREATE PLAYLIST
-playlistsRoutes.post("/", upload.single("thumbnail"), createPlaylist);
+playlistsRoutes.post("/", middleware.decodeToken,
+  upload.single("thumbnail"), createPlaylist);
 
 //? GET PLAYLIST BY ID
 playlistsRoutes.get("/:playlistId", getPlaylistById);
@@ -44,7 +46,7 @@ playlistsRoutes.put(
 );
 
 //? DELETE PLAYLIST BY ID
-playlistsRoutes.delete("/:playlistId", deletePlaylistById);
+playlistsRoutes.delete("/:playlistId", middleware.decodeToken, deletePlaylistById);
 
 //? FOLLOW PLAYLIST
 playlistsRoutes.put("/follow/:playlistId", followPlaylist);
