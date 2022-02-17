@@ -28,7 +28,7 @@ const PlaylistPage = ({ myPlaylists, myFollowingPlaylists }) => {
         dispatch(getFollowingPlaylistsByUser(userId));
       }, 1000);
     }
-  }, [dispatch]);
+  }, [dispatch, loggedToken, navigate, userId]);
 
   const [totalMyPlaylists, setAllMyPlaylists] = useState([]);
   const [followingPlaylists, setFollowingPlaylists] = useState([]);

@@ -34,11 +34,9 @@ function App() {
           <Route path="/album/add" element={<AddAlbum />} />
 
           <Route path="/playlist" element={<PlaylistPage />} />
-          <Route path="/playlist/add" element={<AddPlaylist />} />
           <Route path="/playlist/:playlistId" element={<PlaylistDetail />} />
 
           <Route path="/track" element={<TrackPage />} />
-          <Route path="/track/add" element={<AddTrack />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route
             path="/user/edit/change-password/:userId"
