@@ -6,6 +6,7 @@ body {
     margin: 3%;
     justify-content: flex-end;
 
+
     .logo__container {
       width: 60%;
 
@@ -1339,6 +1340,7 @@ body {
   .modal__hide {
     display: none;
   }
+
   .songs__modal__absolute {
     position: absolute;
     z-index: 10;
@@ -1449,6 +1451,7 @@ body {
                   border-bottom: solid 1px white;
                   outline: none;
                 }
+
                 select {
                   background: none;
                   border: none;

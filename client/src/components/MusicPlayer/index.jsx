@@ -119,15 +119,15 @@ const MusicPlayer = () => {
   return (
     <>
       <div className='difuse__background'></div>
-      <div className='musicplayer__absolute modal__hide'>
+      <div className='musicplayer__absolute'>
         <div className='musicplayer__icon'>
           <img className='icon' src={cover} alt="Icon" />
         </div>
         <div className='like'>
           {checkLike(uid) === false ? (
-            <img className='song__like__icon' src={star} alt=""  />
+            <img className='song__like__icon' src={star} alt="" />
           ) : (
-            <img className='song__like__icon' src={staractive} alt=""  />
+            <img className='song__like__icon' src={staractive} alt="" />
           )
           }
         </div>
