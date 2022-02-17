@@ -153,7 +153,7 @@ const CreatedPlaylists = ({ totalMyPlaylists, followingPlaylists }) => {
         </div>
       </DragDropContext>
 
-      <Modal isOpen={openModal} className="songs__modal__absolute">
+      <Modal isOpen={openModal} className="songs__modal__absolute" overlayClassName>
         <div className="songs__modal__absolute">
           <div className="songs__modal__background">
             <div className="songs__modal__container">

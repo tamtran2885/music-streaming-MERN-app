@@ -30,12 +30,9 @@ function App() {
           <Route path="/user/edit/:userId" element={<UserEdit />} />
           <Route path="/forgot" element={<ForgotPassword />} />
           <Route path="/albums" element={<Albums />} />
-
           <Route path="/album/add" element={<AddAlbum />} />
-
           <Route path="/playlist" element={<PlaylistPage />} />
           <Route path="/playlist/:playlistId" element={<PlaylistDetail />} />
-
           <Route path="/track" element={<TrackPage />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route
