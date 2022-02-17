@@ -356,7 +356,7 @@ body {
 
               .right {
                 border-radius: 0 25px 25px 0;
-                z-index: 1;
+                z-index: 0;
               }
 
               .fav {
@@ -1340,7 +1340,7 @@ body {
     display: none;
   }
 
-  .songs__modal__absolute {
+  .ReactModalPortal {
     position: absolute;
     z-index: 10;
     top: 0;
@@ -1352,8 +1352,13 @@ body {
       background-color: #0000007c;
       width: 100%;
       height: 100%;
+      z-index: 10;
+
 
       .songs__modal__container {
+
+        border: red solid 1px;
+
         .header {
           margin-left: 5%;
           margin-top: 3%;
@@ -1368,6 +1373,7 @@ body {
           cursor: pointer;
         }
 
+        z-index: 10;
         width: 80%;
         height: 60%;
         position: absolute;
@@ -1378,6 +1384,7 @@ body {
         border-radius: 50px;
 
         .form__container {
+          z-index: 10;
           width: 90%;
           margin: 0 auto;
 

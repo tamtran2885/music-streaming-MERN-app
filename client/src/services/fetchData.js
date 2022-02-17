@@ -107,9 +107,7 @@ export const fetchPlaylistTracks = (playlistId) => {
 
 export const fetchTracksBySearch = (searchQuery) => {
   const searchTracks = axios.get(
-    `${process.env.REACT_APP_API_URL}/api/tracks/search?searchQuery=${
-      searchQuery || "none"
-    }`,
+    `${process.env.REACT_APP_API_URL}/api/tracks/search?searchQuery=${searchQuery || "none"}`,
     {
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
