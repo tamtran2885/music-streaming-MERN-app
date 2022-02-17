@@ -26,9 +26,6 @@ const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
   const [searchWord, setSearchWord] = useState("");
   const [state, setState] = useState("");
 
-
-
-
   useEffect(() => {
     if (!loggedToken) {
       navigate("/login")
@@ -91,7 +88,6 @@ const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [openModalTwo, setOpenModalTwo] = useState(false)
 
-
   const [values, setValues] = useState({
     title: "",
     reproductions: "",
@@ -109,8 +105,6 @@ const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
   const handleSubmit = async () => {
 
     setErrors(trackValidation(values))
-
-
 
     const formData = new FormData();
     formData.append("title", values.title);
@@ -138,10 +132,8 @@ const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
 
   const handleSubmitThumbnail = async () => {
     try {
-
       const formData = new FormData()
       formData.append("photoTrack", values.photoTrack);
-
 
       await axios.put(`${process.env.REACT_APP_API_URL}/api/tracks/uploadThumbnail/${sessionStorage.getItem("trackId")}`, formData, {
         headers: {
@@ -172,7 +164,6 @@ const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
 
   const uploadThumbnail = () => {
     handleSubmitThumbnail()
-
     setOpenModalTwo(false)
   }
 
@@ -180,9 +171,6 @@ const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
     const value = name === "photoTrack" ? e.target.files[0] : e.target.value;
     setValues({ ...values, [name]: value })
   }
-
-
-  // console.log(state)
 
   return (
     <>
@@ -307,10 +295,6 @@ const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
           </div>
 
         </Modal>
-
-
-
-
       </div>
     </>
   )

@@ -27,7 +27,7 @@ const PlaylistTrackRow = ({ track, playlistInfo }) => {
   const dispatch = useDispatch();
   const uid = userId;
 
-  const { title, album, duration, genre, artist, likes, _id, reproductions } = track;
+  const { title, album, genre, artist, likes, _id, reproductions } = track;
 
   // console.log(playlistInfo);
   console.log(track);
@@ -45,7 +45,6 @@ const PlaylistTrackRow = ({ track, playlistInfo }) => {
       );
       dispatch(getPlaylistDetails(playlistInfo._id));
       dispatch(getCurrentPlaylistInfo(playlistInfo._id));
-      // console.log(_id);
     } catch (err) {
       console.log(err);
     }
@@ -96,7 +95,6 @@ const PlaylistTrackRow = ({ track, playlistInfo }) => {
         </button>
       </div>
       <div className="song__like">
-        {/* <img className="song__like__icon" src={star} alt="" onClick="" /> */}
         {like === false ? (
           <img
             className="song__like__icon"

@@ -43,8 +43,6 @@ const Dashboard = ({ myPlaylists, myTracks, allPlaylists, allTracks }) => {
         setMongoUser(userReq.data);
     };
 
-    // console.log(mongoUser)
-
     const [tracksDashboard, setTracksDashboard] = useState([]);
     const [playlistsDashboard, setPlaylistsDashboard] = useState([]);
 

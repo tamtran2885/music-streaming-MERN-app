@@ -8,8 +8,6 @@ const EditTrackRow = ({
   handleEditFormChange,
   handleCancelClick,
 }) => {
-  // const { title, artist, album, reproductions, genre, _id } = track.track;
-  // console.log(track);
   return (
     <div className="trackrow">
       <div className="song__image__container">

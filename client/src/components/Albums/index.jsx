@@ -5,16 +5,14 @@ import Album from '../Album';
 import {connect, useDispatch} from "react-redux";
 import {getAlbums} from "../../redux/dashboard/actions";
 
-
 const Albums = ({albums}) => {
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAlbums());
   }, [dispatch])
 
   const albumsInfo = albums.data;
-  // console.log(albumsInfo);
 
   return (
     <>

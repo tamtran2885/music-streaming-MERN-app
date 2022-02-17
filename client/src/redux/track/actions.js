@@ -8,13 +8,6 @@ import {
   SET_TRACKS_BY_USER,
   SET_FAV_TRACKS_BY_USER,
 } from "./types";
-const token = sessionStorage.getItem("token");
-
-const config = {
-  headers: {
-    Authorization: "Bearer " + token,
-  },
-};
 
 // Get data
 export const getAllTracks = () => {
@@ -103,11 +96,14 @@ export const updateLikes = (response) => ({
 export const deleteSingleTrack = (trackId) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/api/tracks/${trackId}`, {
-        headers: {
-          Authorization: "Bearer " + sessionStorage.getItem("token"),
-        },
-      });
+      await axios.delete(
+        `${process.env.REACT_APP_API_URL}/api/tracks/${trackId}`,
+        {
+          headers: {
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
+          },
+        }
+      );
       dispatch(deleteTrack(trackId));
       console.log(trackId);
     } catch (err) {

@@ -80,7 +80,11 @@ const TrackRows = ({ totalTracks, state }) => {
     formData.append("duration", editFormData.duration);
 
     try {
-      await axios.put(`${process.env.REACT_APP_API_URL}/api/tracks/edit/${editRowId}`, formData, config);
+      await axios.put(
+        `${process.env.REACT_APP_API_URL}/api/tracks/edit/${editRowId}`,
+        formData,
+        config
+      );
       setEditRowId(null);
       dispatch(getAllTracks());
       dispatch(getTracksByUser(userId));
@@ -89,8 +93,6 @@ const TrackRows = ({ totalTracks, state }) => {
     }
   };
 
-  // console.log(editRowId);
-
   const handleCancelClick = () => {
     setEditRowId(null);
   };
@@ -98,11 +100,13 @@ const TrackRows = ({ totalTracks, state }) => {
   const handleDelete = async (_id) => {
     // console.log("delete" + _id);
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/api/tracks/${_id}`, config);
+      await axios.delete(
+        `${process.env.REACT_APP_API_URL}/api/tracks/${_id}`,
+        config
+      );
       dispatch(getAllTracks());
       dispatch(getTracksByUser(userId));
       dispatch(getFavTracksByUser(userId));
-      // console.log(_id);
     } catch (err) {
       console.log(err);
     }
@@ -121,8 +125,6 @@ const TrackRows = ({ totalTracks, state }) => {
     }
     return;
   };
-
-  // console.log(trackNumber());
 
   return (
     <>

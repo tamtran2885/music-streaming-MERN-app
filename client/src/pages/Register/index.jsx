@@ -13,8 +13,6 @@ import upload from "../../assets/images/upload.svg";
 const Register = () => {
     const { signUpWithEmailAndPassword } = useAuth();
 
-    // console.log(JSON.stringify(user));
-
     const [registerEmail, setRegisterEmail] = useState("");
     const [registerPassword, setRegisterPassword] = useState("");
 
@@ -38,14 +36,9 @@ const Register = () => {
         e.preventDefault();
         setErrors(userValidation(values))
 
-
-
         try {
             const firebaseUser = await signUpWithEmailAndPassword(registerEmail, registerPassword)
             console.log(firebaseUser.user.accessToken)
-
-
-
 
             const formData = new FormData();
             formData.append("firstName", values.firstName);

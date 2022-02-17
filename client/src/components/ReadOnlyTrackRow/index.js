@@ -25,11 +25,8 @@ import playbuttonwhite from "../../assets/images/playbuttonwhite.svg";
 
 const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete, state }) => {
   const dispatch = useDispatch();
-  const loggedToken = sessionStorage.getItem("token");
   const userId = sessionStorage.getItem("userId");
   const uid = userId;
-
-  // console.log(state);
 
   const {
     title,
@@ -82,7 +79,6 @@ const ReadOnlyTrackRow = ({ track, handleEditClick, handleDelete, state }) => {
 
   const handleChange = async (e) => {
     const playlistId = e.target.value;
-    // console.log(playlistId);
     try {
       await axios.put(
         `${process.env.REACT_APP_API_URL}/api/tracks/addToPlaylist/${_id}?playlistId=${playlistId}`,

@@ -13,7 +13,6 @@ import {
   SET_FOLLOWING_PLAYLISTS_BY_USER,
 } from "./types";
 import axios from "axios";
-const token = sessionStorage.getItem("token");
 
 // Get all playlists
 export const getAllPlaylists = () => {

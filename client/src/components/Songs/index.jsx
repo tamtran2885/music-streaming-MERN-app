@@ -5,8 +5,6 @@ import OrderNumber from '../OrderNumber';
 // import SkeletonElements from "../../skeletons/SkeletonElements";
 
 const Songs = ({ tracksDashboard }) => {
-  const token = sessionStorage.getItem("token")
-
   const [tracks, setTracks] = useState([]);
 
   useEffect(() => {
@@ -26,7 +24,6 @@ const Songs = ({ tracksDashboard }) => {
     }
     return;
   }
-  // console.log(sortTracks())
 
   return (
     <>

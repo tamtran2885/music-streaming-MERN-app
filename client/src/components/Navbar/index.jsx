@@ -42,7 +42,6 @@ const Navbar = (props) => {
                 </div>
                 <div className='nav__buttons'>
                     <div className='nav__tittle'>
-                        {/* {page && page} */}
                         {userProfile ? userProfile.firstName && userProfile.lastName : playlistInfo ? playlistInfo.title : page && page}
                     </div>
                     <div className='nav__filters'>

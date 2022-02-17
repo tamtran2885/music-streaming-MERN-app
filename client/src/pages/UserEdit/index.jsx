@@ -5,11 +5,6 @@ import Navbar from '../../components/Navbar';
 import avatar from '../../assets/images/cover.jpg';
 import camera from '../../assets/images/camera.svg';
 
-// import th token
-import { useAuth } from "../../context/authContext";
-
-import withLayout from "../../hoc/withLayout";
-
 const UserEdit = () => {
   const [editUser, setEditUser] = useState({
     firstName: "",
@@ -21,10 +16,6 @@ const UserEdit = () => {
   });
   const loggedToken = sessionStorage.getItem("token");
   const userId = sessionStorage.getItem("userId");
-
-  // take a token
-  const { user } = useAuth();
-  const token = loggedToken;
 
   const navigate = useNavigate()
 
@@ -57,7 +48,7 @@ const UserEdit = () => {
   const APIcall = async () => {
     const userReq = await axios.get(`${process.env.REACT_APP_API_URL}/api/user/${getIdFromURL()}`, {
       headers: {
-        Authorization: 'Bearer ' + token,
+        Authorization: 'Bearer ' + sessionStorage.getItem("token"),
       },
     });
     setEditUser(userReq.data);
@@ -70,7 +61,7 @@ const UserEdit = () => {
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
-        Authorization: 'Bearer ' + token,
+        Authorization: 'Bearer ' + sessionStorage.getItem("token"),
       },
     };
 
@@ -123,4 +114,4 @@ const UserEdit = () => {
   );
 };
 
-export default withLayout(UserEdit);
+export default UserEdit;

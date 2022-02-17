@@ -15,13 +15,9 @@ import randombutton from '../../assets/images/randombutton.svg'
 import playerdisc from '../../assets/images/playerdisc.svg'
 import volume from '../../assets/images/volume.svg';
 
-import { useAuth } from "../../context/authContext";
-import { addLike, removeLike, getAllTracks, getTracksByUser } from "../../redux/track/actions";
-
 const MusicPlayer = () => {
   const userId = sessionStorage.getItem("userId");
   const dispatch = useDispatch();
-  const { user } = useAuth();
 
   const currentTrack = useSelector((state) => state.audioPlayer.currentTrack);
   const trackList = useSelector((state) => state.audioPlayer.trackList);
@@ -34,8 +30,6 @@ const MusicPlayer = () => {
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0)
 
-  // console.log(currentTrack)
-
   const audio = useRef("audio_tag")
   let likes = "";
   let trackId = ""
@@ -44,7 +38,7 @@ const MusicPlayer = () => {
     trackId = currentTrack._id
   }
 
-  // console.log(likes)
+  // Check fav of track
   const uid = userId;
   const checkLike = (uid) => {
     if (likes && likes.filter(like => like.firebaseUser === uid).length === 0) {
@@ -82,7 +76,7 @@ const MusicPlayer = () => {
 
   // Move to previous track
   const getPrevTrack = () => {
-    if (currentTrack && trackList && trackList.indexOf(currentTrack) === 1) {
+    if (currentTrack && trackList && trackList.indexOf(currentTrack) === 0) {
       dispatch(setCurrentTrack(trackList[trackList.length - 1]));
     } else {
       dispatch(setCurrentTrack(trackList[trackList.indexOf(currentTrack) - 1]))
