@@ -5,9 +5,13 @@ import { useDispatch } from "react-redux";
 import OrderNumber from "../OrderNumber";
 
 import axios from "axios";
-import { getAllTracks, getTracksByUser } from "../../redux/track/actions";
+import {
+  getAllTracks,
+  getTracksByUser,
+  getFavTracksByUser,
+} from "../../redux/track/actions";
 
-const TrackRows = ({ totalTracks }) => {
+const TrackRows = ({ totalTracks, state }) => {
   const dispatch = useDispatch();
   // get token
   const loggedToken = sessionStorage.getItem("token");
@@ -76,7 +80,7 @@ const TrackRows = ({ totalTracks }) => {
     formData.append("duration", editFormData.duration);
 
     try {
-      await axios.put(`/api/tracks/edit/${editRowId}`, formData, config);
+      await axios.put(`${process.env.REACT_APP_API_URL}/api/tracks/edit/${editRowId}`, formData, config);
       setEditRowId(null);
       dispatch(getAllTracks());
       dispatch(getTracksByUser(userId));
@@ -94,10 +98,11 @@ const TrackRows = ({ totalTracks }) => {
   const handleDelete = async (_id) => {
     // console.log("delete" + _id);
     try {
-      await axios.delete(`http://localhost:4000/api/tracks/${_id}`, config);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/api/tracks/${_id}`, config);
       dispatch(getAllTracks());
       dispatch(getTracksByUser(userId));
-      console.log(_id);
+      dispatch(getFavTracksByUser(userId));
+      // console.log(_id);
     } catch (err) {
       console.log(err);
     }
@@ -137,6 +142,7 @@ const TrackRows = ({ totalTracks }) => {
                   <div style={{ marginTop: "20px" }}>
                     {editRowId === track._id ? (
                       <EditTrackRow
+                        state={state}
                         editFormData={editFormData}
                         handleEditFormChange={handleEditFormChange}
                         handleCancelClick={handleCancelClick}
@@ -147,6 +153,7 @@ const TrackRows = ({ totalTracks }) => {
                         track={track}
                         handleEditClick={handleEditClick}
                         handleDelete={handleDelete}
+                        state={state}
                       />
                     )}
                   </div>

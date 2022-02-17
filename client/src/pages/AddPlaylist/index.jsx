@@ -51,15 +51,15 @@ const AddPlaylist = () => {
         formData.append("publicAccessible", publicAccessible)
         formData.append("numberSongs", values.numberSongs);
         formData.append("rating", values.rating);
-        formData.append("firebaseUser", uid);
+        formData.append("firebaseUser", sessionStorage.getItem("userId"));
 
         console.log(Object.fromEntries(formData.entries()));
         try {
-            await axios.post("http://localhost:4000/api/playlists", formData, {
+            await axios.post(`${process.env.REACT_APP_API_URL}/api/playlists`, formData, {
                 headers: {
-                  Authorization: "Bearer " + sessionStorage.getItem("token"),
+                    Authorization: "Bearer " + sessionStorage.getItem("token"),
                 },
-              })
+            })
             navigate("/")
         } catch (error) {
             console.error(error.message);

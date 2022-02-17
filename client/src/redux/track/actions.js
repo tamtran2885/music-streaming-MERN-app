@@ -1,8 +1,4 @@
-import {
-  fetchTracks,
-  fetchTracksByUser,
-  fetchTracksBySearch,
-} from "../../services/fetchData.js";
+import { fetchTracks, fetchTracksByUser } from "../../services/fetchData.js";
 import axios from "axios";
 
 import {
@@ -11,7 +7,6 @@ import {
   DELETE_TRACK,
   SET_TRACKS_BY_USER,
   SET_FAV_TRACKS_BY_USER,
-  SET_SEARCH_TRACKS,
 } from "./types";
 const token = sessionStorage.getItem("token");
 
@@ -27,6 +22,7 @@ export const getAllTracks = () => {
     try {
       const response = await fetchTracks();
       dispatch(setAllTracks(response));
+      // console.log(response);
     } catch (error) {
       console.error(error);
     }
@@ -35,25 +31,7 @@ export const getAllTracks = () => {
 
 export const setAllTracks = (response) => ({
   type: SET_ALL_TRACKS,
-  payload: response,
-});
-
-// get tracks by search
-export const getTracksBySearch = (searchQuery) => {
-  return async (dispatch) => {
-    try {
-      const { data } = await fetchTracksBySearch(searchQuery);
-      dispatch(setSearchTracks(data));
-      console.log(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-};
-
-export const setSearchTracks = (data) => ({
-  type: SET_SEARCH_TRACKS,
-  payload: data,
+  payload: response.data,
 });
 
 // Get tracks by user
@@ -62,6 +40,7 @@ export const getTracksByUser = (useFbId) => {
     try {
       const response = await fetchTracksByUser(useFbId);
       dispatch(setTracksByUser(response));
+      // console.log(response);
     } catch (error) {
       console.error(error);
     }
@@ -70,7 +49,7 @@ export const getTracksByUser = (useFbId) => {
 
 export const setTracksByUser = (response) => ({
   type: SET_TRACKS_BY_USER,
-  payload: response,
+  payload: response.data,
 });
 
 // Add like or remove like from a song
@@ -78,7 +57,7 @@ export const addLike = (trackId, firebaseUser) => {
   return async (dispatch) => {
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/tracks/like/${trackId}?firebaseUser=${firebaseUser}`,
+        `${process.env.REACT_APP_API_URL}/api/tracks/like/${trackId}?firebaseUser=${firebaseUser}`,
         {
           headers: {
             Authorization: "Bearer " + sessionStorage.getItem("token"),
@@ -98,7 +77,7 @@ export const removeLike = (trackId, firebaseUser) => {
   return async (dispatch) => {
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/tracks/unlike/${trackId}?firebaseUser=${firebaseUser}`,
+        `${process.env.REACT_APP_API_URL}/api/tracks/unlike/${trackId}?firebaseUser=${firebaseUser}`,
         {
           headers: {
             Authorization: "Bearer " + sessionStorage.getItem("token"),
@@ -108,6 +87,7 @@ export const removeLike = (trackId, firebaseUser) => {
       dispatch(updateLikes(response));
       dispatch(getAllTracks());
       dispatch(getTracksByUser(firebaseUser));
+      dispatch(getFavTracksByUser(firebaseUser));
     } catch (err) {
       console.error(err);
     }
@@ -123,7 +103,7 @@ export const updateLikes = (response) => ({
 export const deleteSingleTrack = (trackId) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`http://localhost:4000/api/tracks/${trackId}`, {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/api/tracks/${trackId}`, {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -146,7 +126,7 @@ export const getFavTracksByUser = (userId) => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/tracks/likedByUser/${userId}`,
+        `${process.env.REACT_APP_API_URL}/api/tracks/likedByUser/${userId}`,
         {
           headers: {
             Authorization: "Bearer " + sessionStorage.getItem("token"),
@@ -171,7 +151,7 @@ export const addReproductionsCounter = (trackId, userId) => {
   return async (dispatch) => {
     try {
       await axios.put(
-        `http://localhost:4000/api/tracks/reproducing/${trackId}`,
+        `${process.env.REACT_APP_API_URL}/api/tracks/reproducing/${trackId}`,
         {
           headers: {
             Authorization: "Bearer " + sessionStorage.getItem("token"),

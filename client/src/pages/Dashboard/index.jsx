@@ -30,12 +30,12 @@ const Dashboard = ({ myPlaylists, myTracks, allPlaylists, allTracks }) => {
                 dispatch(getTracksByUser(userId));
                 dispatch(getPlaylistsByUser(userId));
                 dispatch(getFavTracksByUser(userId));
-            }, 3000)
+            }, 1000)
         }
-    }, [dispatch]);
+    }, [dispatch, loggedToken, navigate, userId]);
 
     const APIcall = async (loggedToken, userId) => {
-        const userReq = await axios.get(`/api/user/${userId}`, {
+        const userReq = await axios.get(`${process.env.REACT_APP_API_URL}/api/user/${userId}`, {
             headers: {
                 Authorization: 'Bearer ' + loggedToken,
             },
@@ -85,10 +85,10 @@ const Dashboard = ({ myPlaylists, myTracks, allPlaylists, allTracks }) => {
 
 const mapStateToProps = state => {
     return {
-        allTracks: state.track.allTracks.data,
-        myTracks: state.track.myTracks.data,
-        allPlaylists: state.playlist.allPlaylists.data,
-        myPlaylists: state.playlist.myPlaylists.data,
+        allTracks: state.track.allTracks,
+        myTracks: state.track.myTracks,
+        allPlaylists: state.playlist.allPlaylists,
+        myPlaylists: state.playlist.myPlaylists,
     }
 }
 

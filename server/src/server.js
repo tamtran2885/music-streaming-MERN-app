@@ -19,19 +19,13 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(
   cors({
-    origin: config.client.URL,
+    origin: process.env.CLIENT_URL,
   })
 );
 
-// app.use(function (req, res, next) {
 
-//   if (req.originalUrl === '/api/login') {
-//   return next();
-//   } else {
-//        //DO SOMETHING
-//   }
-
-app.use(middleware.decodeToken);
+// ! MIDDLEWARE WORKING WHEN HE WANTS
+//app.use(middleware.decodeToken);
 
 //?routes
 

@@ -4,7 +4,6 @@ const initialState = {
   track: null,
   loading: true,
   favTracksByUser: [],
-  searchTracksByUser: [],
   error: {},
 };
 

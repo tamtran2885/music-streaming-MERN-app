@@ -8,6 +8,6 @@ connect().then(async function onServer() {
   console.log(`DB connected`);
 
   app.listen(config.app.PORT, () => {
-    console.log(`Server running at http://localhost:${config.app.PORT}`);
+    console.log(`Server running at PORT:${config.app.PORT}`);
   });
 });

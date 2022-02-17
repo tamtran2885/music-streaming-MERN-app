@@ -12,7 +12,6 @@ const EditTrackRow = ({
   // console.log(track);
   return (
     <div className="trackrow">
-      <div className="song__number">1</div>
       <div className="song__image__container">
         <button className="song__button" onClick="">
           <img
@@ -24,12 +23,6 @@ const EditTrackRow = ({
       </div>
       <div className="song__like">
         <img className="song__like__icon" src={star} alt="" onClick="" />
-        {/*like ? (
-          <img className='song__like__icon' src={staractive} alt="" onClick={handleToggle}/>
-          ) : (
-          <img className='song__like__icon' src={star} alt="" onClick={handleToggle}/>
-          )
-          */}
       </div>
       <div className="song__info">
         <p className="song__tittle">
@@ -49,7 +42,7 @@ const EditTrackRow = ({
             placeholder="Artist"
             value={editFormData.artist}
             onChange={handleEditFormChange}
-          />{" "}
+          />
           ·
           <input
             className="genre"

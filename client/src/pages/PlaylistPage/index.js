@@ -8,9 +8,10 @@ import { connect, useDispatch } from "react-redux";
 import {
   getAllPlaylists,
   getPlaylistsByUser,
+  getFollowingPlaylistsByUser,
 } from "../../redux/playlist/actions";
 
-const PlaylistPage = ({ myPlaylists }) => {
+const PlaylistPage = ({ myPlaylists, myFollowingPlaylists }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loggedToken = sessionStorage.getItem("token");
@@ -24,21 +25,29 @@ const PlaylistPage = ({ myPlaylists }) => {
       setTimeout(async () => {
         dispatch(getAllPlaylists());
         dispatch(getPlaylistsByUser(userId));
-      }, 3000);
+        dispatch(getFollowingPlaylistsByUser(userId));
+      }, 1000);
     }
-  }, [dispatch]);
+  }, [dispatch, loggedToken, navigate, userId]);
 
-  const [totalPlaylists, setAllPlaylists] = useState([]);
+  const [totalMyPlaylists, setAllMyPlaylists] = useState([]);
+  const [followingPlaylists, setFollowingPlaylists] = useState([]);
 
   useEffect(() => {
-    setAllPlaylists(myPlaylists);
-  }, [myPlaylists]);
+    setAllMyPlaylists(myPlaylists);
+    setFollowingPlaylists(myFollowingPlaylists);
+  }, [myPlaylists, myFollowingPlaylists]);
+
+  // console.log(myFollowingPlaylists.result);
 
   return (
     <>
       <div className="dashboard__background">
         <Navbar page="Playlists" />
-        <CreatedPlaylists totalPlaylists={totalPlaylists} />
+        <CreatedPlaylists
+          totalMyPlaylists={totalMyPlaylists}
+          followingPlaylists={followingPlaylists}
+        />
       </div>
     </>
   );
@@ -46,9 +55,9 @@ const PlaylistPage = ({ myPlaylists }) => {
 
 const mapStateToProps = (state) => {
   return {
-    allPlaylists: state.playlist.allPlaylists.data,
-    myPlaylists: state.playlist.myPlaylists.data,
-    // myFollowingPlaylists: state.playlist.myFollowingPlaylists.data
+    allPlaylists: state.playlist.allPlaylists,
+    myPlaylists: state.playlist.myPlaylists,
+    myFollowingPlaylists: state.playlist.myFollowingPlaylists,
   };
 };
 

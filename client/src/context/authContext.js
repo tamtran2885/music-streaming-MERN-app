@@ -44,7 +44,7 @@ export function AuthProvider({ children }) {
   const updatePassword = (password) => updatePassword(auth, password, user);
 
   const getUserProfile = (user) => {
-    const userReq = axios.get(`/api/user/${user.uid}`, {
+    const userReq = axios.get(`${process.env.REACT_APP_API_URL}/api/user/${user.uid}`, {
       headers: {
         Authorization: "Bearer " + user.accessToken,
       },

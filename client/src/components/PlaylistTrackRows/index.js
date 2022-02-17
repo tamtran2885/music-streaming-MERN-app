@@ -5,6 +5,7 @@ import OrderNumber from "../OrderNumber";
 const PlaylistTrackRows = ({ playlistTrack, playlistInfo }) => {
   const [tracks, setTracks] = useState([]);
 
+  console.log(playlistTrack)
   useEffect(() => {
     setTracks(playlistTrack);
   }, [playlistTrack, setTracks]);
@@ -16,9 +17,6 @@ const PlaylistTrackRows = ({ playlistTrack, playlistInfo }) => {
     return;
   };
 
-  // console.log(tracks);
-  // console.log(playlistInfo);
-
   const sortTracks = () => {
     if (tracks) {
       return [...tracks].sort((a, b) => b.reproductions - a.reproductions);
@@ -28,23 +26,29 @@ const PlaylistTrackRows = ({ playlistTrack, playlistInfo }) => {
 
   return (
     <>
-      <div className="trackrow__absolute">
-        {[...Array(trackNumber())].map((e, i) => (
-          <div key={i}>
-            <OrderNumber i={i} />
-          </div>
-        ))}
-        {sortTracks() &&
-          sortTracks().map((track) => (
-            <div style={{ marginTop: "20px" }}>
-              <PlaylistTrackRow
-                key={track._id}
-                track={track}
-                playlistInfo={playlistInfo}
-              />
+      <div className="tracks__display">
+        <div className="trackrow__absolute">
+          <div className="songs__container">
+            {[...Array(trackNumber())].map((e, i) => (
+              <div className="position" key={i}>
+                <OrderNumber i={i} />
+              </div>
+            ))}
+            <div className="track">
+              {sortTracks() &&
+                sortTracks().map((track) => (
+                  <div style={{ marginTop: "20px" }}>
+                    <PlaylistTrackRow
+                      key={track._id}
+                      track={track}
+                      playlistInfo={playlistInfo}
+                    />
+                  </div>
+                ))}
+              {!tracks && <div>Loading...</div>}
             </div>
-          ))}
-        {!tracks && <div>Loading...</div>}
+          </div>
+        </div>
       </div>
     </>
   );

@@ -29,6 +29,7 @@ export const getPlaylistsByUser = async (req, res) => {
 
 //? CREATE PLAYLIST
 export const createPlaylist = async (req, res, next) => {
+  console.log(req.query.firebaseUser)
   try {
     // Upload image to cloudinary
     const result = await cloudinary.v2.uploader.upload(req.file.path);
@@ -40,7 +41,7 @@ export const createPlaylist = async (req, res, next) => {
 
       thumbnail: result.secure_url,
       cloudinaryId: result.public_id,
-      firebaseUser: req.query.firebaseUser,
+      firebaseUser: req.body.firebaseUser,
     });
 
     await playlist.save();
@@ -215,6 +216,7 @@ export const getPlaylistByIdAndInfo = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
+  next()
 };
 
 //? CHANGE ORDER IN ARRAY AFTER DRAG AND DROP
@@ -230,3 +232,29 @@ export const changeListOrder = async (req, res) => {
 // thisBoard[newIndex] = oldValue;
 
 // let saveOperation = await Board.save(thisBoard);
+
+//? GET FOLLOWING PLAYLIST BY USERS
+export const getFollowingPlaylistsByUser = async (req, res, next) => {
+  try {
+    const user = req.params.userId;
+    const playlists = await Playlist.find();
+
+    const array = [];
+    playlists.map((x) => {
+      const playlist = x.followedBy;
+
+      playlist.map((f) => {
+        if (f.firebaseUser === user) {
+          array.push(x);
+        }
+      });
+    });
+
+    const result = array;
+
+    res.status(200).json(result);
+  } catch (err) {
+    console.error(err);
+  }
+  next();
+};

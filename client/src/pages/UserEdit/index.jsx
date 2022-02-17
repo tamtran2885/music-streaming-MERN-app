@@ -55,7 +55,7 @@ const UserEdit = () => {
 
   // axios get
   const APIcall = async () => {
-    const userReq = await axios.get(`/api/user/${getIdFromURL()}`, {
+    const userReq = await axios.get(`${process.env.REACT_APP_API_URL}/api/user/${getIdFromURL()}`, {
       headers: {
         Authorization: 'Bearer ' + token,
       },
@@ -85,9 +85,8 @@ const UserEdit = () => {
     formData.append("firebaseUser", editUser.firebaseUser)
 
     try {
-      await axios.put(`/api/user/${getIdFromURL()}`, formData, config);
+      await axios.put(`${process.env.REACT_APP_API_URL}/api/user/${getIdFromURL()}`, formData, config);
       // console.log(formData)
-
     } catch (e) {
       console.log(e)
     }
