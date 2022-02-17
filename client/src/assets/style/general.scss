@@ -1340,7 +1340,7 @@ body {
     display: none;
   }
 
-  .ReactModalPortal {
+  .songs__modal__absolute {
     position: absolute;
     z-index: 10;
     top: 0;
@@ -1352,13 +1352,8 @@ body {
       background-color: #0000007c;
       width: 100%;
       height: 100%;
-      z-index: 10;
-
 
       .songs__modal__container {
-
-        border: red solid 1px;
-
         .header {
           margin-left: 5%;
           margin-top: 3%;
@@ -1373,7 +1368,6 @@ body {
           cursor: pointer;
         }
 
-        z-index: 10;
         width: 80%;
         height: 60%;
         position: absolute;
@@ -1384,7 +1378,6 @@ body {
         border-radius: 50px;
 
         .form__container {
-          z-index: 10;
           width: 90%;
           margin: 0 auto;
 

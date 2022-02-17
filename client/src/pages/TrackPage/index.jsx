@@ -10,6 +10,10 @@ import { getFavTracksByUser, getAllTracks, getTracksByUser } from "../../redux/t
 import close from '../../assets/images/close.svg';
 import { connect, useDispatch } from "react-redux";
 import axios from "axios";
+import trackValidation from "../../utils/validation/trackValidation"
+import genreOptions from "./genreOptions.js";
+
+
 
 const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
   const navigate = useNavigate();
@@ -88,46 +92,95 @@ const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
   const [openModalTwo, setOpenModalTwo] = useState(false)
 
 
+  const [values, setValues] = useState({
+    title: "",
+    reproductions: "",
+    artist: "",
+    album: "",
+    genre: "",
+    duration: "",
+    photoTrack: "",
+    urlTrack: "",
+    firebaseUser: "",
+  });
+
+  const [errors, setErrors] = useState({});
+
+  const handleSubmit = async () => {
+
+    setErrors(trackValidation(values))
+
+
+
+    const formData = new FormData();
+    formData.append("title", values.title);
+    formData.append("album", values.album);
+    formData.append("artist", values.artist);
+    formData.append("genre", values.genre);
+    formData.append("urlTrack", values.urlTrack);
+    formData.append("firebaseUser", userId); // Firebase Identifier
+    // console.log(Object.fromEntries(formData.entries()));
+
+    try {
+      const track = await axios.post(`${process.env.REACT_APP_API_URL}/api/tracks`, formData, {
+        headers: {
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
+      })
+
+      sessionStorage.setItem("trackId", track.data.track._id)
+      console.log(track.data.track._id)
+
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+
+  const handleSubmitThumbnail = async () => {
+    try {
+
+      const formData = new FormData()
+      formData.append("photoTrack", values.photoTrack);
+
+
+      await axios.put(`${process.env.REACT_APP_API_URL}/api/tracks/uploadThumbnail/${sessionStorage.getItem("trackId")}`, formData, {
+        headers: {
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
+      })
+      navigate("/")
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+
+  const onChange = (name) => (e) => {
+    const value = name === "photoTrack" || name === "urlTrack" ? e.target.files[0] : e.target.value;
+    setValues({ ...values, [name]: value })
+  }
   const modalOneOpen = () => {
     setModalIsOpen(true)
     setOpenModalTwo(false)
+
   }
   const modalTwoOpen = () => {
+    // SEND TRACK + INFO
+    handleSubmit()
     setModalIsOpen(false)
     setOpenModalTwo(true)
   }
 
-  const resetModalStyle = (() => {
-    // Styles
-    const initial = null
+  const uploadThumbnail = () => {
+    handleSubmitThumbnail()
 
-    const overlay = {
-      position: initial,
-      top: initial,
-      left: initial,
-      right: initial,
-      bottom: initial,
-      backgroundColor: initial,
-      WebkitOverflowScrolling: initial,
-      zIndex: initial,
-    }
+    setOpenModalTwo(false)
+  }
 
-    const content = {
-      position: initial,
-      top: initial,
-      left: initial,
-      right: initial,
-      bottom: initial,
-      border: initial,
-      background: initial,
-      overflow: initial,
-      borderRadius: initial,
-      outline: initial,
-      padding: initial,
-    }
+  const onChangeThumbnail = (name) => (e) => {
+    const value = name === "photoTrack" ? e.target.files[0] : e.target.value;
+    setValues({ ...values, [name]: value })
+  }
 
-    return { overlay, content }
-  })
 
   // console.log(state)
 
@@ -151,9 +204,8 @@ const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
             <Albums />
           </div>
         </div>
-        <Modal isOpen={modalIsOpen} style={resetModalStyle()}>
+        <Modal isOpen={modalIsOpen} className="songs__modal__absolute">
           <div className="songs__modal__background">
-
             <div className="songs__modal__container">
               <h1 className="header">Add New Track</h1>
               <div className="close"><img src={close} onClick={() => setModalIsOpen(false)} alt="Close the modal" /></div>
@@ -170,6 +222,7 @@ const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
                         placeholder="Url"
                         name="urlTrack"
                         id="track"
+                        onChange={onChange("urlTrack")}
                       />
                     </div>
                     <div className="form__inputs">
@@ -178,29 +231,41 @@ const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
                         className="form__input"
                         placeholder="Title"
                         name="title"
+                        value={values.title}
+                        onChange={onChange("title")}
+
                       />
-                      {/*errors.title && <p>{errors.title}</p>*/}
+                      {errors.title && <p>{errors.title}</p>}
                       <input
                         type="text"
                         className="form__input"
                         placeholder="Album"
                         name="album"
+                        value={values.album}
+
+                        onChange={onChange("album")}
                       />
+                      {errors.album && <p>{errors.album}</p>}
+
                       <input
                         type="text"
                         className="form__input"
                         placeholder="Artist"
                         name="artist"
+                        value={values.artist}
+                        onChange={onChange("artist")}
                       />
+                      {errors.artist && <p>{errors.artist}</p>}
+
                       <label htmlFor="genre">Genre: </label>
                       <select name="genre"
                       >
-                        {/*genreOptions.map((option) => (
-                            <option key={option.value} value={option.value}>{option.label}</option>
-                          ))*/}
+                        {genreOptions.map((option) => (
+                          <option key={option.value} value={option.value}>{option.label}</option>
+                        ))}
                       </select>
-                      {/*errors.genre && <p>{errors.genre}</p>*/}
-                      <button className="button" type="button" onClick={modalTwoOpen}>Next</button>
+                      {errors.genre && <p>{errors.genre}</p>}
+                      <button className="button" type="submit" onClick={modalTwoOpen}>Next</button>
                     </div>
                   </div>
                 </form>
@@ -226,12 +291,13 @@ const TrackPage = ({ favTracksByUser, myTracks, allTracks }) => {
                         type="file"
                         className="form__input"
                         placeholder="Url"
-                        name="urlTrack"
+                        name="photoTrack"
                         id="track"
+                        onChange={onChangeThumbnail("photoTrack")}
                       />
                     </div>
                     <div className="form__inputs">
-                      <button className="button" type="button">Submit</button>
+                      <button className="button" type="submit" onClick={uploadThumbnail}>Submit</button>
                     </div>
                   </div>
                 </form>
