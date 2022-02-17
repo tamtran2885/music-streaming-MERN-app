@@ -5,6 +5,8 @@ body {
     display: flex;
     margin: 3%;
     justify-content: flex-end;
+    height: 100vh;
+    margin-bottom: -100px;
 
     .logo__container {
       width: 60%;
@@ -1726,9 +1728,13 @@ body {
     position: absolute;
     width: 100%;
     display: flex;
-    margin: 5%;
+    margin-bottom: 3%;
+    padding: 1%;
+    padding-left: 3%;
+    padding-right: 5%;
     bottom: 0%;
     z-index: 10;
+    background-color: #2e2e2e;
 
     .credits__left {
       position: absolute;
