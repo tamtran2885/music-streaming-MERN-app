@@ -29,14 +29,14 @@ export const getPlaylistsByUser = async (req, res) => {
 
 //? CREATE PLAYLIST
 export const createPlaylist = async (req, res, next) => {
-  console.log(req.query.firebaseUser)
+
   try {
     // Upload image to cloudinary
     const result = await cloudinary.v2.uploader.upload(req.file.path);
     // console.log(result.public_id);
 
     const playlist = new Playlist({
-      //? PASSING DATA TO NEW TRACK
+      //? PASSING DATA TO NEW PLAYLIST
       ...req.body,
 
       thumbnail: result.secure_url,

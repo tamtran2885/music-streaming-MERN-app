@@ -39,8 +39,8 @@ const CreatedPlaylists = ({ totalMyPlaylists, followingPlaylists }) => {
   // // const [errors, setErrors] = useState({});
 
 
-  const handleSubmit = async () => {
-
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     const formData = new FormData();
     formData.append("title", values.title);
     formData.append("thumbnail", values.thumbnail);
@@ -52,7 +52,7 @@ const CreatedPlaylists = ({ totalMyPlaylists, followingPlaylists }) => {
         },
       })
       setOpenModal(false)
-      navigate("/playlists")
+      navigate("/playlist")
     } catch (error) {
       console.error(error.message);
     }

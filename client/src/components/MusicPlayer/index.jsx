@@ -125,9 +125,9 @@ const MusicPlayer = () => {
         </div>
         <div className='like'>
           {checkLike(uid) === false ? (
-            <img className='song__like__icon' src={star} alt=""  />
+            <img className='song__like__icon' src={star} alt="" />
           ) : (
-            <img className='song__like__icon' src={staractive} alt=""  />
+            <img className='song__like__icon' src={staractive} alt="" />
           )
           }
         </div>

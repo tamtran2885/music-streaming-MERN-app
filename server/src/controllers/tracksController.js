@@ -132,7 +132,6 @@ export const updateTrack = async (req, res) => {
       title: req.body.title || track.title,
       reproductions: req.body.reproductions || track.reproductions,
       album: req.body.album || track.album,
-      duration: req.body.duration || track.duration,
       artist: req.body.artist || track.artist,
       genre: req.body.genre || track.genre,
       //TODO---------------------------- FIX THE UPLOAD AND DELETE -----------------------

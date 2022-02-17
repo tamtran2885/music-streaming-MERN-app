@@ -151,7 +151,7 @@ const User = ({
                         >
                           <img
                             className="song__image"
-                            src={trackPhotoDefault}
+                            src={track.photoTrack ? track.photoTrack : trackPhotoDefault}
                             alt="song-thumb"
                           />
                           <img
@@ -238,7 +238,7 @@ const User = ({
                         >
                           <img
                             className="song__image"
-                            src={trackPhotoDefault}
+                            src={track.photoTrack ? track.photoTrack : trackPhotoDefault}
                             alt="song-thumb"
                           />
                           <img

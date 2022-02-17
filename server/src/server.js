@@ -30,7 +30,6 @@ app.use(
 //?routes
 
 app.use("/api/user", userRoutes);
-
 app.use("/api/tracks", tracksRoutes);
 app.use("/api/playlists", playlistsRoutes);
 app.use("/api/albums", albumRoutes);
